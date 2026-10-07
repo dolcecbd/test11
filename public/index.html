@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>QQ88</title>
+  <title>QQ88 - Cổng Game Trực Tuyến</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Reset & chống vỡ giao diện trên mọi màn hình */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
     body {
       background-color: #004d25;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -17,26 +20,28 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    @keyframes marquee {
+    /* Animation chạy chữ marquee mượt */
+    @keyframes marqueeAnim {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
     .marquee-text {
       display: inline-block;
       white-space: nowrap;
-      animation: marquee 25s linear infinite;
+      animation: marqueeAnim 22s linear infinite;
     }
     .marquee-text:hover { animation-play-state: paused; }
 
-    /* Tỉ lệ thẻ game chuẩn theo phôi gốc */
+    /* Thẻ game hiển thị vừa khít tỷ lệ gốc 1.48:1 */
     .game-card-img {
       width: 100%;
       height: auto;
       aspect-ratio: 1.48 / 1;
       object-fit: fill;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      transition: transform 0.1s ease;
+      border-radius: 6px;
+      display: block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: transform 0.08s ease;
     }
     .game-card-img:active {
       transform: scale(0.96);
@@ -45,189 +50,183 @@
 </head>
 <body class="flex justify-center min-h-screen">
 
-  <!-- KHUNG HIỂN THỊ CHUẨN TỶ LỆ MOBILE (GIỮ NGUYÊN GIAO DIỆN KHI MỞ TRÊN PC) -->
+  <!-- KHUNG CONTAINER GIỮ ĐÚNG TỶ LỆ CHUẨN APP DI ĐỘNG -->
   <div class="w-full max-w-[430px] min-h-screen bg-[#dce7e1] flex flex-col relative pb-16 shadow-2xl overflow-x-hidden">
 
-    <!-- 1. TOP BANNER KHUYẾN MÃI (nen 2.png hoặc banner cắt) -->
-    <div id="top-promo" class="relative w-full bg-[#d7f0db]">
-      <img src="/images/nen 2.png" onerror="this.onerror=null; this.src='/images/Background.png';" class="w-full block" alt="Header Banner">
-      <button onclick="document.getElementById('top-promo').style.display='none'" class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white/80 hover:text-white text-xs font-bold bg-black/30 rounded-full">✕</button>
+    <!-- 1. TOP BANNER KHUYẾN MÃI (nen 2.png) CÓ NÚT X ĐÓNG -->
+    <div id="top-promo-wrap" class="relative w-full bg-[#005c2a] leading-none">
+      <img src="/images/nen 2.png" onerror="this.style.display='none'" class="w-full block" alt="QQ88 Header Banner">
+      <button onclick="document.getElementById('top-promo-wrap').style.display='none'" class="absolute top-1.5 right-1.5 w-5 h-5 flex items-center justify-center text-white/90 hover:text-white text-xs font-bold bg-black/40 rounded-full z-20">✕</button>
     </div>
 
-    <!-- 2. HERO BANNER TRƯỢT (nen 3.jpg) -->
-    <div class="w-full relative bg-[#e3f4e9]">
+    <!-- 2. HERO SLIDER BANNER (nen 3.jpg) -->
+    <div class="w-full relative bg-[#dce7e1] leading-none">
       <img src="/images/nen 3.jpg" class="w-full block object-cover" alt="Hero Banner QQ88">
     </div>
 
-    <!-- 3. DẢI MARQUEE CHẠY CHỮ (nen 4.png) -->
-    <div class="w-full relative bg-white py-1 border-b border-emerald-100 flex items-center px-2">
-      <!-- Icon Loa -->
+    <!-- 3. DẢI THÔNG BÁO CHẠY CHỮ MARQUEE -->
+    <div class="w-full bg-white py-1 border-b border-emerald-100 flex items-center px-2 leading-none">
       <svg class="w-4 h-4 text-emerald-800 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
         <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.765L4.857 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.857l3.526-3.765a1 1 0 011.002-.159zM14 7a1 1 0 011 1 3 3 0 010 4 1 1 0 11-1.414-1.414 1 1 0 000-1.172A1 1 0 0114 7z"/>
       </svg>
-      <!-- Chữ chạy -->
-      <div class="overflow-hidden flex-1 mx-2 text-[11px] font-medium text-emerald-900">
+      <div class="overflow-hidden flex-1 mx-2 text-[11px] font-medium text-emerald-900 leading-tight">
         <div class="marquee-text">
           Bảo mật, giao dịch nhanh chóng, dịch vụ khách hàng chuyên nghiệp 24/7. Hotline: 0908007888. Email: admin@qq88.com
         </div>
       </div>
-      <!-- Icon Thư -->
       <svg class="w-4 h-4 text-yellow-500 flex-shrink-0 cursor-pointer" fill="currentColor" viewBox="0 0 20 20">
         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
       </svg>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN / ĐĂNG NHẬP (nen 6.png hoặc nen 5.png) -->
+    <!-- 4. KHỐI TÀI KHOẢN (BẤM VÀO ĐỂ ĐỔI GIỮA NEN 6 VÀ NEN 5) -->
     <div class="w-full px-1.5 py-1.5 bg-[#f4f7f5]">
-      <!-- Hiện ảnh trạng thái ĐÃ ĐĂNG NHẬP chuẩn gốc nen 6.png -->
-      <div id="auth-box-active" class="cursor-pointer" onclick="toggleAuth()">
-        <img id="auth-img" src="/images/nen 6.png" class="w-full block rounded-xl shadow-sm" alt="Account Area">
+      <div class="cursor-pointer" onclick="toggleAuth()">
+        <img id="auth-img" src="/images/nen 6.png" class="w-full block rounded-xl shadow-sm" alt="Account Widget">
       </div>
     </div>
 
-    <!-- 5. THANH CUỘN DANH MỤC TRÒ CHƠI (CATEGORY TABS) -->
+    <!-- 5. THANH CUỘN DANH MỤC GAME (CATEGORY TABS) -->
     <div class="w-full px-1 py-1 flex items-center bg-[#dce7e1]">
-      <!-- Ngoặc trái -->
-      <button onclick="scrollCats(-100)" class="flex-shrink-0 w-5 h-14 flex items-center justify-center">
+      <button onclick="scrollCategory(-90)" class="flex-shrink-0 w-5 h-12 flex items-center justify-center">
         <img src="/images/ngoac trai.png" class="h-6 w-auto" alt="<">
       </button>
 
-      <!-- Danh sách tabs cuộn ngang -->
-      <div id="cat-scroll" class="flex gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-1 px-1">
-        <img onclick="filterGames('thethao')" src="/images/the thao.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Thể thao">
-        <img onclick="filterGames('hot')" src="/images/hot nhat.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Hot nhất">
+      <div id="cat-scrollbar" class="flex gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-1 px-1">
+        <img onclick="filterGames('hot')" src="/images/hot nhat.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Hot Nhất">
         <img onclick="filterGames('casino')" src="/images/casino.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Casino">
-        <img onclick="filterGames('nohu')" src="/images/no hu.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Nổ hũ">
-        <img onclick="filterGames('banca')" src="/images/ban ca.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Bắn cá">
-        <img onclick="filterGames('daga')" src="/images/da ga.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Đá gà">
-        <img onclick="filterGames('xoso')" src="/images/xo so.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Xổ số">
+        <img onclick="filterGames('nohu')" src="/images/no hu.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Nổ Hũ">
+        <img onclick="filterGames('banca')" src="/images/ban ca.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Bắn Cá">
+        <img onclick="filterGames('thethao')" src="/images/the thao.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Thể Thao">
+        <img onclick="filterGames('daga')" src="/images/da ga.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Đá Gà">
+        <img onclick="filterGames('xoso')" src="/images/xo so.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Xổ Số">
         <img onclick="filterGames('esports')" src="/images/e-sports.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="E-Sports">
       </div>
 
-      <!-- Ngoặc phải -->
-      <button onclick="scrollCats(100)" class="flex-shrink-0 w-5 h-14 flex items-center justify-center">
+      <button onclick="scrollCategory(90)" class="flex-shrink-0 w-5 h-12 flex items-center justify-center">
         <img src="/images/ngoac phai.png" class="h-6 w-auto" alt=">">
       </button>
     </div>
 
-    <!-- 6. LƯỚI 3 CỘT DANH SÁCH GAME (DÙNG TRỰC TIẾP ẢNH CẮT CỦA BẠN) -->
-    <div class="w-full px-2 py-2">
-      <div id="game-container" class="grid grid-cols-3 gap-1.5">
-        <!-- Render trực tiếp toàn bộ thẻ game ảnh chuẩn -->
+    <!-- 6. LƯỚI GAME 3 CỘT SẮP XẾP CHUẨN XÁC THEO ẢNH NGUYÊN BẢN -->
+    <div class="w-full px-1.5 py-1.5">
+      <div id="game-grid-container" class="grid grid-cols-3 gap-1.5">
+        <!-- Render tự động bởi Javascript -->
       </div>
     </div>
 
-    <!-- 7. HỘI VIÊN THẮNG LỚN (hoi vien thang lon.jpg) -->
-    <div class="w-full px-2 mt-2">
-      <img src="/images/hoi vien thang lon.jpg" class="w-full block rounded-xl shadow-sm" alt="Hội viên thắng lớn">
+    <!-- 7. HỘI VIÊN THẮNG LỚN -->
+    <div class="w-full px-1.5 mt-2">
+      <img src="/images/hoi vien thang lon.jpg" class="w-full block rounded-xl shadow-sm" alt="Hội Viên Thắng Lớn">
     </div>
 
-    <!-- 8. ĐẠI SỨ THƯƠNG HIỆU (dai su thuong hieu.jpg) -->
-    <div class="w-full px-2 mt-2.5">
-      <img src="/images/dai su thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Đại sứ thương hiệu John Terry">
+    <!-- 8. ĐẠI SỨ THƯƠNG HIỆU -->
+    <div class="w-full px-1.5 mt-2">
+      <img src="/images/dai su thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Đại Sứ Thương Hiệu John Terry">
     </div>
 
-    <!-- 9. TIN TỨC CHIẾN DỊCH & CHỨNG CHỈ (chien dich thuong hieu.jpg) -->
-    <div class="w-full px-2 mt-2.5 mb-4">
-      <img src="/images/chien dich thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Chiến dịch thương hiệu">
+    <!-- 9. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP BẢO VỆ -->
+    <div class="w-full px-1.5 mt-2 mb-4">
+      <img src="/images/chien dich thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Chiến Dịch Thương Hiệu">
     </div>
 
-    <!-- 10. BOTTOM NAVIGATION BAR (TRANG CHU, KHUYEN MAI, HOAN TRA, LIEN HE, TAI KHOAN) -->
-    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-slate-200 flex justify-around items-center py-1.5 z-50 shadow-lg">
+    <!-- 10. BOTTOM NAVIGATION BAR CỐ ĐỊNH CHÂN TRANG -->
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-slate-200 flex justify-around items-center py-1 z-50 shadow-md">
       <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/TRANG CHU.png" class="h-10 w-auto" alt="Trang chủ">
+        <img src="/images/TRANG CHU.png" class="h-9 w-auto" alt="Trang Chủ">
       </div>
       <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/KHUYEN MAI.png" class="h-10 w-auto" alt="Khuyến mãi">
+        <img src="/images/KHUYEN MAI.png" class="h-9 w-auto" alt="Khuyến Mãi">
       </div>
       <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/HOAN TRA.png" class="h-10 w-auto" alt="Hoàn trả">
+        <img src="/images/HOAN TRA.png" class="h-9 w-auto" alt="Hoàn Trả">
       </div>
       <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/LIEN HE.png" class="h-10 w-auto" alt="Liên hệ">
+        <img src="/images/LIEN HE.png" class="h-9 w-auto" alt="Liên Hệ">
       </div>
       <div class="flex flex-col items-center cursor-pointer" onclick="toggleAuth()">
-        <img src="/images/TAI KHOAN.png" class="h-10 w-auto" alt="Tài khoản">
+        <img src="/images/TAI KHOAN.png" class="h-9 w-auto" alt="Tài Khoản">
       </div>
     </div>
 
   </div>
 
-  <!-- SCRIPT RENDER DANH SÁCH GAME BẰNG ĐÚNG TÊN FILE ẢNH BẠN ĐÃ CẮT -->
+  <!-- LOGIC SẮP XẾP DANH SÁCH GAME -->
   <script>
-    // Danh sách toàn bộ các file ảnh game bạn đã tải lên
+    // Danh sách game sắp xếp chuẩn theo thứ tự các hàng trong ảnh chụp thực tế
     const gameList = [
-      { file: "THANG MAT CHƯỢC.png", cat: "nohu" },
-      { file: "NĂM MỚI LỘ LỘ PHAT.png", cat: "nohu" },
-      { file: "NEKO MAY MAN.png", cat: "nohu" },
-      { file: "AVIATOR.png", cat: "nohu" },
-      { file: "MIEN TAY HOANG DA.png", cat: "nohu" },
-      { file: "SIEU CAP ACE.png", cat: "nohu" },
-      { file: "DUONG MAT CHƯỢC.png", cat: "nohu" },
-      { file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
-      { file: "JACKPOT DANH CA.png", cat: "banca" },
+      // Hàng hiển thị đầu tiên
       { file: "KHO BAU AZTEC.png", cat: "nohu" },
-      { file: "DJ BOOM BOOM.png", cat: "nohu" },
-      { file: "CHIEN THANG POKER.png", cat: "nohu" },
-      { file: "XÓC ĐĨA_.png", cat: "gamebai" },
-      { file: "NGỌC MAY MAN 3.png", cat: "nohu" },
-      { file: "QUYẾT CHIẾN TIEN THUG_.png", cat: "nohu" },
-      { file: "TAI Xiu.png", cat: "gamebai" },
-      { file: "JACKPOT VUA TAI LOC.png", cat: "banca" },
-      { file: "THAN CHIEN GARUDA 500.png", cat: "nohu" },
-      { file: "DE QUOC HOANG KIM.png", cat: "nohu" },
+      { file: "JACKPOT DANH CA.png", cat: "banca" },
+      { file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
+      { file: "DUONG MAT CHƯỢC.png", cat: "nohu" },
+      { file: "SIEU CAP ACE.png", cat: "nohu" },
+      { file: "MIEN TAY HOANG DA.png", cat: "nohu" },
+      { file: "AVIATOR.png", cat: "nohu" },
+      { file: "NEKO MAY MAN.png", cat: "nohu" },
+      { file: "NĂM MỚI LỘ LỘ PHAT.png", cat: "nohu" },
+      { file: "THANG MAT CHƯỢC.png", cat: "nohu" },
       { file: "THỢ SAN NGOI SAO.png", cat: "banca" },
-      { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" },
-      { file: "THO MAY MAN.png", cat: "nohu" },
-      { file: "BAC THAY PHI HANH GIA.png", cat: "nohu" },
-      { file: "CAO BOI HOANG DA.png", cat: "nohu" },
-      { file: "NGỌC MAY MAN 2.png", cat: "nohu" },
-      { file: "THAN TAI NHAN BOI PHA_.png", cat: "nohu" },
-      { file: "JACKPOT ĐÁNH CÁ 2.png", cat: "banca" },
-      { file: "KY LAN MACH NƯỚC.png", cat: "banca" },
+      { file: "DE QUOC HOANG KIM.png", cat: "nohu" },
+      { file: "THAN CHIEN GARUDA 500.png", cat: "nohu" },
+      { file: "JACKPOT VUA TAI LOC.png", cat: "banca" },
+      { file: "TAI Xiu.png", cat: "gamebai" },
+      { file: "QUYẾT CHIẾN TIEN THUG_.png", cat: "nohu" },
+      { file: "NGỌC MAY MAN 3.png", cat: "nohu" },
+      { file: "XÓC ĐĨA_.png", cat: "gamebai" },
+      { file: "CHIEN THANG POKER.png", cat: "nohu" },
+      { file: "DJ BOOM BOOM.png", cat: "nohu" },
+      { file: "SABA THE THAO.png", cat: "thethao" },
       { file: "MAT CHƯỢC HOANG DA.png", cat: "nohu" },
-      { file: "SABA THE THAO.png", cat: "thethao" }
+      { file: "KY LAN MACH NƯỚC.png", cat: "banca" },
+      { file: "JACKPOT ĐÁNH CÁ 2.png", cat: "banca" },
+      { file: "THAN TAI NHAN BOI PHA_.png", cat: "nohu" },
+      { file: "NGỌC MAY MAN 2.png", cat: "nohu" },
+      { file: "CAO BOI HOANG DA.png", cat: "nohu" },
+      { file: "BAC THAY PHI HANH GIA.png", cat: "nohu" },
+      { file: "THO MAY MAN.png", cat: "nohu" },
+      { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" }
     ];
 
     let isAuth = true;
 
-    // Hiển thị danh sách game theo đúng ảnh cắt
+    // Render danh sách game
     function render(category = 'all') {
-      const container = document.getElementById('game-container');
+      const container = document.getElementById('game-grid-container');
       container.innerHTML = '';
       
-      const filtered = category === 'all' || category === 'hot' 
+      const filtered = (category === 'all' || category === 'hot') 
         ? gameList 
         : gameList.filter(g => g.cat === category);
 
       filtered.forEach(game => {
         const item = document.createElement('div');
         item.className = 'cursor-pointer';
-        item.onclick = () => alert("Vào bàn chơi: " + game.file.replace('.png', ''));
+        item.onclick = () => alert("Vào game: " + game.file.replace('.png', ''));
         item.innerHTML = `<img src="/images/${encodeURIComponent(game.file)}" class="game-card-img" alt="${game.file}" loading="lazy">`;
         container.appendChild(item);
       });
     }
 
-    // Cuộn danh mục game
-    function scrollCats(distance) {
-      document.getElementById('cat-scroll').scrollLeft += distance;
+    // Cuộn danh mục
+    function scrollCategory(val) {
+      document.getElementById('cat-scrollbar').scrollLeft += val;
     }
 
-    // Lọc theo loại game
+    // Lọc game theo tab danh mục
     function filterGames(cat) {
       render(cat);
     }
 
-    // Bấm vào khu vực tài khoản để đổi qua lại giữa Đã đăng nhập (nen 6) và Chưa đăng nhập (nen 5)
+    // Chuyển đổi trạng thái Đã đăng nhập / Chưa đăng nhập
     function toggleAuth() {
       isAuth = !isAuth;
       const img = document.getElementById('auth-img');
       img.src = isAuth ? '/images/nen 6.png' : '/images/nen 5.png';
     }
 
-    // Khởi chạy ban đầu
+    // Tự động render khi tải xong trang
     window.onload = () => {
       render('all');
     };

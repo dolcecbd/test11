@@ -2,161 +2,253 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>QQ88 - Cổng Game Trực Tuyến</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>QQ88</title>
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
     body {
       background-color: #004d25;
+      display: flex;
+      justify-content: center;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    }
+    .app-wrapper {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background-color: #dce7e1;
+      position: relative;
+      padding-bottom: 72px; /* Chừa khoảng trống cho thanh đáy */
+      overflow-x: hidden;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Animation chạy chữ marquee mượt */
-    @keyframes marqueeAnim {
+    /* Thanh thông báo chạy chữ */
+    .marquee-bar {
+      background: #ffffff;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #cbe0d3;
+    }
+    .marquee-content {
+      overflow: hidden;
+      white-space: nowrap;
+      flex: 1;
+      font-size: 11.5px;
+      color: #004d25;
+      font-weight: 600;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+    }
+    @keyframes marquee {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      animation: marqueeAnim 22s linear infinite;
-    }
-    .marquee-text:hover { animation-play-state: paused; }
 
-    /* Thẻ game hiển thị vừa khít tỷ lệ gốc 1.48:1 */
-    .game-card-img {
+    /* Thanh cuộn sảnh game */
+    .cat-bar {
+      display: flex;
+      align-items: center;
+      background: #dce7e1;
+      padding: 3px 2px;
+    }
+    .cat-scroll {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding: 2px 0;
+    }
+    .cat-scroll img {
+      width: auto;
+      height: 62px;
+      cursor: pointer;
+    }
+
+    /* Lưới 3 cột khít chuẩn tỉ lệ */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 6px;
+    }
+    .game-grid img {
       width: 100%;
-      height: auto;
       aspect-ratio: 1.48 / 1;
       object-fit: fill;
       border-radius: 6px;
-      display: block;
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-      transition: transform 0.08s ease;
+      cursor: pointer;
     }
-    .game-card-img:active {
+    .game-grid img:active {
       transform: scale(0.96);
+    }
+
+    /* THANH BOTTOM BAR CĂN CHỈNH LẠI CHỮ TO, NÉT ĐẬM CHUẨN 100% */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: #ffffff;
+      border-top: 1px solid #c8d6cf;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 6px 0 8px 0;
+      z-index: 99;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      width: 20%;
+    }
+    .nav-item img {
+      width: auto;
+      height: 28px; /* Tối ưu lại chiều cao icon */
+      object-fit: contain;
+    }
+    .nav-item span {
+      font-size: 11px; /* Tăng kích thước chữ to rõ ràng */
+      font-weight: 700; /* In đậm nét */
+      margin-top: 3px;
+      letter-spacing: -0.2px;
+    }
+    .nav-item.active span {
+      color: #005a2b; /* Xanh lá chuẩn QQ88 */
+    }
+    .nav-item.inactive span {
+      color: #64748b; /* Xám chuẩn */
     }
   </style>
 </head>
-<body class="flex justify-center min-h-screen">
+<body>
 
-  <!-- KHUNG CONTAINER GIỮ ĐÚNG TỶ LỆ CHUẨN APP DI ĐỘNG -->
-  <div class="w-full max-w-[430px] min-h-screen bg-[#dce7e1] flex flex-col relative pb-16 shadow-2xl overflow-x-hidden">
+  <div class="app-wrapper">
 
-    <!-- 1. TOP BANNER KHUYẾN MÃI (nen 2.png) CÓ NÚT X ĐÓNG -->
-    <div id="top-promo-wrap" class="relative w-full bg-[#005c2a] leading-none">
-      <img src="/images/nen 2.png" onerror="this.style.display='none'" class="w-full block" alt="QQ88 Header Banner">
-      <button onclick="document.getElementById('top-promo-wrap').style.display='none'" class="absolute top-1.5 right-1.5 w-5 h-5 flex items-center justify-center text-white/90 hover:text-white text-xs font-bold bg-black/40 rounded-full z-20">✕</button>
+    <!-- 1. Header Khuyến Mãi (nen 2.png) -->
+    <div id="top-promo-wrap" style="position: relative;">
+      <img src="/images/nen 2.png" onerror="handleImgErr(this, ['/images/nen%202.PNG', '/images/nen 2.jpg'])" alt="Header">
+      <span onclick="document.getElementById('top-promo-wrap').style.display='none'" style="position: absolute; top: 6px; right: 8px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; background: rgba(0,0,0,0.4); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</span>
     </div>
 
-    <!-- 2. HERO SLIDER BANNER (nen 3.jpg) -->
-    <div class="w-full relative bg-[#dce7e1] leading-none">
-      <img src="/images/nen 3.jpg" class="w-full block object-cover" alt="Hero Banner QQ88">
+    <!-- 2. Hero Carousel (nen 3.jpg) -->
+    <div>
+      <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
     </div>
 
-    <!-- 3. DẢI THÔNG BÁO CHẠY CHỮ MARQUEE -->
-    <div class="w-full bg-white py-1 border-b border-emerald-100 flex items-center px-2 leading-none">
-      <svg class="w-4 h-4 text-emerald-800 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.765L4.857 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.857l3.526-3.765a1 1 0 011.002-.159zM14 7a1 1 0 011 1 3 3 0 010 4 1 1 0 11-1.414-1.414 1 1 0 000-1.172A1 1 0 0114 7z"/>
-      </svg>
-      <div class="overflow-hidden flex-1 mx-2 text-[11px] font-medium text-emerald-900 leading-tight">
-        <div class="marquee-text">
+    <!-- 3. Thanh Chạy Chữ Marquee -->
+    <div class="marquee-bar">
+      <span style="font-size: 14px;">🔊</span>
+      <div class="marquee-content">
+        <div class="marquee-inner">
           Bảo mật, giao dịch nhanh chóng, dịch vụ khách hàng chuyên nghiệp 24/7. Hotline: 0908007888. Email: admin@qq88.com
         </div>
       </div>
-      <svg class="w-4 h-4 text-yellow-500 flex-shrink-0 cursor-pointer" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-      </svg>
+      <span style="font-size: 14px; cursor: pointer;">✉️</span>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN (BẤM VÀO ĐỂ ĐỔI GIỮA NEN 6 VÀ NEN 5) -->
-    <div class="w-full px-1.5 py-1.5 bg-[#f4f7f5]">
-      <div class="cursor-pointer" onclick="toggleAuth()">
-        <img id="auth-img" src="/images/nen 6.png" class="w-full block rounded-xl shadow-sm" alt="Account Widget">
-      </div>
+    <!-- 4. Cụm Tài Khoản (nen 6.png hoặc nen 5.png) -->
+    <div style="padding: 4px 6px;">
+      <img id="user-box" src="/images/nen 6.png" onerror="handleImgErr(this, ['/images/nen%206.PNG', '/images/nen 6.jpg', '/images/nen 5.png'])" onclick="swapUserBox()" style="border-radius: 10px; cursor: pointer;" alt="User">
     </div>
 
-    <!-- 5. THANH CUỘN DANH MỤC GAME (CATEGORY TABS) -->
-    <div class="w-full px-1 py-1 flex items-center bg-[#dce7e1]">
-      <button onclick="scrollCategory(-90)" class="flex-shrink-0 w-5 h-12 flex items-center justify-center">
-        <img src="/images/ngoac trai.png" class="h-6 w-auto" alt="<">
-      </button>
-
-      <div id="cat-scrollbar" class="flex gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-1 px-1">
-        <img onclick="filterGames('hot')" src="/images/hot nhat.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Hot Nhất">
-        <img onclick="filterGames('casino')" src="/images/casino.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Casino">
-        <img onclick="filterGames('nohu')" src="/images/no hu.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Nổ Hũ">
-        <img onclick="filterGames('banca')" src="/images/ban ca.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Bắn Cá">
-        <img onclick="filterGames('thethao')" src="/images/the thao.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Thể Thao">
-        <img onclick="filterGames('daga')" src="/images/da ga.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Đá Gà">
-        <img onclick="filterGames('xoso')" src="/images/xo so.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Xổ Số">
-        <img onclick="filterGames('esports')" src="/images/e-sports.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="E-Sports">
+    <!-- 5. Thanh Cuộn Danh Mục Sảnh Game -->
+    <div class="cat-bar">
+      <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
+      <div id="cat-list" class="cat-scroll no-scrollbar">
+        <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" onclick="filterCat('thethao')" alt="Thể Thao">
+        <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" onclick="filterCat('hot')" alt="Hot Nhất">
+        <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" onclick="filterCat('casino')" alt="Casino">
+        <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" onclick="filterCat('nohu')" alt="Nổ Hũ">
+        <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" onclick="filterCat('banca')" alt="Bắn Cá">
+        <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" onclick="filterCat('daga')" alt="Đá Gà">
+        <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" onclick="filterCat('xoso')" alt="Xổ Số">
+        <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" onclick="filterCat('esports')" alt="E-Sports">
       </div>
-
-      <button onclick="scrollCategory(90)" class="flex-shrink-0 w-5 h-12 flex items-center justify-center">
-        <img src="/images/ngoac phai.png" class="h-6 w-auto" alt=">">
-      </button>
+      <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 6. LƯỚI GAME 3 CỘT SẮP XẾP CHUẨN XÁC THEO ẢNH NGUYÊN BẢN -->
-    <div class="w-full px-1.5 py-1.5">
-      <div id="game-grid-container" class="grid grid-cols-3 gap-1.5">
-        <!-- Render tự động bởi Javascript -->
-      </div>
+    <!-- 6. Lưới Game 3 Cột Thực Tế -->
+    <div id="games-wrapper" class="game-grid">
+      <!-- Tự động load bởi Javascript -->
     </div>
 
-    <!-- 7. HỘI VIÊN THẮNG LỚN -->
-    <div class="w-full px-1.5 mt-2">
-      <img src="/images/hoi vien thang lon.jpg" class="w-full block rounded-xl shadow-sm" alt="Hội Viên Thắng Lớn">
+    <!-- 7. Hội Viên Thắng Lớn -->
+    <div style="padding: 4px 6px;">
+      <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png', '/images/hoi vien thang lon.png', '/images/hoi vien thang lon.JPG'])" style="border-radius: 10px;" alt="Hội Viên Thắng Lớn">
     </div>
 
-    <!-- 8. ĐẠI SỨ THƯƠNG HIỆU -->
-    <div class="w-full px-1.5 mt-2">
-      <img src="/images/dai su thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Đại Sứ Thương Hiệu John Terry">
+    <!-- 8. Đại Sứ Thương Hiệu -->
+    <div style="padding: 4px 6px;">
+      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png', '/images/dai su thuong hieu.png', '/images/dai su thuong hieu.JPG'])" style="border-radius: 10px;" alt="John Terry">
     </div>
 
-    <!-- 9. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP BẢO VỆ -->
-    <div class="w-full px-1.5 mt-2 mb-4">
-      <img src="/images/chien dich thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Chiến Dịch Thương Hiệu">
+    <!-- 9. Chiến Dịch Thương Hiệu & Giấy Phép -->
+    <div style="padding: 4px 6px; margin-bottom: 8px;">
+      <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 10. BOTTOM NAVIGATION BAR CỐ ĐỊNH CHÂN TRANG -->
-    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-slate-200 flex justify-around items-center py-1 z-50 shadow-md">
-      <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/TRANG CHU.png" class="h-9 w-auto" alt="Trang Chủ">
+    <!-- 10. BOTTOM NAVIGATION BAR - CĂN CHUẨN ĐÚNG THEO ẢNH BẠN GỬI -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <img src="/images/TRANG CHU.png" onerror="handleImgErr(this, ['/images/TRANG%20CHU.PNG'])" alt="Trang Chủ">
+        <span>TRANG CHỦ</span>
       </div>
-      <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/KHUYEN MAI.png" class="h-9 w-auto" alt="Khuyến Mãi">
+      <div class="nav-item inactive">
+        <img src="/images/KHUYEN MAI.png" onerror="handleImgErr(this, ['/images/KHUYEN%20MAI.PNG'])" alt="Khuyến Mãi">
+        <span>KHUYẾN MÃI</span>
       </div>
-      <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/HOAN TRA.png" class="h-9 w-auto" alt="Hoàn Trả">
+      <div class="nav-item inactive">
+        <img src="/images/HOAN TRA.png" onerror="handleImgErr(this, ['/images/HOAN%20TRA.PNG'])" alt="Hoàn Trả">
+        <span>HOÀN TRẢ</span>
       </div>
-      <div class="flex flex-col items-center cursor-pointer">
-        <img src="/images/LIEN HE.png" class="h-9 w-auto" alt="Liên Hệ">
+      <div class="nav-item inactive">
+        <img src="/images/LIEN HE.png" onerror="handleImgErr(this, ['/images/LIEN%20HE.PNG'])" alt="Liên Hệ">
+        <span>LIÊN HỆ</span>
       </div>
-      <div class="flex flex-col items-center cursor-pointer" onclick="toggleAuth()">
-        <img src="/images/TAI KHOAN.png" class="h-9 w-auto" alt="Tài Khoản">
+      <div class="nav-item inactive" onclick="swapUserBox()">
+        <img src="/images/TAI KHOAN.png" onerror="handleImgErr(this, ['/images/TAI%20KHOAN.PNG'])" alt="Tài Khoản">
+        <span>TÀI KHOẢN</span>
       </div>
     </div>
 
   </div>
 
-  <!-- LOGIC SẮP XẾP DANH SÁCH GAME -->
   <script>
-    // Danh sách game sắp xếp chuẩn theo thứ tự các hàng trong ảnh chụp thực tế
+    // Hàm tự động thử các biến thể tên file nếu bị sai chữ hoa/thường trên Render
+    function handleImgErr(img, fallbacks) {
+      if (!img.dataset.tryCount) img.dataset.tryCount = 0;
+      let count = parseInt(img.dataset.tryCount);
+      if (count < fallbacks.length) {
+        img.src = fallbacks[count];
+        img.dataset.tryCount = count + 1;
+      }
+    }
+
+    // Danh sách toàn bộ thẻ game
     const gameList = [
-      // Hàng hiển thị đầu tiên
       { file: "KHO BAU AZTEC.png", cat: "nohu" },
       { file: "JACKPOT DANH CA.png", cat: "banca" },
       { file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
@@ -189,46 +281,47 @@
       { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" }
     ];
 
-    let isAuth = true;
+    let isLogin = true;
 
-    // Render danh sách game
-    function render(category = 'all') {
-      const container = document.getElementById('game-grid-container');
-      container.innerHTML = '';
-      
-      const filtered = (category === 'all' || category === 'hot') 
+    function renderGames(filter = 'all') {
+      const wrapper = document.getElementById('games-wrapper');
+      wrapper.innerHTML = '';
+      const items = (filter === 'all' || filter === 'hot') 
         ? gameList 
-        : gameList.filter(g => g.cat === category);
+        : gameList.filter(g => g.cat === filter);
 
-      filtered.forEach(game => {
-        const item = document.createElement('div');
-        item.className = 'cursor-pointer';
-        item.onclick = () => alert("Vào game: " + game.file.replace('.png', ''));
-        item.innerHTML = `<img src="/images/${encodeURIComponent(game.file)}" class="game-card-img" alt="${game.file}" loading="lazy">`;
-        container.appendChild(item);
+      items.forEach(g => {
+        const img = document.createElement('img');
+        const encoded = encodeURIComponent(g.file);
+        img.src = '/images/' + encoded;
+        img.onerror = function() {
+          if (!this.dataset.fallbackDone) {
+            this.dataset.fallbackDone = true;
+            this.src = '/images/' + g.file;
+          }
+        };
+        img.alt = g.file;
+        img.onclick = () => alert("Mở bàn chơi: " + g.file.replace('.png', ''));
+        wrapper.appendChild(img);
       });
     }
 
-    // Cuộn danh mục
-    function scrollCategory(val) {
-      document.getElementById('cat-scrollbar').scrollLeft += val;
+    function navScroll(offset) {
+      document.getElementById('cat-list').scrollLeft += offset;
     }
 
-    // Lọc game theo tab danh mục
-    function filterGames(cat) {
-      render(cat);
+    function filterCat(cat) {
+      renderGames(cat);
     }
 
-    // Chuyển đổi trạng thái Đã đăng nhập / Chưa đăng nhập
-    function toggleAuth() {
-      isAuth = !isAuth;
-      const img = document.getElementById('auth-img');
-      img.src = isAuth ? '/images/nen 6.png' : '/images/nen 5.png';
+    function swapUserBox() {
+      isLogin = !isLogin;
+      const uBox = document.getElementById('user-box');
+      uBox.src = isLogin ? '/images/nen 6.png' : '/images/nen 5.png';
     }
 
-    // Tự động render khi tải xong trang
     window.onload = () => {
-      render('all');
+      renderGames('all');
     };
   </script>
 </body>

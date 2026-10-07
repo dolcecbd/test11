@@ -3,485 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>QQ88 - Cổng Game Quốc Tế</title>
-  <!-- Tailwind CSS CDN -->
+  <title>QQ88</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              green: '#005a2b',
-              dark: '#004722',
-              light: '#e8f5e9',
-              yellow: '#ffcc00',
-              accent: '#f2b705'
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    /* Ẩn thanh scrollbar nhưng vẫn giữ tính năng vuốt mượt */
+    /* Reset & chống vỡ giao diện trên mọi màn hình */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #004d25;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    
-    body {
-      background-color: #f1f5f9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
 
-    /* Hiệu ứng trượt marquee */
     @keyframes marquee {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
-    .animate-marquee {
+    .marquee-text {
       display: inline-block;
       white-space: nowrap;
-      animation: marquee 20s linear infinite;
+      animation: marquee 25s linear infinite;
     }
-    .animate-marquee:hover {
-      animation-play-state: paused;
-    }
+    .marquee-text:hover { animation-play-state: paused; }
 
-    /* Đổ bóng thẻ game chân thực */
-    .card-shadow {
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    /* Tỉ lệ thẻ game chuẩn theo phôi gốc */
+    .game-card-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1.48 / 1;
+      object-fit: fill;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      transition: transform 0.1s ease;
+    }
+    .game-card-img:active {
+      transform: scale(0.96);
     }
   </style>
 </head>
-<body class="flex flex-col min-h-screen text-slate-800">
+<body class="flex justify-center min-h-screen">
 
-  <!-- Vỏ bọc responsive: Trên PC co gọn thành dạng mobile-app mượt mà hoặc mở rộng tuỳ chọn -->
-  <div class="w-full max-w-md mx-auto min-h-screen bg-[#f4f7f5] shadow-2xl flex flex-col relative pb-20">
+  <!-- KHUNG HIỂN THỊ CHUẨN TỶ LỆ MOBILE (GIỮ NGUYÊN GIAO DIỆN KHI MỞ TRÊN PC) -->
+  <div class="w-full max-w-[430px] min-h-screen bg-[#dce7e1] flex flex-col relative pb-16 shadow-2xl overflow-x-hidden">
 
-    <!-- 1. TOP PROMO BANNER (CÓ THỂ TẮT) -->
-    <div id="top-banner" class="relative bg-[#d7f0db] px-3 py-1 flex items-center justify-between border-b border-green-200">
-      <div class="flex items-center gap-2 overflow-hidden text-xs text-green-900 font-semibold">
-        <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold uppercase animate-pulse">Hot</span>
-        <span class="truncate">THƯỞNG CƯỢC 128,888K | 01/10 - 07/10</span>
-      </div>
-      <button onclick="document.getElementById('top-banner').style.display='none'" class="text-slate-500 hover:text-black p-1">
-        <i class="fa-solid fa-xmark text-sm"></i>
-      </button>
+    <!-- 1. TOP BANNER KHUYẾN MÃI (nen 2.png hoặc banner cắt) -->
+    <div id="top-promo" class="relative w-full bg-[#d7f0db]">
+      <img src="/images/nen 2.png" onerror="this.onerror=null; this.src='/images/Background.png';" class="w-full block" alt="Header Banner">
+      <button onclick="document.getElementById('top-promo').style.display='none'" class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white/80 hover:text-white text-xs font-bold bg-black/30 rounded-full">✕</button>
     </div>
 
-    <!-- 2. HEADER CHÍNH -->
-    <header class="bg-brand-green px-4 py-2.5 flex items-center justify-between text-white sticky top-0 z-40 shadow-md">
-      <button class="p-1 hover:opacity-80">
-        <i class="fa-solid fa-bars text-xl text-yellow-400"></i>
-      </button>
-      
-      <!-- LOGO CHỮ VÀNG NỔI KHỐI -->
-      <div class="flex items-center gap-1 cursor-pointer">
-        <span class="text-2xl font-black italic tracking-wider text-brand-yellow drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">QQ88</span>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <div class="flex flex-col items-center cursor-pointer">
-          <i class="fa-solid fa-crown text-brand-yellow text-lg"></i>
-          <span class="text-[9px] font-bold uppercase tracking-wider text-yellow-300">VIP</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- 3. BANNER SLIDER HERO (TỰ ĐỘNG CHUYỂN) -->
-    <div class="relative w-full aspect-[2.4/1] bg-emerald-100 overflow-hidden">
-      <img id="hero-img" src="/images/nen 3.jpg" onerror="this.src='https://placehold.co/600x250/005a2b/ffffff?text=NỔ+HŨ+TIỀN+TỶ+QQ88'" class="w-full h-full object-cover transition-opacity duration-300" alt="QQ88 Promotion Banner">
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-        <span class="w-2.5 h-1.5 rounded-full bg-brand-yellow"></span>
-        <span class="w-1.5 h-1.5 rounded-full bg-white/70"></span>
-        <span class="w-1.5 h-1.5 rounded-full bg-white/70"></span>
-      </div>
+    <!-- 2. HERO BANNER TRƯỢT (nen 3.jpg) -->
+    <div class="w-full relative bg-[#e3f4e9]">
+      <img src="/images/nen 3.jpg" class="w-full block object-cover" alt="Hero Banner QQ88">
     </div>
 
-    <!-- 4. MARQUEE NOTIFICATION BAR -->
-    <div class="bg-white px-3 py-1.5 flex items-center gap-2 border-b border-slate-200 text-xs text-slate-700">
-      <i class="fa-solid fa-volume-high text-brand-green"></i>
-      <div class="overflow-hidden flex-1 relative whitespace-nowrap">
-        <span class="animate-marquee font-medium">Bảo mật cao cấp, nạp rút thần tốc 24/7. Chúc mừng hội viên ******89 trúng Jackpot 128,000K!</span>
+    <!-- 3. DẢI MARQUEE CHẠY CHỮ (nen 4.png) -->
+    <div class="w-full relative bg-white py-1 border-b border-emerald-100 flex items-center px-2">
+      <!-- Icon Loa -->
+      <svg class="w-4 h-4 text-emerald-800 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.765L4.857 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.857l3.526-3.765a1 1 0 011.002-.159zM14 7a1 1 0 011 1 3 3 0 010 4 1 1 0 11-1.414-1.414 1 1 0 000-1.172A1 1 0 0114 7z"/>
+      </svg>
+      <!-- Chữ chạy -->
+      <div class="overflow-hidden flex-1 mx-2 text-[11px] font-medium text-emerald-900">
+        <div class="marquee-text">
+          Bảo mật, giao dịch nhanh chóng, dịch vụ khách hàng chuyên nghiệp 24/7. Hotline: 0908007888. Email: admin@qq88.com
+        </div>
       </div>
-      <i class="fa-regular fa-envelope text-yellow-500 cursor-pointer"></i>
+      <!-- Icon Thư -->
+      <svg class="w-4 h-4 text-yellow-500 flex-shrink-0 cursor-pointer" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+      </svg>
     </div>
 
-    <!-- 5. TÙY BIẾN TRẠNG THÁI: CHƯA ĐĂNG NHẬP VS ĐÃ ĐĂNG NHẬP -->
-    <div class="bg-white p-3 mx-2 mt-2 rounded-xl card-shadow">
-      
-      <!-- Nút toggle để bạn test nhanh cả 2 chế độ -->
-      <div class="flex justify-end mb-2">
-        <button onclick="toggleAuthState()" class="text-[10px] bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded text-slate-500 border border-slate-300">
-          <i class="fa-solid fa-repeat mr-1"></i>Đổi trạng thái: <strong id="auth-state-text">Chưa Đăng Nhập</strong>
-        </button>
-      </div>
-
-      <!-- Khối 1: CHƯA ĐĂNG NHẬP (nen 5) -->
-      <div id="unauth-box" class="flex items-center justify-between gap-2">
-        <div class="flex flex-col gap-1.5 w-[38%]">
-          <button onclick="openAuthModal('login')" class="w-full py-1.5 bg-white border border-brand-green text-brand-green font-bold text-xs rounded-lg shadow-sm active:scale-95 transition">ĐĂNG NHẬP</button>
-          <button onclick="openAuthModal('register')" class="w-full py-1.5 bg-gradient-to-r from-yellow-300 to-brand-yellow text-green-950 font-bold text-xs rounded-lg shadow-sm relative active:scale-95 transition">
-            ĐĂNG KÝ
-            <span class="absolute -top-1.5 -right-1 bg-red-600 text-white text-[9px] px-1 rounded-full font-extrabold">+58K</span>
-          </button>
-        </div>
-        
-        <div class="grid grid-cols-4 gap-1.5 flex-1 text-center">
-          <div class="flex flex-col items-center cursor-pointer">
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-400 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-regular fa-gem"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Đổi Quà</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer">
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-400 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-regular fa-newspaper"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Tin Tức</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer relative">
-            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full font-bold">60%</span>
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-400 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-sack-dollar"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Đại Lý</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer relative">
-            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full font-bold">+276K</span>
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-400 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-share-nodes"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Giới Thiệu</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Khối 2: ĐÃ ĐĂNG NHẬP (nen 6 - Mặc định ẩn) -->
-      <div id="auth-box" class="hidden flex items-center justify-between gap-2">
-        <div class="w-[36%] flex flex-col justify-center">
-          <div class="flex items-center gap-1.5">
-            <span class="bg-yellow-400/30 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-amber-300">VIP0</span>
-            <span class="text-xs font-bold text-slate-800 truncate">quanmi112</span>
-            <button onclick="navigator.clipboard.writeText('quanmi112'); alert('Đã sao chép tài khoản!')" class="text-slate-400 hover:text-slate-700 text-xs"><i class="fa-regular fa-copy"></i></button>
-          </div>
-          <div class="flex items-center gap-1 mt-1">
-            <i class="fa-solid fa-coins text-brand-yellow text-xs"></i>
-            <span class="text-sm font-black text-slate-900">0 K</span>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-4 gap-1 flex-1 text-center">
-          <div class="flex flex-col items-center cursor-pointer">
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-500 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-credit-card"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Nạp Tiền</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer">
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-500 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-wallet"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Rút Tiền</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer relative">
-            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full font-bold">60%</span>
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-500 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-sack-dollar"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Đại Lý</span>
-          </div>
-          <div class="flex flex-col items-center cursor-pointer relative">
-            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full font-bold">+276K</span>
-            <div class="w-9 h-9 rounded-xl bg-green-50 border border-green-500 flex items-center justify-center text-brand-green text-sm shadow-sm"><i class="fa-solid fa-share-nodes"></i></div>
-            <span class="text-[10px] font-semibold mt-1">Giới Thiệu</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME (CATEGORY BAR) -->
-    <div class="relative px-2 mt-3 flex items-center">
-      <button onclick="scrollCategories(-120)" class="w-6 h-12 flex items-center justify-center text-brand-green hover:opacity-75 z-10">
-        <i class="fa-solid fa-chevron-left text-lg"></i>
-      </button>
-
-      <div id="category-scroll" class="flex gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-1 flex-1">
-        <!-- Tab Nổi bật -->
-        <button onclick="filterCategory('hot')" class="cat-btn active flex-shrink-0 w-16 h-16 rounded-xl bg-yellow-300 border-2 border-brand-green flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-fire text-lg mb-1 text-red-500"></i>
-          <span>HOT NHẤT</span>
-        </button>
-        <button onclick="filterCategory('casino')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-diamond text-lg mb-1"></i>
-          <span>CASINO</span>
-        </button>
-        <button onclick="filterCategory('nohu')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-dice text-lg mb-1"></i>
-          <span>NỔ HŨ</span>
-        </button>
-        <button onclick="filterCategory('banca')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-fish text-lg mb-1"></i>
-          <span>BẮN CÁ</span>
-        </button>
-        <button onclick="filterCategory('thethao')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-futbol text-lg mb-1"></i>
-          <span>THỂ THAO</span>
-        </button>
-        <button onclick="filterCategory('gamebai')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-clover text-lg mb-1"></i>
-          <span>GAME BÀI</span>
-        </button>
-        <button onclick="filterCategory('daga')" class="cat-btn flex-shrink-0 w-16 h-16 rounded-xl bg-white border border-green-200 flex flex-col items-center justify-center text-brand-green font-bold text-[10px] shadow-sm">
-          <i class="fa-solid fa-feather-pointed text-lg mb-1"></i>
-          <span>ĐÁ GÀ</span>
-        </button>
-      </div>
-
-      <button onclick="scrollCategories(120)" class="w-6 h-12 flex items-center justify-center text-brand-green hover:opacity-75 z-10">
-        <i class="fa-solid fa-chevron-right text-lg"></i>
-      </button>
-    </div>
-
-    <!-- 7. LƯỚI 3 CỘT DANH SÁCH GAME ĐẦY ĐỦ (LOAD TỪ MẢNG DỮ LIỆU) -->
-    <div class="px-2 mt-3">
-      <div id="game-grid" class="grid grid-cols-3 gap-2">
-        <!-- Render bằng Javascript từ mảng game sạch sẽ -->
-      </div>
-
-      <!-- Nút xem thêm mô phỏng Infinite Scroll -->
-      <div class="mt-4 text-center">
-        <button onclick="loadMoreGames()" class="text-xs text-brand-green font-bold bg-white border border-brand-green/30 px-5 py-2 rounded-full hover:bg-green-50 shadow-sm active:scale-95 transition">
-          <i class="fa-solid fa-arrows-rotate mr-1"></i>Tải thêm trò chơi
-        </button>
+    <!-- 4. KHỐI TÀI KHOẢN / ĐĂNG NHẬP (nen 6.png hoặc nen 5.png) -->
+    <div class="w-full px-1.5 py-1.5 bg-[#f4f7f5]">
+      <!-- Hiện ảnh trạng thái ĐÃ ĐĂNG NHẬP chuẩn gốc nen 6.png -->
+      <div id="auth-box-active" class="cursor-pointer" onclick="toggleAuth()">
+        <img id="auth-img" src="/images/nen 6.png" class="w-full block rounded-xl shadow-sm" alt="Account Area">
       </div>
     </div>
 
-    <!-- 8. HỘI VIÊN THẮNG LỚN -->
-    <div class="mt-6 px-2">
-      <div class="flex items-center justify-center gap-2 mb-2">
-        <span class="h-[1px] w-8 bg-green-500"></span>
-        <h3 class="text-xs font-black tracking-wider text-brand-green uppercase">Hội Viên Thắng Lớn</h3>
-        <span class="h-[1px] w-8 bg-green-500"></span>
+    <!-- 5. THANH CUỘN DANH MỤC TRÒ CHƠI (CATEGORY TABS) -->
+    <div class="w-full px-1 py-1 flex items-center bg-[#dce7e1]">
+      <!-- Ngoặc trái -->
+      <button onclick="scrollCats(-100)" class="flex-shrink-0 w-5 h-14 flex items-center justify-center">
+        <img src="/images/ngoac trai.png" class="h-6 w-auto" alt="<">
+      </button>
+
+      <!-- Danh sách tabs cuộn ngang -->
+      <div id="cat-scroll" class="flex gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-1 px-1">
+        <img onclick="filterGames('thethao')" src="/images/the thao.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Thể thao">
+        <img onclick="filterGames('hot')" src="/images/hot nhat.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Hot nhất">
+        <img onclick="filterGames('casino')" src="/images/casino.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Casino">
+        <img onclick="filterGames('nohu')" src="/images/no hu.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Nổ hũ">
+        <img onclick="filterGames('banca')" src="/images/ban ca.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Bắn cá">
+        <img onclick="filterGames('daga')" src="/images/da ga.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Đá gà">
+        <img onclick="filterGames('xoso')" src="/images/xo so.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="Xổ số">
+        <img onclick="filterGames('esports')" src="/images/e-sports.png" class="h-16 w-auto cursor-pointer flex-shrink-0 active:scale-95 transition" alt="E-Sports">
       </div>
-      
-      <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
-        <div class="bg-white p-2 rounded-xl flex-shrink-0 w-24 text-center card-shadow">
-          <img src="/images/THANG MAT CHƯỢC.png" onerror="this.src='https://placehold.co/100x100/e2e8f0/005a2b?text=Game'" class="w-16 h-16 mx-auto rounded-lg object-cover">
-          <p class="text-[10px] text-slate-400 mt-1">******693</p>
-          <p class="text-xs font-black text-brand-green">28,488 K</p>
-        </div>
-        <div class="bg-white p-2 rounded-xl flex-shrink-0 w-24 text-center card-shadow">
-          <img src="/images/SABA THE THAO.png" onerror="this.src='https://placehold.co/100x100/e2e8f0/005a2b?text=Game'" class="w-16 h-16 mx-auto rounded-lg object-cover">
-          <p class="text-[10px] text-slate-400 mt-1">****u99</p>
-          <p class="text-xs font-black text-brand-green">28,177 K</p>
-        </div>
-        <div class="bg-white p-2 rounded-xl flex-shrink-0 w-24 text-center card-shadow">
-          <img src="/images/XÓC ĐĨA_.png" onerror="this.src='https://placehold.co/100x100/e2e8f0/005a2b?text=Game'" class="w-16 h-16 mx-auto rounded-lg object-cover">
-          <p class="text-[10px] text-slate-400 mt-1">******123</p>
-          <p class="text-xs font-black text-brand-green">26,520 K</p>
-        </div>
-        <div class="bg-white p-2 rounded-xl flex-shrink-0 w-24 text-center card-shadow">
-          <img src="/images/JACKPOT VUA TAI LOC.png" onerror="this.src='https://placehold.co/100x100/e2e8f0/005a2b?text=Game'" class="w-16 h-16 mx-auto rounded-lg object-cover">
-          <p class="text-[10px] text-slate-400 mt-1">******089</p>
-          <p class="text-xs font-black text-brand-green">25,760 K</p>
-        </div>
+
+      <!-- Ngoặc phải -->
+      <button onclick="scrollCats(100)" class="flex-shrink-0 w-5 h-14 flex items-center justify-center">
+        <img src="/images/ngoac phai.png" class="h-6 w-auto" alt=">">
+      </button>
+    </div>
+
+    <!-- 6. LƯỚI 3 CỘT DANH SÁCH GAME (DÙNG TRỰC TIẾP ẢNH CẮT CỦA BẠN) -->
+    <div class="w-full px-2 py-2">
+      <div id="game-container" class="grid grid-cols-3 gap-1.5">
+        <!-- Render trực tiếp toàn bộ thẻ game ảnh chuẩn -->
       </div>
     </div>
 
-    <!-- 9. ĐẠI SỨ THƯƠNG HIỆU & TIN TỨC HỢP TÁC -->
-    <div class="mt-5 px-3">
-      <div class="bg-white rounded-xl p-3 card-shadow">
-        <h4 class="text-xs font-bold text-brand-green mb-2 flex items-center gap-1.5">
-          <span class="w-1.5 h-3.5 bg-brand-green rounded-full"></span>
-          Đại Sứ Thương Hiệu 2025 - 2026
-        </h4>
-        <div class="rounded-lg overflow-hidden border border-slate-100">
-          <img src="/images/dai su thuong hieu.jpg" onerror="this.src='https://placehold.co/500x260/e2e8f0/005a2b?text=John+Terry+-+QQ88'" class="w-full object-cover" alt="John Terry">
-        </div>
-        <div class="mt-2 text-xs text-slate-600 leading-relaxed">
-          <strong>John Terry</strong> chính thức trở thành Đại Sứ Toàn Cầu, cam kết sự minh bạch, đẳng cấp và uy tín hàng đầu cho toàn bộ người chơi.
-        </div>
-      </div>
+    <!-- 7. HỘI VIÊN THẮNG LỚN (hoi vien thang lon.jpg) -->
+    <div class="w-full px-2 mt-2">
+      <img src="/images/hoi vien thang lon.jpg" class="w-full block rounded-xl shadow-sm" alt="Hội viên thắng lớn">
     </div>
 
-    <!-- 10. CHỨNG NHẬN GIẤY PHÉP & BẢO TRÌ -->
-    <footer class="mt-6 px-4 py-5 bg-white border-t border-slate-200 text-center text-slate-500 text-[10px]">
-      <div class="grid grid-cols-2 gap-4 text-left mb-4">
-        <div>
-          <div class="font-bold text-slate-800 mb-1">Giấy Phép Quốc Tế</div>
-          <p>bmm, iTech Labs, GLI Verified & Secured</p>
-        </div>
-        <div>
-          <div class="font-bold text-slate-800 mb-1">Bảo Vệ Người Dùng</div>
-          <p>iovation, ThreatMetrix 256-bit SSL</p>
-        </div>
-      </div>
-      <p>© 2026 QQ88. All rights reserved. Chơi có trách nhiệm (18+).</p>
-    </footer>
+    <!-- 8. ĐẠI SỨ THƯƠNG HIỆU (dai su thuong hieu.jpg) -->
+    <div class="w-full px-2 mt-2.5">
+      <img src="/images/dai su thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Đại sứ thương hiệu John Terry">
+    </div>
 
-    <!-- 11. BOTTOM NAVIGATION CỐ ĐỊNH CHÂN TRANG (5 NÚT CHUẨN) -->
-    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-200 flex justify-around items-center py-2 z-50 shadow-lg">
-      <button class="flex flex-col items-center text-brand-green">
-        <i class="fa-solid fa-house text-lg"></i>
-        <span class="text-[10px] font-bold mt-0.5">TRANG CHỦ</span>
-      </button>
-      <button class="flex flex-col items-center text-slate-400 hover:text-brand-green">
-        <i class="fa-solid fa-gift text-lg"></i>
-        <span class="text-[10px] font-semibold mt-0.5">KHUYẾN MÃI</span>
-      </button>
-      <button class="flex flex-col items-center text-slate-400 hover:text-brand-green">
-        <i class="fa-solid fa-coins text-lg"></i>
-        <span class="text-[10px] font-semibold mt-0.5">HOÀN TRẢ</span>
-      </button>
-      <button class="flex flex-col items-center text-slate-400 hover:text-brand-green">
-        <i class="fa-solid fa-headset text-lg"></i>
-        <span class="text-[10px] font-semibold mt-0.5">LIÊN HỆ</span>
-      </button>
-      <button onclick="toggleAuthState()" class="flex flex-col items-center text-slate-400 hover:text-brand-green">
-        <i class="fa-solid fa-user text-lg"></i>
-        <span class="text-[10px] font-semibold mt-0.5">TÀI KHOẢN</span>
-      </button>
-    </nav>
+    <!-- 9. TIN TỨC CHIẾN DỊCH & CHỨNG CHỈ (chien dich thuong hieu.jpg) -->
+    <div class="w-full px-2 mt-2.5 mb-4">
+      <img src="/images/chien dich thuong hieu.jpg" class="w-full block rounded-xl shadow-sm" alt="Chiến dịch thương hiệu">
+    </div>
+
+    <!-- 10. BOTTOM NAVIGATION BAR (TRANG CHU, KHUYEN MAI, HOAN TRA, LIEN HE, TAI KHOAN) -->
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-slate-200 flex justify-around items-center py-1.5 z-50 shadow-lg">
+      <div class="flex flex-col items-center cursor-pointer">
+        <img src="/images/TRANG CHU.png" class="h-10 w-auto" alt="Trang chủ">
+      </div>
+      <div class="flex flex-col items-center cursor-pointer">
+        <img src="/images/KHUYEN MAI.png" class="h-10 w-auto" alt="Khuyến mãi">
+      </div>
+      <div class="flex flex-col items-center cursor-pointer">
+        <img src="/images/HOAN TRA.png" class="h-10 w-auto" alt="Hoàn trả">
+      </div>
+      <div class="flex flex-col items-center cursor-pointer">
+        <img src="/images/LIEN HE.png" class="h-10 w-auto" alt="Liên hệ">
+      </div>
+      <div class="flex flex-col items-center cursor-pointer" onclick="toggleAuth()">
+        <img src="/images/TAI KHOAN.png" class="h-10 w-auto" alt="Tài khoản">
+      </div>
+    </div>
 
   </div>
 
-  <!-- POPUP ĐĂNG NHẬP / ĐĂNG KÝ -->
-  <div id="auth-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-    <div class="bg-white w-full max-w-sm rounded-2xl p-5 shadow-2xl relative">
-      <button onclick="closeAuthModal()" class="absolute top-3 right-3 text-slate-400 hover:text-black">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
-      
-      <div class="flex gap-4 border-b border-slate-200 mb-4 pb-2">
-        <button id="modal-tab-login" onclick="switchModalTab('login')" class="font-bold text-brand-green border-b-2 border-brand-green pb-1 text-sm">ĐĂNG NHẬP</button>
-        <button id="modal-tab-register" onclick="switchModalTab('register')" class="font-semibold text-slate-400 pb-1 text-sm">ĐĂNG KÝ</button>
-      </div>
-
-      <div class="space-y-3">
-        <div>
-          <label class="text-[11px] font-bold text-slate-600">Tên đăng nhập / Số điện thoại</label>
-          <input type="text" placeholder="Nhập tên tài khoản" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-green mt-1">
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-600">Mật khẩu</label>
-          <input type="password" placeholder="Nhập mật khẩu" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-green mt-1">
-        </div>
-        <button onclick="handleAuthSubmit()" class="w-full bg-brand-green text-white font-bold py-2.5 rounded-lg text-xs hover:bg-brand-dark transition">XÁC NHẬN</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT ĐIỀU KHIỂN LOGIC CHÍNH -->
+  <!-- SCRIPT RENDER DANH SÁCH GAME BẰNG ĐÚNG TÊN FILE ẢNH BẠN ĐÃ CẮT -->
   <script>
-    // Danh sách toàn bộ thẻ game theo ảnh đã cung cấp
-    const games = [
-      { name: "Thắng Mạt Chược", provider: "AS", cat: "nohu", img: "/images/THANG MAT CHƯỢC.png" },
-      { name: "Năm Mới Lộ Lộ Phát", provider: "FC", cat: "nohu", img: "/images/NĂM MỚI LỘ LỘ PHAT.png" },
-      { name: "Neko May Mắn", provider: "PG", cat: "nohu", img: "/images/NEKO MAY MAN.png" },
-      { name: "Aviator", provider: "SPRIBE", cat: "nohu", img: "/images/AVIATOR.png" },
-      { name: "Miền Tây Hoang Dã", provider: "VG", cat: "nohu", img: "/images/MIEN TAY HOANG DA.png" },
-      { name: "Siêu Cấp Ace", provider: "JL", cat: "nohu", img: "/images/SIEU CAP ACE.png" },
-      { name: "Đường Mạt Chược", provider: "PG", cat: "nohu", img: "/images/DUONG MAT CHƯỢC.png" },
-      { name: "Mạt Chược Thắng 4", provider: "VG", cat: "nohu", img: "/images/MAT CHƯỢC THANG 4.png" },
-      { name: "Jackpot Đánh Cá", provider: "JL", cat: "banca", img: "/images/JACKPOT DANH CA.png" },
-      { name: "Kho Báu Aztec", provider: "PG", cat: "nohu", img: "/images/KHO BAU AZTEC.png" },
-      { name: "DJ Boom Boom", provider: "FC", cat: "nohu", img: "/images/DJ BOOM BOOM.png" },
-      { name: "Chiến Thắng Poker", provider: "FC", cat: "nohu", img: "/images/CHIEN THANG POKER.png" },
-      { name: "Xóc Đĩa", provider: "V8Poker", cat: "gamebai", img: "/images/XÓC ĐĨA_.png" },
-      { name: "Ngọc May Mắn 3", provider: "JL", cat: "nohu", img: "/images/NGỌC MAY MAN 3.png" },
-      { name: "Quyết Chiến Tiền Thưởng", provider: "168G", cat: "nohu", img: "/images/QUYẾT CHIẾN TIEN THUG_.png" },
-      { name: "Tài Xỉu", provider: "V8Poker", cat: "gamebai", img: "/images/TAI Xiu.png" },
-      { name: "Jackpot Vua Tài Lộc", provider: "JL", cat: "banca", img: "/images/JACKPOT VUA TAI LOC.png" },
-      { name: "Thần Chiến Garuda 500", provider: "JL", cat: "nohu", img: "/images/THAN CHIEN GARUDA 500.png" },
-      { name: "Đế Quốc Hoàng Kim", provider: "JL", cat: "nohu", img: "/images/DE QUOC HOANG KIM.png" },
-      { name: "Thợ Săn Ngôi Sao", provider: "FC", cat: "banca", img: "/images/THỢ SAN NGOI SAO.png" },
-      { name: "Lễ Hội Đá Quý", provider: "PP", cat: "nohu", img: "/images/LÊ HỘI ĐÁ QUÝ.png" },
-      { name: "Thỏ May Mắn", provider: "PG", cat: "nohu", img: "/images/THO MAY MAN.png" },
-      { name: "Bậc Thầy Phi Hành Gia", provider: "BGaming", cat: "nohu", img: "/images/BAC THAY PHI HANH GIA.png" },
-      { name: "Cao Bồi Hoang Dã", provider: "PG", cat: "nohu", img: "/images/CAO BOI HOANG DA.png" },
-      { name: "Ngọc May Mắn 2", provider: "JL", cat: "nohu", img: "/images/NGỌC MAY MAN 2.png" },
-      { name: "Thần Tài Nhân Bội Phá", provider: "VA", cat: "nohu", img: "/images/THAN TAI NHAN BOI PHA_.png" },
-      { name: "Jackpot Đánh Cá 2", provider: "JL", cat: "banca", img: "/images/JACKPOT ĐÁNH CÁ 2.png" },
-      { name: "Kỳ Lân Mách Nước", provider: "PG", cat: "banca", img: "/images/KY LAN MACH NƯỚC.png" },
-      { name: "Mạt Chược Hoang Dã", provider: "168G", cat: "nohu", img: "/images/MAT CHƯỢC HOANG DA.png" },
-      { name: "SABA Thể Thao", provider: "SABA", cat: "thethao", img: "/images/SABA THE THAO.png" }
+    // Danh sách toàn bộ các file ảnh game bạn đã tải lên
+    const gameList = [
+      { file: "THANG MAT CHƯỢC.png", cat: "nohu" },
+      { file: "NĂM MỚI LỘ LỘ PHAT.png", cat: "nohu" },
+      { file: "NEKO MAY MAN.png", cat: "nohu" },
+      { file: "AVIATOR.png", cat: "nohu" },
+      { file: "MIEN TAY HOANG DA.png", cat: "nohu" },
+      { file: "SIEU CAP ACE.png", cat: "nohu" },
+      { file: "DUONG MAT CHƯỢC.png", cat: "nohu" },
+      { file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
+      { file: "JACKPOT DANH CA.png", cat: "banca" },
+      { file: "KHO BAU AZTEC.png", cat: "nohu" },
+      { file: "DJ BOOM BOOM.png", cat: "nohu" },
+      { file: "CHIEN THANG POKER.png", cat: "nohu" },
+      { file: "XÓC ĐĨA_.png", cat: "gamebai" },
+      { file: "NGỌC MAY MAN 3.png", cat: "nohu" },
+      { file: "QUYẾT CHIẾN TIEN THUG_.png", cat: "nohu" },
+      { file: "TAI Xiu.png", cat: "gamebai" },
+      { file: "JACKPOT VUA TAI LOC.png", cat: "banca" },
+      { file: "THAN CHIEN GARUDA 500.png", cat: "nohu" },
+      { file: "DE QUOC HOANG KIM.png", cat: "nohu" },
+      { file: "THỢ SAN NGOI SAO.png", cat: "banca" },
+      { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" },
+      { file: "THO MAY MAN.png", cat: "nohu" },
+      { file: "BAC THAY PHI HANH GIA.png", cat: "nohu" },
+      { file: "CAO BOI HOANG DA.png", cat: "nohu" },
+      { file: "NGỌC MAY MAN 2.png", cat: "nohu" },
+      { file: "THAN TAI NHAN BOI PHA_.png", cat: "nohu" },
+      { file: "JACKPOT ĐÁNH CÁ 2.png", cat: "banca" },
+      { file: "KY LAN MACH NƯỚC.png", cat: "banca" },
+      { file: "MAT CHƯỢC HOANG DA.png", cat: "nohu" },
+      { file: "SABA THE THAO.png", cat: "thethao" }
     ];
 
-    let currentCategory = 'hot';
-    let isLoggedIn = false;
+    let isAuth = true;
 
-    // Render danh sách game
-    function renderGames(filter = 'hot') {
-      const grid = document.getElementById('game-grid');
-      grid.innerHTML = '';
+    // Hiển thị danh sách game theo đúng ảnh cắt
+    function render(category = 'all') {
+      const container = document.getElementById('game-container');
+      container.innerHTML = '';
       
-      const filtered = filter === 'hot' ? games : games.filter(g => g.cat === filter);
-      
+      const filtered = category === 'all' || category === 'hot' 
+        ? gameList 
+        : gameList.filter(g => g.cat === category);
+
       filtered.forEach(game => {
-        const card = document.createElement('div');
-        card.className = "bg-white rounded-xl p-1.5 flex flex-col items-center border border-slate-100 card-shadow cursor-pointer hover:-translate-y-0.5 transition duration-150 active:scale-95";
-        card.onclick = () => alert(`Đang tải trò chơi: ${game.name} (${game.provider})`);
-        
-        card.innerHTML = `
-          <div class="w-full aspect-square rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center relative">
-            <img src="${game.img}" onerror="this.src='https://placehold.co/150x150/005a2b/ffffff?text=${encodeURIComponent(game.name)}'" class="w-full h-full object-cover" loading="lazy">
-            <span class="absolute top-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded font-bold uppercase">${game.provider}</span>
-          </div>
-          <span class="text-[11px] font-bold text-slate-800 text-center mt-1.5 line-clamp-1 w-full">${game.name}</span>
-        `;
-        grid.appendChild(card);
+        const item = document.createElement('div');
+        item.className = 'cursor-pointer';
+        item.onclick = () => alert("Vào bàn chơi: " + game.file.replace('.png', ''));
+        item.innerHTML = `<img src="/images/${encodeURIComponent(game.file)}" class="game-card-img" alt="${game.file}" loading="lazy">`;
+        container.appendChild(item);
       });
     }
 
-    // Cuộn danh mục
-    function scrollCategories(val) {
-      document.getElementById('category-scroll').scrollLeft += val;
+    // Cuộn danh mục game
+    function scrollCats(distance) {
+      document.getElementById('cat-scroll').scrollLeft += distance;
     }
 
-    // Lọc theo tab danh mục
-    function filterCategory(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.remove('bg-yellow-300', 'border-2', 'border-brand-green');
-        btn.classList.add('bg-white', 'border', 'border-green-200');
-      });
-      event.currentTarget.classList.remove('bg-white', 'border-green-200');
-      event.currentTarget.classList.add('bg-yellow-300', 'border-2', 'border-brand-green');
-      renderGames(cat);
+    // Lọc theo loại game
+    function filterGames(cat) {
+      render(cat);
     }
 
-    // Chuyển đổi trạng thái Đăng nhập / Chưa đăng nhập
-    function toggleAuthState() {
-      isLoggedIn = !isLoggedIn;
-      document.getElementById('unauth-box').classList.toggle('hidden', isLoggedIn);
-      document.getElementById('auth-box').classList.toggle('hidden', !isLoggedIn);
-      document.getElementById('auth-state-text').innerText = isLoggedIn ? 'Đã Đăng Nhập' : 'Chưa Đăng Nhập';
+    // Bấm vào khu vực tài khoản để đổi qua lại giữa Đã đăng nhập (nen 6) và Chưa đăng nhập (nen 5)
+    function toggleAuth() {
+      isAuth = !isAuth;
+      const img = document.getElementById('auth-img');
+      img.src = isAuth ? '/images/nen 6.png' : '/images/nen 5.png';
     }
 
-    // Tải thêm game (Infinite scroll simulation)
-    function loadMoreGames() {
-      games.push(...games.slice(0, 6));
-      renderGames(currentCategory);
-    }
-
-    // Auth Modals
-    function openAuthModal(mode) {
-      document.getElementById('auth-modal').classList.remove('hidden');
-      switchModalTab(mode);
-    }
-    function closeAuthModal() {
-      document.getElementById('auth-modal').classList.add('hidden');
-    }
-    function switchModalTab(tab) {
-      const loginTab = document.getElementById('modal-tab-login');
-      const regTab = document.getElementById('modal-tab-register');
-      if (tab === 'login') {
-        loginTab.className = "font-bold text-brand-green border-b-2 border-brand-green pb-1 text-sm";
-        regTab.className = "font-semibold text-slate-400 pb-1 text-sm";
-      } else {
-        regTab.className = "font-bold text-brand-green border-b-2 border-brand-green pb-1 text-sm";
-        loginTab.className = "font-semibold text-slate-400 pb-1 text-sm";
-      }
-    }
-    function handleAuthSubmit() {
-      toggleAuthState();
-      closeAuthModal();
-    }
-
-    // Khởi chạy khi load trang
-    window.addEventListener('DOMContentLoaded', () => {
-      renderGames('hot');
-    });
+    // Khởi chạy ban đầu
+    window.onload = () => {
+      render('all');
+    };
   </script>
 </body>
 </html>

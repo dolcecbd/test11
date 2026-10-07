@@ -24,7 +24,7 @@
       min-height: 100vh;
       background-color: #dce7e1;
       position: relative;
-      padding-bottom: 72px; /* Chừa khoảng trống cho thanh đáy */
+      padding-bottom: 60px; /* Khoảng trống vừa vặn cho thanh điều hướng đáy */
       overflow-x: hidden;
     }
     img {
@@ -99,7 +99,7 @@
       transform: scale(0.96);
     }
 
-    /* THANH BOTTOM BAR CĂN CHỈNH LẠI CHỮ TO, NÉT ĐẬM CHUẨN 100% */
+    /* THANH BOTTOM BAR 1 TẦNG DUY NHẤT - KHÔNG BỊ TRÙNG CHỮ */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -108,38 +108,30 @@
       width: 100%;
       max-width: 430px;
       background: #ffffff;
-      border-top: 1px solid #c8d6cf;
+      border-top: 1px solid #d4ded8;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 6px 0 8px 0;
+      padding: 3px 4px 4px 4px;
       z-index: 99;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
     }
-    .nav-item {
+    .nav-btn {
+      width: 19%;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       cursor: pointer;
       text-decoration: none;
-      width: 20%;
     }
-    .nav-item img {
+    .nav-btn img {
       width: auto;
-      height: 28px; /* Tối ưu lại chiều cao icon */
+      height: 46px; /* Kích thước vừa vặn cho cả icon và nhãn chữ sẵn trong ảnh */
+      max-width: 100%;
       object-fit: contain;
     }
-    .nav-item span {
-      font-size: 11px; /* Tăng kích thước chữ to rõ ràng */
-      font-weight: 700; /* In đậm nét */
-      margin-top: 3px;
-      letter-spacing: -0.2px;
-    }
-    .nav-item.active span {
-      color: #005a2b; /* Xanh lá chuẩn QQ88 */
-    }
-    .nav-item.inactive span {
-      color: #64748b; /* Xám chuẩn */
+    .nav-btn:active {
+      transform: scale(0.94);
     }
   </style>
 </head>
@@ -210,34 +202,29 @@
       <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 10. BOTTOM NAVIGATION BAR - CĂN CHUẨN ĐÚNG THEO ẢNH BẠN GỬI -->
+    <!-- 10. BOTTOM NAVIGATION BAR - DÙNG DUY NHẤT 1 LỚP ẢNH CẮT GỐC -->
     <div class="bottom-nav">
-      <div class="nav-item active">
-        <img src="/images/TRANG CHU.png" onerror="handleImgErr(this, ['/images/TRANG%20CHU.PNG'])" alt="Trang Chủ">
-        <span>TRANG CHỦ</span>
+      <div class="nav-btn">
+        <img src="/images/TRANG CHU.png" onerror="handleImgErr(this, ['/images/TRANG%20CHU.PNG', '/images/TRANG CHU.jpg'])" alt="Trang Chủ">
       </div>
-      <div class="nav-item inactive">
-        <img src="/images/KHUYEN MAI.png" onerror="handleImgErr(this, ['/images/KHUYEN%20MAI.PNG'])" alt="Khuyến Mãi">
-        <span>KHUYẾN MÃI</span>
+      <div class="nav-btn">
+        <img src="/images/KHUYEN MAI.png" onerror="handleImgErr(this, ['/images/KHUYEN%20MAI.PNG', '/images/KHUYEN MAI.jpg'])" alt="Khuyến Mãi">
       </div>
-      <div class="nav-item inactive">
-        <img src="/images/HOAN TRA.png" onerror="handleImgErr(this, ['/images/HOAN%20TRA.PNG'])" alt="Hoàn Trả">
-        <span>HOÀN TRẢ</span>
+      <div class="nav-btn">
+        <img src="/images/HOAN TRA.png" onerror="handleImgErr(this, ['/images/HOAN%20TRA.PNG', '/images/HOAN TRA.jpg'])" alt="Hoàn Trả">
       </div>
-      <div class="nav-item inactive">
-        <img src="/images/LIEN HE.png" onerror="handleImgErr(this, ['/images/LIEN%20HE.PNG'])" alt="Liên Hệ">
-        <span>LIÊN HỆ</span>
+      <div class="nav-btn">
+        <img src="/images/LIEN HE.png" onerror="handleImgErr(this, ['/images/LIEN%20HE.PNG', '/images/LIEN HE.jpg'])" alt="Liên Hệ">
       </div>
-      <div class="nav-item inactive" onclick="swapUserBox()">
-        <img src="/images/TAI KHOAN.png" onerror="handleImgErr(this, ['/images/TAI%20KHOAN.PNG'])" alt="Tài Khoản">
-        <span>TÀI KHOẢN</span>
+      <div class="nav-btn" onclick="swapUserBox()">
+        <img src="/images/TAI KHOAN.png" onerror="handleImgErr(this, ['/images/TAI%20KHOAN.PNG', '/images/TAI KHOAN.jpg'])" alt="Tài Khoản">
       </div>
     </div>
 
   </div>
 
   <script>
-    // Hàm tự động thử các biến thể tên file nếu bị sai chữ hoa/thường trên Render
+    // Hàm tự động thử các biến thể tên file nếu có sai lệch chữ hoa/thường trên Render
     function handleImgErr(img, fallbacks) {
       if (!img.dataset.tryCount) img.dataset.tryCount = 0;
       let count = parseInt(img.dataset.tryCount);

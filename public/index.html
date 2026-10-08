@@ -22,7 +22,7 @@
       width: 100%;
       max-width: 430px;
       min-height: 100vh;
-      background-color: #ebf1ed;
+      background-color: #edf2ef;
       position: relative;
       padding-bottom: 66px;
       overflow-x: hidden;
@@ -74,15 +74,15 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN CĂN CHUẨN XÁC THEO ẢNH 2 */
+    /* KHỐI TÀI KHOẢN CĂN CHỈNH TỪNG PIXEL THEO BẢN GỐC */
     .account-wrapper {
-      padding: 4px 6px;
+      padding: 4px 8px 2px 8px;
     }
     .account-card {
       background: #ffffff;
-      border-radius: 14px;
-      padding: 6px 10px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 6px 8px 6px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -130,61 +130,73 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 2px;
+      padding-top: 1px;
     }
-    /* Hàng VIP0 */
-    .vip-badge-row {
-      display: flex;
+
+    /* Huy hiệu VIP0 chuẩn màu vàng cam + viền nhạt */
+    .vip-badge-tag {
+      display: inline-flex;
       align-items: center;
+      background: #ebfbee;
+      border-radius: 10px;
+      padding: 1px 6px 1px 2px;
+      width: fit-content;
       margin-bottom: 2px;
     }
-    .vip-img {
-      height: 18px;
-      width: auto;
-      object-fit: contain;
+    .vip-gem {
+      width: 17px;
+      height: 15px;
+      margin-right: 3px;
+    }
+    .vip-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #007530;
+      line-height: 1;
     }
 
     /* Hàng Tên tài khoản + Icon Copy */
     .user-name-row {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin: 2px 0;
+      gap: 5px;
+      margin: 2px 0 3px 0;
     }
     .user-name-text {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1e293b;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0b4f26;
       max-width: 82px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
+      font-family: Arial, Helvetica, sans-serif;
     }
-    .copy-icon-btn {
+    .copy-svg-btn {
       width: 14px;
       height: 14px;
       cursor: pointer;
-      object-fit: contain;
       flex-shrink: 0;
+      fill: #007530;
     }
 
-    /* Hàng Số dư: Đồng xu -> Số tiền -> Chữ K */
+    /* Hàng Số dư: Đồng xu tròn xám -> Số tiền -> K */
     .balance-row {
       display: flex;
       align-items: center;
       gap: 4px;
-      margin-top: 1px;
     }
-    .coin-img {
+    .coin-svg {
       width: 15px;
       height: 15px;
-      object-fit: contain;
+      flex-shrink: 0;
     }
     .balance-text {
-      font-size: 13px;
-      font-weight: 800;
-      color: #475569;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #4b5563;
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1;
     }
 
@@ -203,19 +215,22 @@
 
     .logout-btn-tag {
       position: absolute;
-      top: 3px;
-      right: 8px;
-      font-size: 9px;
-      color: #ef4444;
+      top: 1px;
+      right: 6px;
+      font-size: 8.5px;
+      color: #94a3b8;
       cursor: pointer;
-      font-weight: bold;
+      padding: 1px 3px;
+    }
+    .logout-btn-tag:hover {
+      color: #ef4444;
     }
 
     /* Thanh cuộn danh mục sảnh game */
     .cat-bar {
       display: flex;
       align-items: center;
-      background: #ebf1ed;
+      background: #edf2ef;
       padding: 3px 4px;
     }
     .cat-scroll {
@@ -236,7 +251,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5px;
-      padding: 6px 8px;
+      padding: 5px 8px;
     }
     .game-grid img {
       width: 100%;
@@ -250,7 +265,7 @@
       transform: scale(0.96);
     }
 
-    /* Bottom Navigation Bar */
+    /* BOTTOM NAVIGATION BAR */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -401,13 +416,13 @@
       <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <div class="marquee-content">
         <div class="marquee-inner">
-          thương hiệu uy tín, sản phẩm đa dạng, an ninh bảo mật | Hotline: 0908007888. Email: admin@qq88.com
+          Địa chỉ chính thức của chúng tôi là: https://qq88a3.com/ ( PC ), 8888386.com ( Mobile ) | Hotline: 0908007888
         </div>
       </div>
       <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT - CĂN CHỈNH ĐẸP NÉT THEO ẢNH GỐC -->
+    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT - CĂN CHỈNH TỪNG PIXEL THEO BẢN GỐC -->
     <div class="account-wrapper">
       <div class="account-card">
         
@@ -418,27 +433,44 @@
           <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
         </div>
 
-        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (CĂN CHUẨN ĐỒNG XU, SỐ DƯ VÀ TÊN TK) -->
+        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP -->
         <div id="user-zone" class="user-box" style="display: none;">
           
           <!-- Cột trái: Thông tin tài khoản -->
           <div class="user-left-col">
-            <!-- Icon VIP0 -->
-            <div class="vip-badge-row">
-              <img src="/images/vip0.png" class="vip-img" alt="VIP0">
+            
+            <!-- Huy hiệu VIP0 -->
+            <div class="vip-badge-tag">
+              <svg class="vip-gem" viewBox="0 0 24 20" fill="none">
+                <polygon points="6,0 18,0 24,6 12,20 0,6" fill="#FBBF24"/>
+                <polygon points="6,0 18,0 15,6 9,6" fill="#F59E0B"/>
+                <polygon points="0,6 9,6 12,20" fill="#D97706"/>
+                <polygon points="24,6 15,6 12,20" fill="#B45309"/>
+                <polygon points="9,6 15,6 12,20" fill="#FDE68A"/>
+                <polyline points="9,9 12,13 15,9" stroke="#78350F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="vip-text">VIP0</span>
             </div>
 
             <!-- Tên tài khoản + Nút Copy -->
             <div class="user-name-row">
               <span class="user-name-text" id="display-username">quanmi112</span>
-              <img src="/images/nutcoppy.png" class="copy-icon-btn" onclick="copyUsername()" alt="Copy">
+              <svg class="copy-svg-btn" onclick="copyUsername()" viewBox="0 0 24 24">
+                <rect x="7" y="2" width="14" height="15" rx="3" fill="#007530"/>
+                <path d="M4 6C2.9 6 2 6.9 2 8V20C2 21.1 2.9 22 4 22H15C16.1 22 17 21.1 17 20V19H7C5.9 19 5 18.1 5 17V6H4Z" fill="#007530" fill-opacity="0.5"/>
+              </svg>
             </div>
 
-            <!-- Đồng xu $ -> Số tiền -> K -->
+            <!-- Đồng xu kim loại $ -> Số tiền -> K -->
             <div class="balance-row">
-              <img src="/images/coin.png" class="coin-img" alt="Coin">
+              <svg class="coin-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="11" fill="#4B5563"/>
+                <circle cx="12" cy="12" r="9" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+                <text x="12" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">$</text>
+              </svg>
               <span class="balance-text"><span id="display-balance">0</span>K</span>
             </div>
+
           </div>
 
           <!-- Cột phải: 4 Nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu -->
@@ -446,7 +478,7 @@
             <img src="/images/nav_actions.png" alt="Actions">
           </div>
 
-          <span id="logout-tag" class="logout-btn-tag" onclick="logoutAccount()">Đăng xuất</span>
+          <span id="logout-tag" class="logout-btn-tag" onclick="logoutAccount()">[Đăng xuất]</span>
         </div>
 
       </div>

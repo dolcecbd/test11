@@ -61,161 +61,106 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN VẬN HÀNH THẬT */
-    .account-card {
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 8px 10px;
-      margin: 6px 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 74px;
-    }
-
-    /* Khối nút khi chưa đăng nhập */
-    .auth-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 35%;
-    }
-    .btn-login {
-      background: #ffffff;
-      border: 1.5px solid #005a2b;
-      color: #005a2b;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 5px 0;
-      border-radius: 7px;
-      cursor: pointer;
-      text-align: center;
-    }
-    .btn-register {
-      background: linear-gradient(180deg, #fce043 0%, #fbbe08 100%);
-      border: 1px solid #dca000;
-      color: #214300;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 5px 0;
-      border-radius: 7px;
-      cursor: pointer;
-      text-align: center;
+    /* KHỐI TÀI KHOẢN DÙNG ẢNH NỀN GỐC NÉT 100% */
+    .account-section {
+      padding: 4px 6px;
       position: relative;
     }
-    .tag-bonus {
-      position: absolute;
-      top: -6px;
-      right: -4px;
-      background: #e60000;
-      color: #ffffff;
-      font-size: 9px;
-      font-weight: 900;
-      padding: 1px 4px;
-      border-radius: 8px;
-      line-height: 1;
+    .account-bg-img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      display: block;
     }
 
-    /* Khối tài khoản khi đã đăng nhập (chuẩn gốc QQ88) */
-    .user-profile {
-      width: 36%;
+    /* Lớp phủ đè thông tin tài khoản thật lên ảnh gốc */
+    .user-overlay {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      width: 32%;
+      height: 60px;
+      background: #ffffff; /* Che chính xác chữ quanmi112 cũ */
       display: flex;
       flex-direction: column;
       justify-content: center;
+      border-radius: 8px;
+      padding-left: 2px;
     }
-    .vip-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      background: #fff6db;
-      border: 1px solid #f6c042;
-      color: #a86200;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 1px 6px;
-      border-radius: 4px;
-      width: fit-content;
-    }
-    .user-name-row {
+    .vip-row {
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-top: 4px;
+      gap: 3px;
     }
-    .user-name-text {
-      font-size: 13.5px;
+    .vip-icon {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+    }
+    .vip-text {
+      color: #00a651;
+      font-size: 11px;
       font-weight: 800;
+    }
+    .uname-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .uname-text {
+      font-size: 12.5px;
+      font-weight: 700;
       color: #1e293b;
-      max-width: 82px;
+      max-width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .copy-btn {
+    .copy-icon {
       cursor: pointer;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       fill: #005a2b;
     }
-    .user-balance {
+    .balance-row {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-top: 3px;
-      font-size: 13px;
-      font-weight: 900;
-      color: #1e293b;
+      gap: 3px;
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748b;
     }
 
-    /* 4 Icon chức năng bên phải */
-    .action-icons {
-      display: flex;
-      gap: 6px;
-      flex: 1;
-      justify-content: flex-end;
-    }
-    .action-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      cursor: pointer;
-      width: 44px;
-    }
-    .action-box {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid #00a651;
-      background: #f4fcf6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .action-box svg {
-      width: 26px;
-      height: 26px;
-      fill: #008744;
-    }
-    .action-text {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #0b4f26;
-      margin-top: 3px;
-      white-space: nowrap;
-    }
-    .action-badge {
+    /* Khu vực bấm nút trên ảnh */
+    .click-area-login {
       position: absolute;
-      top: -5px;
-      right: -2px;
-      background: #e60000;
-      color: white;
-      font-size: 8.5px;
-      font-weight: 900;
+      top: 10px;
+      left: 12px;
+      width: 33%;
+      height: 30px;
+      cursor: pointer;
+    }
+    .click-area-register {
+      position: absolute;
+      top: 42px;
+      left: 12px;
+      width: 33%;
+      height: 30px;
+      cursor: pointer;
+    }
+    .click-area-logout {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
       padding: 1px 4px;
-      border-radius: 6px;
-      line-height: 1;
+      font-size: 9px;
+      color: #ef4444;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     /* Thanh cuộn danh mục sảnh game */
@@ -256,7 +201,7 @@
       transform: scale(0.96);
     }
 
-    /* BOTTOM NAVIGATION BAR CHUẨN XỊN */
+    /* Bottom Navigation Bar dùng đúng 5 ảnh cắt của bạn */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -265,40 +210,32 @@
       width: 100%;
       max-width: 430px;
       background: #ffffff;
-      border-top: 1px solid #dbe6df;
+      border-top: 1px solid #d4ded8;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 6px 0 6px 0;
+      padding: 3px 4px 4px 4px;
       z-index: 99;
-      box-shadow: 0 -3px 10px rgba(0,0,0,0.04);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
     }
     .nav-btn {
+      width: 19%;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       cursor: pointer;
-      width: 20%;
     }
-    .nav-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: #85958b;
+    .nav-btn img {
+      width: auto;
+      height: 46px;
+      max-width: 100%;
+      object-fit: contain;
     }
-    .nav-btn span {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #64748b;
-      margin-top: 2px;
-    }
-    .nav-btn.active svg {
-      fill: #005a2b;
-    }
-    .nav-btn.active span {
-      color: #005a2b;
+    .nav-btn:active {
+      transform: scale(0.95);
     }
 
-    /* Modal Form */
+    /* POPUP ĐĂNG NHẬP / ĐĂNG KÝ */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -413,92 +350,37 @@
       <span style="font-size: 14px; cursor: pointer;">✉️</span>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT -->
-    <div class="account-card">
+    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ẢNH GỐC NEN 6 & NEN 5 -->
+    <div class="account-section">
       
-      <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP -->
-      <div id="guest-zone" class="auth-buttons" style="display: flex;">
-        <button onclick="openAuthModal('login')" class="btn-login">ĐĂNG NHẬP</button>
-        <button onclick="openAuthModal('register')" class="btn-register">
-          ĐĂNG KÝ
-          <span class="tag-bonus">+58K</span>
-        </button>
+      <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP (Dùng ảnh nen 5.png chuẩn) -->
+      <div id="guest-zone" style="position: relative; display: block;">
+        <img src="/images/nen 5.png" class="account-bg-img" alt="Guest Bar">
+        <div class="click-area-login" onclick="openAuthModal('login')"></div>
+        <div class="click-area-register" onclick="openAuthModal('register')"></div>
       </div>
 
-      <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (TỰ ĐỘNG HIỆN TÊN THẬT) -->
-      <div id="user-zone" class="user-profile" style="display: none;">
-        <div class="vip-badge">
-          <span>👑</span> <span id="display-vip">VIP0</span>
+      <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (Dùng ảnh nen 6.png và đè thông tin thật) -->
+      <div id="user-zone" style="position: relative; display: none;">
+        <img src="/images/nen 6.png" class="account-bg-img" alt="User Bar">
+        
+        <!-- Đè chính xác thông tin tài khoản thật vào góc trái của nen 6 -->
+        <div class="user-overlay">
+          <div class="vip-row">
+            <span style="color: #f59e0b; font-size: 11px;">🔶</span>
+            <span class="vip-text" id="display-vip">VIP0</span>
+          </div>
+          <div class="uname-row">
+            <span class="uname-text" id="display-username">admin</span>
+            <svg class="copy-icon" onclick="copyUsername()" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          </div>
+          <div class="balance-row">
+            <span style="background: #94a3b8; color: #fff; border-radius: 50%; width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 8px;">$</span>
+            <span id="display-balance">0</span> K
+          </div>
         </div>
-        <div class="user-name-row">
-          <span id="display-username" class="user-name-text">admin</span>
-          <svg class="copy-btn" onclick="copyUsername()" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-          <span onclick="logoutAccount()" title="Đăng xuất" style="cursor: pointer; font-size: 11px; color: #ef4444; margin-left: 4px;">🚪</span>
-        </div>
-        <div class="user-balance">
-          <span style="color: #ca8a04;">🪙</span>
-          <span id="display-balance">58</span> K
-        </div>
-      </div>
 
-      <!-- 4 ICON BÊN PHẢI (CHUYỂN ĐỔI CHUẨN XÁC GIỮA NẠP TIỀN/RÚT TIỀN HOẶC ĐỔI QUÀ/TIN TỨC) -->
-      <div id="action-guest" class="action-icons" style="display: flex;">
-        <div class="action-item" onclick="openAuthModal('login')">
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M12 2L4 9l8 13 8-13-8-7zm0 3.2L16.4 9H7.6L12 5.2zM7.2 11h9.6L12 18.8 7.2 11z"/></svg>
-          </div>
-          <span class="action-text">Đổi Quà</span>
-        </div>
-        <div class="action-item" onclick="openAuthModal('login')">
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-          </div>
-          <span class="action-text">Tin Tức</span>
-        </div>
-        <div class="action-item" onclick="openAuthModal('login')">
-          <span class="action-badge">60%</span>
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M16 6V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H2v13c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6h-6zm-6-2h4v2h-4V4zm-2 9h8v2H8v-2z"/></svg>
-          </div>
-          <span class="action-text">Đại Lý</span>
-        </div>
-        <div class="action-item" onclick="openAuthModal('login')">
-          <span class="action-badge">+276K</span>
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-          </div>
-          <span class="action-text">Giới Thiệu</span>
-        </div>
-      </div>
-
-      <!-- KHI ĐÃ ĐĂNG NHẬP: HIỆN CHUẨN NẠP TIỀN & RÚT TIỀN -->
-      <div id="action-user" class="action-icons" style="display: none;">
-        <div class="action-item" onclick="alert('Mở cổng nạp tiền')">
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-          </div>
-          <span class="action-text">Nạp Tiền</span>
-        </div>
-        <div class="action-item" onclick="alert('Mở cổng rút tiền')">
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-          </div>
-          <span class="action-text">Rút Tiền</span>
-        </div>
-        <div class="action-item" onclick="alert('Chương trình đại lý 60%')">
-          <span class="action-badge">60%</span>
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M16 6V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H2v13c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6h-6zm-6-2h4v2h-4V4zm-2 9h8v2H8v-2z"/></svg>
-          </div>
-          <span class="action-text">Đại Lý</span>
-        </div>
-        <div class="action-item" onclick="alert('Giới thiệu bạn bè +276K')">
-          <span class="action-badge">+276K</span>
-          <div class="action-box">
-            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-          </div>
-          <span class="action-text">Giới Thiệu</span>
-        </div>
+        <div class="click-area-logout" onclick="logoutAccount()">Đăng xuất</div>
       </div>
 
     </div>
@@ -537,27 +419,22 @@
       <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 10. BOTTOM NAVIGATION BAR - ICON VECTOR CHUẨN XỊN KHÔNG BAO GIỜ BỊ VỠ -->
+    <!-- 10. BOTTOM NAVIGATION BAR - DÙNG ĐÚNG ẢNH CẮT GỐC NÉT 100% -->
     <div class="bottom-nav">
-      <div class="nav-btn active">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span>TRANG CHỦ</span>
+      <div class="nav-btn">
+        <img src="/images/TRANG CHU.png" onerror="handleImgErr(this, ['/images/TRANG%20CHU.PNG', '/images/TRANG CHU.jpg'])" alt="Trang Chủ">
       </div>
       <div class="nav-btn">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
-        <span>KHUYẾN MÃI</span>
+        <img src="/images/KHUYEN MAI.png" onerror="handleImgErr(this, ['/images/KHUYEN%20MAI.PNG', '/images/KHUYEN MAI.jpg'])" alt="Khuyến Mãi">
       </div>
       <div class="nav-btn">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v-.07zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        <span>HOÀN TRẢ</span>
+        <img src="/images/HOAN TRA.png" onerror="handleImgErr(this, ['/images/HOAN%20TRA.PNG', '/images/HOAN TRA.jpg'])" alt="Hoàn Trả">
       </div>
       <div class="nav-btn">
-        <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
-        <span>LIÊN HỆ</span>
+        <img src="/images/LIEN HE.png" onerror="handleImgErr(this, ['/images/LIEN%20HE.PNG', '/images/LIEN HE.jpg'])" alt="Liên Hệ">
       </div>
       <div class="nav-btn" onclick="openAuthModal('login')">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span>TÀI KHOẢN</span>
+        <img src="/images/TAI KHOAN.png" onerror="handleImgErr(this, ['/images/TAI%20KHOAN.PNG', '/images/TAI KHOAN.jpg'])" alt="Tài Khoản">
       </div>
     </div>
 
@@ -659,7 +536,7 @@
       renderGames(cat);
     }
 
-    /* HỆ THỐNG ĐỒNG BỘ DỮ LIỆU TỰ ĐỘNG - KHÔNG BAO GIỜ MẤT TÀI KHOẢN */
+    /* QUẢN LÝ TÀI KHOẢN VẬN HÀNH THẬT */
     let currentAuthMode = 'login';
 
     function openAuthModal(mode = 'login') {
@@ -747,23 +624,17 @@
 
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
-        const actionGuest = document.getElementById('action-guest');
-        const actionUser = document.getElementById('action-user');
 
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
-          actionGuest.style.display = 'none';
-          userZone.style.display = 'flex';
-          actionUser.style.display = 'flex';
+          userZone.style.display = 'block';
 
           document.getElementById('display-username').innerText = data.user.username;
           document.getElementById('display-balance').innerText = data.user.balance;
           document.getElementById('display-vip').innerText = 'VIP' + (data.user.vip || 0);
         } else {
-          guestZone.style.display = 'flex';
-          actionGuest.style.display = 'flex';
+          guestZone.style.display = 'block';
           userZone.style.display = 'none';
-          actionUser.style.display = 'none';
         }
       } catch (e) {
         console.error(e);

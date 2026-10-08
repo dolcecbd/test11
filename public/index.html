@@ -115,7 +115,7 @@
       cursor: pointer;
     }
 
-    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên dải ảnh phôi user_phoi_real.png */
+    /* 2. ĐÃ ĐĂNG NHẬP: Dùng dải phôi user_phoi_real.png */
     .user-box-real {
       width: 100%;
       position: relative;
@@ -127,7 +127,6 @@
       border-radius: 8px;
     }
     
-    /* Tên tài khoản thật được định vị chính xác giữa VIP0 và nút Copy */
     .real-username-label {
       position: absolute;
       top: 38%;
@@ -144,7 +143,6 @@
       pointer-events: none;
     }
 
-    /* Vùng bấm copy tên tài khoản */
     .touch-copy-area {
       position: absolute;
       top: 34%;
@@ -154,7 +152,6 @@
       cursor: pointer;
     }
 
-    /* Vùng bấm các nút chức năng nạp rút */
     .touch-actions-area {
       position: absolute;
       top: 0;
@@ -246,7 +243,7 @@
     }
 
     /* ======================================================== */
-    /* SIDEBAR DRAWER MENU 3 GẠCH TRƯỢT TỪ BÊN TRÁI RA           */
+    /* SIDEBAR DRAWER MENU 3 GẠCH CHUẨN XÁC 100% GỐC            */
     /* ======================================================== */
     .sidebar-overlay {
       position: fixed;
@@ -254,7 +251,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 9998;
       display: none;
       opacity: 0;
@@ -263,16 +260,18 @@
     .sidebar-drawer {
       position: fixed;
       top: 0;
-      left: -285px;
-      width: 280px;
+      left: -82%;
+      width: 76%;
+      max-width: 325px;
       height: 100%;
-      background: #f6faf7;
+      background: #eef6f0;
       z-index: 9999;
-      box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
-      transition: left 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+      transition: left 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      overflow-x: hidden;
     }
     .sidebar-drawer.open {
       left: 0;
@@ -282,65 +281,70 @@
       opacity: 1;
     }
 
-    /* 1. Vòm xanh lá chứa Logo QQ88 */
+    /* 1. Header vòm xanh lá chứa Logo QQ88 */
     .sidebar-header-curve {
       background: #005a2b;
-      padding: 16px 15px 14px 15px;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
+      padding: 18px 16px 14px 16px;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 8px rgba(0, 90, 43, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 70, 30, 0.25);
+      flex-shrink: 0;
     }
     .sidebar-logo-text {
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 900;
-      color: #ffde00;
+      color: #ffdc00;
       font-style: italic;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
+      font-family: Arial, sans-serif;
     }
 
     /* 2. Banner Đại Sứ John Terry */
     .sidebar-banner-terry {
-      padding: 10px 10px 4px 10px;
+      padding: 10px 12px 2px 12px;
+      flex-shrink: 0;
     }
     .sidebar-banner-terry img {
       width: 100%;
       border-radius: 8px;
     }
 
-    /* 3. Dòng hiển thị ngày giờ thực */
+    /* 3. Dòng hiển thị ngày giờ thực tế */
     .sidebar-clock-text {
       text-align: center;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: #334155;
-      padding: 4px 0 8px 0;
+      color: #1e293b;
+      padding: 6px 0 10px 0;
       font-family: Arial, sans-serif;
+      letter-spacing: -0.2px;
+      flex-shrink: 0;
     }
 
-    /* 4. Danh sách các mục menu điều hướng */
+    /* 4. Danh sách 10 mục menu điều hướng */
     .sidebar-menu-list {
       display: flex;
       flex-direction: column;
-      padding: 0 10px 20px 10px;
+      padding: 0 14px 30px 14px;
     }
     .sidebar-menu-item {
       display: flex;
       align-items: center;
-      padding: 10.5px 6px;
-      border-bottom: 1px solid #dbe6de;
+      padding: 11.5px 4px;
+      border-bottom: 1px solid #cfe0d4;
       cursor: pointer;
       text-decoration: none;
     }
     .sidebar-menu-item:active {
-      background-color: #e2ede5;
+      background-color: #dcece0;
       border-radius: 6px;
     }
     .sidebar-item-icon {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -348,16 +352,25 @@
       flex-shrink: 0;
     }
     .sidebar-item-icon svg {
-      width: 22px;
-      height: 22px;
-      fill: #009944;
+      width: 25px;
+      height: 25px;
     }
     .sidebar-item-text {
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 800;
       color: #0b572a;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
       font-family: Arial, sans-serif;
+    }
+
+    /* 5. Dải vòm xanh lá chân menu khi kéo hết xuống đáy */
+    .sidebar-bottom-curve {
+      height: 48px;
+      background: linear-gradient(180deg, rgba(167, 218, 183, 0.4) 0%, #86cd9e 100%);
+      border-top-left-radius: 50% 18px;
+      border-top-right-radius: 50% 18px;
+      margin-top: 10px;
+      flex-shrink: 0;
     }
 
     /* Modal Form Đăng ký / Đăng nhập */
@@ -457,7 +470,8 @@
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
   <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
-    <!-- 1. Vòm xanh bo tròn QQ88 -->
+    
+    <!-- 1. Vòm cong xanh lá QQ88 -->
     <div class="sidebar-header-curve">
       <div class="sidebar-logo-text">QQ88</div>
     </div>
@@ -469,16 +483,23 @@
 
     <!-- 3. Đồng hồ điện tử tự chạy thời gian thực -->
     <div id="sidebar-live-clock" class="sidebar-clock-text">
-      08/10/2026 17:10:35 (GMT+7)
+      08/10/2026 20:48:30 (GMT+7)
     </div>
 
-    <!-- 4. Danh sách 10 mục điều hướng -->
+    <!-- 4. Danh sách 10 mục điều hướng chuẩn nét 100% -->
     <div class="sidebar-menu-list">
       
       <!-- Mục 1: ĐẠI SỨ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.3 5.8.5-4.4 3.8 1.3 5.6-5.1-3.1-5.1 3.1 1.3-5.6-4.4-3.8 5.8-.5zM12 15l3 3.5-1 4.5-2-1.5-2 1.5-1-4.5z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <circle cx="16" cy="12" r="8" fill="#009944"/>
+            <polygon points="16,6 18,10.5 22.5,11 19,14 20,18.5 16,16 12,18.5 13,14 9.5,11 14,10.5" fill="#ffffff"/>
+            <path d="M11 18L8 28L16 24L24 28L21 18" fill="#009944"/>
+            <circle cx="16" cy="3" r="1.5" fill="#009944"/>
+            <circle cx="21" cy="4.5" r="1.3" fill="#009944"/>
+            <circle cx="11" cy="4.5" r="1.3" fill="#009944"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">ĐẠI SỨ</span>
       </div>
@@ -486,7 +507,10 @@
       <!-- Mục 2: FACEBOOK -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <rect x="2" y="2" width="28" height="28" rx="8" fill="#009944"/>
+            <path d="M19 16.5h3l.5-3.5h-3.5v-2.2c0-.9.4-1.8 1.8-1.8H22V6.2s-1.4-.2-2.6-.2c-2.7 0-4.4 1.6-4.4 4.5v2.5h-3v3.5h3V26h4v-9.5z" fill="#ffffff"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">FACEBOOK</span>
       </div>
@@ -494,7 +518,11 @@
       <!-- Mục 3: TẢI 1.1.1.1 -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <rect x="3" y="4" width="26" height="24" rx="6" fill="#009944"/>
+            <path d="M16 9v9m0 0l-4-4m4 4l4-4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="10" y1="22" x2="22" y2="22" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">TẢI 1.1.1.1</span>
       </div>
@@ -502,7 +530,12 @@
       <!-- Mục 4: CẨM NANG HƯỚNG DẪN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <path d="M4 7c3.5-1.5 8-1 12 1.5 4-2.5 8.5-3 12-1.5v17c-3.5-1.5-8-1-12 1.5-4-2.5-8.5-3-12-1.5V7z" fill="none" stroke="#009944" stroke-width="2.4" stroke-linejoin="round"/>
+            <line x1="16" y1="8.5" x2="16" y2="25.5" stroke="#009944" stroke-width="2.4"/>
+            <circle cx="16" cy="13" r="1.5" fill="#009944"/>
+            <line x1="16" y1="16" x2="16" y2="20" stroke="#009944" stroke-width="2"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
       </div>
@@ -510,7 +543,12 @@
       <!-- Mục 5: GÓP Ý NHẬN QUÀ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <path d="M4 6h24v15H18l-5 4v-4H4V6z" fill="#009944"/>
+            <rect x="9" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
+            <rect x="14.5" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
+            <rect x="20" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
       </div>
@@ -518,7 +556,12 @@
       <!-- Mục 6: LẤY LẠI MẬT KHẨU -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <rect x="5" y="12" width="22" height="16" rx="4" fill="#009944"/>
+            <path d="M10 12V8a6 6 0 0 1 12 0v4" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="16" cy="19" r="2.2" fill="#ffffff"/>
+            <line x1="16" y1="21.2" x2="16" y2="24" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
       </div>
@@ -526,7 +569,11 @@
       <!-- Mục 7: KHIẾU NẠI -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <path d="M16 3C8.8 3 3 8.4 3 15c0 2.8 1 5.4 2.8 7.4L4 28l6.2-2.5c1.8.8 3.8 1.3 5.8 1.3 7.2 0 13-5.4 13-11.8S23.2 3 16 3z" fill="#009944"/>
+            <line x1="16" y1="9" x2="16" y2="17" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="16" cy="21" r="1.5" fill="#ffffff"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">KHIẾU NẠI</span>
       </div>
@@ -534,7 +581,10 @@
       <!-- Mục 8: QUỸ THIỆN NGUYỆN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <path d="M16 13.5c-2-3-6-3-7.5-1-1.8 2.2-.8 5.5 1.5 7.8L16 26l6-5.7c2.3-2.3 3.3-5.6 1.5-7.8-1.5-2-5.5-2-7.5 1z" fill="#009944"/>
+            <path d="M3 24h9l3-3h6" fill="none" stroke="#009944" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
       </div>
@@ -542,7 +592,14 @@
       <!-- Mục 9: ĐĂNG KÝ ĐẠI LÝ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <circle cx="16" cy="10" r="4.5" fill="#009944"/>
+            <path d="M9 24c0-3.5 3.1-6 7-6s7 2.5 7 6H9z" fill="#009944"/>
+            <circle cx="7" cy="13" r="3" fill="#009944"/>
+            <path d="M3 24c0-2.5 2-4.5 4.5-4.5.8 0 1.6.2 2.2.6-.9 1.1-1.5 2.4-1.7 3.9H3z" fill="#009944"/>
+            <circle cx="25" cy="13" r="3" fill="#009944"/>
+            <path d="M29 24c0-2.5-2-4.5-4.5-4.5-.8 0-1.6.2-2.2.6.9 1.1 1.5 2.4 1.7 3.9H29z" fill="#009944"/>
+          </svg>
         </div>
         <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
       </div>
@@ -550,12 +607,19 @@
       <!-- Mục 10: ĐĂNG NHẬP / ĐĂNG XUẤT -->
       <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+          <svg viewBox="0 0 32 32">
+            <path d="M14 6H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h7" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M15 16h13m0 0l-5-5m5 5l-5 5" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
         <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
       </div>
 
     </div>
+
+    <!-- 5. Dải cong xanh lá ở chân menu (khi kéo kịch xuống dưới) -->
+    <div class="sidebar-bottom-curve"></div>
+
   </div>
 
 
@@ -718,11 +782,13 @@
     function openSidebar() {
       document.getElementById('sidebar-drawer').classList.add('open');
       document.getElementById('sidebar-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeSidebar() {
       document.getElementById('sidebar-drawer').classList.remove('open');
       document.getElementById('sidebar-overlay').classList.remove('open');
+      document.body.style.overflow = '';
     }
 
     function handleMenuClick(action) {
@@ -948,7 +1014,6 @@
           guestZone.style.display = 'none';
           userZone.style.display = 'block';
 
-          // Chỉ in đúng TÊN TÀI KHOẢN, không in đè bất kỳ số dư nào lên ảnh gốc
           document.getElementById('display-username').innerText = data.user.username;
           if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
         } else {

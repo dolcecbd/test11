@@ -12,13 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-  secret: 'qq88_super_secure_key_production',
+  secret: 'qq88_super_secure_production_key_2026',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 } // Nhớ đăng nhập 1 năm
+  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }
 }));
 
-// File dữ liệu lưu người dùng (dạng JSON nhẹ, đọc ghi siêu tốc)
 const DB_FILE = path.join(__dirname, 'users_data.json');
 
 function readUsers() {
@@ -41,10 +40,9 @@ function saveUsers(users) {
   }
 }
 
-// Phục vụ thư mục tĩnh
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 
-// 1. API Đăng ký tài khoản
+// 1. API Đăng ký (Số dư ban đầu = 0, không tặng trước)
 app.post('/api/register', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -62,21 +60,20 @@ app.post('/api/register', (req, res) => {
     return res.status(400).json({ success: false, message: 'Tài khoản này đã tồn tại!' });
   }
 
-  // Tạo tài khoản mới & cộng ngay 58K
   users[u] = {
     username: u,
     password: p,
-    balance: 58,
+    balance: 0,
     vip: 0,
     created_at: new Date().toISOString()
   };
   saveUsers(users);
 
   req.session.user = users[u];
-  res.json({ success: true, message: 'Đăng ký thành công! +58K vào ví', user: users[u] });
+  res.json({ success: true, message: 'Đăng ký tài khoản thành công!', user: users[u] });
 });
 
-// 2. API Đăng nhập (Hôm nay hay ngày mai vào vẫn dùng mật khẩu này)
+// 2. API Đăng nhập
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   const u = (username || '').trim();
@@ -91,13 +88,37 @@ app.post('/api/login', (req, res) => {
   res.json({ success: true, message: 'Đăng nhập thành công!', user: users[u] });
 });
 
-// 3. API Đồng bộ tài khoản từ thiết bị (Phòng trường hợp Render restart xóa cache)
+// 3. API Cập nhật / Nạp rút số dư tài khoản theo thời gian thực
+app.post('/api/update-balance', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ success: false, message: 'Chưa đăng nhập!' });
+  }
+  const { amount } = req.body;
+  const users = readUsers();
+  const u = req.session.user.username;
+
+  if (users[u]) {
+    users[u].balance = Math.max(0, (users[u].balance || 0) + Number(amount || 0));
+    saveUsers(users);
+    req.session.user = users[u];
+    return res.json({ success: true, balance: users[u].balance });
+  }
+  res.status(404).json({ success: false });
+});
+
+// 4. API Đồng bộ dữ liệu backup
 app.post('/api/sync-backup', (req, res) => {
   const { user } = req.body;
   if (user && user.username && user.password) {
     const users = readUsers();
     if (!users[user.username]) {
-      users[user.username] = user;
+      users[user.username] = {
+        username: user.username,
+        password: user.password,
+        balance: Number(user.balance || 0),
+        vip: 0,
+        created_at: new Date().toISOString()
+      };
       saveUsers(users);
     }
     req.session.user = users[user.username];
@@ -106,7 +127,7 @@ app.post('/api/sync-backup', (req, res) => {
   res.json({ success: false });
 });
 
-// 4. API Lấy thông tin phiên hiện tại
+// 5. API Kiểm tra phiên
 app.get('/api/me', (req, res) => {
   if (!req.session.user) {
     return res.json({ loggedIn: false });
@@ -119,7 +140,7 @@ app.get('/api/me', (req, res) => {
   res.json({ loggedIn: false });
 });
 
-// 5. API Đăng xuất
+// 6. API Đăng xuất
 app.post('/api/logout', (req, res) => {
   req.session.destroy();
   res.json({ success: true });
@@ -130,5 +151,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[QQ88 Server] Dang chay tren cong ${PORT}`);
+  console.log(`[QQ88 Server] Server dang chay tren cong ${PORT}`);
 });

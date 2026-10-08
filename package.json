@@ -1,14 +1,16 @@
 {
-  "name": "qq88-web-portal",
+  "name": "qq88-app",
   "version": "1.0.0",
-  "description": "QQ88 Gaming Portal Responsive Web",
+  "description": "QQ88 Web App Fullstack",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "sqlite3": "^5.1.7"
   },
   "engines": {
     "node": ">=18.0.0"

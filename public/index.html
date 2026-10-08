@@ -74,23 +74,20 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN CĂN CHỈNH TỪNG PIXEL THEO BẢN GỐC */
+    /* KHỐI TÀI KHOẢN RÁP NGUYÊN BẢN ẢNH PHÔI THẬT */
     .account-wrapper {
       padding: 4px 8px 2px 8px;
     }
     .account-card {
       background: #ffffff;
       border-radius: 12px;
-      padding: 6px 8px 6px 12px;
+      padding: 4px 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 72px;
       position: relative;
+      overflow: hidden;
     }
 
-    /* 1. Trạng thái CHƯA ĐĂNG NHẬP */
+    /* 1. CHƯA ĐĂNG NHẬP: Dùng nen 5.png */
     .guest-box {
       width: 100%;
       position: relative;
@@ -118,109 +115,78 @@
       cursor: pointer;
     }
 
-    /* 2. Trạng thái ĐÃ ĐĂNG NHẬP (KHỚP HOÀN TOÀN VỚI ẢNH GỐC) */
-    .user-box {
+    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên dải user_phoi_real.png */
+    .user-box-real {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: relative;
     }
-    .user-left-col {
-      width: 35%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 1px;
+    .user-phoi-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
     }
-
-    /* Huy hiệu VIP0 chuẩn màu vàng cam + viền nhạt */
-    .vip-badge-tag {
-      display: inline-flex;
-      align-items: center;
-      background: #ebfbee;
-      border-radius: 10px;
-      padding: 1px 6px 1px 2px;
-      width: fit-content;
-      margin-bottom: 2px;
-    }
-    .vip-gem {
-      width: 17px;
-      height: 15px;
-      margin-right: 3px;
-    }
-    .vip-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: #007530;
-      line-height: 1;
-    }
-
-    /* Hàng Tên tài khoản + Icon Copy */
-    .user-name-row {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin: 2px 0 3px 0;
-    }
-    .user-name-text {
+    
+    /* Vị trí tên tài khoản thật điền đúng vào chỗ trống giữa VIP0 và nút Copy */
+    .real-username-label {
+      position: absolute;
+      top: 40%;
+      left: 7.5%;
       font-size: 13.5px;
       font-weight: 600;
       color: #0b4f26;
-      max-width: 82px;
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: -0.3px;
+      max-width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      letter-spacing: -0.3px;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .copy-svg-btn {
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
-      flex-shrink: 0;
-      fill: #007530;
+      pointer-events: none;
     }
 
-    /* Hàng Số dư: Đồng xu tròn xám -> Số tiền -> K */
-    .balance-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .coin-svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-    }
-    .balance-text {
-      font-size: 12.5px;
+    /* Vị trí số dư cược thật điền đè ngay trước chữ 0K */
+    .real-balance-label {
+      position: absolute;
+      bottom: 11%;
+      left: 17%;
+      font-size: 12px;
       font-weight: 700;
-      color: #4b5563;
+      color: #374151;
       font-family: Arial, Helvetica, sans-serif;
-      line-height: 1;
+      pointer-events: none;
+      background: #ffffff;
+      padding: 0 1px;
     }
 
-    /* Cụm 4 nút bên phải */
-    .user-right-col {
-      width: 63%;
+    /* Vùng bấm copy tên tài khoản trên ảnh */
+    .touch-copy-area {
+      position: absolute;
+      top: 36%;
+      left: 23%;
+      width: 10%;
+      height: 32%;
       cursor: pointer;
-      display: flex;
-      justify-content: flex-end;
     }
-    .user-right-col img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
+
+    /* Vùng bấm 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu */
+    .touch-actions-area {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 65%;
+      height: 100%;
+      cursor: pointer;
     }
 
     .logout-btn-tag {
       position: absolute;
-      top: 1px;
+      top: 2px;
       right: 6px;
       font-size: 8.5px;
       color: #94a3b8;
       cursor: pointer;
       padding: 1px 3px;
+      z-index: 10;
     }
     .logout-btn-tag:hover {
       color: #ef4444;
@@ -422,7 +388,7 @@
       <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT - CĂN CHỈNH TỪNG PIXEL THEO BẢN GỐC -->
+    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ĐÚNG PHÔI ẢNH GỐC CỦA BẠN -->
     <div class="account-wrapper">
       <div class="account-card">
         
@@ -433,50 +399,21 @@
           <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
         </div>
 
-        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP -->
-        <div id="user-zone" class="user-box" style="display: none;">
-          
-          <!-- Cột trái: Thông tin tài khoản -->
-          <div class="user-left-col">
-            
-            <!-- Huy hiệu VIP0 -->
-            <div class="vip-badge-tag">
-              <svg class="vip-gem" viewBox="0 0 24 20" fill="none">
-                <polygon points="6,0 18,0 24,6 12,20 0,6" fill="#FBBF24"/>
-                <polygon points="6,0 18,0 15,6 9,6" fill="#F59E0B"/>
-                <polygon points="0,6 9,6 12,20" fill="#D97706"/>
-                <polygon points="24,6 15,6 12,20" fill="#B45309"/>
-                <polygon points="9,6 15,6 12,20" fill="#FDE68A"/>
-                <polyline points="9,9 12,13 15,9" stroke="#78350F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span class="vip-text">VIP0</span>
-            </div>
+        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (DÙNG NGUYÊN BẢN user_phoi_real.png) -->
+        <div id="user-zone" class="user-box-real" style="display: none;">
+          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
 
-            <!-- Tên tài khoản + Nút Copy -->
-            <div class="user-name-row">
-              <span class="user-name-text" id="display-username">quanmi112</span>
-              <svg class="copy-svg-btn" onclick="copyUsername()" viewBox="0 0 24 24">
-                <rect x="7" y="2" width="14" height="15" rx="3" fill="#007530"/>
-                <path d="M4 6C2.9 6 2 6.9 2 8V20C2 21.1 2.9 22 4 22H15C16.1 22 17 21.1 17 20V19H7C5.9 19 5 18.1 5 17V6H4Z" fill="#007530" fill-opacity="0.5"/>
-              </svg>
-            </div>
+          <!-- ĐIỀN TÊN TÀI KHOẢN THẬT VÀO ĐÚNG CHỖ TRỐNG -->
+          <span class="real-username-label" id="display-username">quanmi112</span>
 
-            <!-- Đồng xu kim loại $ -> Số tiền -> K -->
-            <div class="balance-row">
-              <svg class="coin-svg" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="11" fill="#4B5563"/>
-                <circle cx="12" cy="12" r="9" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
-                <text x="12" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">$</text>
-              </svg>
-              <span class="balance-text"><span id="display-balance">0</span>K</span>
-            </div>
+          <!-- ĐIỀN SỐ DƯ THẬT VÀO ĐÚNG CHỖ TRỐNG -->
+          <span class="real-balance-label" id="display-balance">58</span>
 
-          </div>
+          <!-- Vùng bấm icon copy trên ảnh -->
+          <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
 
-          <!-- Cột phải: 4 Nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu -->
-          <div class="user-right-col" onclick="alert('Mở cổng chức năng giao dịch')">
-            <img src="/images/nav_actions.png" alt="Actions">
-          </div>
+          <!-- Vùng bấm 4 nút chức năng bên phải -->
+          <div class="touch-actions-area" onclick="alert('Mở cổng chức năng giao dịch')"></div>
 
           <span id="logout-tag" class="logout-btn-tag" onclick="logoutAccount()">[Đăng xuất]</span>
         </div>
@@ -731,7 +668,7 @@
 
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
-          userZone.style.display = 'flex';
+          userZone.style.display = 'block';
 
           document.getElementById('display-username').innerText = data.user.username;
           document.getElementById('display-balance').innerText = data.user.balance || '0';

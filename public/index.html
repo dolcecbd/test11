@@ -74,7 +74,7 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN RÁP NGUYÊN BẢN ẢNH PHÔI THẬT */
+    /* KHỐI TÀI KHOẢN KHỚP 100% THEO ẢNH PHÔI GỐC */
     .account-wrapper {
       padding: 4px 8px 2px 8px;
     }
@@ -87,7 +87,7 @@
       overflow: hidden;
     }
 
-    /* 1. CHƯA ĐĂNG NHẬP: Dùng nen 5.png */
+    /* 1. CHƯA ĐĂNG NHẬP (Dùng nen 5.png) */
     .guest-box {
       width: 100%;
       position: relative;
@@ -115,7 +115,7 @@
       cursor: pointer;
     }
 
-    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên dải user_phoi_real.png */
+    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên bản dải ảnh user_phoi_real.png */
     .user-box-real {
       width: 100%;
       position: relative;
@@ -127,7 +127,7 @@
       border-radius: 8px;
     }
     
-    /* Vị trí tên tài khoản thật điền đúng vào chỗ trống giữa VIP0 và nút Copy */
+    /* Vị trí Tên tài khoản thật đặt chính xác vào chỗ trống giữa VIP0 và nút Copy */
     .real-username-label {
       position: absolute;
       top: 40%;
@@ -144,18 +144,19 @@
       pointer-events: none;
     }
 
-    /* Vị trí số dư cược thật điền đè ngay trước chữ 0K */
-    .real-balance-label {
+    /* Lớp phủ số dư linh hoạt: Khi số dư = 0, để nguyên ảnh phôi gốc (không in đè) */
+    .dynamic-balance-cover {
       position: absolute;
-      bottom: 11%;
+      bottom: 10%;
       left: 17%;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       color: #374151;
       font-family: Arial, Helvetica, sans-serif;
       pointer-events: none;
       background: #ffffff;
       padding: 0 1px;
+      display: none; /* Mặc định 0K dùng chính ảnh gốc */
     }
 
     /* Vùng bấm copy tên tài khoản trên ảnh */
@@ -168,7 +169,7 @@
       cursor: pointer;
     }
 
-    /* Vùng bấm 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu */
+    /* Vùng bấm 4 nút chức năng bên phải */
     .touch-actions-area {
       position: absolute;
       top: 0;
@@ -176,20 +177,6 @@
       width: 65%;
       height: 100%;
       cursor: pointer;
-    }
-
-    .logout-btn-tag {
-      position: absolute;
-      top: 2px;
-      right: 6px;
-      font-size: 8.5px;
-      color: #94a3b8;
-      cursor: pointer;
-      padding: 1px 3px;
-      z-index: 10;
-    }
-    .logout-btn-tag:hover {
-      color: #ef4444;
     }
 
     /* Thanh cuộn danh mục sảnh game */
@@ -388,34 +375,34 @@
       <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ĐÚNG PHÔI ẢNH GỐC CỦA BẠN -->
+    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ĐÚNG PHÔI ẢNH GỐC -->
     <div class="account-wrapper">
       <div class="account-card">
         
-        <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP (Dùng ảnh nen 5.png) -->
+        <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP (nen 5.png) -->
         <div id="guest-zone" class="guest-box" style="display: block;">
           <img src="/images/nen 5.png" class="guest-img" alt="Guest Bar">
           <div class="touch-btn-login" onclick="openAuthModal('login')"></div>
           <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
         </div>
 
-        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (DÙNG NGUYÊN BẢN user_phoi_real.png) -->
+        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (user_phoi_real.png) -->
         <div id="user-zone" class="user-box-real" style="display: none;">
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
 
-          <!-- ĐIỀN TÊN TÀI KHOẢN THẬT VÀO ĐÚNG CHỖ TRỐNG -->
+          <!-- Điền tên tài khoản thật vào đúng vị trí trống -->
           <span class="real-username-label" id="display-username">quanmi112</span>
 
-          <!-- ĐIỀN SỐ DƯ THẬT VÀO ĐÚNG CHỖ TRỐNG -->
-          <span class="real-balance-label" id="display-balance">58</span>
+          <!-- Chỉ hiển thị số dư cược khi số dư khác 0 (nạp tiền / cược thắng) -->
+          <span class="dynamic-balance-cover" id="display-balance-cover">
+            <span id="display-balance-val">0</span>K
+          </span>
 
-          <!-- Vùng bấm icon copy trên ảnh -->
+          <!-- Vùng bấm icon copy tên tài khoản -->
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
 
-          <!-- Vùng bấm 4 nút chức năng bên phải -->
-          <div class="touch-actions-area" onclick="alert('Mở cổng chức năng giao dịch')"></div>
-
-          <span id="logout-tag" class="logout-btn-tag" onclick="logoutAccount()">[Đăng xuất]</span>
+          <!-- Vùng bấm các nút chức năng giao dịch -->
+          <div class="touch-actions-area" onclick="handleActionsMenu()"></div>
         </div>
 
       </div>
@@ -473,7 +460,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
         <span>LIÊN HỆ</span>
       </div>
-      <div class="nav-item" onclick="openAuthModal('login')">
+      <div class="nav-item" onclick="openUserMenu()">
         <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
         <span>CẨM NANG</span>
       </div>
@@ -605,7 +592,7 @@
       } else {
         tabReg.classList.add('active');
         tabLogin.classList.remove('active');
-        btnAction.innerText = 'ĐĂNG KÝ (+58K)';
+        btnAction.innerText = 'ĐĂNG KÝ';
       }
     }
 
@@ -629,8 +616,8 @@
           localStorage.setItem('qq88_saved_account', JSON.stringify({
             username: data.user.username,
             password: password,
-            balance: data.user.balance,
-            vip: data.user.vip
+            balance: data.user.balance || 0,
+            vip: data.user.vip || 0
           }));
           closeAuthModal();
           checkSession();
@@ -665,13 +652,23 @@
 
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
+        const balanceCover = document.getElementById('display-balance-cover');
+        const balanceVal = document.getElementById('display-balance-val');
 
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
           userZone.style.display = 'block';
 
           document.getElementById('display-username').innerText = data.user.username;
-          document.getElementById('display-balance').innerText = data.user.balance || '0';
+
+          // Nếu số dư = 0 thì ẩn đi (dùng số 0K nguyên bản của ảnh phôi)
+          const bal = Number(data.user.balance || 0);
+          if (bal > 0) {
+            balanceCover.style.display = 'inline-block';
+            balanceVal.innerText = bal;
+          } else {
+            balanceCover.style.display = 'none';
+          }
         } else {
           guestZone.style.display = 'block';
           userZone.style.display = 'none';
@@ -687,12 +684,25 @@
       alert('Đã sao chép: ' + u);
     }
 
-    async function logoutAccount() {
-      if (confirm('Bạn có muốn đăng xuất khỏi tài khoản không?')) {
-        localStorage.removeItem('qq88_saved_account');
-        await fetch('/api/logout', { method: 'POST' });
-        checkSession();
+    function handleActionsMenu() {
+      alert('Mở cổng Nạp / Rút / Đại lý');
+    }
+
+    function openUserMenu() {
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) {
+        openAuthModal('login');
+      } else {
+        if (confirm('Tài khoản: ' + document.getElementById('display-username').innerText + '\nBạn có muốn đăng xuất không?')) {
+          logoutAccount();
+        }
       }
+    }
+
+    async function logoutAccount() {
+      localStorage.removeItem('qq88_saved_account');
+      await fetch('/api/logout', { method: 'POST' });
+      checkSession();
     }
 
     window.onload = () => {

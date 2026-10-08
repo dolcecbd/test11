@@ -61,102 +61,99 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN DÙNG ẢNH NỀN GỐC NÉT 100% */
-    .account-section {
-      padding: 4px 6px;
+    /* KHỐI TÀI KHOẢN RÁP BẰNG PHÔI GỐC NÉT 100% */
+    .account-card-container {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 7px 10px;
+      margin: 6px 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
       position: relative;
     }
-    .account-bg-img {
+
+    /* 1. Trạng thái CHƯA ĐĂNG NHẬP */
+    .auth-left-box {
+      width: 33%;
+      cursor: pointer;
+    }
+    .auth-left-box img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      display: block;
+      height: auto;
+      object-fit: contain;
     }
 
-    /* Lớp phủ đè thông tin tài khoản thật lên ảnh gốc */
-    .user-overlay {
-      position: absolute;
-      top: 10px;
-      left: 14px;
+    /* 2. Trạng thái ĐÃ ĐĂNG NHẬP (Dùng đúng phôi user_blank.png) */
+    .user-info-box {
       width: 32%;
-      height: 60px;
-      background: #ffffff; /* Che chính xác chữ quanmi112 cũ */
+      height: 64px;
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border-radius: 8px;
-      padding-left: 2px;
     }
-    .vip-row {
+    .user-bg-phoi {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    /* Điền tên tài khoản động vào giữa phôi */
+    .dynamic-username-wrap {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      width: 100%;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
+      padding-left: 2px;
       gap: 3px;
     }
-    .vip-icon {
-      width: 14px;
-      height: 14px;
-      display: inline-block;
-    }
-    .vip-text {
-      color: #00a651;
-      font-size: 11px;
-      font-weight: 800;
-    }
-    .uname-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 2px;
-    }
-    .uname-text {
-      font-size: 12.5px;
+    .dynamic-username-text {
+      font-size: 13px;
       font-weight: 700;
-      color: #1e293b;
-      max-width: 80px;
+      color: #005a2b; /* Xanh lá đậm chuẩn gốc */
+      max-width: 78px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .copy-icon {
+    .btn-copy-icon {
+      width: 13px;
+      height: 13px;
       cursor: pointer;
-      width: 12px;
-      height: 12px;
-      fill: #005a2b;
+      object-fit: contain;
+      flex-shrink: 0;
     }
-    .balance-row {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      margin-top: 2px;
-      font-size: 11px;
+    /* Điền số dư cược động đè đúng vào phôi */
+    .dynamic-balance-text {
+      position: absolute;
+      bottom: 6px;
+      left: 28px;
+      font-size: 11.5px;
       font-weight: 800;
-      color: #64748b;
+      color: #334155;
     }
 
-    /* Khu vực bấm nút trên ảnh */
-    .click-area-login {
-      position: absolute;
-      top: 10px;
-      left: 12px;
-      width: 33%;
-      height: 30px;
+    /* Cụm 4 nút bên phải dùng đúng ảnh nav_actions.png */
+    .actions-right-box {
+      width: 65%;
       cursor: pointer;
     }
-    .click-area-register {
-      position: absolute;
-      top: 42px;
-      left: 12px;
-      width: 33%;
-      height: 30px;
-      cursor: pointer;
+    .actions-right-box img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
-    .click-area-logout {
+
+    .btn-logout-tiny {
       position: absolute;
-      top: 6px;
+      top: 2px;
       right: 6px;
-      background: rgba(0,0,0,0.05);
-      border-radius: 4px;
-      padding: 1px 4px;
       font-size: 9px;
       color: #ef4444;
       cursor: pointer;
@@ -201,7 +198,7 @@
       transform: scale(0.96);
     }
 
-    /* Bottom Navigation Bar dùng đúng 5 ảnh cắt của bạn */
+    /* Bottom Navigation Bar - Dùng đúng ảnh cắt gốc */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -231,11 +228,8 @@
       max-width: 100%;
       object-fit: contain;
     }
-    .nav-btn:active {
-      transform: scale(0.95);
-    }
 
-    /* POPUP ĐĂNG NHẬP / ĐĂNG KÝ */
+    /* Modal Form Đăng ký / Đăng nhập */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -350,39 +344,35 @@
       <span style="font-size: 14px; cursor: pointer;">✉️</span>
     </div>
 
-    <!-- 4. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ẢNH GỐC NEN 6 & NEN 5 -->
-    <div class="account-section">
+    <!-- 4. KHỐI TÀI KHOẢN - GHÉP CHUẨN XÁC TỪNG PHÔI ẢNH -->
+    <div class="account-card-container">
       
-      <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP (Dùng ảnh nen 5.png chuẩn) -->
-      <div id="guest-zone" style="position: relative; display: block;">
-        <img src="/images/nen 5.png" class="account-bg-img" alt="Guest Bar">
-        <div class="click-area-login" onclick="openAuthModal('login')"></div>
-        <div class="click-area-register" onclick="openAuthModal('register')"></div>
+      <!-- CỘT TRÁI: Khi CHƯA đăng nhập -->
+      <div id="guest-zone" class="auth-left-box" onclick="openAuthModal('login')" style="display: block;">
+        <img src="/images/btn_auth.png" onerror="this.onerror=null; this.src='/images/nen 5.png';" alt="Đăng nhập / Đăng ký">
       </div>
 
-      <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (Dùng ảnh nen 6.png và đè thông tin thật) -->
-      <div id="user-zone" style="position: relative; display: none;">
-        <img src="/images/nen 6.png" class="account-bg-img" alt="User Bar">
+      <!-- CỘT TRÁI: Khi ĐÃ đăng nhập (Dùng phôi user_blank.png và điền số thật) -->
+      <div id="user-zone" class="user-info-box" style="display: none;">
+        <img src="/images/user_blank.png" class="user-bg-phoi" alt="User Box">
         
-        <!-- Đè chính xác thông tin tài khoản thật vào góc trái của nen 6 -->
-        <div class="user-overlay">
-          <div class="vip-row">
-            <span style="color: #f59e0b; font-size: 11px;">🔶</span>
-            <span class="vip-text" id="display-vip">VIP0</span>
-          </div>
-          <div class="uname-row">
-            <span class="uname-text" id="display-username">admin</span>
-            <svg class="copy-icon" onclick="copyUsername()" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-          </div>
-          <div class="balance-row">
-            <span style="background: #94a3b8; color: #fff; border-radius: 50%; width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 8px;">$</span>
-            <span id="display-balance">0</span> K
-          </div>
+        <!-- Điền Tên thật & Icon copy -->
+        <div class="dynamic-username-wrap">
+          <span class="dynamic-username-text" id="display-username">quanmi112</span>
+          <img src="/images/nutcoppy.png" class="btn-copy-icon" onclick="copyUsername()" alt="Copy">
         </div>
 
-        <div class="click-area-logout" onclick="logoutAccount()">Đăng xuất</div>
+        <!-- Điền Số dư cược thật -->
+        <span class="dynamic-balance-text" id="display-balance">0</span>
       </div>
 
+      <!-- CỘT PHẢI: Cụm 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu -->
+      <div class="actions-right-box" onclick="handleActionClick()">
+        <img src="/images/nav_actions.png" alt="Nạp Tiền Rút Tiền">
+      </div>
+
+      <!-- Nút đăng xuất nhỏ góc trên khi đã login -->
+      <span id="logout-tag" class="btn-logout-tiny" onclick="logoutAccount()" style="display: none;">Đăng xuất</span>
     </div>
 
     <!-- 5. Thanh Cuộn Danh Mục Sảnh Game -->
@@ -419,7 +409,7 @@
       <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 10. BOTTOM NAVIGATION BAR - DÙNG ĐÚNG ẢNH CẮT GỐC NÉT 100% -->
+    <!-- 10. BOTTOM NAVIGATION BAR (DÙNG ĐÚNG 5 ẢNH CẮT GỐC NÉT 100%) -->
     <div class="bottom-nav">
       <div class="nav-btn">
         <img src="/images/TRANG CHU.png" onerror="handleImgErr(this, ['/images/TRANG%20CHU.PNG', '/images/TRANG CHU.jpg'])" alt="Trang Chủ">
@@ -624,17 +614,19 @@
 
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
+        const logoutTag = document.getElementById('logout-tag');
 
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
-          userZone.style.display = 'block';
+          userZone.style.display = 'flex';
+          logoutTag.style.display = 'block';
 
           document.getElementById('display-username').innerText = data.user.username;
-          document.getElementById('display-balance').innerText = data.user.balance;
-          document.getElementById('display-vip').innerText = 'VIP' + (data.user.vip || 0);
+          document.getElementById('display-balance').innerText = data.user.balance || '0';
         } else {
           guestZone.style.display = 'block';
           userZone.style.display = 'none';
+          logoutTag.style.display = 'none';
         }
       } catch (e) {
         console.error(e);
@@ -644,7 +636,7 @@
     function copyUsername() {
       const u = document.getElementById('display-username').innerText;
       navigator.clipboard.writeText(u);
-      alert('Đã sao chép tên tài khoản: ' + u);
+      alert('Đã sao chép: ' + u);
     }
 
     async function logoutAccount() {
@@ -652,6 +644,15 @@
         localStorage.removeItem('qq88_saved_account');
         await fetch('/api/logout', { method: 'POST' });
         checkSession();
+      }
+    }
+
+    function handleActionClick() {
+      const isLogin = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogin) {
+        openAuthModal('login');
+      } else {
+        alert('Mở menu chức năng giao dịch');
       }
     }
 

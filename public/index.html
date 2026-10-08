@@ -608,7 +608,7 @@
       renderGames(cat);
     }
 
-    /* KẾT NỐI BACKEND NODE.JS & SQLITE */
+    /* HỆ THỐNG ĐỒNG BỘ DỮ LIỆU TỰ ĐỘNG - KHÔNG BAO GIỜ MẤT TÀI KHOẢN */
     let currentAuthMode = 'login';
 
     function openAuthModal(mode = 'login') {
@@ -657,30 +657,54 @@
 
         if (data.success) {
           alert(data.message);
+          // Lưu vào bộ nhớ máy để không bao giờ mất
+          localStorage.setItem('qq88_saved_account', JSON.stringify({
+            username: data.user.username,
+            password: password,
+            balance: data.user.balance,
+            vip: data.user.vip
+          }));
           closeAuthModal();
           checkSession();
         } else {
           alert(data.message);
         }
       } catch (err) {
-        alert('Lỗi kết nối tới Server!');
+        alert('Lỗi kết nối tới máy chủ!');
       }
     }
 
     async function checkSession() {
       try {
-        const res = await fetch('/api/me');
-        const data = await res.json();
+        let res = await fetch('/api/me');
+        let data = await res.json();
+
+        // Tự động khôi phục dữ liệu nếu máy chủ khởi động lại
+        if (!data.loggedIn) {
+          const localBackup = localStorage.getItem('qq88_saved_account');
+          if (localBackup) {
+            const savedUser = JSON.parse(localBackup);
+            const syncRes = await fetch('/api/sync-backup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ user: savedUser })
+            });
+            const syncData = await syncRes.json();
+            if (syncData.success) {
+              data = { loggedIn: true, user: syncData.user };
+            }
+          }
+        }
 
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
 
-        if (data.loggedIn) {
+        if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
           userZone.style.display = 'flex';
           document.getElementById('display-username').innerText = data.user.username;
           document.getElementById('display-balance').innerText = data.user.balance;
-          document.getElementById('display-vip').innerText = 'VIP' + data.user.vip;
+          document.getElementById('display-vip').innerText = 'VIP' + (data.user.vip || 0);
         } else {
           guestZone.style.display = 'flex';
           userZone.style.display = 'none';
@@ -691,7 +715,8 @@
     }
 
     async function logoutAccount() {
-      if (confirm('Bạn có muốn đăng xuất khỏi tài khoản?')) {
+      if (confirm('Bạn có muốn đăng xuất khỏi tài khoản không?')) {
+        localStorage.removeItem('qq88_saved_account');
         await fetch('/api/logout', { method: 'POST' });
         checkSession();
       }

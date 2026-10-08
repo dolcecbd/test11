@@ -87,7 +87,7 @@
       overflow: hidden;
     }
 
-    /* 1. CHƯA ĐĂNG NHẬP (Dùng nen 5.png) */
+    /* 1. CHƯA ĐĂNG NHẬP (nen 5.png) */
     .guest-box {
       width: 100%;
       position: relative;
@@ -115,7 +115,7 @@
       cursor: pointer;
     }
 
-    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên bản dải ảnh user_phoi_real.png */
+    /* 2. ĐÃ ĐĂNG NHẬP: Dùng nguyên dải ảnh phôi user_phoi_real.png */
     .user-box-real {
       width: 100%;
       position: relative;
@@ -127,49 +127,34 @@
       border-radius: 8px;
     }
     
-    /* Vị trí Tên tài khoản thật đặt chính xác vào chỗ trống giữa VIP0 và nút Copy */
+    /* Tên tài khoản thật được định vị chính xác giữa VIP0 và nút Copy */
     .real-username-label {
       position: absolute;
-      top: 40%;
-      left: 7.5%;
+      top: 38%;
+      left: 6.5%;
       font-size: 13.5px;
       font-weight: 600;
-      color: #0b4f26;
+      color: #0b572a;
       font-family: Arial, Helvetica, sans-serif;
-      letter-spacing: -0.3px;
-      max-width: 80px;
+      letter-spacing: -0.2px;
+      max-width: 82px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       pointer-events: none;
     }
 
-    /* Lớp phủ số dư linh hoạt: Khi số dư = 0, để nguyên ảnh phôi gốc (không in đè) */
-    .dynamic-balance-cover {
-      position: absolute;
-      bottom: 10%;
-      left: 17%;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #374151;
-      font-family: Arial, Helvetica, sans-serif;
-      pointer-events: none;
-      background: #ffffff;
-      padding: 0 1px;
-      display: none; /* Mặc định 0K dùng chính ảnh gốc */
-    }
-
-    /* Vùng bấm copy tên tài khoản trên ảnh */
+    /* Vùng bấm copy tên tài khoản trên phôi ảnh */
     .touch-copy-area {
       position: absolute;
-      top: 36%;
+      top: 34%;
       left: 23%;
       width: 10%;
-      height: 32%;
+      height: 34%;
       cursor: pointer;
     }
 
-    /* Vùng bấm 4 nút chức năng bên phải */
+    /* Vùng bấm các nút chức năng nạp rút */
     .touch-actions-area {
       position: absolute;
       top: 0;
@@ -390,13 +375,8 @@
         <div id="user-zone" class="user-box-real" style="display: none;">
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
 
-          <!-- Điền tên tài khoản thật vào đúng vị trí trống -->
+          <!-- Điền TÊN TÀI KHOẢN THẬT vào đúng khoảng trống -->
           <span class="real-username-label" id="display-username">quanmi112</span>
-
-          <!-- Chỉ hiển thị số dư cược khi số dư khác 0 (nạp tiền / cược thắng) -->
-          <span class="dynamic-balance-cover" id="display-balance-cover">
-            <span id="display-balance-val">0</span>K
-          </span>
 
           <!-- Vùng bấm icon copy tên tài khoản -->
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
@@ -613,11 +593,12 @@
 
         if (data.success) {
           alert(data.message);
+          // Lưu vào bộ nhớ máy, số dư cố định = 0
           localStorage.setItem('qq88_saved_account', JSON.stringify({
             username: data.user.username,
             password: password,
-            balance: data.user.balance || 0,
-            vip: data.user.vip || 0
+            balance: 0,
+            vip: 0
           }));
           closeAuthModal();
           checkSession();
@@ -631,44 +612,41 @@
 
     async function checkSession() {
       try {
+        // Dọn sạch giá trị 58K cũ trong bộ nhớ trình duyệt nếu có
+        let localBackup = localStorage.getItem('qq88_saved_account');
+        if (localBackup) {
+          let parsed = JSON.parse(localBackup);
+          if (parsed.balance !== 0) {
+            parsed.balance = 0;
+            localStorage.setItem('qq88_saved_account', JSON.stringify(parsed));
+          }
+        }
+
         let res = await fetch('/api/me');
         let data = await res.json();
 
-        if (!data.loggedIn) {
-          const localBackup = localStorage.getItem('qq88_saved_account');
-          if (localBackup) {
-            const savedUser = JSON.parse(localBackup);
-            const syncRes = await fetch('/api/sync-backup', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ user: savedUser })
-            });
-            const syncData = await syncRes.json();
-            if (syncData.success) {
-              data = { loggedIn: true, user: syncData.user };
-            }
+        if (!data.loggedIn && localBackup) {
+          const savedUser = JSON.parse(localBackup);
+          const syncRes = await fetch('/api/sync-backup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user: savedUser })
+          });
+          const syncData = await syncRes.json();
+          if (syncData.success) {
+            data = { loggedIn: true, user: syncData.user };
           }
         }
 
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
-        const balanceCover = document.getElementById('display-balance-cover');
-        const balanceVal = document.getElementById('display-balance-val');
 
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
           userZone.style.display = 'block';
 
+          // Chỉ in đúng TÊN TÀI KHOẢN, không in đè bất kỳ số dư nào lên ảnh gốc
           document.getElementById('display-username').innerText = data.user.username;
-
-          // Nếu số dư = 0 thì ẩn đi (dùng số 0K nguyên bản của ảnh phôi)
-          const bal = Number(data.user.balance || 0);
-          if (bal > 0) {
-            balanceCover.style.display = 'inline-block';
-            balanceVal.innerText = bal;
-          } else {
-            balanceCover.style.display = 'none';
-          }
         } else {
           guestZone.style.display = 'block';
           userZone.style.display = 'none';

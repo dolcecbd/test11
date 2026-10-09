@@ -243,7 +243,7 @@
     }
 
     /* ======================================================== */
-    /* SIDEBAR DRAWER MENU 3 GẠCH CHUẨN XÁC 100% GỐC            */
+    /* SIDEBAR DRAWER MENU 3 GẠCH TRƯỢT CHUẨN XÁC 100% GỐC      */
     /* ======================================================== */
     .sidebar-overlay {
       position: fixed;
@@ -343,17 +343,18 @@
       border-radius: 6px;
     }
     .sidebar-item-icon {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-right: 12px;
       flex-shrink: 0;
     }
-    .sidebar-item-icon svg {
-      width: 25px;
-      height: 25px;
+    .sidebar-item-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .sidebar-item-text {
       font-size: 13.5px;
@@ -483,23 +484,16 @@
 
     <!-- 3. Đồng hồ điện tử tự chạy thời gian thực -->
     <div id="sidebar-live-clock" class="sidebar-clock-text">
-      08/10/2026 20:48:30 (GMT+7)
+      08/10/2026 21:00:00 (GMT+7)
     </div>
 
-    <!-- 4. Danh sách 10 mục điều hướng chuẩn nét 100% -->
+    <!-- 4. Danh sách 10 mục điều hướng dùng đúng icon phôi bạn cắt -->
     <div class="sidebar-menu-list">
       
       <!-- Mục 1: ĐẠI SỨ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <circle cx="16" cy="12" r="8" fill="#009944"/>
-            <polygon points="16,6 18,10.5 22.5,11 19,14 20,18.5 16,16 12,18.5 13,14 9.5,11 14,10.5" fill="#ffffff"/>
-            <path d="M11 18L8 28L16 24L24 28L21 18" fill="#009944"/>
-            <circle cx="16" cy="3" r="1.5" fill="#009944"/>
-            <circle cx="21" cy="4.5" r="1.3" fill="#009944"/>
-            <circle cx="11" cy="4.5" r="1.3" fill="#009944"/>
-          </svg>
+          <img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ">
         </div>
         <span class="sidebar-item-text">ĐẠI SỨ</span>
       </div>
@@ -507,10 +501,7 @@
       <!-- Mục 2: FACEBOOK -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <rect x="2" y="2" width="28" height="28" rx="8" fill="#009944"/>
-            <path d="M19 16.5h3l.5-3.5h-3.5v-2.2c0-.9.4-1.8 1.8-1.8H22V6.2s-1.4-.2-2.6-.2c-2.7 0-4.4 1.6-4.4 4.5v2.5h-3v3.5h3V26h4v-9.5z" fill="#ffffff"/>
-          </svg>
+          <img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook">
         </div>
         <span class="sidebar-item-text">FACEBOOK</span>
       </div>
@@ -518,11 +509,7 @@
       <!-- Mục 3: TẢI 1.1.1.1 -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <rect x="3" y="4" width="26" height="24" rx="6" fill="#009944"/>
-            <path d="M16 9v9m0 0l-4-4m4 4l4-4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="10" y1="22" x2="22" y2="22" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
+          <img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1">
         </div>
         <span class="sidebar-item-text">TẢI 1.1.1.1</span>
       </div>
@@ -530,12 +517,7 @@
       <!-- Mục 4: CẨM NANG HƯỚNG DẪN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <path d="M4 7c3.5-1.5 8-1 12 1.5 4-2.5 8.5-3 12-1.5v17c-3.5-1.5-8-1-12 1.5-4-2.5-8.5-3-12-1.5V7z" fill="none" stroke="#009944" stroke-width="2.4" stroke-linejoin="round"/>
-            <line x1="16" y1="8.5" x2="16" y2="25.5" stroke="#009944" stroke-width="2.4"/>
-            <circle cx="16" cy="13" r="1.5" fill="#009944"/>
-            <line x1="16" y1="16" x2="16" y2="20" stroke="#009944" stroke-width="2"/>
-          </svg>
+          <img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam nang.png'])" alt="Cẩm Nang">
         </div>
         <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
       </div>
@@ -543,12 +525,7 @@
       <!-- Mục 5: GÓP Ý NHẬN QUÀ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <path d="M4 6h24v15H18l-5 4v-4H4V6z" fill="#009944"/>
-            <rect x="9" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
-            <rect x="14.5" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
-            <rect x="20" y="11" width="3" height="3" rx="0.8" fill="#ffffff"/>
-          </svg>
+          <img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý">
         </div>
         <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
       </div>
@@ -556,12 +533,7 @@
       <!-- Mục 6: LẤY LẠI MẬT KHẨU -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <rect x="5" y="12" width="22" height="16" rx="4" fill="#009944"/>
-            <path d="M10 12V8a6 6 0 0 1 12 0v4" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round"/>
-            <circle cx="16" cy="19" r="2.2" fill="#ffffff"/>
-            <line x1="16" y1="21.2" x2="16" y2="24" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
+          <img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu">
         </div>
         <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
       </div>
@@ -569,11 +541,7 @@
       <!-- Mục 7: KHIẾU NẠI -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <path d="M16 3C8.8 3 3 8.4 3 15c0 2.8 1 5.4 2.8 7.4L4 28l6.2-2.5c1.8.8 3.8 1.3 5.8 1.3 7.2 0 13-5.4 13-11.8S23.2 3 16 3z" fill="#009944"/>
-            <line x1="16" y1="9" x2="16" y2="17" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
-            <circle cx="16" cy="21" r="1.5" fill="#ffffff"/>
-          </svg>
+          <img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại">
         </div>
         <span class="sidebar-item-text">KHIẾU NẠI</span>
       </div>
@@ -581,10 +549,7 @@
       <!-- Mục 8: QUỸ THIỆN NGUYỆN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <path d="M16 13.5c-2-3-6-3-7.5-1-1.8 2.2-.8 5.5 1.5 7.8L16 26l6-5.7c2.3-2.3 3.3-5.6 1.5-7.8-1.5-2-5.5-2-7.5 1z" fill="#009944"/>
-            <path d="M3 24h9l3-3h6" fill="none" stroke="#009944" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
+          <img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện">
         </div>
         <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
       </div>
@@ -592,14 +557,7 @@
       <!-- Mục 9: ĐĂNG KÝ ĐẠI LÝ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <circle cx="16" cy="10" r="4.5" fill="#009944"/>
-            <path d="M9 24c0-3.5 3.1-6 7-6s7 2.5 7 6H9z" fill="#009944"/>
-            <circle cx="7" cy="13" r="3" fill="#009944"/>
-            <path d="M3 24c0-2.5 2-4.5 4.5-4.5.8 0 1.6.2 2.2.6-.9 1.1-1.5 2.4-1.7 3.9H3z" fill="#009944"/>
-            <circle cx="25" cy="13" r="3" fill="#009944"/>
-            <path d="M29 24c0-2.5-2-4.5-4.5-4.5-.8 0-1.6.2-2.2.6.9 1.1 1.5 2.4 1.7 3.9H29z" fill="#009944"/>
-          </svg>
+          <img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý">
         </div>
         <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
       </div>
@@ -607,10 +565,7 @@
       <!-- Mục 10: ĐĂNG NHẬP / ĐĂNG XUẤT -->
       <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
         <div class="sidebar-item-icon">
-          <svg viewBox="0 0 32 32">
-            <path d="M14 6H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h7" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round"/>
-            <path d="M15 16h13m0 0l-5-5m5 5l-5 5" fill="none" stroke="#009944" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập">
         </div>
         <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
       </div>

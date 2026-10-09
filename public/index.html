@@ -163,7 +163,6 @@
       overflow: hidden;
     }
 
-    /* 1. CHƯA ĐĂNG NHẬP */
     .guest-box {
       width: 100%;
       position: relative;
@@ -191,7 +190,6 @@
       cursor: pointer;
     }
 
-    /* 2. ĐÃ ĐĂNG NHẬP */
     .user-box-real {
       width: 100%;
       position: relative;
@@ -237,9 +235,7 @@
       cursor: pointer;
     }
 
-    /* ======================================================== */
-    /* THANH CUỘN SẢNH GAME ĐẬM/NHẠT                            */
-    /* ======================================================== */
+    /* THANH CUỘN SẢNH GAME ĐẬM/NHẠT */
     .cat-bar {
       display: flex;
       align-items: center;
@@ -281,24 +277,71 @@
       opacity: 0.92;
     }
 
-    /* Lưới 3 cột game */
+    /* ======================================================== */
+    /* LƯỚI 3 CỘT GAME & PHÔI TỰ ĐỘNG KHÔNG BAO GIỜ BỊ GÃY ẢNH   */
+    /* ======================================================== */
     .game-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
+      gap: 6px;
       padding: 5px 8px;
     }
-    .game-grid img {
+    .game-card-wrapper {
       width: 100%;
-      aspect-ratio: 1.48 / 1;
-      object-fit: fill;
+      aspect-ratio: 1.45 / 1;
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      overflow: hidden;
       cursor: pointer;
-      background-color: #ffffff;
+      position: relative;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-    .game-grid img:active {
+    .game-card-wrapper:active {
       transform: scale(0.96);
+    }
+    .game-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+
+    /* Fallback thẻ chuẩn web gốc nếu chưa up kịp file ảnh */
+    .game-fallback-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 3px 5px 3px;
+      background: #ffffff;
+      border: 1px solid #dce7e0;
+      border-radius: 8px;
+    }
+    .game-fallback-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8px;
+      font-weight: 800;
+      color: #0b572a;
+      padding: 0 2px;
+    }
+    .game-fallback-body {
+      font-size: 20px;
+    }
+    .game-fallback-name {
+      font-size: 9px;
+      font-weight: 800;
+      color: #0b572a;
+      text-align: center;
+      line-height: 1.1;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* BOTTOM NAVIGATION BAR */
@@ -688,44 +731,35 @@
     <div class="cat-bar">
       <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
-        
         <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)">
           <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" alt="Hot Nhất">
         </div>
-
         <div class="cat-tab-item" data-cat="casino" onclick="switchCategory('casino', this)">
           <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" alt="Casino">
         </div>
-
         <div class="cat-tab-item" data-cat="nohu" onclick="switchCategory('nohu', this)">
           <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" alt="Nổ Hũ">
         </div>
-
         <div class="cat-tab-item" data-cat="banca" onclick="switchCategory('banca', this)">
           <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" alt="Bắn Cá">
         </div>
-
         <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)">
           <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" alt="Thể Thao">
         </div>
-
         <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)">
           <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" alt="Đá Gà">
         </div>
-
         <div class="cat-tab-item" data-cat="xoso" onclick="switchCategory('xoso', this)">
           <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" alt="Xổ Số">
         </div>
-
         <div class="cat-tab-item" data-cat="esports" onclick="switchCategory('esports', this)">
           <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" alt="E-Sports">
         </div>
-
       </div>
       <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 7. LƯỚI GAME 3 CỘT (ĐÃ XẾP 100% THEO THỨ TỰ 5 ẢNH REAL) -->
+    <!-- 7. LƯỚI GAME 3 CỘT (CÓ SMART SKELETON CHỐNG GÃY ẢNH) -->
     <div id="games-wrapper" class="game-grid"></div>
 
     <!-- 8. HỘI VIÊN THẮNG LỚN -->
@@ -865,93 +899,76 @@
     updateSidebarClock();
 
     /* ======================================================== */
-    /* MẢNG DANH SÁCH GAME ĐÃ SẮP XẾP CHUẨN XÁC 100% THEO 5 ẢNH */
+    /* DANH SÁCH GAME ĐẦY ĐỦ 21 HÀNG CHUẨN XÁC 100%             */
     /* ======================================================== */
     const gameList = [
-      /* --- HÀNG 1 (ẢNH 1) --- */
-      { file: "SE TRUC TUYEN.png", cat: "casino" },
-      { file: "DG TRUC TUYEN.png", cat: "casino" },
-      { file: "SV388 DA GA THOMO.png", cat: "daga" },
+      { name: "SE TRỰC TUYẾN", tag: "CASINO", icon: "🃏", file: "SE TRUC TUYEN.png", cat: "casino" },
+      { name: "DG TRỰC TUYẾN", tag: "CASINO", icon: "🎰", file: "DG TRUC TUYEN.png", cat: "casino" },
+      { name: "SV388 ĐÁ GÀ THOMO", tag: "ĐÁ GÀ", icon: "🐓", file: "SV388 DA GA THOMO.png", cat: "daga" },
 
-      /* --- HÀNG 2 (ẢNH 1) --- */
-      { file: "QUYẾT CHIẾN TIEN THUG_.png", cat: "nohu" },
-      { file: "DUONG MAT CHUOC 2.png", cat: "nohu" },
-      { file: "TIENG GOI DANH DU.png", cat: "nohu" },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", tag: "NỔ HŨ", icon: "🤠", file: "QUYẾT CHIẾN TIEN THUG_.png", cat: "nohu" },
+      { name: "ĐƯỜNG MẠT CHƯỢC 2", tag: "NỔ HŨ", icon: "🀄", file: "DUONG MAT CHUOC 2.png", cat: "nohu" },
+      { name: "TIẾNG GỌI DANH DỰ", tag: "NỔ HŨ", icon: "🎖️", file: "TIENG GOI DANH DU.png", cat: "nohu" },
 
-      /* --- HÀNG 3 (ẢNH 1) --- */
-      { file: "KHO BAU AZTEC.png", cat: "nohu" },
-      { file: "JACKPOT DANH CA.png", cat: "banca" },
-      { file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
+      { name: "KHO BÁU AZTEC", tag: "NỔ HŨ", icon: "👑", file: "KHO BAU AZTEC.png", cat: "nohu" },
+      { name: "JACKPOT ĐÁNH CÁ", tag: "BẮN CÁ", icon: "🦈", file: "JACKPOT DANH CA.png", cat: "banca" },
+      { name: "MẠT CHƯỢC THẮNG 4", tag: "NỔ HŨ", icon: "🀄", file: "MAT CHƯỢC THANG 4.png", cat: "nohu" },
 
-      /* --- HÀNG 4 (ẢNH 1) --- */
-      { file: "DUONG MAT CHƯỢC.png", cat: "nohu" },
-      { file: "SIEU CAP ACE.png", cat: "nohu" },
-      { file: "MIEN TAY HOANG DA.png", cat: "nohu" },
+      { name: "ĐƯỜNG MẠT CHƯỢC", tag: "NỔ HŨ", icon: "🀄", file: "DUONG MAT CHƯỢC.png", cat: "nohu" },
+      { name: "SIÊU CẤP ACE", tag: "NỔ HŨ", icon: "🃏", file: "SIEU CAP ACE.png", cat: "nohu" },
+      { name: "MIỀN TÂY HOANG DÃ", tag: "NỔ HŨ", icon: "🤠", file: "MIEN TAY HOANG DA.png", cat: "nohu" },
 
-      /* --- HÀNG 5 (ẢNH 2) --- */
-      { file: "AVIATOR.png", cat: "nohu" },
-      { file: "NEKO MAY MAN.png", cat: "nohu" },
-      { file: "NĂM MỚI LỘ LỘ PHAT.png", cat: "nohu" },
+      { name: "AVIATOR", tag: "NỔ HŨ", icon: "✈️", file: "AVIATOR.png", cat: "nohu" },
+      { name: "NEKO MAY MẮN", tag: "NỔ HŨ", icon: "🐱", file: "NEKO MAY MAN.png", cat: "nohu" },
+      { name: "NĂM MỚI LỘ LỘ PHÁT", tag: "NỔ HŨ", icon: "🧧", file: "NĂM MỚI LỘ LỘ PHAT.png", cat: "nohu" },
 
-      /* --- HÀNG 6 (ẢNH 2) --- */
-      { file: "THANG MAT CHƯỢC.png", cat: "nohu" },
-      { file: "THỢ SAN NGOI SAO.png", cat: "banca" },
-      { file: "DE QUOC HOANG KIM.png", cat: "nohu" },
+      { name: "THẮNG MẠT CHƯỢC", tag: "NỔ HŨ", icon: "🀄", file: "THANG MAT CHƯỢC.png", cat: "nohu" },
+      { name: "THỢ SĂN NGÔI SAO", tag: "BẮN CÁ", icon: "👾", file: "THỢ SAN NGOI SAO.png", cat: "banca" },
+      { name: "ĐẾ QUỐC HOÀNG KIM", tag: "NỔ HŨ", icon: "🏺", file: "DE QUOC HOANG KIM.png", cat: "nohu" },
 
-      /* --- HÀNG 7 (ẢNH 2) --- */
-      { file: "THAN CHIEN GARUDA 500.png", cat: "nohu" },
-      { file: "JACKPOT VUA TAI LOC.png", cat: "banca" },
-      { file: "TAI Xiu.png", cat: "gamebai" },
+      { name: "THẦN CHIẾN GARUDA 500", tag: "NỔ HŨ", icon: "🦅", file: "THAN CHIEN GARUDA 500.png", cat: "nohu" },
+      { name: "JACKPOT VUA TÀI LỘC", tag: "BẮN CÁ", icon: "💰", file: "JACKPOT VUA TAI LOC.png", cat: "banca" },
+      { name: "TÀI XỈU", tag: "GAME BÀI", icon: "🎲", file: "TAI Xiu.png", cat: "gamebai" },
 
-      /* --- HÀNG 8 (ẢNH 2) --- */
-      { file: "QUYET CHIEN TIEN THUONG KHUNG.png", cat: "nohu" },
-      { file: "NGỌC MAY MAN 3.png", cat: "nohu" },
-      { file: "XÓC ĐĨA_.png", cat: "gamebai" },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", tag: "NỔ HŨ", icon: "🤠", file: "QUYET CHIEN TIEN THUONG KHUNG.png", cat: "nohu" },
+      { name: "NGỌC MAY MẮN 3", tag: "NỔ HŨ", icon: "💎", file: "NGỌC MAY MAN 3.png", cat: "nohu" },
+      { name: "XÓC ĐĨA", tag: "GAME BÀI", icon: "🔘", file: "XÓC ĐĨA_.png", cat: "gamebai" },
 
-      /* --- HÀNG 9 (ẢNH 3) --- */
-      { file: "CHIEN THANG POKER.png", cat: "nohu" },
-      { file: "DJ BOOM BOOM.png", cat: "nohu" },
-      { file: "SABA THE THAO.png", cat: "thethao" },
+      { name: "CHIẾN THẮNG POKER", tag: "NỔ HŨ", icon: "♠️", file: "CHIEN THANG POKER.png", cat: "nohu" },
+      { name: "DJ BOOM BOOM", tag: "NỔ HŨ", icon: "🎧", file: "DJ BOOM BOOM.png", cat: "nohu" },
+      { name: "SABA THỂ THAO", tag: "THỂ THAO", icon: "⚽", file: "SABA THE THAO.png", cat: "thethao" },
 
-      /* --- HÀNG 10 (ẢNH 3) --- */
-      { file: "MAT CHƯỢC HOANG DA.png", cat: "nohu" },
-      { file: "KY LAN MACH NƯỚC.png", cat: "banca" },
-      { file: "JACKPOT ĐÁNH CÁ 2.png", cat: "banca" },
+      { name: "MẠT CHƯỢC HOANG DÃ", tag: "NỔ HŨ", icon: "🀄", file: "MAT CHƯỢC HOANG DA.png", cat: "nohu" },
+      { name: "KỲ LÂN MÁCH NƯỚC", tag: "BẮN CÁ", icon: "🦄", file: "KY LAN MACH NƯỚC.png", cat: "banca" },
+      { name: "JACKPOT ĐÁNH CÁ 2", tag: "BẮN CÁ", icon: "🐠", file: "JACKPOT ĐÁNH CÁ 2.png", cat: "banca" },
 
-      /* --- HÀNG 11 (ẢNH 3) --- */
-      { file: "THAN TAI NHAN BOI PHA_.png", cat: "nohu" },
-      { file: "NGỌC MAY MAN 2.png", cat: "nohu" },
-      { file: "CAO BOI HOANG DA.png", cat: "nohu" },
+      { name: "THẦN TÀI NHÂN BỘI PHÁ", tag: "NỔ HŨ", icon: "🧧", file: "THAN TAI NHAN BOI PHA_.png", cat: "nohu" },
+      { name: "NGỌC MAY MẮN 2", tag: "NỔ HŨ", icon: "💎", file: "NGỌC MAY MAN 2.png", cat: "nohu" },
+      { name: "CAO BỒI HOANG DÃ", tag: "NỔ HŨ", icon: "🤠", file: "CAO BOI HOANG DA.png", cat: "nohu" },
 
-      /* --- HÀNG 12 (ẢNH 3) --- */
-      { file: "BAC THAY PHI HANH GIA.png", cat: "nohu" },
-      { file: "THO MAY MAN.png", cat: "nohu" },
-      { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" },
+      { name: "BẬC THẦY PHI HÀNH GIA", tag: "NỔ HŨ", icon: "🚀", file: "BAC THAY PHI HANH GIA.png", cat: "nohu" },
+      { name: "THỎ MAY MẮN", tag: "NỔ HŨ", icon: "🐰", file: "THO MAY MAN.png", cat: "nohu" },
+      { name: "LỄ HỘI ĐÁ QUÝ", tag: "NỔ HŨ", icon: "🔮", file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" },
 
-      /* --- HÀNG 13 (ẢNH 4) --- */
-      { file: "BAN CA THAN TAI.png", cat: "banca" },
-      { file: "SIEU ACE DELUXE.png", cat: "nohu" },
-      { file: "HE XIEC 4096.png", cat: "nohu" },
+      { name: "BẮN CÁ THẦN TÀI", tag: "BẮN CÁ", icon: "🎣", file: "BAN CA THAN TAI.png", cat: "banca" },
+      { name: "SIÊU ACE DELUXE", tag: "NỔ HŨ", icon: "👑", file: "SIEU ACE DELUXE.png", cat: "nohu" },
+      { name: "HỀ XIẾC 4096", tag: "NỔ HŨ", icon: "🤡", file: "HE XIEC 4096.png", cat: "nohu" },
 
-      /* --- HÀNG 14 (ẢNH 4 & 5) --- */
-      { file: "ANUBIS.png", cat: "nohu" },
-      { file: "CHO DEM.png", cat: "nohu" },
-      { file: "XI DACH.png", cat: "gamebai" },
+      { name: "ANUBIS", tag: "NỔ HŨ", icon: "🗿", file: "ANUBIS.png", cat: "nohu" },
+      { name: "CHỢ ĐÊM", tag: "NỔ HŨ", icon: "🏮", file: "CHO DEM.png", cat: "nohu" },
+      { name: "XÌ DÁCH", tag: "GAME BÀI", icon: "🃏", file: "XI DACH.png", cat: "gamebai" },
 
-      /* --- HÀNG 15 (ẢNH 4 & 5) --- */
-      { file: "DEM TIEC COCKTAIL.png", cat: "nohu" },
-      { file: "JACKPOT VUA DAI DUONG.png", cat: "banca" },
-      { file: "ATHENA HOANG DA 2048.png", cat: "nohu" },
+      { name: "ĐÊM TIỆC COCKTAIL", tag: "NỔ HŨ", icon: "🍹", file: "DEM TIEC COCKTAIL.png", cat: "nohu" },
+      { name: "JACKPOT VUA ĐẠI DƯƠNG", tag: "BẮN CÁ", icon: "🐙", file: "JACKPOT VUA DAI DUONG.png", cat: "banca" },
+      { name: "ATHENA HOANG DÃ 2048", tag: "NỔ HŨ", icon: "🛡️", file: "ATHENA HOANG DA 2048.png", cat: "nohu" },
 
-      /* --- HÀNG 16 (ẢNH 4 & 5) --- */
-      { file: "BAT CHAU BAU.png", cat: "nohu" },
-      { file: "VUA DANH CA.png", cat: "banca" },
-      { file: "KHI HOANG DA 3258.png", cat: "nohu" },
+      { name: "BÁT CHÂU BÁU", tag: "NỔ HŨ", icon: "🪙", file: "BAT CHAU BAU.png", cat: "nohu" },
+      { name: "VUA ĐÁNH CÁ", tag: "BẮN CÁ", icon: "🦑", file: "VUA DANH CA.png", cat: "banca" },
+      { name: "KHỈ HOANG DÃ#3258", tag: "NỔ HŨ", icon: "🐒", file: "KHI HOANG DA 3258.png", cat: "nohu" },
 
-      /* --- HÀNG 17 (ẢNH 5) --- */
-      { file: "CAY PHAT TAI.png", cat: "banca" },
-      { file: "NU HOANG INCA.png", cat: "nohu" },
-      { file: "SIEU BO B.png", cat: "nohu" }
+      { name: "CÂY PHÁT TÀI", tag: "BẮN CÁ", icon: "🌳", file: "CAY PHAT TAI.png", cat: "banca" },
+      { name: "NỮ HOÀNG INCA", tag: "NỔ HŨ", icon: "👸", file: "NU HOANG INCA.png", cat: "nohu" },
+      { name: "SIÊU BÒ B", tag: "NỔ HŨ", icon: "🐂", file: "SIEU BO B.png", cat: "nohu" }
     ];
 
     function renderGames(filter = 'hot') {
@@ -960,31 +977,47 @@
       const items = (filter === 'all' || filter === 'hot') ? gameList : gameList.filter(g => g.cat === filter);
 
       items.forEach(g => {
+        const cardBox = document.createElement('div');
+        cardBox.className = 'game-card-wrapper';
+        cardBox.onclick = () => alert("Vào sảnh game: " + g.name);
+
         const img = document.createElement('img');
-        const encoded = encodeURIComponent(g.file);
-        img.src = '/images/' + encoded;
+        img.className = 'game-card-img';
+        const cleanName = g.file.replace(/\.(png|jpg|PNG|JPG)$/, '');
         
-        // Cơ chế đa tầng tự động tìm file nếu đuôi file là jpg, PNG hoặc viết hoa/thường
+        img.src = '/images/' + encodeURIComponent(g.file);
+        
+        // Thử tìm đa dạng đuôi file
         img.onerror = function() {
-          if (!this.dataset.retryLevel) this.dataset.retryLevel = 1;
-          const lvl = parseInt(this.dataset.retryLevel);
-          const raw = g.file.replace(/\.(png|jpg|PNG|JPG)$/, '');
-          
-          if (lvl === 1) {
-            this.src = '/images/' + encodeURIComponent(raw + '.jpg');
-            this.dataset.retryLevel = 2;
-          } else if (lvl === 2) {
-            this.src = '/images/' + encodeURIComponent(raw + '.PNG');
-            this.dataset.retryLevel = 3;
-          } else if (lvl === 3) {
-            this.src = '/images/' + g.file;
-            this.dataset.retryLevel = 4;
+          if (!this.dataset.step) this.dataset.step = 1;
+          const step = parseInt(this.dataset.step);
+
+          if (step === 1) {
+            this.src = '/images/' + encodeURIComponent(cleanName + '.jpg');
+            this.dataset.step = 2;
+          } else if (step === 2) {
+            this.src = '/images/' + encodeURIComponent(cleanName + '.PNG');
+            this.dataset.step = 3;
+          } else if (step === 3) {
+            this.src = '/images/' + encodeURIComponent(cleanName.toLowerCase() + '.png');
+            this.dataset.step = 4;
+          } else {
+            // Khi chưa có file thật trên server -> Tự động chuyển thành thẻ giao diện sạch bóng chuẩn gốc
+            cardBox.innerHTML = `
+              <div class="game-fallback-card">
+                <div class="game-fallback-top">
+                  <span>${g.tag}</span>
+                  <span style="color:#f59e0b">★</span>
+                </div>
+                <div class="game-fallback-body">${g.icon}</div>
+                <div class="game-fallback-name">${g.name}</div>
+              </div>
+            `;
           }
         };
 
-        img.alt = g.file;
-        img.onclick = () => alert("Vào game: " + g.file.replace(/\.(png|jpg|PNG|JPG)$/, ''));
-        wrapper.appendChild(img);
+        cardBox.appendChild(img);
+        wrapper.appendChild(cardBox);
       });
     }
 

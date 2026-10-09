@@ -36,7 +36,7 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* ======================================================== */
-    /* HEADER: BANNER QUẢNG CÁO & THANH QQ88 GỐC                */
+    /* HEADER: BANNER QUẢNG CÁO & THANH QQ88                    */
     /* ======================================================== */
     .top-promo-box {
       width: 100%;
@@ -111,7 +111,7 @@
       margin-top: -3px;
     }
 
-    /* Thanh thông báo chạy chữ Marquee */
+    /* Thanh Marquee */
     .marquee-bar {
       background: #ffffff;
       padding: 4px 8px;
@@ -150,7 +150,7 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* KHỐI TÀI KHOẢN KHỚP 100% THEO ẢNH PHÔI GỐC */
+    /* KHỐI TÀI KHOẢN */
     .account-wrapper {
       padding: 4px 8px 2px 8px;
     }
@@ -162,7 +162,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .guest-box {
       width: 100%;
       position: relative;
@@ -189,7 +188,6 @@
       height: 44%;
       cursor: pointer;
     }
-
     .user-box-real {
       width: 100%;
       position: relative;
@@ -200,7 +198,6 @@
       display: block;
       border-radius: 8px;
     }
-    
     .real-username-label {
       position: absolute;
       top: 38%;
@@ -216,7 +213,6 @@
       white-space: nowrap;
       pointer-events: none;
     }
-
     .touch-copy-area {
       position: absolute;
       top: 34%;
@@ -225,7 +221,6 @@
       height: 34%;
       cursor: pointer;
     }
-
     .touch-actions-area {
       position: absolute;
       top: 0;
@@ -235,7 +230,7 @@
       cursor: pointer;
     }
 
-    /* THANH CUỘN SẢNH GAME ĐẬM/NHẠT */
+    /* THANH CUỘN SẢNH GAME CHÍNH */
     .cat-bar {
       display: flex;
       align-items: center;
@@ -277,8 +272,227 @@
       opacity: 0.92;
     }
 
-    /* LƯỚI 3 CỘT GAME */
-    .game-grid {
+    /* ======================================================== */
+    /* KHỐI TÌM KIẾM & TAB PHỤ CỦA NỔ HŨ, BẮN CÁ, GAME BÀI       */
+    /* ======================================================== */
+    .sub-filter-header {
+      padding: 8px 10px 4px 10px;
+      background: #edf2ef;
+      display: none;
+    }
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .search-input-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #c2d6c8;
+      border-radius: 20px;
+      padding: 5px 12px;
+      gap: 6px;
+    }
+    .search-input-box svg {
+      width: 15px;
+      height: 15px;
+      fill: #005a2b;
+    }
+    .search-input-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 11.5px;
+      color: #334155;
+      background: transparent;
+    }
+    .view-mode-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .view-btn {
+      width: 28px;
+      height: 28px;
+      background: #005a2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .view-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #ffffff;
+    }
+    .sub-tabs-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .sub-tab-pill {
+      padding: 5px 14px;
+      border-radius: 18px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid #005a2b;
+      background: #ffffff;
+      color: #005a2b;
+    }
+    .sub-tab-pill.active {
+      background: #008a38;
+      color: #ffffff;
+      border-color: #008a38;
+    }
+
+    /* ======================================================== */
+    /* LAYOUT 1: SẢNH ĐỐI TÁC 2 CỘT CHỮ NHẬT NGANG              */
+    /* ======================================================== */
+    .partner-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 6px 10px;
+    }
+    .partner-card-box {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .partner-card-box:active {
+      transform: scale(0.97);
+    }
+    .partner-card-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ======================================================== */
+    /* LAYOUT 2: GAME CÓ CỘT HÃNG BÊN TRÁI + LƯỚI VUÔNG BÊN PHẢI */
+    /* ======================================================== */
+    .slot-layout-container {
+      display: flex;
+      padding: 4px 6px;
+      gap: 6px;
+      background: #edf2ef;
+    }
+    .brand-sidebar-left {
+      width: 72px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .brand-btn-item {
+      width: 100%;
+      height: 48px;
+      background: #ffffff;
+      border: 1px solid #d5e4d9;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 2px;
+    }
+    .brand-btn-item.active {
+      background: #008a38;
+      border-color: #008a38;
+      color: #ffffff;
+    }
+    .brand-btn-item.active span {
+      color: #ffffff;
+    }
+    .brand-btn-item img {
+      max-height: 26px;
+      width: auto;
+      object-fit: contain;
+    }
+    .brand-btn-item span {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #0b572a;
+      margin-top: 2px;
+    }
+    .slot-game-grid-right {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .slot-card-box {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding-bottom: 5px;
+    }
+    .slot-card-box:active {
+      transform: scale(0.96);
+    }
+    .slot-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .slot-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+    .hot-badge-tag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #f97316;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 1px 4px;
+      border-bottom-right-radius: 4px;
+    }
+    .slot-game-name-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 4px;
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+    .heart-icon-fav {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      font-size: 11px;
+      color: #008a38;
+    }
+
+    /* ======================================================== */
+    /* LAYOUT 3: HOT NHẤT (LƯỚI 3 CỘT CHUẨN GỐC)                 */
+    /* ======================================================== */
+    .game-grid-hot {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
@@ -304,7 +518,7 @@
       display: block;
     }
 
-    /* BOTTOM NAVIGATION BAR */
+    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -317,7 +531,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 6px 0 6px 0;
+      padding: 6px 0;
       z-index: 99;
       box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
     }
@@ -346,7 +560,7 @@
       color: #005a2b;
     }
 
-    /* SIDEBAR DRAWER MENU */
+    /* SIDEBAR DRAWER */
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -570,7 +784,7 @@
     </div>
 
     <div id="sidebar-live-clock" class="sidebar-clock-text">
-      10/10/2026 00:33:00 (GMT+7)
+      10/10/2026 01:58:00 (GMT+7)
     </div>
 
     <div class="sidebar-menu-list">
@@ -631,7 +845,7 @@
 
   <div class="app-wrapper">
 
-    <!-- 1. KHỐI QUẢNG CÁO TRÊN CÙNG -->
+    <!-- 1. HEADER: BANNER QUẢNG CÁO -->
     <div id="top-promo-section" class="top-promo-box">
       <img src="/images/top_promo.png" onerror="handleImgErr(this, ['/images/top_promo.PNG', '/images/top_promo.jpg'])" alt="Banner Khuyến Mãi">
       <div class="close-promo-hitbox" onclick="closePromoBanner()" title="Tắt quảng cáo"></div>
@@ -653,12 +867,12 @@
       </div>
     </div>
 
-    <!-- 3. Hero Carousel -->
+    <!-- 3. HERO CAROUSEL -->
     <div>
       <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
     </div>
 
-    <!-- 4. Thanh Chạy Chữ Marquee -->
+    <!-- 4. MARQUEE -->
     <div class="marquee-bar">
       <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <div class="marquee-content">
@@ -687,7 +901,7 @@
       </div>
     </div>
 
-    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME -->
+    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME CHÍNH -->
     <div class="cat-bar">
       <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
@@ -706,6 +920,9 @@
         <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)">
           <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" alt="Thể Thao">
         </div>
+        <div class="cat-tab-item" data-cat="gamebai" onclick="switchCategory('gamebai', this)">
+          <img src="/images/game bai.png" onerror="handleImgErr(this, ['/images/game%20bai.PNG', '/images/gamebai.png'])" alt="Game Bài">
+        </div>
         <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)">
           <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" alt="Đá Gà">
         </div>
@@ -719,25 +936,44 @@
       <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 7. LƯỚI GAME 3 CỘT VỚI CƠ CHẾ DÒ TÌM ĐA TẦNG -->
-    <div id="games-wrapper" class="game-grid"></div>
+    <!-- 7. THANH TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ (TỰ HIỆN KHI VÀO NỔ HŨ, BẮN CÁ, GAME BÀI) -->
+    <div id="sub-filter-header" class="sub-filter-header">
+      <div class="search-row">
+        <div class="search-input-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="game-search-input" placeholder="Tìm kiếm trò chơi" oninput="handleSearchGame(this.value)">
+        </div>
+        <div class="view-mode-icons">
+          <div class="view-btn"><svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg></div>
+        </div>
+      </div>
+      <div class="sub-tabs-row no-scrollbar">
+        <div class="sub-tab-pill active" onclick="switchSubFilter('all', this)">TẤT CẢ</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('hot', this)">HOT NHẤT</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('history', this)">LỊCH SỬ</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('favorite', this)">YÊU THÍCH</div>
+      </div>
+    </div>
 
-    <!-- 8. HỘI VIÊN THẮNG LỚN -->
+    <!-- 8. VÙNG HIỂN THỊ NỘI DUNG GAME LINH HOẠT THEO TỪNG DANH MỤC -->
+    <div id="game-content-viewport"></div>
+
+    <!-- 9. HỘI VIÊN THẮNG LỚN -->
     <div style="padding: 4px 6px;">
       <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png', '/images/hoi vien thang lon.png', '/images/hoi vien thang lon.JPG'])" style="border-radius: 10px;" alt="Hội Viên Thắng Lớn">
     </div>
 
-    <!-- 9. ĐẠI SỨ THƯƠNG HIỆU -->
+    <!-- 10. ĐẠI SỨ THƯƠNG HIỆU -->
     <div style="padding: 4px 6px;">
       <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png', '/images/dai su thuong hieu.png', '/images/dai su thuong hieu.JPG'])" style="border-radius: 10px;" alt="John Terry">
     </div>
 
-    <!-- 10. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP -->
+    <!-- 11. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP -->
     <div style="padding: 4px 6px; margin-bottom: 8px;">
       <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 11. BOTTOM NAVIGATION BAR -->
+    <!-- 12. BOTTOM NAVIGATION BAR -->
     <div class="bottom-nav">
       <div class="nav-item active">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -859,169 +1095,325 @@
     updateSidebarClock();
 
     /* ======================================================== */
-    /* DANH SÁCH GAME CÓ DANH SÁCH CÁC TÊN FILE DỰ PHÒNG      */
+    /* CƠ SỞ DỮ LIỆU CÁC SẢNH ĐỐI TÁC 2 CỘT                     */
     /* ======================================================== */
-    const gameList = [
-      /* HÀNG 1 */
-      { 
-        name: "SE TRỰC TUYẾN", 
-        files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "SE TRUC TUYEN.jpg", "se truc tuyen.png"], 
-        cat: "casino" 
-      },
-      { 
-        name: "DG TRỰC TUYẾN", 
-        files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "DG TRUC TUYEN.jpg", "dg truc tuyen.png"], 
-        cat: "casino" 
-      },
-      { 
-        name: "SV388 ĐÁ GÀ THOMO", 
-        files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "SV388 DA GA THOMO.jpg", "SV388 DA GA THOMO.PNG", "sv388 da ga thomo.png"], 
-        cat: "daga" 
-      },
+    const partnerRooms = {
+      casino: [
+        { name: "SE TRỰC TUYẾN", file: "sanh_se.png" },
+        { name: "DG TRỰC TUYẾN", file: "sanh_dg.png" },
+        { name: "MT TRỰC TUYẾN", file: "sanh_mt.png" },
+        { name: "WM TRỰC TUYẾN", file: "sanh_wm.png" },
+        { name: "EVO TRỰC TUYẾN", file: "sanh_evo.png" },
+        { name: "CHOICE TRỰC TUYẾN", file: "sanh_choice.png" }
+      ],
+      thethao: [
+        { name: "SABA THỂ THAO", file: "sanh_saba.png" },
+        { name: "CMD THỂ THAO", file: "sanh_cmd.png" },
+        { name: "IM THỂ THAO", file: "sanh_im.png" },
+        { name: "BTI THỂ THAO", file: "sanh_bti.png" }
+      ],
+      daga: [
+        { name: "SV388 ĐÁ GÀ", file: "sanh_sv388.png" },
+        { name: "GA28 ĐÁ GÀ", file: "sanh_ga28.png" },
+        { name: "WALA88 ĐÁ GÀ", file: "sanh_wala88.png" },
+        { name: "WS168 ĐÁ GÀ", file: "sanh_ws168.png" },
+        { name: "ODIN ĐÁ GÀ", file: "sanh_odin.png" }
+      ],
+      xoso: [
+        { name: "TCG XỔ SỐ", file: "sanh_tcg.png" },
+        { name: "GPI XỔ SỐ", file: "sanh_gpi.png" }
+      ],
+      esports: [
+        { name: "IA E-SPORTS", file: "sanh_ia.png" },
+        { name: "IMES E-SPORTS", file: "sanh_imes.png" },
+        { name: "TF E-SPORTS", file: "sanh_tf.png" }
+      ]
+    };
 
-      /* HÀNG 2 */
-      { 
-        name: "QUYẾT CHIẾN TIỀN THƯỞNG", 
-        files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png", "QUYẾT CHIẾN TIỀN THƯỞNG.png", "QUYET CHIEN TIEN THUONG.jpg"], 
-        cat: "nohu" 
-      },
-      { 
-        name: "ĐƯỜNG MẠT CHƯỢC 2", 
-        files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png", "DUONG MAT CHUOC 2.jpg", "DUONG MAT CHUOC 2.PNG", "duong mat chuoc 2.png"], 
-        cat: "nohu" 
-      },
-      { 
-        name: "TIẾNG GỌI DANH DỰ", 
-        files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png", "TIENG GOI DANH DU.jpg", "TIENG GOI DANH DU.PNG", "tieng goi danh du.png"], 
-        cat: "nohu" 
-      },
+    /* ======================================================== */
+    /* CƠ SỞ DỮ LIỆU CỘT HÃNG & ICON GAME VUÔNG                 */
+    /* ======================================================== */
+    const brandLists = {
+      nohu: [
+        { id: "all", name: "Tất cả" },
+        { id: "pg", name: "PG", file: "hang_pg.png" },
+        { id: "fc", name: "FC", file: "hang_fc.png" },
+        { id: "jili", name: "JILI", file: "hang_jili.png" },
+        { id: "168", name: "168Game", file: "hang_168.png" }
+      ],
+      banca: [
+        { id: "all", name: "Tất cả" },
+        { id: "jili", name: "JILI", file: "hang_jili.png" },
+        { id: "fc", name: "FC", file: "hang_fc.png" },
+        { id: "jdb", name: "JDB", file: "hang_jdb.png" },
+        { id: "tp", name: "TP", file: "hang_tp.png" }
+      ],
+      gamebai: [
+        { id: "all", name: "Tất cả" },
+        { id: "v8", name: "V8", file: "hang_v8.png" },
+        { id: "km", name: "KM", file: "hang_km.png" },
+        { id: "kp", name: "KP", file: "hang_kp.png" },
+        { id: "r88", name: "R88", file: "hang_r88.png" }
+      ]
+    };
 
-      /* HÀNG 3 */
-      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png", "KHO BAU AZTEC.jpg"], cat: "nohu" },
-      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png", "JACKPOT DANH CA.jpg"], cat: "banca" },
-      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png", "MAT CHƯỢC THANG 4.jpg"], cat: "nohu" },
+    const slotGamesData = {
+      nohu: [
+        { name: "Quyết Chiến Tiền Thưởng", brand: "pg", file: "QUYẾT CHIẾN TIEN THUG_.png" },
+        { name: "Đường Mạt Chược 2", brand: "pg", file: "DUONG MAT CHUOC 2.png" },
+        { name: "Kho Báu Aztec", brand: "pg", file: "KHO BAU AZTEC.png" },
+        { name: "Tiếng Gọi Danh Dự", brand: "pg", file: "TIENG GOI DANH DU.png" },
+        { name: "Siêu Át", brand: "jili", file: "SIEU CAP ACE.png" },
+        { name: "Tết Nguyên Đán...", brand: "fc", file: "NĂM MỚI LỘ LỘ PHAT.png" },
+        { name: "Mạt Chược Thắng 4", brand: "168", file: "MAT CHƯỢC THANG 4.png" },
+        { name: "Đế Quốc Hoàng Kim", brand: "jili", file: "DE QUOC HOANG KIM.png" },
+        { name: "Phi Công", brand: "pg", file: "AVIATOR.png" },
+        { name: "Neko May Mắn", brand: "pg", file: "NEKO MAY MAN.png" },
+        { name: "Siêu Ace Deluxe", brand: "jili", file: "SIEU ACE DELUXE.png" },
+        { name: "Hề Xiếc 4096", brand: "jili", file: "HE XIEC 4096.png" }
+      ],
+      banca: [
+        { name: "Jackpot Đánh Cá", brand: "jili", file: "JACKPOT DANH CA.png" },
+        { name: "Thợ săn ngôi sao", brand: "fc", file: "THỢ SAN NGOI SAO.png" },
+        { name: "Jackpot Vua Tài Lộc", brand: "jili", file: "JACKPOT VUA TAI LOC.png" },
+        { name: "Câu Cá Hũ Vàng Tốc Đ...", brand: "jili", file: "JACKPOT ĐÁNH CÁ 2.png" },
+        { name: "Bắn Cá Vương Giả", brand: "jili", file: "VUA DANH CA.png" },
+        { name: "Jackpot Vua Đại Dương", brand: "jili", file: "JACKPOT VUA DAI DUONG.png" },
+        { name: "Bắn Cá Thần Tài", brand: "jdb", file: "BAN CA THAN TAI.png" },
+        { name: "Đánh Cá Vui Vẻ", brand: "jili", file: "KY LAN MACH NƯỚC.png" },
+        { name: "Nhà Tư Bản Khủng Long", brand: "jili", file: "CAY PHAT TAI.png" }
+      ],
+      gamebai: [
+        { name: "Tài Xỉu", brand: "v8", file: "TAI Xiu.png" },
+        { name: "Xóc Đĩa", brand: "v8", file: "XÓC ĐĨA_.png" },
+        { name: "Tài Xỉu KM", brand: "km", file: "TAI Xiu.png" },
+        { name: "Xì dách", brand: "v8", file: "XI DACH.png" },
+        { name: "Sic Bo", brand: "km", file: "TAI Xiu.png" },
+        { name: "Bầu Cua", brand: "km", file: "XÓC ĐĨA_.png" },
+        { name: "Xóc đĩa 2", brand: "km", file: "XÓC ĐĨA_.png" },
+        { name: "Tài Xỉu mini", brand: "v8", file: "TAI Xiu.png" },
+        { name: "Baccarat", brand: "km", file: "CHIEN THANG POKER.png" }
+      ]
+    };
 
-      /* HÀNG 4 */
-      { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png", "DUONG MAT CHUOC.png", "DUONG MAT CHƯỢC.jpg"], cat: "nohu" },
-      { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png", "SIÊU CẤP ACE.png", "SIEU CAP ACE.jpg"], cat: "nohu" },
-      { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png", "MIỀN TÂY HOANG DÃ.png", "MIEN TAY HOANG DA.jpg"], cat: "nohu" },
-
-      /* HÀNG 5 */
-      { name: "AVIATOR", files: ["AVIATOR.png", "AVIATOR.jpg", "aviator.png"], cat: "nohu" },
-      { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png", "NEKO MAY MẮN.png", "NEKO MAY MAN.jpg"], cat: "nohu" },
-      { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png", "NAM MOI LO LO PHAT.png", "NĂM MỚI LỘ LỘ PHAT.jpg"], cat: "nohu" },
-
-      /* HÀNG 6 */
-      { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png", "THANG MAT CHUOC.png", "THANG MAT CHƯỢC.jpg"], cat: "nohu" },
-      { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png", "THO SAN NGOI SAO.png", "THỢ SAN NGOI SAO.jpg"], cat: "banca" },
-      { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png", "ĐẾ QUỐC HOÀNG KIM.png", "DE QUOC HOANG KIM.jpg"], cat: "nohu" },
-
-      /* HÀNG 7 */
-      { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png", "THẦN CHIẾN GARUDA 500.png", "THAN CHIEN GARUDA 500.jpg"], cat: "nohu" },
-      { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png", "JACKPOT VUA TÀI LỘC.png", "JACKPOT VUA TAI LOC.jpg"], cat: "banca" },
-      { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png", "TAI Xiu.jpg"], cat: "gamebai" },
-
-      /* HÀNG 8 */
-      { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", files: ["QUYET CHIEN TIEN THUONG KHUNG.png", "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG.png", "QUYET CHIEN TIEN THUONG KHUNG.jpg"], cat: "nohu" },
-      { name: "NGỌC MAY MẮN 3", files: ["NGỌC MAY MAN 3.png", "NGOC MAY MAN 3.png", "NGỌC MAY MAN 3.jpg"], cat: "nohu" },
-      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png", "XÓC ĐĨA_.jpg"], cat: "gamebai" },
-
-      /* HÀNG 9 */
-      { name: "CHIẾN THẮNG POKER", files: ["CHIEN THANG POKER.png", "CHIẾN THẮNG POKER.png", "CHIEN THANG POKER.jpg"], cat: "nohu" },
-      { name: "DJ BOOM BOOM", files: ["DJ BOOM BOOM.png", "DJ BOOM BOOM.jpg"], cat: "nohu" },
-      { name: "SABA THỂ THAO", files: ["SABA THE THAO.png", "SABA THỂ THAO.png", "SABA THE THAO.jpg"], cat: "thethao" },
-
-      /* HÀNG 10 */
-      { name: "MẠT CHƯỢC HOANG DÃ", files: ["MAT CHƯỢC HOANG DA.png", "MAT CHUOC HOANG DA.png", "MAT CHƯỢC HOANG DA.jpg"], cat: "nohu" },
-      { name: "KỲ LÂN MÁCH NƯỚC", files: ["KY LAN MACH NƯỚC.png", "KY LAN MACH NUOC.png", "KY LAN MACH NƯỚC.jpg"], cat: "banca" },
-      { name: "JACKPOT ĐÁNH CÁ 2", files: ["JACKPOT ĐÁNH CÁ 2.png", "JACKPOT DANH CA 2.png", "JACKPOT ĐÁNH CÁ 2.jpg"], cat: "banca" },
-
-      /* HÀNG 11 */
-      { name: "THẦN TÀI NHÂN BỘI PHÁ", files: ["THAN TAI NHAN BOI PHA_.png", "THAN TAI NHAN BOI PHA.png", "THAN TAI NHAN BOI PHA_.jpg"], cat: "nohu" },
-      { name: "NGỌC MAY MẮN 2", files: ["NGỌC MAY MAN 2.png", "NGOC MAY MAN 2.png", "NGỌC MAY MAN 2.jpg"], cat: "nohu" },
-      { name: "CAO BỒI HOANG DÃ", files: ["CAO BOI HOANG DA.png", "CAO BỒI HOANG DÃ.png", "CAO BOI HOANG DA.jpg"], cat: "nohu" },
-
-      /* HÀNG 12 */
-      { name: "BẬC THẦY PHI HÀNH GIA", files: ["BAC THAY PHI HANH GIA.png", "BẬC THẦY PHI HÀNH GIA.png", "BAC THAY PHI HANH GIA.jpg"], cat: "nohu" },
-      { name: "THỎ MAY MẮN", files: ["THO MAY MAN.png", "THỎ MAY MẮN.png", "THO MAY MAN.jpg"], cat: "nohu" },
-      { name: "LỄ HỘI ĐÁ QUÝ", files: ["LÊ HỘI ĐÁ QUÝ.png", "LE HOI DA QUY.png", "LÊ HỘI ĐÁ QUÝ.jpg"], cat: "nohu" },
-
-      /* HÀNG 13 */
-      { name: "BẮN CÁ THẦN TÀI", files: ["BAN CA THAN TAI.png", "BẮN CÁ THẦN TÀI.png", "BAN CA THAN TAI.jpg", "BAN CA THAN TAI.PNG"], cat: "banca" },
-      { name: "SIÊU ACE DELUXE", files: ["SIEU ACE DELUXE.png", "SIÊU ACE DELUXE.png", "SIEU ACE DELUXE.jpg", "SIEU ACE DELUXE.PNG"], cat: "nohu" },
-      { name: "HỀ XIẾC 4096", files: ["HE XIEC 4096.png", "HỀ XIẾC 4096.png", "HE XIEC 4096.jpg", "HE XIEC 4096.PNG"], cat: "nohu" },
-
-      /* HÀNG 14 */
-      { name: "ANUBIS", files: ["ANUBIS.png", "ANUBIS.jpg", "anubis.png"], cat: "nohu" },
-      { name: "CHỢ ĐÊM", files: ["CHO DEM.png", "CHỢ ĐÊM.png", "CHO DEM.jpg", "CHO DEM.PNG"], cat: "nohu" },
-      { name: "XÌ DÁCH", files: ["XI DACH.png", "XÌ DÁCH.png", "XI DACH.jpg", "XI DACH.PNG"], cat: "gamebai" },
-
-      /* HÀNG 15 */
-      { name: "ĐÊM TIỆC COCKTAIL", files: ["DEM TIEC COCKTAIL.png", "ĐÊM TIỆC COCKTAIL.png", "DEM TIEC COCKTAIL.jpg", "DEM TIEC COCKTAIL.PNG"], cat: "nohu" },
-      { name: "JACKPOT VUA ĐẠI DƯƠNG", files: ["JACKPOT VUA DAI DUONG.png", "JACKPOT VUA ĐẠI DƯƠNG.png", "JACKPOT VUA DAI DUONG.jpg"], cat: "banca" },
-      { name: "ATHENA HOANG DÃ 2048", files: ["ATHENA HOANG DA 2048.png", "ATHENA HOANG DÃ 2048.png", "ATHENA HOANG DA 2048.jpg"], cat: "nohu" },
-
-      /* HÀNG 16 */
-      { name: "BÁT CHÂU BÁU", files: ["BAT CHAU BAU.png", "BÁT CHÂU BÁU.png", "BAT CHAU BAU.jpg", "BAT CHAU BAU.PNG"], cat: "nohu" },
-      { name: "VUA ĐÁNH CÁ", files: ["VUA DANH CA.png", "VUA ĐÁNH CÁ.png", "VUA DANH CA.jpg", "VUA DANH CA.PNG"], cat: "banca" },
-      { name: "KHỈ HOANG DÃ#3258", files: ["KHI HOANG DA 3258.png", "KHỈ HOANG DÃ#3258.png", "KHI HOANG DA 3258.jpg"], cat: "nohu" },
-
-      /* HÀNG 17 */
-      { name: "CÂY PHÁT TÀI", files: ["CAY PHAT TAI.png", "CÂY PHÁT TÀI.png", "CAY PHAT TAI.jpg"], cat: "banca" },
-      { name: "NỮ HOÀNG INCA", files: ["NU HOANG INCA.png", "NỮ HOÀNG INCA.png", "NU HOANG INCA.jpg"], cat: "nohu" },
-      { name: "SIÊU BÒ B", files: ["SIEU BO B.png", "SIÊU BÒ B.png", "SIEU BO B.jpg"], cat: "nohu" }
+    /* LƯỚI 63 GAME CỦA MỤC HOT NHẤT */
+    const gameListHot = [
+      { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png"] },
+      { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png"] },
+      { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"] },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"] },
+      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"] },
+      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"] },
+      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"] },
+      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png", "DUONG MAT CHUOC.png"] },
+      { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png", "SIÊU CẤP ACE.png"] },
+      { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png", "MIỀN TÂY HOANG DÃ.png"] },
+      { name: "AVIATOR", files: ["AVIATOR.png", "AVIATOR.jpg"] },
+      { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png", "NEKO MAY MẮN.png"] },
+      { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png", "NAM MOI LO LO PHAT.png"] },
+      { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png", "THANG MAT CHUOC.png"] },
+      { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png", "THO SAN NGOI SAO.png"] },
+      { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png", "ĐẾ QUỐC HOÀNG KIM.png"] },
+      { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png", "THẦN CHIẾN GARUDA 500.png"] },
+      { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png", "JACKPOT VUA TÀI LỘC.png"] },
+      { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png"] },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", files: ["QUYET CHIEN TIEN THUONG KHUNG.png"] },
+      { name: "NGỌC MAY MẮN 3", files: ["NGỌC MAY MAN 3.png"] },
+      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png"] },
+      { name: "CHIẾN THẮNG POKER", files: ["CHIEN THANG POKER.png"] },
+      { name: "DJ BOOM BOOM", files: ["DJ BOOM BOOM.png"] },
+      { name: "SABA THỂ THAO", files: ["SABA THE THAO.png", "sanh_saba.png"] },
+      { name: "MẠT CHƯỢC HOANG DÃ", files: ["MAT CHƯỢC HOANG DA.png"] },
+      { name: "KỲ LÂN MÁCH NƯỚC", files: ["KY LAN MACH NƯỚC.png"] },
+      { name: "JACKPOT ĐÁNH CÁ 2", files: ["JACKPOT ĐÁNH CÁ 2.png"] },
+      { name: "THẦN TÀI NHÂN BỘI PHÁ", files: ["THAN TAI NHAN BOI PHA_.png"] },
+      { name: "NGỌC MAY MAN 2", files: ["NGỌC MAY MAN 2.png"] },
+      { name: "CAO BỒI HOANG DÃ", files: ["CAO BOI HOANG DA.png"] },
+      { name: "BẬC THẦY PHI HÀNH GIA", files: ["BAC THAY PHI HANH GIA.png"] },
+      { name: "THỎ MAY MẮN", files: ["THO MAY MAN.png"] },
+      { name: "LỄ HỘI ĐÁ QUÝ", files: ["LÊ HỘI ĐÁ QUÝ.png"] },
+      { name: "BẮN CÁ THẦN TÀI", files: ["BAN CA THAN TAI.png"] },
+      { name: "SIÊU ACE DELUXE", files: ["SIEU ACE DELUXE.png"] },
+      { name: "HỀ XIẾC 4096", files: ["HE XIEC 4096.png"] },
+      { name: "ANUBIS", files: ["ANUBIS.png"] },
+      { name: "CHỢ ĐÊM", files: ["CHO DEM.png"] },
+      { name: "XÌ DÁCH", files: ["XI DACH.png"] },
+      { name: "ĐÊM TIỆC COCKTAIL", files: ["DEM TIEC COCKTAIL.png"] },
+      { name: "JACKPOT VUA ĐẠI DƯƠNG", files: ["JACKPOT VUA DAI DUONG.png"] },
+      { name: "ATHENA HOANG DÃ 2048", files: ["ATHENA HOANG DA 2048.png"] },
+      { name: "BÁT CHÂU BÁU", files: ["BAT CHAU BAU.png"] },
+      { name: "VUA ĐÁNH CÁ", files: ["VUA DANH CA.png"] },
+      { name: "KHỈ HOANG DÃ#3258", files: ["KHI HOANG DA 3258.png"] },
+      { name: "CÂY PHÁT TÀI", files: ["CAY PHAT TAI.png"] },
+      { name: "NỮ HOÀNG INCA", files: ["NU HOANG INCA.png"] },
+      { name: "SIÊU BÒ B", files: ["SIEU BO B.png"] }
     ];
 
-    function renderGames(filter = 'hot') {
-      const wrapper = document.getElementById('games-wrapper');
-      wrapper.innerHTML = '';
-      const items = (filter === 'all' || filter === 'hot') ? gameList : gameList.filter(g => g.cat === filter);
+    let currentMainCat = 'hot';
+    let currentActiveBrand = 'all';
 
-      items.forEach(g => {
+    function renderViewport() {
+      const viewport = document.getElementById('game-content-viewport');
+      const subHeader = document.getElementById('sub-filter-header');
+      viewport.innerHTML = '';
+
+      // TRƯỜNG HỢP 1: CÁC SẢNH ĐỐI TÁC 2 CỘT (Casino, Thể Thao, Đá Gà, Xổ Số, E-Sports)
+      if (partnerRooms[currentMainCat]) {
+        subHeader.style.display = 'none';
+        const grid = document.createElement('div');
+        grid.className = 'partner-grid-2col';
+
+        partnerRooms[currentMainCat].forEach(room => {
+          const card = document.createElement('div');
+          card.className = 'partner-card-box';
+          card.onclick = () => alert("Vào sảnh: " + room.name);
+
+          const img = document.createElement('img');
+          img.src = '/images/' + encodeURIComponent(room.file);
+          img.onerror = function() {
+            this.src = '/images/' + room.file.replace('.png', '.jpg');
+          };
+          img.alt = room.name;
+
+          card.appendChild(img);
+          grid.appendChild(card);
+        });
+
+        viewport.appendChild(grid);
+        return;
+      }
+
+      // TRƯỜNG HỢP 2: CÁC SẢNH ĐIỆN TỬ (Nổ Hũ, Bắn Cá, Game Bài)
+      if (brandLists[currentMainCat]) {
+        subHeader.style.display = 'block';
+
+        const container = document.createElement('div');
+        container.className = 'slot-layout-container';
+
+        // 1. Cột hãng bên trái
+        const leftSidebar = document.createElement('div');
+        leftSidebar.className = 'brand-sidebar-left';
+
+        brandLists[currentMainCat].forEach(brand => {
+          const btn = document.createElement('div');
+          btn.className = 'brand-btn-item' + (currentActiveBrand === brand.id ? ' active' : '');
+          btn.onclick = () => {
+            currentActiveBrand = brand.id;
+            renderViewport();
+          };
+
+          if (brand.id === 'all') {
+            btn.innerHTML = `<span style="font-size:11px;font-weight:900;">${brand.name}</span>`;
+          } else {
+            btn.innerHTML = `
+              <img src="/images/${brand.file}" onerror="this.style.display='none'">
+              <span>${brand.name}</span>
+            `;
+          }
+          leftSidebar.appendChild(btn);
+        });
+
+        // 2. Lưới icon game 3 cột vuông bên phải
+        const rightGrid = document.createElement('div');
+        rightGrid.className = 'slot-game-grid-right';
+
+        let list = slotGamesData[currentMainCat] || [];
+        if (currentActiveBrand !== 'all') {
+          list = list.filter(g => g.brand === currentActiveBrand);
+        }
+
+        list.forEach(g => {
+          const card = document.createElement('div');
+          card.className = 'slot-card-box';
+          card.onclick = () => alert("Vào trò chơi: " + g.name);
+
+          card.innerHTML = `
+            <div class="slot-img-wrap">
+              <span class="hot-badge-tag">HOT</span>
+              <img src="/images/${encodeURIComponent(g.file)}" onerror="this.src='/images/${encodeURIComponent(g.file.replace('.png', '.jpg'))}'" alt="${g.name}">
+            </div>
+            <div class="slot-game-name-title">${g.name}</div>
+            <div class="heart-icon-fav">♡</div>
+          `;
+          rightGrid.appendChild(card);
+        });
+
+        container.appendChild(leftSidebar);
+        container.appendChild(rightGrid);
+        viewport.appendChild(container);
+        return;
+      }
+
+      // TRƯỜNG HỢP 3: MỤC HOT NHẤT
+      subHeader.style.display = 'none';
+      const hotGrid = document.createElement('div');
+      hotGrid.className = 'game-grid-hot';
+
+      gameListHot.forEach(g => {
         const cardBox = document.createElement('div');
         cardBox.className = 'game-card-wrapper';
-        cardBox.onclick = () => alert("Vào sảnh game: " + g.name);
+        cardBox.onclick = () => alert("Vào game: " + g.name);
 
         const img = document.createElement('img');
         img.className = 'game-card-img';
 
-        // Tạo mảng danh sách đường dẫn cần thử
-        const candidateUrls = [];
+        const urls = [];
         g.files.forEach(f => {
-          candidateUrls.push('/images/' + encodeURIComponent(f));
-          candidateUrls.push('/images/' + f);
+          urls.push('/images/' + encodeURIComponent(f));
+          urls.push('/images/' + f);
         });
 
-        img.src = candidateUrls[0];
+        img.src = urls[0];
         img.dataset.tryIndex = 0;
-
         img.onerror = function() {
           let idx = parseInt(this.dataset.tryIndex || 0) + 1;
-          if (idx < candidateUrls.length) {
+          if (idx < urls.length) {
             this.dataset.tryIndex = idx;
-            this.src = candidateUrls[idx];
+            this.src = urls[idx];
           } else {
-            // Không bao giờ để hiện icon ảnh vỡ nát trên trang
             this.style.opacity = '0';
           }
         };
 
         img.alt = g.name;
         cardBox.appendChild(img);
-        wrapper.appendChild(cardBox);
+        hotGrid.appendChild(cardBox);
+      });
+
+      viewport.appendChild(hotGrid);
+    }
+
+    function switchCategory(cat, element) {
+      currentMainCat = cat;
+      currentActiveBrand = 'all';
+
+      const tabs = document.querySelectorAll('.cat-tab-item');
+      tabs.forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+      renderViewport();
+    }
+
+    function switchSubFilter(type, element) {
+      const pills = document.querySelectorAll('.sub-tab-pill');
+      pills.forEach(p => p.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function handleSearchGame(kw) {
+      const k = kw.trim().toLowerCase();
+      const cards = document.querySelectorAll('.slot-card-box');
+      cards.forEach(c => {
+        const name = c.querySelector('.slot-game-name-title').innerText.toLowerCase();
+        c.style.display = name.includes(k) ? 'flex' : 'none';
       });
     }
 
     function navScroll(offset) {
       document.getElementById('cat-list').scrollLeft += offset;
-    }
-
-    function switchCategory(cat, element) {
-      const tabs = document.querySelectorAll('.cat-tab-item');
-      tabs.forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
-      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      renderGames(cat);
     }
 
     /* QUẢN LÝ TÀI KHOẢN */
@@ -1162,7 +1554,7 @@
     }
 
     window.onload = () => {
-      renderGames('hot');
+      renderViewport();
       checkSession();
     };
   </script>

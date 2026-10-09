@@ -35,6 +35,105 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* ======================================================== */
+    /* KHỐI HEADER TRÊN CÙNG: QUẢNG CÁO & THANH 3 GẠCH QQ88    */
+    /* ======================================================== */
+    .top-header-container {
+      width: 100%;
+      position: relative;
+      background-color: #005a2b;
+    }
+
+    /* 1. Phần banner quảng cáo trên cùng */
+    .promo-banner-wrap {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .promo-banner-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Nút X tắt quảng cáo */
+    .btn-close-promo {
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      line-height: 1;
+    }
+
+    /* 2. Thanh xanh lá QQ88 cố định (Không bao giờ bị mất khi tắt quảng cáo) */
+    .main-navbar-green {
+      width: 100%;
+      height: 52px;
+      background: #005a2b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      position: relative;
+    }
+    /* Nút 3 gạch góc trái */
+    .nav-toggle-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .nav-toggle-btn span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background-color: #ffd800;
+      border-radius: 2px;
+    }
+    /* Chữ QQ88 to màu vàng bóng */
+    .nav-brand-logo {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffde00;
+      font-style: italic;
+      letter-spacing: -1px;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    /* Icon VIP góc phải */
+    .nav-vip-crown {
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .nav-vip-crown svg {
+      width: 24px;
+      height: 20px;
+      fill: #ffde00;
+    }
+    .nav-vip-crown span {
+      font-size: 8px;
+      font-weight: 900;
+      color: #ffde00;
+      letter-spacing: 0.5px;
+      margin-top: -2px;
+    }
+
     /* Thanh thông báo chạy chữ Marquee */
     .marquee-bar {
       background: #ffffff;
@@ -281,7 +380,6 @@
       opacity: 1;
     }
 
-    /* 1. Header vòm xanh lá chứa Logo QQ88 */
     .sidebar-header-curve {
       background: #005a2b;
       padding: 18px 16px 14px 16px;
@@ -302,7 +400,6 @@
       font-family: Arial, sans-serif;
     }
 
-    /* 2. Banner Đại Sứ John Terry */
     .sidebar-banner-terry {
       padding: 10px 12px 2px 12px;
       flex-shrink: 0;
@@ -312,7 +409,6 @@
       border-radius: 8px;
     }
 
-    /* 3. Dòng hiển thị ngày giờ thực tế */
     .sidebar-clock-text {
       text-align: center;
       font-size: 11.5px;
@@ -324,7 +420,6 @@
       flex-shrink: 0;
     }
 
-    /* 4. Danh sách 10 mục menu điều hướng */
     .sidebar-menu-list {
       display: flex;
       flex-direction: column;
@@ -364,7 +459,6 @@
       font-family: Arial, sans-serif;
     }
 
-    /* 5. Dải vòm xanh lá chân menu khi kéo hết xuống đáy */
     .sidebar-bottom-curve {
       height: 48px;
       background: linear-gradient(180deg, rgba(167, 218, 183, 0.4) 0%, #86cd9e 100%);
@@ -471,110 +565,71 @@
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
   <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
-    
-    <!-- 1. Vòm cong xanh lá QQ88 -->
     <div class="sidebar-header-curve">
       <div class="sidebar-logo-text">QQ88</div>
     </div>
 
-    <!-- 2. Ảnh Banner Đại sứ John Terry -->
     <div class="sidebar-banner-terry">
       <img src="/images/sidebar_terry.png" onerror="handleImgErr(this, ['/images/sidebar_terry.jpg', '/images/dai su thuong hieu.jpg', '/images/dai su thuong hieu.png'])" alt="John Terry">
     </div>
 
-    <!-- 3. Đồng hồ điện tử tự chạy thời gian thực -->
     <div id="sidebar-live-clock" class="sidebar-clock-text">
       08/10/2026 21:00:00 (GMT+7)
     </div>
 
-    <!-- 4. Danh sách 10 mục điều hướng dùng đúng icon phôi bạn cắt -->
     <div class="sidebar-menu-list">
-      
-      <!-- Mục 1: ĐẠI SỨ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ"></div>
         <span class="sidebar-item-text">ĐẠI SỨ</span>
       </div>
 
-      <!-- Mục 2: FACEBOOK -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook"></div>
         <span class="sidebar-item-text">FACEBOOK</span>
       </div>
 
-      <!-- Mục 3: TẢI 1.1.1.1 -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1"></div>
         <span class="sidebar-item-text">TẢI 1.1.1.1</span>
       </div>
 
-      <!-- Mục 4: CẨM NANG HƯỚNG DẪN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam nang.png'])" alt="Cẩm Nang">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam nang.png'])" alt="Cẩm Nang"></div>
         <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
       </div>
 
-      <!-- Mục 5: GÓP Ý NHẬN QUÀ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý"></div>
         <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
       </div>
 
-      <!-- Mục 6: LẤY LẠI MẬT KHẨU -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu"></div>
         <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
       </div>
 
-      <!-- Mục 7: KHIẾU NẠI -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại"></div>
         <span class="sidebar-item-text">KHIẾU NẠI</span>
       </div>
 
-      <!-- Mục 8: QUỸ THIỆN NGUYỆN -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện"></div>
         <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
       </div>
 
-      <!-- Mục 9: ĐĂNG KÝ ĐẠI LÝ -->
       <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý"></div>
         <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
       </div>
 
-      <!-- Mục 10: ĐĂNG NHẬP / ĐĂNG XUẤT -->
       <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
-        <div class="sidebar-item-icon">
-          <img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập">
-        </div>
+        <div class="sidebar-item-icon"><img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập"></div>
         <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
       </div>
-
     </div>
 
-    <!-- 5. Dải cong xanh lá ở chân menu (khi kéo kịch xuống dưới) -->
     <div class="sidebar-bottom-curve"></div>
-
   </div>
 
 
@@ -583,15 +638,31 @@
   <!-- ======================================================== -->
   <div class="app-wrapper">
 
-    <!-- 1. Header Khuyến Mãi (nen 2.png) + NÚT BẤM 3 GẠCH SIDEBAR -->
-    <div id="top-promo-wrap" style="position: relative;">
-      <img src="/images/nen 2.png" onerror="handleImgErr(this, ['/images/nen%202.PNG', '/images/nen 2.jpg'])" alt="Header">
+    <!-- KHỐI HEADER TRÊN CÙNG: QUẢNG CÁO + THANH XANH CỐ ĐỊNH -->
+    <div class="top-header-container">
       
-      <!-- Vùng bấm nút 3 GẠCH góc trên bên trái -->
-      <div onclick="openSidebar()" title="Mở Menu" style="position: absolute; top: 18%; left: 3%; width: 14%; height: 60%; cursor: pointer; z-index: 20;"></div>
+      <!-- 1. Banner khuyến mãi (Khi bấm X chỉ ẩn phần này) -->
+      <div id="top-promo-banner" class="promo-banner-wrap">
+        <img src="/images/nen 2.png" onerror="handleImgErr(this, ['/images/nen%202.PNG', '/images/nen 2.jpg'])" alt="Khuyến Mãi">
+        <span class="btn-close-promo" onclick="closePromoBanner()">✕</span>
+      </div>
 
-      <!-- Nút đóng banner nhỏ góc phải -->
-      <span onclick="document.getElementById('top-promo-wrap').style.display='none'" style="position: absolute; top: 6px; right: 8px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; background: rgba(0,0,0,0.4); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</span>
+      <!-- 2. Thanh xanh lá cố định 100% không bao giờ mất -->
+      <div class="main-navbar-green">
+        <div class="nav-toggle-btn" onclick="openSidebar()" title="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-brand-logo">QQ88</div>
+        <div class="nav-vip-crown" onclick="alert('Cấp độ VIP')">
+          <svg viewBox="0 0 24 18">
+            <polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" />
+          </svg>
+          <span>VIP</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- 2. Hero Carousel (nen 3.jpg) -->
@@ -731,6 +802,12 @@
         img.src = fallbacks[count];
         img.dataset.tryCount = count + 1;
       }
+    }
+
+    /* ĐÓNG BANNER KHUYẾN MÃI (CHỈ ẨN BANNER, GIỮ NGUYÊN THANH 3 GẠCH) */
+    function closePromoBanner() {
+      const banner = document.getElementById('top-promo-banner');
+      if (banner) banner.style.display = 'none';
     }
 
     /* ĐIỀU KHIỂN SIDEBAR DRAWER 3 GẠCH */

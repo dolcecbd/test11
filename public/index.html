@@ -36,7 +36,7 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* ======================================================== */
-    /* HEADER: BANNER QUẢNG CÁO (ẢNH 2) & THANH QQ88 GỐC        */
+    /* HEADER: BANNER QUẢNG CÁO & THANH QQ88 GỐC                */
     /* ======================================================== */
     .top-promo-box {
       width: 100%;
@@ -47,7 +47,6 @@
       height: auto;
       display: block;
     }
-    /* Vùng bấm nút X trên ảnh quảng cáo */
     .close-promo-hitbox {
       position: absolute;
       top: 0;
@@ -58,7 +57,6 @@
       z-index: 10;
     }
 
-    /* Thanh Header xanh lá QQ88 chuẩn duy nhất */
     .main-header-green {
       width: 100%;
       height: 48px;
@@ -69,7 +67,6 @@
       padding: 0 12px;
       position: relative;
     }
-    /* Nút 3 gạch mở Sidebar */
     .header-btn-toggle {
       width: 34px;
       height: 34px;
@@ -86,7 +83,6 @@
       background-color: #f7d100;
       border-radius: 2px;
     }
-    /* Chữ QQ88 màu vàng nghiêng chuẩn gốc */
     .header-logo-title {
       font-size: 33px;
       font-weight: 900;
@@ -95,7 +91,6 @@
       letter-spacing: -1px;
       font-family: Arial, Helvetica, sans-serif;
     }
-    /* Icon Vương miện VIP góc phải */
     .header-vip-tag {
       width: 32px;
       display: flex;
@@ -168,7 +163,7 @@
       overflow: hidden;
     }
 
-    /* 1. CHƯA ĐĂNG NHẬP (nen 5.png) */
+    /* 1. CHƯA ĐĂNG NHẬP */
     .guest-box {
       width: 100%;
       position: relative;
@@ -196,7 +191,7 @@
       cursor: pointer;
     }
 
-    /* 2. ĐÃ ĐĂNG NHẬP: Dùng dải phôi user_phoi_real.png */
+    /* 2. ĐÃ ĐĂNG NHẬP */
     .user-box-real {
       width: 100%;
       position: relative;
@@ -242,24 +237,54 @@
       cursor: pointer;
     }
 
-    /* Thanh cuộn danh mục sảnh game */
+    /* ======================================================== */
+    /* THANH CUỘN SẢNH GAME CÓ HIỆU ỨNG ACTIVE ĐẬM/NHẠT        */
+    /* ======================================================== */
     .cat-bar {
       display: flex;
       align-items: center;
       background: #edf2ef;
-      padding: 3px 4px;
+      padding: 4px 4px;
     }
     .cat-scroll {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       overflow-x: auto;
-      padding: 2px 0;
+      padding: 2px 2px;
     }
-    .cat-scroll img {
-      width: auto;
-      height: 64px;
-      cursor: pointer;
+    
+    /* Khung từng thẻ tab sảnh game */
+    .cat-tab-item {
       flex-shrink: 0;
+      border-radius: 12px;
+      background: #edf2ef;
+      border: 1.5px solid #238b45;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .cat-tab-item img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    /* Trạng thái KHI ĐƯỢC CHỌN (ĐẬM VÀNG CHUẨN GỐC) */
+    .cat-tab-item.active {
+      background: #eaec38 !important;
+      border: 2px solid #005a2b !important;
+      box-shadow: 0 2px 6px rgba(0, 90, 43, 0.25);
+      transform: scale(1.02);
+    }
+
+    /* Trạng thái BÌNH THƯỜNG (NHẠT) */
+    .cat-tab-item:not(.active) {
+      background: #f1f6f2;
+      border: 1.5px solid #b6d3be;
+      opacity: 0.92;
     }
 
     /* Lưới 3 cột game */
@@ -323,9 +348,7 @@
       color: #005a2b;
     }
 
-    /* ======================================================== */
-    /* SIDEBAR DRAWER MENU 3 GẠCH TRƯỢT                         */
-    /* ======================================================== */
+    /* SIDEBAR DRAWER MENU */
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -450,7 +473,7 @@
       flex-shrink: 0;
     }
 
-    /* Modal Form Đăng ký / Đăng nhập */
+    /* Modal Form */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -541,9 +564,7 @@
 </head>
 <body>
 
-  <!-- ======================================================== -->
-  <!-- LỚP PHỦ VÀ SIDEBAR MENU 3 GẠCH TRƯỢT RA                   -->
-  <!-- ======================================================== -->
+  <!-- SIDEBAR MENU 3 GẠCH -->
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
   <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
@@ -556,7 +577,7 @@
     </div>
 
     <div id="sidebar-live-clock" class="sidebar-clock-text">
-      08/10/2026 21:00:00 (GMT+7)
+      09/10/2026 23:53:00 (GMT+7)
     </div>
 
     <div class="sidebar-menu-list">
@@ -615,31 +636,22 @@
   </div>
 
 
-  <!-- ======================================================== -->
-  <!-- NỘI DUNG CHÍNH CỦA TRANG WEB                              -->
-  <!-- ======================================================== -->
   <div class="app-wrapper">
 
-    <!-- 1. KHỐI QUẢNG CÁO TRÊN CÙNG (DÙNG ĐÚNG ẢNH 2: top_promo.png) -->
+    <!-- 1. KHỐI QUẢNG CÁO TRÊN CÙNG -->
     <div id="top-promo-section" class="top-promo-box">
       <img src="/images/top_promo.png" onerror="handleImgErr(this, ['/images/top_promo.PNG', '/images/top_promo.jpg'])" alt="Banner Khuyến Mãi">
-      <!-- Vùng bấm nút X ở góc phải để tắt banner quảng cáo -->
       <div class="close-promo-hitbox" onclick="closePromoBanner()" title="Tắt quảng cáo"></div>
     </div>
 
-    <!-- 2. THANH HEADER XANH LÁ QQ88 CHUẨN DUY NHẤT (HIỆN RA NHƯ ẢNH 3 KHI BẤM X) -->
+    <!-- 2. THANH HEADER XANH LÁ QQ88 -->
     <div class="main-header-green">
-      <!-- Nút 3 gạch mở Sidebar -->
       <div class="header-btn-toggle" onclick="openSidebar()" title="Mở menu">
         <span></span>
         <span></span>
         <span></span>
       </div>
-
-      <!-- Chữ QQ88 -->
       <div class="header-logo-title">QQ88</div>
-
-      <!-- Icon VIP -->
       <div class="header-vip-tag" onclick="alert('Cấp độ hội viên VIP')">
         <svg viewBox="0 0 24 18">
           <polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" />
@@ -648,7 +660,7 @@
       </div>
     </div>
 
-    <!-- 3. Hero Carousel (nen 3.jpg) -->
+    <!-- 3. Hero Carousel -->
     <div>
       <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
     </div>
@@ -664,51 +676,66 @@
       <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
 
-    <!-- 5. KHỐI TÀI KHOẢN VẬN HÀNH THẬT BẰNG ĐÚNG PHÔI ẢNH GỐC -->
+    <!-- 5. KHỐI TÀI KHOẢN -->
     <div class="account-wrapper">
       <div class="account-card">
-        
-        <!-- TRẠNG THÁI 1: CHƯA ĐĂNG NHẬP (nen 5.png) -->
         <div id="guest-zone" class="guest-box" style="display: block;">
           <img src="/images/nen 5.png" class="guest-img" alt="Guest Bar">
           <div class="touch-btn-login" onclick="openAuthModal('login')"></div>
           <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
         </div>
 
-        <!-- TRẠNG THÁI 2: ĐÃ ĐĂNG NHẬP (user_phoi_real.png) -->
         <div id="user-zone" class="user-box-real" style="display: none;">
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
-
-          <!-- Điền TÊN TÀI KHOẢN THẬT vào đúng khoảng trống -->
           <span class="real-username-label" id="display-username">quanmi112</span>
-
-          <!-- Vùng bấm icon copy tên tài khoản -->
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
-
-          <!-- Vùng bấm các nút chức năng giao dịch -->
           <div class="touch-actions-area" onclick="handleActionsMenu()"></div>
         </div>
-
       </div>
     </div>
 
-    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME -->
+    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME: CHUYỂN MÀU ĐẬM VÀNG / NHẠT THEO TAB ĐƯỢC CHỌN -->
     <div class="cat-bar">
       <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
-        <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" onclick="filterCat('hot')" alt="Hot Nhất">
-        <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" onclick="filterCat('casino')" alt="Casino">
-        <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" onclick="filterCat('nohu')" alt="Nổ Hũ">
-        <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" onclick="filterCat('banca')" alt="Bắn Cá">
-        <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" onclick="filterCat('thethao')" alt="Thể Thao">
-        <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" onclick="filterCat('daga')" alt="Đá Gà">
-        <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" onclick="filterCat('xoso')" alt="Xổ Số">
-        <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" onclick="filterCat('esports')" alt="E-Sports">
+        
+        <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)">
+          <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" alt="Hot Nhất">
+        </div>
+
+        <div class="cat-tab-item" data-cat="casino" onclick="switchCategory('casino', this)">
+          <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" alt="Casino">
+        </div>
+
+        <div class="cat-tab-item" data-cat="nohu" onclick="switchCategory('nohu', this)">
+          <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" alt="Nổ Hũ">
+        </div>
+
+        <div class="cat-tab-item" data-cat="banca" onclick="switchCategory('banca', this)">
+          <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" alt="Bắn Cá">
+        </div>
+
+        <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)">
+          <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" alt="Thể Thao">
+        </div>
+
+        <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)">
+          <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" alt="Đá Gà">
+        </div>
+
+        <div class="cat-tab-item" data-cat="xoso" onclick="switchCategory('xoso', this)">
+          <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" alt="Xổ Số">
+        </div>
+
+        <div class="cat-tab-item" data-cat="esports" onclick="switchCategory('esports', this)">
+          <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" alt="E-Sports">
+        </div>
+
       </div>
       <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 7. LƯỚI GAME 3 CỘT THỰC TẾ -->
+    <!-- 7. LƯỚI GAME 3 CỘT -->
     <div id="games-wrapper" class="game-grid"></div>
 
     <!-- 8. HỘI VIÊN THẮNG LỚN -->
@@ -733,7 +760,7 @@
         <span>TRANG CHỦ</span>
       </div>
       <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
         <span>KHUYẾN MÃI</span>
       </div>
       <div class="nav-item">
@@ -752,7 +779,7 @@
 
   </div>
 
-  <!-- POPUP ĐĂNG KÝ / ĐĂNG NHẬP -->
+  <!-- MODAL ĐĂNG KÝ / ĐĂNG NHẬP -->
   <div id="auth-modal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close" onclick="closeAuthModal()">✕</button>
@@ -787,13 +814,11 @@
       }
     }
 
-    /* ĐÓNG BANNER QUẢNG CÁO TRÊN CÙNG */
     function closePromoBanner() {
       const banner = document.getElementById('top-promo-section');
       if (banner) banner.style.display = 'none';
     }
 
-    /* ĐIỀU KHIỂN SIDEBAR DRAWER 3 GẠCH */
     function openSidebar() {
       document.getElementById('sidebar-drawer').classList.add('open');
       document.getElementById('sidebar-overlay').classList.add('open');
@@ -809,33 +834,15 @@
     function handleMenuClick(action) {
       closeSidebar();
       switch(action) {
-        case 'daisu':
-          alert('Chuyển tới trang: Đại sứ thương hiệu John Terry');
-          break;
-        case 'facebook':
-          window.open('https://facebook.com', '_blank');
-          break;
-        case 'warp':
-          window.open('https://1.1.1.1', '_blank');
-          break;
-        case 'camnang':
-          alert('Chuyển tới trang: Cẩm nang hướng dẫn');
-          break;
-        case 'gopy':
-          alert('Chuyển tới trang: Góp ý nhận quà');
-          break;
-        case 'quenmatkhau':
-          alert('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!');
-          break;
-        case 'khieunai':
-          alert('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888');
-          break;
-        case 'thiennguyen':
-          alert('Chương trình Quỹ thiện nguyện QQ88');
-          break;
-        case 'daily':
-          alert('Đăng ký đại lý nhận hoa hồng lên tới 60%');
-          break;
+        case 'daisu': alert('Chuyển tới trang: Đại sứ thương hiệu John Terry'); break;
+        case 'facebook': window.open('https://facebook.com', '_blank'); break;
+        case 'warp': window.open('https://1.1.1.1', '_blank'); break;
+        case 'camnang': alert('Chuyển tới trang: Cẩm nang hướng dẫn'); break;
+        case 'gopy': alert('Chuyển tới trang: Góp ý nhận quà'); break;
+        case 'quenmatkhau': alert('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
+        case 'khieunai': alert('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
+        case 'thiennguyen': alert('Chương trình Quỹ thiện nguyện QQ88'); break;
+        case 'daily': alert('Đăng ký đại lý nhận hoa hồng lên tới 60%'); break;
       }
     }
 
@@ -851,7 +858,6 @@
       }
     }
 
-    /* ĐỒNG HỒ ĐIỆN TỬ CHẠY THỜI GIAN THỰC */
     function updateSidebarClock() {
       const clockEl = document.getElementById('sidebar-live-clock');
       if (!clockEl) return;
@@ -868,6 +874,7 @@
     setInterval(updateSidebarClock, 1000);
     updateSidebarClock();
 
+    /* DANH SÁCH GAME CÓ PHÂN LOẠI SẢNH */
     const gameList = [
       { file: "KHO BAU AZTEC.png", cat: "nohu" },
       { file: "JACKPOT DANH CA.png", cat: "banca" },
@@ -901,7 +908,7 @@
       { file: "LÊ HỘI ĐÁ QUÝ.png", cat: "nohu" }
     ];
 
-    function renderGames(filter = 'all') {
+    function renderGames(filter = 'hot') {
       const wrapper = document.getElementById('games-wrapper');
       wrapper.innerHTML = '';
       const items = (filter === 'all' || filter === 'hot') ? gameList : gameList.filter(g => g.cat === filter);
@@ -925,11 +932,23 @@
       document.getElementById('cat-list').scrollLeft += offset;
     }
 
-    function filterCat(cat) {
+    /* CHỨC NĂNG CHUYỂN TAB: BÔI VÀNG ĐẬM TAB ĐƯỢC CHỌN, TRẢ VỀ NHẠT TAB CŨ */
+    function switchCategory(cat, element) {
+      // Bỏ class active ở tất cả các tab khác
+      const tabs = document.querySelectorAll('.cat-tab-item');
+      tabs.forEach(t => t.classList.remove('active'));
+
+      // Thêm class active cho tab vừa được bấm
+      element.classList.add('active');
+
+      // Cuộn nhẹ tab ra giữa tầm mắt
+      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+      // Lọc danh sách game tương ứng
       renderGames(cat);
     }
 
-    /* QUẢN LÝ TÀI KHOẢN VẬN HÀNH THẬT */
+    /* QUẢN LÝ TÀI KHOẢN */
     let currentAuthMode = 'login';
 
     function openAuthModal(mode = 'login') {
@@ -965,7 +984,6 @@
       e.preventDefault();
       const username = document.getElementById('input-username').value.trim();
       const password = document.getElementById('input-password').value.trim();
-
       const endpoint = currentAuthMode === 'register' ? '/api/register' : '/api/login';
 
       try {
@@ -1028,7 +1046,6 @@
         if (data.loggedIn && data.user) {
           guestZone.style.display = 'none';
           userZone.style.display = 'block';
-
           document.getElementById('display-username').innerText = data.user.username;
           if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
         } else {
@@ -1069,7 +1086,7 @@
     }
 
     window.onload = () => {
-      renderGames('all');
+      renderGames('hot');
       checkSession();
     };
   </script>

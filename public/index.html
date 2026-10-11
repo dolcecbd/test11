@@ -228,9 +228,7 @@
       cursor: pointer;
     }
 
-    /* ======================================================== */
-    /* THANH TAB SẢNH GAME: CHUẨN MÀU ACTIVE VÀNG CHANH REAL   */
-    /* ======================================================== */
+    /* THANH TAB SẢNH GAME: CHUẨN MÀU ACTIVE VÀNG CHANH */
     .cat-bar {
       display: flex;
       align-items: center;
@@ -258,7 +256,6 @@
       width: auto;
       display: block;
     }
-    /* KHI ĐƯỢC CHỌN: LUÔN LÀ VÀNG CHANH VIỀN XANH LÁ RÊU ĐẬM */
     .cat-tab-item.active {
       background: #eaec38 !important;
       border: 2px solid #005a2b !important;
@@ -271,9 +268,7 @@
       opacity: 0.95;
     }
 
-    /* ======================================================== */
-    /* KHỐI TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ                 */
-    /* ======================================================== */
+    /* KHỐI TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ */
     .sub-filter-header {
       padding: 8px 10px 6px 10px;
       background: #edf2ef;
@@ -352,7 +347,7 @@
     }
 
     /* ======================================================== */
-    /* CỘT HÃNG BÊN TRÁI & POSTER GAME VUÔNG BÊN PHẢI           */
+    /* CỘT HÃNG BÊN TRÁI ĐƯỢC CĂN CHỈNH TO, ĐỀU & CHUẨN 100%    */
     /* ======================================================== */
     .slot-layout-container {
       display: flex;
@@ -361,7 +356,7 @@
       background: #edf2ef;
     }
     .brand-sidebar-left {
-      width: 76px;
+      width: 84px;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
@@ -370,49 +365,55 @@
     }
     .brand-scroll-arrow {
       width: 100%;
-      height: 18px;
-      background: #b2cbb9;
-      border-radius: 4px;
+      height: 22px;
+      background: #b6ccbd;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      font-size: 9px;
+      font-size: 11px;
       cursor: pointer;
     }
     .brand-btn-item {
       width: 100%;
-      height: 50px;
+      height: 54px;
       background: #ffffff;
-      border: 1px solid #d0ded4;
-      border-radius: 8px;
+      border: 1.5px solid #d4e2d8;
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      padding: 3px;
+      padding: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.15s ease;
     }
     .brand-btn-item.active {
       background: #008a38 !important;
       border-color: #008a38 !important;
-      color: #ffffff !important;
+      box-shadow: 0 2px 5px rgba(0, 138, 56, 0.25);
     }
     .brand-btn-item.active span {
       color: #ffffff !important;
     }
     .brand-btn-item img {
-      max-height: 26px;
-      max-width: 90%;
+      max-height: 28px;
+      width: auto;
+      max-width: 88%;
       object-fit: contain;
+      display: block;
     }
     .brand-btn-item span {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 800;
       color: #0b572a;
       margin-top: 2px;
+      letter-spacing: -0.2px;
     }
 
+    /* LƯỚI POSTER VUÔNG BÊN PHẢI */
     .slot-game-grid-right {
       flex: 1;
       display: grid;
@@ -489,7 +490,7 @@
       flex-shrink: 0;
     }
 
-    /* SẢNH ĐỐI TÁC 2 CỘT (Casino, Thể Thao, Đá Gà...) */
+    /* SẢNH ĐỐI TÁC 2 CỘT */
     .partner-grid-2col {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -513,7 +514,7 @@
       display: block;
     }
 
-    /* MỤC HOT NHẤT (LƯỚI 3 CỘT) */
+    /* MỤC HOT NHẤT */
     .game-grid-hot {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -806,7 +807,7 @@
     </div>
 
     <div id="sidebar-live-clock" class="sidebar-clock-text">
-      10/10/2026 02:15:00 (GMT+7)
+      10/10/2026 02:25:00 (GMT+7)
     </div>
 
     <div class="sidebar-menu-list">
@@ -923,7 +924,7 @@
       </div>
     </div>
 
-    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME: CHUẨN MÀU ACTIVE VÀNG CHANH REAL -->
+    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME -->
     <div class="cat-bar">
       <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
@@ -1116,9 +1117,7 @@
     setInterval(updateSidebarClock, 1000);
     updateSidebarClock();
 
-    /* ======================================================== */
-    /* DANH SÁCH SẢNH ĐỐI TÁC 2 CỘT CHỮ NHẬT                    */
-    /* ======================================================== */
+    /* DANH SÁCH SẢNH ĐỐI TÁC 2 CỘT */
     const partnerRooms = {
       casino: [
         { name: "SE TRỰC TUYẾN", file: "sanh_se.png" },
@@ -1152,9 +1151,7 @@
       ]
     };
 
-    /* ======================================================== */
-    /* CỘT HÃNG BÊN TRÁI                                       */
-    /* ======================================================== */
+    /* CỘT HÃNG BÊN TRÁI ĐƯỢC CHUẨN HÓA ĐỀU ĐẸP */
     const brandLists = {
       nohu: [
         { id: "all", name: "Tất cả" },
@@ -1179,9 +1176,7 @@
       ]
     };
 
-    /* ======================================================== */
-    /* DỮ LIỆU GAME ĐIỆN TỬ VUÔNG                               */
-    /* ======================================================== */
+    /* DỮ LIỆU GAME ĐIỆN TỬ VUÔNG */
     const slotGamesData = {
       banca: [
         { name: "Jackpot Đánh Cá", brand: "jili", tagLogo: "JILI", file: "JACKPOT DANH CA.png" },
@@ -1221,9 +1216,7 @@
       ]
     };
 
-    /* ======================================================== */
-    /* DANH SÁCH 63 GAME CỦA MỤC HOT NHẤT (ĐÃ FIX KÍN LỖ HỔNG)  */
-    /* ======================================================== */
+    /* DANH SÁCH 63 GAME CỦA MỤC HOT NHẤT */
     const gameListHot = [
       { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "sanh_se.png"] },
       { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "sanh_dg.png"] },
@@ -1302,7 +1295,7 @@
       const subHeader = document.getElementById('sub-filter-header');
       viewport.innerHTML = '';
 
-      // 1. SẢNH ĐỐI TÁC 2 CỘT (Casino, Thể Thao, Đá Gà, Xổ Số, E-Sports)
+      // 1. SẢNH ĐỐI TÁC 2 CỘT
       if (partnerRooms[currentMainCat]) {
         subHeader.style.display = 'none';
         const grid = document.createElement('div');
@@ -1328,7 +1321,7 @@
         return;
       }
 
-      // 2. SẢNH ĐIỆN TỬ (Bắn Cá, Nổ Hũ, Game Bài)
+      // 2. SẢNH ĐIỆN TỬ
       if (brandLists[currentMainCat]) {
         subHeader.style.display = 'block';
 
@@ -1353,7 +1346,7 @@
           };
 
           if (brand.id === 'all') {
-            btn.innerHTML = `<span style="font-size:11.5px;font-weight:900;">${brand.name}</span>`;
+            btn.innerHTML = `<span style="font-size:12px;font-weight:900;">${brand.name}</span>`;
           } else {
             btn.innerHTML = `
               <img src="/images/${brand.file}" onerror="this.style.display='none'">
@@ -1402,7 +1395,7 @@
         return;
       }
 
-      // 3. MỤC HOT NHẤT (LƯỚI 63 GAME)
+      // 3. MỤC HOT NHẤT
       subHeader.style.display = 'none';
       const hotGrid = document.createElement('div');
       hotGrid.className = 'game-grid-hot';

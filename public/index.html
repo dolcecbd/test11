@@ -219,16 +219,175 @@
       height: 34%;
       cursor: pointer;
     }
-    .touch-actions-area {
+    
+    /* VÙNG BẤM RIÊNG BIỆT CHO 4 NÚT: NẠP TIỀN - RÚT TIỀN - ĐẠI LÝ - GIỚI THIỆU */
+    .touch-actions-grid {
       position: absolute;
       top: 0;
       right: 0;
       width: 65%;
       height: 100%;
+      display: flex;
+      z-index: 5;
+    }
+    .touch-action-btn {
+      flex: 1;
+      height: 100%;
       cursor: pointer;
     }
 
-    /* THANH TAB SẢNH GAME: CHUẨN MÀU ACTIVE VÀNG CHANH */
+    /* GIAO DIỆN NẠP TIỀN TEST MÔ PHỎNG */
+    .deposit-view-wrapper {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background: #f4f6f8;
+      z-index: 10001;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .deposit-header {
+      background: #111417;
+      color: #ffffff;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .deposit-header .btn-back {
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 30px;
+    }
+    .deposit-header .deposit-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .deposit-header .header-record-icon {
+      font-size: 16px;
+      cursor: pointer;
+      width: 30px;
+      text-align: right;
+    }
+    .deposit-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 40px;
+    }
+    .deposit-sec-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .deposit-sec-title::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: #eab308;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .method-item {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 4px 6px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      min-height: 75px;
+      text-align: center;
+    }
+    .method-item.active {
+      border-color: #ef4444;
+      background: #fffafa;
+    }
+    .method-item.active::after {
+      content: "✓";
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 10px;
+      color: #ef4444;
+      font-weight: 900;
+    }
+    .method-badge-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 9px;
+      color: #ea580c;
+    }
+    .method-icon-box {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+    .method-name {
+      font-size: 10px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.2;
+    }
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .channel-item {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 6px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+      position: relative;
+    }
+    .channel-item.active {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+    .btn-deposit-next {
+      background: #94a3b8;
+      color: #ffffff;
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    /* THANH TAB SẢNH GAME */
     .cat-bar {
       display: flex;
       align-items: center;
@@ -346,9 +505,7 @@
       border-color: #008a38;
     }
 
-    /* ======================================================== */
-    /* CỘT HÃNG BÊN TRÁI ĐƯỢC CĂN CHỈNH TO, ĐỀU & CHUẨN 100%    */
-    /* ======================================================== */
+    /* CỘT HÃNG BÊN TRÁI */
     .slot-layout-container {
       display: flex;
       padding: 2px 8px 10px 8px;
@@ -413,7 +570,7 @@
       letter-spacing: -0.2px;
     }
 
-    /* LƯỚI POSTER VUÔNG BÊN PHẢI */
+    /* LƯỚI GAME ĐIỆN TỬ */
     .slot-game-grid-right {
       flex: 1;
       display: grid;
@@ -919,7 +1076,14 @@
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
           <span class="real-username-label" id="display-username">quanmi112</span>
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
-          <div class="touch-actions-area" onclick="handleActionsMenu()"></div>
+          
+          <!-- 4 VÙNG BẤM TƯƠNG ỨNG 4 ICON -->
+          <div class="touch-actions-grid">
+            <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
+            <div class="touch-action-btn" onclick="alert('Tính năng Rút Tiền')" title="Rút Tiền"></div>
+            <div class="touch-action-btn" onclick="alert('Đăng ký Đại Lý')" title="Đại Lý"></div>
+            <div class="touch-action-btn" onclick="alert('Giới Thiệu')" title="Giới Thiệu"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1020,6 +1184,69 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- GIAO DIỆN NẠP TIỀN GIỐNG ẢNH 3 -->
+  <div id="deposit-view" class="deposit-view-wrapper">
+    <div class="deposit-header">
+      <div class="btn-back" onclick="closeDepositView()">⟨</div>
+      <div class="deposit-title">Nạp Tiền</div>
+      <div class="header-record-icon">📋</div>
+    </div>
+
+    <div class="deposit-body">
+      <div class="deposit-sec-title">Phương thức nạp tiền</div>
+      <div class="methods-grid">
+        <div class="method-item active" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">💳</div>
+          <div class="method-name" style="color:#ef4444;">Chuyển khoản<br>ngân hàng</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">📱</div>
+          <div class="method-name">Quét mã QR<br>ngân hàng</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">🟪</div>
+          <div class="method-name">MomoPay</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">🟦</div>
+          <div class="method-name">ZaloPay</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">🟩</div>
+          <div class="method-name">VtPay</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">🏷️</div>
+          <div class="method-name">Thẻ cào<br>điện thoại</div>
+        </div>
+        <div class="method-item" onclick="selectMethod(this)">
+          <span class="method-badge-thumb">👍</span>
+          <div class="method-icon-box">₮</div>
+          <div class="method-name">USDT<br><span style="color:#ef4444;font-size:9px;">+0.6%</span></div>
+        </div>
+      </div>
+
+      <div class="deposit-sec-title">Các kênh thanh toán</div>
+      <div class="channels-grid">
+        <div class="channel-item active" onclick="selectChannel(this)">VN196PAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">WMPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">EEPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">BWTPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">A8PAY 10-499,999</div>
+        <div class="channel-item" onclick="selectChannel(this)">GOPAY 10-499,999</div>
+      </div>
+
+      <div class="btn-deposit-next" onclick="alert('Đang xử lý nạp tiền...')">Tiếp theo</div>
+    </div>
   </div>
 
   <!-- MODAL ĐĂNG KÝ / ĐĂNG NHẬP -->
@@ -1151,7 +1378,6 @@
       ]
     };
 
-    /* CỘT HÃNG BÊN TRÁI ĐƯỢC CHUẨN HÓA ĐỀU ĐẸP */
     const brandLists = {
       nohu: [
         { id: "all", name: "Tất cả" },
@@ -1176,7 +1402,6 @@
       ]
     };
 
-    /* DỮ LIỆU GAME ĐIỆN TỬ VUÔNG */
     const slotGamesData = {
       banca: [
         { name: "Jackpot Đánh Cá", brand: "jili", tagLogo: "JILI", file: "JACKPOT DANH CA.png" },
@@ -1216,72 +1441,55 @@
       ]
     };
 
-    /* DANH SÁCH 63 GAME CỦA MỤC HOT NHẤT */
     const gameListHot = [
       { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "sanh_se.png"] },
       { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "sanh_dg.png"] },
       { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"] },
-
       { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"] },
       { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"] },
       { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"] },
-
       { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"] },
       { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"] },
       { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"] },
-
       { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png", "DUONG MAT CHUOC.png"] },
       { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png", "SIÊU CẤP ACE.png"] },
       { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png", "MIỀN TÂY HOANG DÃ.png"] },
-
       { name: "AVIATOR", files: ["AVIATOR.png", "AVIATOR.jpg"] },
       { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png", "NEKO MAY MẮN.png"] },
       { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png", "NAM MOI LO LO PHAT.png"] },
-
       { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png", "THANG MAT CHUOC.png"] },
       { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png", "THO SAN NGOI SAO.png"] },
       { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png", "ĐẾ QUỐC HOÀNG KIM.png"] },
-
       { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png", "THẦN CHIẾN GARUDA 500.png"] },
       { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png", "JACKPOT VUA TÀI LỘC.png"] },
       { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png"] },
-
       { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", files: ["QUYET CHIEN TIEN THUONG KHUNG.png"] },
       { name: "NGỌC MAY MẮN 3", files: ["NGỌC MAY MAN 3.png"] },
       { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png"] },
-
       { name: "CHIẾN THẮNG POKER", files: ["CHIEN THANG POKER.png"] },
       { name: "DJ BOOM BOOM", files: ["DJ BOOM BOOM.png"] },
       { name: "SABA THỂ THAO", files: ["SABA THE THAO.png", "sanh_saba.png"] },
-
       { name: "MẠT CHƯỢC HOANG DÃ", files: ["MAT CHƯỢC HOANG DA.png"] },
       { name: "KỲ LÂN MÁCH NƯỚC", files: ["KY LAN MACH NƯỚC.png"] },
       { name: "JACKPOT ĐÁNH CÁ 2", files: ["JACKPOT ĐÁNH CÁ 2.png"] },
-
       { name: "THẦN TÀI NHÂN BỘI PHÁ", files: ["THAN TAI NHAN BOI PHA_.png"] },
       { name: "NGỌC MAY MAN 2", files: ["NGỌC MAY MAN 2.png"] },
       { name: "CAO BỒI HOANG DA", files: ["CAO BOI HOANG DA.png"] },
-
       { name: "BẬC THẦY PHI HÀNH GIA", files: ["BAC THAY PHI HANH GIA.png"] },
       { name: "THỎ MAY MẮN", files: ["THO MAY MAN.png"] },
       { name: "LỄ HỘI ĐÁ QUÝ", files: ["LÊ HỘI ĐÁ QUÝ.png"] },
-
       { name: "BẮN CÁ THẦN TÀI", files: ["BAN CA THAN TAI.png"] },
       { name: "SIÊU ACE DELUXE", files: ["SIEU ACE DELUXE.png"] },
       { name: "HỀ XIẾC 4096", files: ["HE XIEC 4096.png"] },
-
       { name: "ANUBIS", files: ["ANUBIS.png"] },
       { name: "CHỢ ĐÊM", files: ["CHO DEM.png"] },
       { name: "XÌ DÁCH", files: ["XI DACH.png"] },
-
       { name: "ĐÊM TIỆC COCKTAIL", files: ["DEM TIEC COCKTAIL.png"] },
       { name: "JACKPOT VUA ĐẠI DƯƠNG", files: ["JACKPOT VUA DAI DUONG.png"] },
       { name: "ATHENA HOANG DÃ 2048", files: ["ATHENA HOANG DA 2048.png"] },
-
       { name: "BÁT CHÂU BÁU", files: ["BAT CHAU BAU.png"] },
       { name: "VUA ĐÁNH CÁ", files: ["VUA DANH CA.png"] },
       { name: "KHỈ HOANG DÃ#3258", files: ["KHI HOANG DA 3258.png"] },
-
       { name: "CÂY PHÁT TÀI", files: ["CAY PHAT TAI.png"] },
       { name: "NỮ HOÀNG INCA", files: ["NU HOANG INCA.png"] },
       { name: "SIÊU BÒ B", files: ["SIEU BO B.png"] }
@@ -1295,7 +1503,6 @@
       const subHeader = document.getElementById('sub-filter-header');
       viewport.innerHTML = '';
 
-      // 1. SẢNH ĐỐI TÁC 2 CỘT
       if (partnerRooms[currentMainCat]) {
         subHeader.style.display = 'none';
         const grid = document.createElement('div');
@@ -1321,14 +1528,12 @@
         return;
       }
 
-      // 2. SẢNH ĐIỆN TỬ
       if (brandLists[currentMainCat]) {
         subHeader.style.display = 'block';
 
         const container = document.createElement('div');
         container.className = 'slot-layout-container';
 
-        // Cột hãng bên trái
         const leftSidebar = document.createElement('div');
         leftSidebar.className = 'brand-sidebar-left';
 
@@ -1361,7 +1566,6 @@
         arrowDown.innerText = '▼';
         leftSidebar.appendChild(arrowDown);
 
-        // Lưới Poster vuông bên phải
         const rightGrid = document.createElement('div');
         rightGrid.className = 'slot-game-grid-right';
 
@@ -1395,7 +1599,6 @@
         return;
       }
 
-      // 3. MỤC HOT NHẤT
       subHeader.style.display = 'none';
       const hotGrid = document.createElement('div');
       hotGrid.className = 'game-grid-hot';
@@ -1463,6 +1666,33 @@
 
     function navScroll(offset) {
       document.getElementById('cat-list').scrollLeft += offset;
+    }
+
+    /* ĐÓNG / MỞ VÀ TƯƠNG TÁC GIAO DIỆN NẠP TIỀN */
+    function openDepositView() {
+      document.getElementById('deposit-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDepositView() {
+      document.getElementById('deposit-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function selectMethod(el) {
+      document.querySelectorAll('.method-item').forEach(m => {
+        m.classList.remove('active');
+        const nameEl = m.querySelector('.method-name');
+        if (nameEl) nameEl.style.color = '#334155';
+      });
+      el.classList.add('active');
+      const activeName = el.querySelector('.method-name');
+      if (activeName) activeName.style.color = '#ef4444';
+    }
+
+    function selectChannel(el) {
+      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
     }
 
     /* QUẢN LÝ TÀI KHOẢN */
@@ -1579,10 +1809,6 @@
       const u = document.getElementById('display-username').innerText;
       navigator.clipboard.writeText(u);
       alert('Đã sao chép: ' + u);
-    }
-
-    function handleActionsMenu() {
-      alert('Mở cổng Nạp / Rút / Đại lý');
     }
 
     function openUserMenu() {

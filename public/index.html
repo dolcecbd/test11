@@ -236,7 +236,7 @@
     }
 
     /* ======================================================== */
-    /* GIAO DIỆN NẠP TIỀN CHUẨN 100% THEO ẢNH WEB REAL           */
+    /* GIAO DIỆN NẠP TIỀN                                       */
     /* ======================================================== */
     .deposit-view-wrapper {
       position: fixed;
@@ -335,7 +335,7 @@
       display: inline-block;
     }
 
-    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN */
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - DÙNG TRỰC TIẾP ẢNH CẮT */
     .methods-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -343,68 +343,28 @@
     }
     .method-item {
       background: #ffffff;
-      border: 1.2px solid #e2e8f0;
       border-radius: 8px;
-      padding: 10px 2px 7px 2px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       position: relative;
       cursor: pointer;
-      min-height: 86px;
-      text-align: center;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.1s ease;
     }
-    .method-item.active {
-      border: 1.5px solid #e11d48 !important;
-      background: #ffffff;
+    .method-item:active {
+      transform: scale(0.97);
     }
-    .method-ribbon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 14px;
+    .method-item img {
+      width: 100%;
       height: auto;
-      z-index: 5;
-    }
-    .method-check-mark {
-      display: none;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 16px;
-      height: 16px;
-      z-index: 6;
-    }
-    .method-item.active .method-check-mark {
       display: block;
-    }
-    .method-icon-frame {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 4px;
-    }
-    .method-icon-frame img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-    .method-name {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #1e293b;
-      line-height: 1.25;
-    }
-    .method-item.active .method-name {
-      color: #e11d48 !important;
+      border-radius: 8px;
     }
 
-    /* LƯỚI KÊNH THANH TOÁN (ẢNH 2 CHUẨN) */
+    /* LƯỚI KÊNH THANH TOÁN */
     .channels-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -431,8 +391,15 @@
       border: 1.5px solid #e11d48 !important;
       color: #e11d48 !important;
     }
+    .channel-ribbon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: auto;
+    }
 
-    /* KHỐI MẸO DƯỚI KÊNH THANH TOÁN */
+    /* MẸO & DANH SÁCH NGÂN HÀNG */
     .tip-box {
       font-size: 11.5px;
       color: #1e293b;
@@ -457,7 +424,6 @@
       font-weight: 800;
     }
 
-    /* DANH SÁCH NGÂN HÀNG (ẢNH 2) */
     .bank-options-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1290,7 +1256,7 @@
 
   </div>
 
-  <!-- GIAO DIỆN NẠP TIỀN CHUẨN 100% THEO ẢNH WEB REAL -->
+  <!-- GIAO DIỆN NẠP TIỀN -->
   <div id="deposit-view" class="deposit-view-wrapper">
     <div class="deposit-header">
       <div class="btn-back" onclick="closeDepositView()">⟨</div>
@@ -1311,76 +1277,41 @@
       <div class="methods-grid">
         <!-- Chuyển khoản ngân hàng -->
         <div class="method-item active" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF8AAAB/CAIAAAC8U6WSAAAACXBIWXMAAC4jAAAuIwF4pT92AAAFI0lEQVR4nO2by0ocWRjHE6sHCEhABvF24zPMA+QBAvMCgtlMNoY4i7MwiL4An0BGEJjN5EFiQBDGjQEBgQEE5jE8gIAERXwVb8J5fA+dG2pvuuuo7nOqun5f4Mep5nSdTv+5/OfkVPf7/T4K+tK/8wPob+iEonRCUTqhKJ1QlE4oSicUpROK0glF6YSidEJROqEonVCUTihKJxSlE4rSCUXphKJ0QlE6oSidUJROKEonFKUTitIJRekEo797+e2j3n8/7d56uP340e3vd27ee/X94uP3P3k+b3x0fnT/9sN7d159v/j4/U+e3x6c/PPs8Kfv1zYevXh9qZ3H92/9cPPN+W3sH//0vff+p3/75e533/v5+X1x799/f/P59p6b3+Z11w43P/3+m8P17f/m91f9b/h573/14tHtN6e3H955d/r2t6+/P/7vO/9ffb/0k+d317/sPv3+o+9/dfHw6P3q1uO7P/3x0fvVP1d//vnJ/R9uvzm/+fn7tfc/+/jN6e1fv/vh8c33pxc3Prj/6p8fPfjo/eovf/t0fuv90Zt/n5wfrH977ycnr09v3fz8+OD019ff//i3b9+dfH5wb/1w/aev1x69fPvdt+efP/7p+4PXp2v/fv3j46PXpxeP77z/4uTj+z98c37r/W/3Hz+4+8uvv1/fevb65Nnv6x/u//bN6cf3f/z9q8/3//ru5OXrv/z+t58/eX166+eH717efXj6y8np0+X1p7/99uT09tPvfnr1/U8P7j98eef6D28/PPn64b0f/3r/7a/ffbL++N+3/v24/tO1+z/9+Pn+k1en19Y/e/P19yv/vn/39cf//P3rDz968+P1x9ee3fv8+u+fvTndev1j64fvv/u3Hz968PrFw/s/fXv+4L/rv31776P1p+s/ffHw/f+eXfv2D69O37x4dHz/g9dfP7j703/rT/714P0fT16ebq5//uL59x8/uvv9yU+vTx7d/vH2+f5P//X1+QcPrn3/15P1R/c/ev7+D48O3py+23r4/d0fvj5/eP/Oq5OXX197+P7B/fVv/+3q3/j36+effrT++P1PX5zcevXh68P7rx8/vv/D+4+vffP6/PH7L7/48fThj6//+vD97w/evP3k1vUfvrh8+O7k5Z3b9+/d3nj887sfr3/47/VXD1/duf741Z8vH3x88NPNB+uvnv289sOf3z15/sPD+z89uL7+8O6912cP3/9+/fNvv/nx1eODx/fvn5ycfPPs9d0ffv3q6ycvHz648+jV28d/Pv3bFw/W1359c3r851ePPn39+smLN//+8YcH9+68e//w4fWv33z2/OTF8eNfv7n76PT269N771/7/sXfHj66/eP66Z1X7/78/cndl6fvf3f33auH716c/PbDgydPnrz59u3f77978Mv9D9/88PDh23eP7t199Nvf3794/OjB3cffv33z9OzF3f+ePnjy/vGD24/+e3f3/sn1h09+vfv07cHRyZPfv/v3379+fv/hR6/f37699fv9B3fvPXj15Mev1k4ef/jZk/WHz14/+vDhp988fP30+ZObp/ff/fnV9f/t/vDw/u3Hzx6+fPjh/dcvvvvw0cnhyYf/fPjo4d0Hj58/vn/vyeOHH9778OHjRw+ebX548PD+q5OHr357/fB08/rD57duvvv7nUdPPrp/7/rD3x58eP/eg5Mn39/78fHpvfvXT7/79sHbh4/u/vDgwbsHJ5/9+Nsf9x89eXz13v1v7j84fvL+9ftnDx88ffT7D3/8+NvdB/fvP1m7/+GjO9ff371/58Hdx7duvf/w3uMnd268efj+4e0nv53cvfPg4fWbT3599/je/fuPrt178PLhk0d3r518/8OPDx89eXj79v2nj2/fevzo4eNHjx49/X9gXm0UphOK0glF6YSidEJROqEonVCUTihKJxSlE4rSCUXphKJ0QlE6oSidUJROKEonFKUTitIJRekE8+8G408aQ012JAAAAABJRU5ErkJggg==" alt="bank">
-          </div>
-          <div class="method-name">Chuyển khoản<br>ngân hàng</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_bank.png.png" onerror="handleImgErr(this, ['/images/pay_bank.png', '/images/pay_bank.jpg'])" alt="Chuyển khoản">
         </div>
 
         <!-- Quét mã QR ngân hàng -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="qr">
-          </div>
-          <div class="method-name">Quét mã QR<br>ngân hàng</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_qr.png.png" onerror="handleImgErr(this, ['/images/pay_qr.png', '/images/pay_qr.jpg'])" alt="Quét mã QR">
         </div>
 
         <!-- MomoPay -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="momo">
-          </div>
-          <div class="method-name">MomoPay</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_momo.png.png" onerror="handleImgErr(this, ['/images/pay_momo.png', '/images/pay_momo.jpg'])" alt="MomoPay">
         </div>
 
         <!-- ZaloPay -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="zalo">
-          </div>
-          <div class="method-name">ZaloPay</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_zalopay.png.png" onerror="handleImgErr(this, ['/images/pay_zalopay.png', '/images/pay_zalopay.jpg'])" alt="ZaloPay">
         </div>
 
         <!-- VtPay -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="vtpay">
-          </div>
-          <div class="method-name">VtPay</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_vtpay.png.png" onerror="handleImgErr(this, ['/images/pay_vtpay.png', '/images/pay_vtpay.jpg'])" alt="VtPay">
         </div>
 
         <!-- Thẻ cào điện thoại -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="thecao">
-          </div>
-          <div class="method-name">Thẻ cào điện<br>thoại</div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_thecao.png.png" onerror="handleImgErr(this, ['/images/pay_thecao.png', '/images/pay_thecao.jpg'])" alt="Thẻ cào">
         </div>
 
         <!-- USDT -->
         <div class="method-item" onclick="selectMethod(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
-          <div class="method-icon-frame">
-            <img src="data:image/png;base64,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" alt="usdt">
-          </div>
-          <div class="method-name">USDT<br><span style="color:#e11d48;font-size:10px;">+0.6%</span></div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAxCAIAAAD9P7mSAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAB/ElEQVR4nO2WsWsUQRzH37k7480lXF6wEIKgXJqIIJYW2tlJYSdYWPkfWCx82GmlVVoK/gG2wT/Axj/AWlhqIYII4hG0sFf4kUvuLsbu3cx782K5eM7H3O69b9k3D75vdt6bmUo/a/wP1/86cNuO6bbjOqbbf+lO57H38vWT/V/27b37+2/fPnmz9/b+6/3n+w/f7u39vjWJ+ePjX3/f/fNsb//g6euX736+ePLq6d7B4dv9B78e7e17/P7wxd7+4eu9e78f7e7/8/j98Xv//d5/9/75g6ef7P8c/Pnr5z/9B48f/Hn66uDJ8ePDp/uHL58fvj54+PzJ63cHg9Hrx4PDZwcH+4ev9/d/PdnbO3j55OC3F48OHr04OPzn8eGjFwePXu/t/Xj4+MHb/YOHDx8d7B88fP3k7uDpi+dfXv358+Hh4eu9/YevD/6++ufrvT8PXu8P7g2ePD842N87ePn094MXr949ffL6+f7+k5ePnx8M3h7sP3j1/NXLw72Dl68eD96/2n+x/9vh/t7b33t7e4O9F/u/fv7ev/vg9tHRq3t3D57vv3p2+OTt/uDB4cHB893Dw+PXB38ePX758sHe89dPfv0+fP3i2U+v/3R89OzR4f7BwfPnh7+fHzx6+fTV22ev//x8sPf4we5g//GzF/t7B/uvXz1+82L/ydHrg+fHB08fP/3z7sGB978D7oTfX1/Z/Z4AAAAASUVORK5CYII=" class="method-check-mark" alt="check">
+          <img src="/images/pay_usdt.png.png" onerror="handleImgErr(this, ['/images/pay_usdt.png', '/images/pay_usdt.jpg'])" alt="USDT">
         </div>
       </div>
 
-      <!-- 2. CÁC KÊNH THANH TOÁN (THEO ĐÚNG ẢNH 2 WEB REAL) -->
+      <!-- 2. CÁC KÊNH THANH TOÁN -->
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-teal"></span>
         <span>Các kênh thanh toán</span>
@@ -1389,23 +1320,23 @@
       <div class="channels-grid">
         <div class="channel-item active" onclick="selectChannel(this)">SUNPAY</div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
+          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
           GOPAY 10-499,999
         </div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
+          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
           VN196PAY
         </div>
         <div class="channel-item" onclick="selectChannel(this)">EZPAY 10-499,999</div>
         <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA1CAIAAAD6K/K3AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEkklEQVR4nO1WXYscRRj9umtmk93NJkviq0Q016IIQox4IR68Fw/ey1/l1/kZXhQQb1RUEkXMRk0MZr7vXh7qVjWd02u7m1V+oGFu91R3n3Oquvqc6qqaPZ7k+n/85eB8k/75s2W79q381a17t9bX12fO977/0e1X7777Tq/73r13733jTf7G9989uP/6628+fPjgrcO3b7z91oPv9bquf+3261fvfHP35iB8c334+v7Vzfs3rh+8e+fuWw8f/fDu/bdf3d87fHhv7/WDu+999N7Dhw/fu/3gzjtvvfPw4Tv/2Vv5u2973/vV3duD8K1b924+ePXm/Zvv3rx3/9bhwa3rd167ffjWwzfvfnD3/W8/fOudt/b3D/cODvbffu/d12/f2r+/r9/fv7m/d/jWwTsffO/rB3vffvPhW7fvvfv+q288uP/63kFf37h15+79ew8ePnzw+t1b+/fv3nr84d3bB2/duXX44M3b935/9/Yg/N39W3dv7b97+/71W+99+P43b926ffjmg1cfvPnw/u0HH7x6697b91+5fXv/8M3bd27t7R/u3b5z8879w729vbt37r/z4J27+w9e27v37t27dw/2X/36rdfeevudhw8evHn3wWsP3v36rbdef/DWN2/tH967ee/G/m0eP/7p4N69+/fu33/w9dfv3Xrw4Pbd+/v7h7e/vr//4O03716/fevg4M037956/OD1W7ce3Dq8/+b9+7cOD/e/vXPr/q3b927u3/r2w7ffvv/g/oMHb969/fCD91978NatNz784NW7Dx/88OD+Gz/40f69m7f233jwwWvffvudf/35539d/v3i/9+BfwA0rTjR6qf16QAAAABJRU5ErkJggg==" class="method-ribbon" alt="ribbon">
+          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
           A8PAY 10-499,999
         </div>
         <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
       </div>
 
-      <!-- MẸO QUÉT MÃ VÀ LINK CHUẨN ẢNH 2 -->
+      <!-- MẸO QUÉT MÃ -->
       <div class="tip-box">
         <div class="notice-row">
           <span class="icon-green-check">✅</span>
@@ -1413,7 +1344,7 @@
         </div>
       </div>
 
-      <!-- 3. DANH SÁCH NGÂN HÀNG (ẢNH 2) -->
+      <!-- 3. DANH SÁCH NGÂN HÀNG -->
       <div class="deposit-sec-title">
         <span class="dot-orange"></span>
         <span>Danh sách ngân hàng</span>

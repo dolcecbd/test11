@@ -335,7 +335,7 @@
       display: inline-block;
     }
 
-    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - DÙNG TRỰC TIẾP ẢNH CẮT */
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - CHỌN MƯỢT VÀ NỔI BẬT */
     .methods-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -343,7 +343,7 @@
     }
     .method-item {
       background: #ffffff;
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -351,17 +351,48 @@
       position: relative;
       cursor: pointer;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      transition: transform 0.1s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: all 0.16s ease;
+      border: 1.8px solid transparent;
+      user-select: none;
+    }
+    .method-item:not(.active) {
+      opacity: 0.92;
+    }
+    /* Khi được chọn: Bo viền đỏ đậm và phóng nhẹ */
+    .method-item.active {
+      border: 2px solid #e11d48 !important;
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.28);
+      transform: scale(1.02);
+      opacity: 1 !important;
+    }
+    /* Vết vát góc đỏ và dấu tích ✓ ở góc dưới bên phải */
+    .method-item.active::after {
+      content: "✓";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 17px;
+      height: 17px;
+      background: #e11d48;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 17px;
+      text-align: center;
+      border-top-left-radius: 5px;
+      z-index: 10;
+      box-shadow: -1px -1px 3px rgba(0,0,0,0.15);
     }
     .method-item:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
     }
     .method-item img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 8px;
+      border-radius: 7px;
+      pointer-events: none;
     }
 
     /* LƯỚI KÊNH THANH TOÁN */
@@ -386,6 +417,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.15s ease;
     }
     .channel-item.active {
       border: 1.5px solid #e11d48 !important;
@@ -397,6 +429,7 @@
       left: 0;
       width: 12px;
       height: auto;
+      pointer-events: none;
     }
 
     /* MẸO & DANH SÁCH NGÂN HÀNG */
@@ -439,14 +472,15 @@
       color: #334155;
       background: #ffffff;
       cursor: pointer;
+      transition: all 0.15s ease;
     }
     .bank-card-item.active {
-      border-color: #e11d48;
-      color: #e11d48;
+      border: 1.5px solid #e11d48 !important;
+      color: #e11d48 !important;
     }
 
     .btn-deposit-next {
-      background: #b0b8c1;
+      background: #e11d48;
       color: #ffffff;
       text-align: center;
       padding: 13px;
@@ -455,6 +489,7 @@
       font-size: 14.5px;
       margin-top: 15px;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
     }
 
     /* THANH TAB SẢNH GAME */
@@ -1276,37 +1311,37 @@
 
       <div class="methods-grid">
         <!-- Chuyển khoản ngân hàng -->
-        <div class="method-item active" onclick="selectMethod(this)">
+        <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
           <img src="/images/pay_bank.png.png" onerror="handleImgErr(this, ['/images/pay_bank.png', '/images/pay_bank.jpg'])" alt="Chuyển khoản">
         </div>
 
         <!-- Quét mã QR ngân hàng -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
           <img src="/images/pay_qr.png.png" onerror="handleImgErr(this, ['/images/pay_qr.png', '/images/pay_qr.jpg'])" alt="Quét mã QR">
         </div>
 
         <!-- MomoPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
           <img src="/images/pay_momo.png.png" onerror="handleImgErr(this, ['/images/pay_momo.png', '/images/pay_momo.jpg'])" alt="MomoPay">
         </div>
 
         <!-- ZaloPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
           <img src="/images/pay_zalopay.png.png" onerror="handleImgErr(this, ['/images/pay_zalopay.png', '/images/pay_zalopay.jpg'])" alt="ZaloPay">
         </div>
 
         <!-- VtPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
           <img src="/images/pay_vtpay.png.png" onerror="handleImgErr(this, ['/images/pay_vtpay.png', '/images/pay_vtpay.jpg'])" alt="VtPay">
         </div>
 
         <!-- Thẻ cào điện thoại -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
           <img src="/images/pay_thecao.png.png" onerror="handleImgErr(this, ['/images/pay_thecao.png', '/images/pay_thecao.jpg'])" alt="Thẻ cào">
         </div>
 
         <!-- USDT -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
           <img src="/images/pay_usdt.png.png" onerror="handleImgErr(this, ['/images/pay_usdt.png', '/images/pay_usdt.jpg'])" alt="USDT">
         </div>
       </div>
@@ -1350,15 +1385,15 @@
         <span>Danh sách ngân hàng</span>
       </div>
       <div class="bank-options-list">
-        <div class="bank-card-item active">VIETCOMBANK</div>
-        <div class="bank-card-item">MBBANK</div>
-        <div class="bank-card-item">TECHCOMBANK</div>
-        <div class="bank-card-item">ACB</div>
-        <div class="bank-card-item">VPBANK</div>
-        <div class="bank-card-item">BIDV</div>
+        <div class="bank-card-item active" onclick="selectBank(this)">VIETCOMBANK</div>
+        <div class="bank-card-item" onclick="selectBank(this)">MBBANK</div>
+        <div class="bank-card-item" onclick="selectBank(this)">TECHCOMBANK</div>
+        <div class="bank-card-item" onclick="selectBank(this)">ACB</div>
+        <div class="bank-card-item" onclick="selectBank(this)">VPBANK</div>
+        <div class="bank-card-item" onclick="selectBank(this)">BIDV</div>
       </div>
 
-      <div class="btn-deposit-next" onclick="alert('Đang kết nối cổng thanh toán...')">Tiếp theo</div>
+      <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo</div>
     </div>
   </div>
 
@@ -1781,7 +1816,13 @@
       document.getElementById('cat-list').scrollLeft += offset;
     }
 
-    /* ĐÓNG / MỞ VÀ TƯƠNG TÁC GIAO DIỆN NẠP TIỀN */
+    /* ======================================================== */
+    /* LOGIC CHỌN PHƯƠNG THỨC NẠP, KÊNH VÀ NGÂN HÀNG          */
+    /* ======================================================== */
+    let selectedMethod = 'bank';
+    let selectedChannel = 'SUNPAY';
+    let selectedBank = 'VIETCOMBANK';
+
     function openDepositView() {
       document.getElementById('deposit-view').style.display = 'flex';
       document.body.style.overflow = 'hidden';
@@ -1792,16 +1833,28 @@
       document.body.style.overflow = '';
     }
 
-    function selectMethod(el) {
+    function selectMethod(el, methodKey) {
       document.querySelectorAll('.method-item').forEach(m => {
         m.classList.remove('active');
       });
       el.classList.add('active');
+      selectedMethod = methodKey;
     }
 
     function selectChannel(el) {
       document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
+      selectedChannel = el.innerText.trim();
+    }
+
+    function selectBank(el) {
+      document.querySelectorAll('.bank-card-item').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedBank = el.innerText.trim();
+    }
+
+    function handleDepositNext() {
+      alert('Đã chọn:\n- Phương thức: ' + selectedMethod.toUpperCase() + '\n- Kênh: ' + selectedChannel + '\n- Ngân hàng: ' + selectedBank);
     }
 
     /* QUẢN LÝ TÀI KHOẢN */

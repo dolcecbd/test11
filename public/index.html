@@ -335,7 +335,7 @@
       display: inline-block;
     }
 
-    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - CHỌN MƯỢT VÀ NỔI BẬT */
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - CHỌN MƯỢT 100% */
     .methods-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -351,18 +351,18 @@
       position: relative;
       cursor: pointer;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: all 0.16s ease;
-      border: 1.8px solid transparent;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: all 0.18s ease;
+      border: 1.5px solid transparent;
       user-select: none;
     }
     .method-item:not(.active) {
       opacity: 0.92;
     }
-    /* Khi được chọn: Bo viền đỏ đậm và phóng nhẹ */
+    /* Khi được chọn: Bo viền đỏ đậm và nổi bật chuẩn 100% */
     .method-item.active {
       border: 2px solid #e11d48 !important;
-      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.28);
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.22);
       transform: scale(1.02);
       opacity: 1 !important;
     }
@@ -475,8 +475,8 @@
       transition: all 0.15s ease;
     }
     .bank-card-item.active {
-      border: 1.5px solid #e11d48 !important;
-      color: #e11d48 !important;
+      border-color: #e11d48;
+      color: #e11d48;
     }
 
     .btn-deposit-next {
@@ -1052,7 +1052,219 @@
       color: #94a3b8;
       cursor: pointer;
     }
-  </style>
+  
+    /* ======================================================== */
+    /* SỐ ĐIỂM NẠP & SỰ KIỆN                                    */
+    /* ======================================================== */
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px 6px;
+      margin-top: 10px;
+    }
+    .point-item {
+      background: #ffffff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 2px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .point-item.active {
+      border-color: #e11d48;
+      color: #e11d48;
+    }
+    .point-bonus-tag {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 2px 5px;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
+    }
+    
+    .custom-amount-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 15px;
+      background: #ffffff;
+    }
+    .custom-amount-input input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      flex: 1;
+      width: 100%;
+    }
+    .custom-amount-suffix {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .custom-amount-bonus {
+      color: #ef4444;
+      font-size: 11px;
+    }
+
+    .vnd-conversion {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    /* KHỐI SỰ KIỆN PROMOTION BANNER */
+    .promo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .promo-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .promo-radio.active::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+    .promo-banner {
+      flex: 1;
+      background: linear-gradient(90deg, #ff8a4c 0%, #ff3b6a 100%);
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(255, 59, 106, 0.25);
+    }
+    .promo-tag-corner {
+      position: absolute;
+      top: 6px;
+      left: -16px;
+      background: rgba(255,255,255,0.25);
+      color: #ffffff;
+      font-size: 6px;
+      font-weight: 900;
+      padding: 2px 16px;
+      transform: rotate(-40deg);
+      letter-spacing: 0.5px;
+    }
+    .promo-left-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.4);
+      padding-right: 10px;
+    }
+    .promo-right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 10px;
+    }
+    .promo-title-main {
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .promo-title-sub {
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 900;
+    }
+    .promo-money {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .promo-money-desc {
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+    .promo-go-btn {
+      background: #ffffff;
+      color: #ff3b6a;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 14px 10px;
+      border-radius: 6px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CHI TIẾT THANH TOÁN */
+    .payment-details-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .payment-row:not(:last-child) {
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .payment-row.bg-gray {
+      background: #fdf2f4; /* Very light pinkish-gray for the total row in image */
+    }
+    .payment-val {
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .payment-val.red {
+      color: #e11d48;
+    }
+</style>
 </head>
 <body>
 
@@ -1346,7 +1558,7 @@
         </div>
       </div>
 
-      <!-- 2. CÁC KÊNH THANH TOÁN -->
+      <!-- 2. CÁC KÊNH THANH TOÁN (THEO ĐÚNG ẢNH 2 WEB REAL) -->
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-teal"></span>
         <span>Các kênh thanh toán</span>
@@ -1371,7 +1583,7 @@
         <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
       </div>
 
-      <!-- MẸO QUÉT MÃ -->
+      <!-- MẸO QUÉT MÃ VÀ LINK CHUẨN ẢNH 2 -->
       <div class="tip-box">
         <div class="notice-row">
           <span class="icon-green-check">✅</span>
@@ -1379,18 +1591,119 @@
         </div>
       </div>
 
-      <!-- 3. DANH SÁCH NGÂN HÀNG -->
-      <div class="deposit-sec-title">
+      <!-- 3. SỐ ĐIỂM NẠP -->
+      <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-orange"></span>
-        <span>Danh sách ngân hàng</span>
+        <span>Số Điểm Nạp</span>
       </div>
-      <div class="bank-options-list">
-        <div class="bank-card-item active" onclick="selectBank(this)">VIETCOMBANK</div>
-        <div class="bank-card-item" onclick="selectBank(this)">MBBANK</div>
-        <div class="bank-card-item" onclick="selectBank(this)">TECHCOMBANK</div>
-        <div class="bank-card-item" onclick="selectBank(this)">ACB</div>
-        <div class="bank-card-item" onclick="selectBank(this)">VPBANK</div>
-        <div class="bank-card-item" onclick="selectBank(this)">BIDV</div>
+
+      <div class="points-grid">
+        <div class="point-item active" onclick="selectPoint(this, 50)">
+          <div class="point-bonus-tag">+ 0.1</div>
+          50
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 100)">
+          <div class="point-bonus-tag">+ 0.2</div>
+          100
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 500)">
+          <div class="point-bonus-tag">+ 1</div>
+          500
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 1000)">
+          <div class="point-bonus-tag">+ 3</div>
+          1,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 5000)">
+          <div class="point-bonus-tag">+ 15</div>
+          5,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 10000)">
+          <div class="point-bonus-tag">+ 40</div>
+          10,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 50000)">
+          <div class="point-bonus-tag">+ 200</div>
+          50,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 100000)">
+          <div class="point-bonus-tag">+ 500</div>
+          100,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 200000)">
+          <div class="point-bonus-tag">+ 1,200</div>
+          200,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 300000)">
+          <div class="point-bonus-tag">+ 1,800</div>
+          300,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 350000)">
+          <div class="point-bonus-tag">+ 2,100</div>
+          350,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 400000)">
+          <div class="point-bonus-tag">+ 2,400</div>
+          400,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 450000)">
+          <div class="point-bonus-tag">+ 2,700</div>
+          450,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 490000)">
+          <div class="point-bonus-tag">+ 2,940</div>
+          490,000
+        </div>
+      </div>
+
+      <div class="custom-amount-input">
+        <input type="number" id="input-amount" placeholder="50 - 300,000" value="50" oninput="handleAmountChange()">
+        <div class="custom-amount-suffix">
+          K <span class="custom-amount-bonus" id="display-bonus">+ 0.1 K</span>
+        </div>
+      </div>
+
+      <div class="vnd-conversion">
+        VND : <span id="display-vnd">50,000</span>
+      </div>
+
+      <!-- 4. SỰ KIỆN -->
+      <div class="deposit-sec-title" style="margin-top: 10px;">
+        <span class="dot-orange"></span>
+        <span>Sự kiện</span>
+      </div>
+      
+      <div class="promo-section">
+        <div class="promo-radio active" id="promo-radio" onclick="togglePromo()"></div>
+        <div class="promo-banner" onclick="togglePromo()">
+          <div class="promo-tag-corner">PROMOTION</div>
+          <div class="promo-left-col">
+            <div class="promo-title-main">Nạp Tiền</div>
+            <div class="promo-title-sub"><span id="promo-base">50.00</span>K</div>
+          </div>
+          <div class="promo-right-col">
+            <div class="promo-money">💰 <span id="promo-reward">0.10</span></div>
+            <div class="promo-money-desc">Doanh thu 1 lần</div>
+          </div>
+          <div class="promo-go-btn">GO</div>
+        </div>
+      </div>
+
+      <!-- 5. CHI TIẾT THANH TOÁN -->
+      <div class="deposit-sec-title" style="margin-top: 18px;">
+        <span class="dot-teal"></span>
+        <span>Chi tiết thanh toán</span>
+      </div>
+      
+      <div class="payment-details-box">
+        <div class="payment-row">
+          <span>Số Điểm Nạp</span>
+          <span class="payment-val" id="detail-points">50.00 K</span>
+        </div>
+        <div class="payment-row bg-gray">
+          <span>Số tiền thanh toán thực tế</span>
+          <span class="payment-val red" id="detail-total">50.00 K</span>
+        </div>
       </div>
 
       <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo</div>
@@ -1816,13 +2129,7 @@
       document.getElementById('cat-list').scrollLeft += offset;
     }
 
-    /* ======================================================== */
-    /* LOGIC CHỌN PHƯƠNG THỨC NẠP, KÊNH VÀ NGÂN HÀNG          */
-    /* ======================================================== */
-    let selectedMethod = 'bank';
-    let selectedChannel = 'SUNPAY';
-    let selectedBank = 'VIETCOMBANK';
-
+    /* ĐÓNG / MỞ VÀ TƯƠNG TÁC GIAO DIỆN NẠP TIỀN */
     function openDepositView() {
       document.getElementById('deposit-view').style.display = 'flex';
       document.body.style.overflow = 'hidden';
@@ -1832,6 +2139,9 @@
       document.getElementById('deposit-view').style.display = 'none';
       document.body.style.overflow = '';
     }
+
+    let selectedMethod = 'bank';
+    let selectedChannel = 'SUNPAY';
 
     function selectMethod(el, methodKey) {
       document.querySelectorAll('.method-item').forEach(m => {
@@ -1847,14 +2157,69 @@
       selectedChannel = el.innerText.trim();
     }
 
-    function selectBank(el) {
-      document.querySelectorAll('.bank-card-item').forEach(b => b.classList.remove('active'));
+    /* QUẢN LÝ NẠP TIỀN & ĐIỂM SỐ */
+    let currentAmount = 50;
+    let promoActive = true;
+
+    function selectPoint(el, amount) {
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
-      selectedBank = el.innerText.trim();
+      document.getElementById('input-amount').value = amount;
+      updateCalculations(amount);
+    }
+
+    function handleAmountChange() {
+      let val = document.getElementById('input-amount').value;
+      if (!val || isNaN(val) || val < 0) {
+        val = 0;
+      } else {
+        val = parseInt(val);
+      }
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      updateCalculations(val);
+    }
+
+    function togglePromo() {
+      promoActive = !promoActive;
+      const radio = document.getElementById('promo-radio');
+      if (promoActive) {
+        radio.classList.add('active');
+      } else {
+        radio.classList.remove('active');
+      }
+    }
+
+    function updateCalculations(amount) {
+      currentAmount = amount;
+      
+      let bonus = 0;
+      if(amount >= 490000) bonus = 2940;
+      else if(amount >= 450000) bonus = 2700;
+      else if(amount >= 400000) bonus = 2400;
+      else if(amount >= 350000) bonus = 2100;
+      else if(amount >= 300000) bonus = 1800;
+      else if(amount >= 200000) bonus = 1200;
+      else if(amount >= 100000) bonus = 500;
+      else if(amount >= 50000) bonus = 200;
+      else if(amount >= 10000) bonus = 40;
+      else if(amount >= 5000) bonus = 15;
+      else if(amount >= 1000) bonus = 3;
+      else if(amount >= 500) bonus = 1;
+      else if(amount >= 100) bonus = 0.2;
+      else if(amount >= 50) bonus = 0.1;
+
+      document.getElementById('display-bonus').innerText = '+ ' + bonus + ' K';
+      document.getElementById('display-vnd').innerText = (amount * 1000).toLocaleString('en-US');
+      
+      document.getElementById('promo-base').innerText = amount.toFixed(2);
+      document.getElementById('promo-reward').innerText = bonus.toFixed(2);
+
+      document.getElementById('detail-points').innerText = amount.toFixed(2) + ' K';
+      document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
     }
 
     function handleDepositNext() {
-      alert('Đã chọn:\n- Phương thức: ' + selectedMethod.toUpperCase() + '\n- Kênh: ' + selectedChannel + '\n- Ngân hàng: ' + selectedBank);
+      alert('Đang xử lý nạp ' + currentAmount + 'K qua ' + selectedMethod.toUpperCase() + ' - ' + selectedChannel);
     }
 
     /* QUẢN LÝ TÀI KHOẢN */

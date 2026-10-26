@@ -474,28 +474,6 @@
       font-weight: 800;
     }
 
-    .bank-options-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .bank-card-item {
-      border: 1.2px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 4px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: #334155;
-      background: #ffffff;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .bank-card-item.active {
-      border-color: #e11d48;
-      color: #e11d48;
-    }
-
     .btn-deposit-next {
       background: #e11d48;
       color: #ffffff;
@@ -1281,7 +1259,6 @@
     .payment-val.red {
       color: #e11d48;
     }
-
   </style>
 </head>
 <body>
@@ -1542,37 +1519,37 @@
       <div class="methods-grid">
         <!-- Chuyển khoản ngân hàng -->
         <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
-          <img src="/images/pay_bank.png.png" onerror="handleImgErr(this, ['/images/pay_bank.png', '/images/pay_bank.jpg'])" alt="Chuyển khoản">
+          <img src="/images/pay_bank.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_bank.png?v=2', '/images/pay_bank.jpg?v=2'])" alt="Chuyển khoản">
         </div>
 
         <!-- Quét mã QR ngân hàng -->
         <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
-          <img src="/images/pay_qr.png.png" onerror="handleImgErr(this, ['/images/pay_qr.png', '/images/pay_qr.jpg'])" alt="Quét mã QR">
+          <img src="/images/pay_qr.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_qr.png?v=2', '/images/pay_qr.jpg?v=2'])" alt="Quét mã QR">
         </div>
 
         <!-- MomoPay -->
         <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
-          <img src="/images/pay_momo.png.png" onerror="handleImgErr(this, ['/images/pay_momo.png', '/images/pay_momo.jpg'])" alt="MomoPay">
+          <img src="/images/pay_momo.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_momo.png?v=2', '/images/pay_momo.jpg?v=2'])" alt="MomoPay">
         </div>
 
         <!-- ZaloPay -->
         <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
-          <img src="/images/pay_zalopay.png.png" onerror="handleImgErr(this, ['/images/pay_zalopay.png', '/images/pay_zalopay.jpg'])" alt="ZaloPay">
+          <img src="/images/pay_zalopay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_zalopay.png?v=2', '/images/pay_zalopay.jpg?v=2'])" alt="ZaloPay">
         </div>
 
         <!-- VtPay -->
         <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
-          <img src="/images/pay_vtpay.png.png" onerror="handleImgErr(this, ['/images/pay_vtpay.png', '/images/pay_vtpay.jpg'])" alt="VtPay">
+          <img src="/images/pay_vtpay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_vtpay.png?v=2', '/images/pay_vtpay.jpg?v=2'])" alt="VtPay">
         </div>
 
         <!-- Thẻ cào điện thoại -->
         <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
-          <img src="/images/pay_thecao.png.png" onerror="handleImgErr(this, ['/images/pay_thecao.png', '/images/pay_thecao.jpg'])" alt="Thẻ cào">
+          <img src="/images/pay_thecao.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_thecao.png?v=2', '/images/pay_thecao.jpg?v=2'])" alt="Thẻ cào">
         </div>
 
         <!-- USDT -->
         <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
-          <img src="/images/pay_usdt.png.png" onerror="handleImgErr(this, ['/images/pay_usdt.png', '/images/pay_usdt.jpg'])" alt="USDT">
+          <img src="/images/pay_usdt.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_usdt.png?v=2', '/images/pay_usdt.jpg?v=2'])" alt="USDT">
         </div>
       </div>
 
@@ -1585,23 +1562,23 @@
       <div class="channels-grid">
         <div class="channel-item active" onclick="selectChannel(this)">SUNPAY</div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
           GOPAY 10-499,999
         </div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
           VN196PAY
         </div>
         <div class="channel-item" onclick="selectChannel(this)">EZPAY 10-499,999</div>
         <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
         <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png" onerror="handleImgErr(this, ['/images/ribbon_rec.png'])" class="channel-ribbon" alt="rec">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
           A8PAY 10-499,999
         </div>
         <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
       </div>
 
-      <!-- MẸO QUÉT MÃ VÀ LINK CHUẨN ẢNH 2 -->
+      <!-- MẸO QUÉT MÃ -->
       <div class="tip-box">
         <div class="notice-row">
           <span class="icon-green-check">✅</span>
@@ -1609,7 +1586,7 @@
         </div>
       </div>
 
-      <!-- 3. SỐ ĐIỂM NẠP -->
+            <!-- 3. SỐ ĐIỂM NẠP -->
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-orange"></span>
         <span>Số Điểm Nạp</span>

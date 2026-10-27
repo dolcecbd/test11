@@ -32,7 +32,8 @@
       width: 100%;
       height: auto;
     }
-/* BỎ THANH CUỘN MẶC ĐỊNH & THIẾT KẾ LẠI KIỂU MOBILE (CHỈ HIỆN KHI CẦN) */
+    
+    /* BỎ THANH CUỘN MẶC ĐỊNH & THIẾT KẾ LẠI KIỂU MOBILE (CHỈ HIỆN KHI CẦN) */
     ::-webkit-scrollbar {
       width: 4px;
       height: 4px;
@@ -47,7 +48,7 @@
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(0, 0, 0, 0.3);
     }
-    /* Các vùng ẩn hẳn thanh cuộn */
+    /* Các vùng ẩn hẳn thanh cuộn ngang */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -471,28 +472,6 @@
     .highlight-red {
       color: #e11d48;
       font-weight: 800;
-    }
-
-    .bank-options-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .bank-card-item {
-      border: 1.2px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 4px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: #334155;
-      background: #ffffff;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .bank-card-item.active {
-      border-color: #e11d48;
-      color: #e11d48;
     }
 
     .btn-deposit-next {
@@ -1070,29 +1049,6 @@
     }
   
     /* ======================================================== */
-    /* KHỐI LƯU Ý BÊN TRÊN KÊNH THANH TOÁN                      */
-    /* ======================================================== */
-    .top-notice-box {
-      font-size: 13.5px;
-      color: #333333;
-      line-height: 1.4;
-      padding: 0px 4px;
-      margin-top: 10px;
-    }
-    .top-notice-box .icon-green-check {
-      color: #00d200;
-      font-size: 14px;
-      letter-spacing: -1.5px;
-      margin-right: 2px;
-    }
-    .top-notice-text {
-      display: inline;
-    }
-    .top-notice-bold {
-      font-weight: bold;
-    }
-
-    /* ======================================================== */
     /* SỐ ĐIỂM NẠP & SỰ KIỆN                                    */
     /* ======================================================== */
     .points-grid {
@@ -1180,7 +1136,101 @@
       gap: 10px;
       margin-top: 10px;
     }
-    
+    .promo-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .promo-radio.active::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+    .promo-banner {
+      flex: 1;
+      background: linear-gradient(90deg, #ff8a4c 0%, #ff3b6a 100%);
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(255, 59, 106, 0.25);
+    }
+    .promo-tag-corner {
+      position: absolute;
+      top: 6px;
+      left: -16px;
+      background: rgba(255,255,255,0.25);
+      color: #ffffff;
+      font-size: 6px;
+      font-weight: 900;
+      padding: 2px 16px;
+      transform: rotate(-40deg);
+      letter-spacing: 0.5px;
+    }
+    .promo-left-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.4);
+      padding-right: 10px;
+    }
+    .promo-right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 10px;
+    }
+    .promo-title-main {
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .promo-title-sub {
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 900;
+    }
+    .promo-money {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .promo-money-desc {
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+    .promo-go-btn {
+      background: #ffffff;
+      color: #ff3b6a;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 14px 10px;
+      border-radius: 6px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     /* CHI TIẾT THANH TOÁN */
     .payment-details-box {
       border: 1px solid #e2e8f0;
@@ -1503,18 +1553,6 @@
         </div>
       </div>
 
-      <!-- LƯU Ý TRÊN KÊNH THANH TOÁN -->
-      <div class="top-notice-box">
-        <div>
-          <span class="icon-green-check">✅✅✅</span>
-          <span class="top-notice-text">Lưu ý: Quý khách hàng vui lòng nhập đúng nội dung chuyển tiền để được lên điểm nhanh nhất.</span>
-        </div>
-        <div style="margin-top: 2px;">
-          <span class="icon-green-check">✅✅✅</span>
-          <span class="top-notice-text">Link truy cập mới nhất: <span class="top-notice-bold">QQ88.vin</span></span>
-        </div>
-      </div>
-
       <!-- 2. CÁC KÊNH THANH TOÁN -->
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-teal"></span>
@@ -1630,9 +1668,20 @@
         <span>Sự kiện</span>
       </div>
       
-      <div class="promo-section" style="cursor: pointer;" onclick="togglePromo()">
-        <img src="/images/promo_radio.png" id="promo-radio-img" style="width: 18px; height: 18px; flex-shrink: 0;" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAaCAIAAAD9P6U5AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAOBElEQVR4nO2Vy2sUQRCH6zH7yWZ33YxL9qExYBS8KAoevHkO4tXkQRD04sGLN/9N8OB/IB7yR2EviocgeBJRExLzMsmbmd2Z7ZkZHhY3gS5Jb30/qquqq35NVS+ZGTb4Zk2g7Ww0mF09fO0e7Jt7C2Mndn/Y33/08O2bdy/Pnn36015hXbB61l7/bHfrp12L9x48/Xz4x6P93Zt3Z9p53Jp7sPvg1+t3Tpw/c/zLz6NfH988015/h33y+4e292G9nK8V81/2nt796e6d11fW037k4Wf3lta/Xj188ezS/H/5sF559eP55b3/wD26u3b54qntO1//5MvHn7qL67/9cQc79w4+P33x07ff0M5o2+4j+P14C4aFtfW0g+D993Zk3R/1X2fS/2c/AHT+oQ8Fv5WRAAAAAElFTkSuQmCC'">
-        <img src="/images/promo_banner.png" style="flex: 1; border-radius: 8px; box-shadow: 0 2px 6px rgba(255, 59, 106, 0.15);" onerror="this.src='data:image/png;base64,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'" alt="Promotion">
+      <div class="promo-section">
+        <div class="promo-radio active" id="promo-radio" onclick="togglePromo()"></div>
+        <div class="promo-banner" onclick="togglePromo()">
+          <div class="promo-tag-corner">PROMOTION</div>
+          <div class="promo-left-col">
+            <div class="promo-title-main">Nạp Tiền</div>
+            <div class="promo-title-sub"><span id="promo-base">50.00</span>K</div>
+          </div>
+          <div class="promo-right-col">
+            <div class="promo-money">💰 <span id="promo-reward">0.10</span></div>
+            <div class="promo-money-desc">Doanh thu 1 lần</div>
+          </div>
+          <div class="promo-go-btn">GO</div>
+        </div>
       </div>
 
       <!-- 5. CHI TIẾT THANH TOÁN -->
@@ -1756,8 +1805,7 @@
       casino: [
         { name: "SE TRỰC TUYẾN", file: "sanh_se.png" },
         { name: "DG TRỰC TUYẾN", file: "sanh_dg.png" },
-        { name: "MT TRỰC TUYẾN", file: "sanh_mt.png" },
-        { name: "WM TRỰC TUYẾN", file: "sanh_wm.png" },
+        { name: "MT TRỰC TUYẾN", file: "sanh_wm.png" },
         { name: "EVO TRỰC TUYẾN", file: "sanh_evo.png" },
         { name: "CHOICE TRỰC TUYẾN", file: "sanh_choice.png" }
       ],
@@ -1854,7 +1902,7 @@
       { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"] },
       { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"] },
       { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"] },
-      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIENG GOI DANH DỰ.png"] },
+      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"] },
       { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"] },
       { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"] },
       { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"] },
@@ -2127,13 +2175,11 @@
 
     function togglePromo() {
       promoActive = !promoActive;
-      const radioImg = document.getElementById('promo-radio-img');
+      const radio = document.getElementById('promo-radio');
       if (promoActive) {
-        radioImg.style.opacity = '1';
-        radioImg.style.filter = 'none';
+        radio.classList.add('active');
       } else {
-        radioImg.style.opacity = '0.5';
-        radioImg.style.filter = 'grayscale(100%)';
+        radio.classList.remove('active');
       }
     }
 

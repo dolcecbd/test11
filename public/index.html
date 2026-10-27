@@ -32,7 +32,8 @@
       width: 100%;
       height: auto;
     }
-/* BỎ THANH CUỘN MẶC ĐỊNH & THIẾT KẾ LẠI KIỂU MOBILE (CHỈ HIỆN KHI CẦN) */
+    
+    /* BỎ THANH CUỘN MẶC ĐỊNH & THIẾT KẾ LẠI KIỂU MOBILE (CHỈ HIỆN KHI CẦN) */
     ::-webkit-scrollbar {
       width: 4px;
       height: 4px;
@@ -47,7 +48,7 @@
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(0, 0, 0, 0.3);
     }
-    /* Các vùng ẩn hẳn thanh cuộn */
+    /* Các vùng ẩn hẳn thanh cuộn ngang */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -351,7 +352,7 @@
       display: inline-block;
     }
 
-    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN */
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - CHỌN MƯỢT 100% */
     .methods-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -359,7 +360,7 @@
     }
     .method-item {
       background: #ffffff;
-      border-radius: 8px;
+      border-radius: 9px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -368,16 +369,47 @@
       cursor: pointer;
       overflow: hidden;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      transition: transform 0.1s ease;
+      transition: all 0.18s ease;
+      border: 1.5px solid transparent;
+      user-select: none;
+    }
+    .method-item:not(.active) {
+      opacity: 0.92;
+    }
+    /* Khi được chọn: Bo viền đỏ đậm và nổi bật chuẩn 100% */
+    .method-item.active {
+      border: 2px solid #e11d48 !important;
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.22);
+      transform: scale(1.02);
+      opacity: 1 !important;
+    }
+    /* Vết vát góc đỏ và dấu tích ✓ ở góc dưới bên phải */
+    .method-item.active::after {
+      content: "✓";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 17px;
+      height: 17px;
+      background: #e11d48;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 17px;
+      text-align: center;
+      border-top-left-radius: 5px;
+      z-index: 10;
+      box-shadow: -1px -1px 3px rgba(0,0,0,0.15);
     }
     .method-item:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
     }
     .method-item img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 8px;
+      border-radius: 7px;
+      pointer-events: none;
     }
 
     /* LƯỚI KÊNH THANH TOÁN */
@@ -402,6 +434,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.15s ease;
     }
     .channel-item.active {
       border: 1.5px solid #e11d48 !important;
@@ -413,6 +446,7 @@
       left: 0;
       width: 12px;
       height: auto;
+      pointer-events: none;
     }
 
     /* MẸO & DANH SÁCH NGÂN HÀNG */
@@ -455,6 +489,7 @@
       color: #334155;
       background: #ffffff;
       cursor: pointer;
+      transition: all 0.15s ease;
     }
     .bank-card-item.active {
       border-color: #e11d48;
@@ -462,7 +497,7 @@
     }
 
     .btn-deposit-next {
-      background: #b0b8c1;
+      background: #e11d48;
       color: #ffffff;
       text-align: center;
       padding: 13px;
@@ -471,6 +506,7 @@
       font-size: 14.5px;
       margin-top: 15px;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
     }
 
     /* THANH TAB SẢNH GAME */
@@ -1034,7 +1070,9 @@
       cursor: pointer;
     }
   
-    /* KHỐI LƯU Ý BÊN TRÊN KÊNH THANH TOÁN */
+    /* ======================================================== */
+    /* KHỐI LƯU Ý BÊN TRÊN KÊNH THANH TOÁN                      */
+    /* ======================================================== */
     .top-notice-box {
       font-size: 13.5px;
       color: #333333;
@@ -1314,42 +1352,41 @@
 
       <div class="methods-grid">
         <!-- Chuyển khoản ngân hàng -->
-        <div class="method-item active" onclick="selectMethod(this)">
+        <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
           <img src="/images/pay_bank.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_bank.png?v=2', '/images/pay_bank.jpg?v=2'])" alt="Chuyển khoản">
         </div>
 
         <!-- Quét mã QR ngân hàng -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
           <img src="/images/pay_qr.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_qr.png?v=2', '/images/pay_qr.jpg?v=2'])" alt="Quét mã QR">
         </div>
 
         <!-- MomoPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
           <img src="/images/pay_momo.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_momo.png?v=2', '/images/pay_momo.jpg?v=2'])" alt="MomoPay">
         </div>
 
         <!-- ZaloPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
           <img src="/images/pay_zalopay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_zalopay.png?v=2', '/images/pay_zalopay.jpg?v=2'])" alt="ZaloPay">
         </div>
 
         <!-- VtPay -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
           <img src="/images/pay_vtpay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_vtpay.png?v=2', '/images/pay_vtpay.jpg?v=2'])" alt="VtPay">
         </div>
 
         <!-- Thẻ cào điện thoại -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
           <img src="/images/pay_thecao.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_thecao.png?v=2', '/images/pay_thecao.jpg?v=2'])" alt="Thẻ cào">
         </div>
 
         <!-- USDT -->
-        <div class="method-item" onclick="selectMethod(this)">
+        <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
           <img src="/images/pay_usdt.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_usdt.png?v=2', '/images/pay_usdt.jpg?v=2'])" alt="USDT">
         </div>
       </div>
 
-      
       <!-- LƯU Ý TRÊN KÊNH THANH TOÁN -->
       <div class="top-notice-box">
         <div>
@@ -1944,16 +1981,86 @@
       document.body.style.overflow = '';
     }
 
-    function selectMethod(el) {
+    let selectedMethod = 'bank';
+    let selectedChannel = 'SUNPAY';
+
+    function selectMethod(el, methodKey) {
       document.querySelectorAll('.method-item').forEach(m => {
         m.classList.remove('active');
       });
       el.classList.add('active');
+      selectedMethod = methodKey;
     }
 
     function selectChannel(el) {
       document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
+      selectedChannel = el.innerText.trim();
+    }
+
+    /* QUẢN LÝ NẠP TIỀN & ĐIỂM SỐ */
+    let currentAmount = 50;
+    let promoActive = true;
+
+    function selectPoint(el, amount) {
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('input-amount').value = amount;
+      updateCalculations(amount);
+    }
+
+    function handleAmountChange() {
+      let val = document.getElementById('input-amount').value;
+      if (!val || isNaN(val) || val < 0) {
+        val = 0;
+      } else {
+        val = parseInt(val);
+      }
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      updateCalculations(val);
+    }
+
+    function togglePromo() {
+      promoActive = !promoActive;
+      const radio = document.getElementById('promo-radio');
+      if (promoActive) {
+        radio.classList.add('active');
+      } else {
+        radio.classList.remove('active');
+      }
+    }
+
+    function updateCalculations(amount) {
+      currentAmount = amount;
+      
+      let bonus = 0;
+      if(amount >= 490000) bonus = 2940;
+      else if(amount >= 450000) bonus = 2700;
+      else if(amount >= 400000) bonus = 2400;
+      else if(amount >= 350000) bonus = 2100;
+      else if(amount >= 300000) bonus = 1800;
+      else if(amount >= 200000) bonus = 1200;
+      else if(amount >= 100000) bonus = 500;
+      else if(amount >= 50000) bonus = 200;
+      else if(amount >= 10000) bonus = 40;
+      else if(amount >= 5000) bonus = 15;
+      else if(amount >= 1000) bonus = 3;
+      else if(amount >= 500) bonus = 1;
+      else if(amount >= 100) bonus = 0.2;
+      else if(amount >= 50) bonus = 0.1;
+
+      document.getElementById('display-bonus').innerText = '+ ' + bonus + ' K';
+      document.getElementById('display-vnd').innerText = (amount * 1000).toLocaleString('en-US');
+      
+      document.getElementById('promo-base').innerText = amount.toFixed(2);
+      document.getElementById('promo-reward').innerText = bonus.toFixed(2);
+
+      document.getElementById('detail-points').innerText = amount.toFixed(2) + ' K';
+      document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
+    }
+
+    function handleDepositNext() {
+      alert('Đang xử lý nạp ' + currentAmount + 'K qua ' + selectedMethod.toUpperCase() + ' - ' + selectedChannel);
     }
 
     /* QUẢN LÝ TÀI KHOẢN */
@@ -2077,8 +2184,7 @@
       if (!isLogged) {
         openAuthModal('login');
       } else {
-        if (confirm('Tài khoản: ' + document.getElementById('display-username').innerText + '
-Bạn có muốn đăng xuất không?')) {
+        if (confirm('Tài khoản: ' + document.getElementById('display-username').innerText + '\nBạn có muốn đăng xuất không?')) {
           logoutAccount();
         }
       }

@@ -2175,13 +2175,13 @@
       loader.style.display = 'block';
       document.body.style.overflow = 'hidden'; // Khóa cuộn trang
 
-      // Giả lập thời gian kết nối (1 giây) sau đó tải game HTML5 miễn phí
-      // SAU NÀY BẠN DEV SẼ SỬA LINK 'https://...' BẰNG LINK LẤY TỪ API HÃNG GAME
+      // Giả lập thời gian kết nối (1 giây) sau đó tải game
       setTimeout(() => {
         loader.style.display = 'none';
         iframe.style.display = 'block';
-        // Đây là 1 game xếp gạch miễn phí nhúng để làm mẫu, thay link này bằng link game slot/casino thật
-        iframe.src = 'https://html5games.com/Game/Tetris/20421e01-26ec-4f2b-871d-f8fb2c31ccbe';
+        
+        // ĐÃ SỬA LỖI ĐƯỜNG DẪN Ở ĐÂY - Gọi thẳng vào thư mục public
+        iframe.src = '/game-slot.html'; 
       }, 1000);
     }
 
@@ -2357,7 +2357,6 @@
         partnerRooms[currentMainCat].forEach(room => {
           const card = document.createElement('div');
           card.className = 'partner-card-box';
-          // ĐÃ ĐỔI THÀNH GỌI FRAME GAME
           card.onclick = () => launchGame(room.name); 
 
           const img = document.createElement('img');
@@ -2424,7 +2423,6 @@
         list.forEach(g => {
           const card = document.createElement('div');
           card.className = 'slot-card-box';
-          // ĐÃ ĐỔI THÀNH GỌI FRAME GAME
           card.onclick = () => launchGame(g.name);
 
           card.innerHTML = `
@@ -2454,7 +2452,6 @@
       gameListHot.forEach(g => {
         const cardBox = document.createElement('div');
         cardBox.className = 'game-card-wrapper';
-        // ĐÃ ĐỔI THÀNH GỌI FRAME GAME
         cardBox.onclick = () => launchGame(g.name);
 
         const img = document.createElement('img');

@@ -352,7 +352,7 @@
       display: inline-block;
     }
 
-    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN - CHỌN MƯỢT 100% */
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN */
     .methods-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -376,14 +376,12 @@
     .method-item:not(.active) {
       opacity: 0.92;
     }
-    /* Khi được chọn: Bo viền đỏ đậm và nổi bật chuẩn 100% */
     .method-item.active {
       border: 2px solid #e11d48 !important;
       box-shadow: 0 2px 8px rgba(225, 29, 72, 0.22);
       transform: scale(1.02);
       opacity: 1 !important;
     }
-    /* Vết vát góc đỏ và dấu tích ✓ ở góc dưới bên phải */
     .method-item.active::after {
       content: "✓";
       position: absolute;
@@ -1279,7 +1277,7 @@
       z-index: 30;
     }
     .pay-confirm-header .bank-logo {
-      color: #0b459c; /* Màu xanh ACB */
+      color: #0b459c;
       font-size: 24px;
       font-weight: 900;
       font-style: italic;
@@ -1426,7 +1424,7 @@
       justify-content: space-between;
     }
     .copy-text-val {
-      color: #d97706; /* Màu cam đậm giống hệt thiết kế của bạn */
+      color: #d97706;
       font-weight: 700;
       font-size: 14px;
       word-break: break-all;
@@ -1483,9 +1481,41 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(44, 179, 228, 0.25);
     }
+
+    /* ======================================================== */
+    /* HỆ THỐNG TOAST NOTIFICATION (THÔNG BÁO CHUYÊN NGHIỆP)    */
+    /* ======================================================== */
+    .toast-container {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(0, 0, 0, 0.85);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 100005;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .toast-container.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
 </head>
 <body>
+
+  <!-- BONG BÓNG THÔNG BÁO TÙY CHỈNH -->
+  <div id="app-toast" class="toast-container">Thông báo</div>
 
   <!-- SIDEBAR MENU 3 GẠCH -->
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -1575,7 +1605,7 @@
         <span></span>
       </div>
       <div class="header-logo-title">QQ88</div>
-      <div class="header-vip-tag" onclick="alert('Cấp độ hội viên VIP')">
+      <div class="header-vip-tag" onclick="showToast('Tính năng VIP đang phát triển')">
         <svg viewBox="0 0 24 18">
           <polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" />
         </svg>
@@ -1616,9 +1646,9 @@
           <!-- 4 VÙNG BẤM TƯƠNG ỨNG 4 ICON -->
           <div class="touch-actions-grid">
             <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
-            <div class="touch-action-btn" onclick="alert('Tính năng Rút Tiền')" title="Rút Tiền"></div>
-            <div class="touch-action-btn" onclick="alert('Đăng ký Đại Lý')" title="Đại Lý"></div>
-            <div class="touch-action-btn" onclick="alert('Giới Thiệu')" title="Giới Thiệu"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Rút Tiền đang bảo trì')" title="Rút Tiền"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Đại Lý')" title="Đại Lý"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Giới Thiệu')" title="Giới Thiệu"></div>
           </div>
         </div>
       </div>
@@ -1971,10 +2001,11 @@
         <!-- Cột trái: QR -->
         <div class="qr-left-col">
           <div class="qr-box">
-            <!-- Thẻ IMG hiện mã QR thật (Dữ liệu sẽ được script đổ vào) -->
+            <!-- Thẻ IMG hiện mã QR thật -->
             <img id="pc-qr-img" src="" alt="Mã QR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
-          <div class="btn-download-qr" onclick="alert('Đang tải ảnh mã QR xuống thiết bị...')">Tải về</div>
+          <!-- Nút Tải QR mới -->
+          <div class="btn-download-qr" onclick="downloadQR()">Tải về</div>
         </div>
         
         <!-- Cột phải: Thông tin -->
@@ -2019,7 +2050,7 @@
     </div>
 
     <!-- Nút hành động cuối -->
-    <div class="btn-check-result" onclick="alert('Hệ thống đang kiểm tra kết quả giao dịch của bạn...')">
+    <div class="btn-check-result" onclick="showToast('Hệ thống đang kiểm tra kết quả giao dịch của bạn...')">
       Xem kết quả thanh toán
     </div>
   </div>
@@ -2050,6 +2081,23 @@
   </div>
 
   <script>
+    /* ========================================================
+       HỆ THỐNG TOAST NOTIFICATION (HIỂN THỊ BONG BÓNG)
+       ======================================================== */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('app-toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      
+      // Xóa bộ đếm cũ nếu ấn liên tục
+      if(toastTimer) clearTimeout(toastTimer);
+      // Tự động tắt sau 2.5 giây
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
     function handleImgErr(img, fallbacks) {
       if (!img.dataset.tryCount) img.dataset.tryCount = 0;
       let count = parseInt(img.dataset.tryCount);
@@ -2079,15 +2127,15 @@
     function handleMenuClick(action) {
       closeSidebar();
       switch(action) {
-        case 'daisu': alert('Chuyển tới trang: Đại sứ thương hiệu John Terry'); break;
+        case 'daisu': showToast('Chuyển tới trang: Đại sứ thương hiệu John Terry'); break;
         case 'facebook': window.open('https://facebook.com', '_blank'); break;
         case 'warp': window.open('https://1.1.1.1', '_blank'); break;
-        case 'camnang': alert('Chuyển tới trang: Cẩm nang hướng dẫn'); break;
-        case 'gopy': alert('Chuyển tới trang: Góp ý nhận quà'); break;
-        case 'quenmatkhau': alert('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
-        case 'khieunai': alert('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
-        case 'thiennguyen': alert('Chương trình Quỹ thiện nguyện QQ88'); break;
-        case 'daily': alert('Đăng ký đại lý nhận hoa hồng lên tới 60%'); break;
+        case 'camnang': showToast('Chuyển tới trang: Cẩm nang hướng dẫn'); break;
+        case 'gopy': showToast('Chuyển tới trang: Góp ý nhận quà'); break;
+        case 'quenmatkhau': showToast('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
+        case 'khieunai': showToast('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
+        case 'thiennguyen': showToast('Chương trình Quỹ thiện nguyện QQ88'); break;
+        case 'daily': showToast('Đăng ký đại lý nhận hoa hồng lên tới 60%'); break;
       }
     }
 
@@ -2285,7 +2333,7 @@
         partnerRooms[currentMainCat].forEach(room => {
           const card = document.createElement('div');
           card.className = 'partner-card-box';
-          card.onclick = () => alert("Vào sảnh: " + room.name);
+          card.onclick = () => showToast("Đang tải sảnh: " + room.name);
 
           const img = document.createElement('img');
           img.src = '/images/' + encodeURIComponent(room.file);
@@ -2351,7 +2399,7 @@
         list.forEach(g => {
           const card = document.createElement('div');
           card.className = 'slot-card-box';
-          card.onclick = () => alert("Vào game: " + g.name);
+          card.onclick = () => showToast("Đang tải game: " + g.name);
 
           card.innerHTML = `
             <div class="slot-poster-frame">
@@ -2380,7 +2428,7 @@
       gameListHot.forEach(g => {
         const cardBox = document.createElement('div');
         cardBox.className = 'game-card-wrapper';
-        cardBox.onclick = () => alert("Vào game: " + g.name);
+        cardBox.onclick = () => showToast("Đang tải game: " + g.name);
 
         const img = document.createElement('img');
         img.className = 'game-card-img';
@@ -2537,27 +2585,23 @@
        ======================================================== */
     function handleDepositNext() {
       
-      // ---------------------------------------------------------
-      // KHỐI 1: CẤU HÌNH THÔNG TIN TÀI KHOẢN NHẬN TIỀN (CHO DEV API)
-      // Chú ý: Đổi tên file QR thành qr_acb.png.png tải lên github để nó nhận ảnh
-      // Khi nào có API, bạn chỉ cần báo Dev truyền dữ liệu vào 4 biến này:
-      // ---------------------------------------------------------
+      // =========================================================
+      // VÙNG SỬA DỮ LIỆU TÀI KHOẢN NGÂN HÀNG
+      // =========================================================
       const bankData = {
-        bankName: "CONCAC",
-        accName: "NHU CAI CON CAC",
-        accNumber: "HIHIDOLCECDB",
-        qrSrc: "/images/qr_acb.png.png?v=2",  // Link ảnh mã QR chính
-        qrFallback: "/images/qr_acb.png?v=2"  // Link dự phòng nếu lỗi đuôi
+        bankName: "ACB",
+        accName: "LO VAN TUAN",     // <--- SỬA TÊN TÀI KHOẢN TẠI ĐÂY (Nằm trong dấu ngoặc kép)
+        accNumber: "26194061",      // <--- SỬA SỐ TÀI KHOẢN TẠI ĐÂY
+        qrSrc: "/images/qr_acb.png.png?v=2",  
+        qrFallback: "/images/qr_acb.png?v=2"  
       };
 
-      // ---------------------------------------------------------
-      // KHỐI 2: TỰ ĐỘNG SINH MÃ GIAO DỊCH (NỘI DUNG CHUYỂN KHOẢN)
-      // Mã này nhảy ngẫu nhiên mỗi lần ấn nút giống y hệt ảnh thật
-      // ---------------------------------------------------------
-      const random9 = Math.floor(100000000 + Math.random() * 900000000); // 9 số ngẫu nhiên
-      const random7 = Math.floor(1000000 + Math.random() * 9000000);     // 7 số ngẫu nhiên
+      // TỰ ĐỘNG SINH MÃ GIAO DỊCH (NỘI DUNG CHUYỂN KHOẢN)
+      const random9 = Math.floor(100000000 + Math.random() * 900000000); 
+      const random7 = Math.floor(1000000 + Math.random() * 9000000);     
       const transId = 'VND' + random9 + 'VN' + random7;
 
+      showToast('Hệ thống đang khởi tạo cổng thanh toán...');
       
       // Ẩn trang Nạp Tiền & Hiện trang Xác nhận
       document.getElementById('deposit-view').style.display = 'none';
@@ -2571,7 +2615,7 @@
       const pad = (n) => String(n).padStart(2, '0');
       document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-      // Đổ dữ liệu API giả lập vào Giao diện (Render DOM)
+      // Đổ dữ liệu vào Giao diện
       document.getElementById('pc-bank-name').innerText = bankData.bankName;
       document.getElementById('pc-trans-id').innerText = transId;
       document.getElementById('pc-memo').innerText = transId;
@@ -2614,19 +2658,72 @@
         if (--timer < 0) {
           clearInterval(paymentTimerInterval);
           display.textContent = "00:00";
-          alert("Thời gian giao dịch đã hết hạn, vui lòng tạo lệnh mới!");
+          showToast("Thời gian giao dịch đã hết hạn, vui lòng tạo lệnh mới!");
           closePaymentConfirm();
         }
       }, 1000);
     }
 
+    /* ========================================================
+       XỬ LÝ COPY BẰNG TOAST NOTIFICATION MỚI
+       ======================================================== */
     function copyText(elementId) {
       const textToCopy = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(textToCopy).then(() => {
-        alert("Đã sao chép: " + textToCopy);
+        showToast("Đã sao chép: " + textToCopy);
       }).catch(err => {
+        showToast("Lỗi: Không thể sao chép!");
         console.error('Không thể sao chép!', err);
       });
+    }
+
+    function copyUsername() {
+      const u = document.getElementById('display-username').innerText;
+      navigator.clipboard.writeText(u).then(() => {
+        showToast('Đã sao chép tài khoản: ' + u);
+      });
+    }
+
+    /* ========================================================
+       XỬ LÝ NÚT TẢI QR BẰNG Blob & a.download (MƯỢT 100%)
+       ======================================================== */
+    function downloadQR() {
+      const qrImg = document.getElementById('pc-qr-img');
+      const imgSrc = qrImg.src;
+      
+      if (!imgSrc || imgSrc.includes('html')) {
+        showToast('Chưa có ảnh mã QR để tải!');
+        return;
+      }
+
+      showToast('Đang xử lý tải mã QR...');
+      
+      // Dùng fetch chuyển ảnh thành Blob (để lách qua trình cản download của trình duyệt)
+      fetch(imgSrc)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = 'QR_ThanhToan_QQ88.png';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          showToast('Đã tải mã QR xuống thiết bị thành công!');
+        })
+        .catch(() => {
+          // Phương án dự phòng nếu fetch bị chặn
+          const a = document.createElement('a');
+          a.href = imgSrc;
+          a.download = 'QR_ThanhToan_QQ88.png';
+          a.target = '_blank';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('Đã mở ảnh mã QR để tải!');
+        });
     }
 
     /* QUẢN LÝ TÀI KHOẢN */
@@ -2676,7 +2773,7 @@
         const data = await res.json();
 
         if (data.success) {
-          alert(data.message);
+          showToast(data.message);
           localStorage.setItem('qq88_saved_account', JSON.stringify({
             username: data.user.username,
             password: password,
@@ -2686,10 +2783,10 @@
           closeAuthModal();
           checkSession();
         } else {
-          alert(data.message);
+          showToast(data.message);
         }
       } catch (err) {
-        alert('Lỗi kết nối tới máy chủ!');
+        showToast('Lỗi kết nối tới máy chủ!');
       }
     }
 
@@ -2739,12 +2836,6 @@
       }
     }
 
-    function copyUsername() {
-      const u = document.getElementById('display-username').innerText;
-      navigator.clipboard.writeText(u);
-      alert('Đã sao chép: ' + u);
-    }
-
     function openUserMenu() {
       const isLogged = document.getElementById('user-zone').style.display !== 'none';
       if (!isLogged) {
@@ -2760,6 +2851,7 @@
       localStorage.removeItem('qq88_saved_account');
       await fetch('/api/logout', { method: 'POST' });
       checkSession();
+      showToast('Đã đăng xuất tài khoản!');
     }
 
     window.onload = () => {

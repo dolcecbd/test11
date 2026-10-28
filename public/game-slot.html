@@ -1,1 +1,456 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Quyết Chiến Tiền Thưởng</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #2b1b11; /* Màu nền nâu đen sa mạc */
+      background-image: radial-gradient(circle at center, #4a2e1b 0%, #1a0f08 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      font-family: "Times New Roman", Times, serif; /* Font cổ điển giống game */
+      color: #ffffff;
+      overflow: hidden;
+      padding-top: 10px;
+    }
+    
+    /* KHUNG GAME CHÍNH */
+    .game-container {
+      width: 100%;
+      max-width: 430px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
+    /* THANH HỆ SỐ NHÂN (X1, X2, X4...) */
+    .multiplier-bar {
+      width: 100%;
+      background: url('data:image/svg+xml;utf8,<svg width="100" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="40" fill="%234a2e1b"/><path d="M0 20 Q 50 0 100 20 L 100 40 L 0 40 Z" fill="%23382112"/></svg>') center/cover;
+      border-top: 2px solid #a67c52;
+      border-bottom: 2px solid #a67c52;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 5px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+      z-index: 10;
+    }
+    .mult-item {
+      color: #8c6b4a;
+      font-size: 20px;
+      font-weight: 900;
+      text-shadow: 1px 1px 2px #000;
+      transition: all 0.3s ease;
+    }
+    .mult-item.active {
+      color: #ffda75; /* Vàng sáng */
+      font-size: 32px;
+      text-shadow: 0 0 10px #ffb300, 0 0 20px #ffb300;
+      transform: scale(1.1);
+    }
+    .ribbon-text {
+      position: absolute;
+      top: -10px;
+      font-size: 10px;
+      color: #8c6b4a;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .ribbon-left { left: 10px; }
+    .ribbon-right { right: 10px; }
+
+    /* LƯỚI QUAY (6x4) */
+    .reels-board {
+      flex: 1;
+      width: 100%;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      perspective: 1000px;
+    }
+    .reels-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 3px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+    }
+    .reel-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+      height: 280px; /* Chiều cao cố định cho 4 hàng */
+      position: relative;
+    }
+    .symbol-cell {
+      flex: 1;
+      background: linear-gradient(135deg, #3d2416 0%, #1f1109 100%);
+      border: 1px solid #5c3a21;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      position: absolute;
+      width: 100%;
+      height: 25%; /* 4 hàng = 25% mỗi hàng */
+      transition: top 0.1s linear;
+    }
+    
+    /* MÀU SẮC BIỂU TƯỢNG ĐẶC TRƯNG */
+    .sym-A, .sym-K, .sym-Q, .sym-J { color: #f5d76e; } /* Chữ vàng */
+    .sym-A { color: #ff5252; } /* Chữ đỏ */
+    .sym-Q { color: #69f0ae; } /* Chữ xanh */
+
+    /* BẢNG THÔNG BÁO VÀNG */
+    .notice-board {
+      width: 90%;
+      margin: 10px auto;
+      background: linear-gradient(180deg, #d4a35e 0%, #8b5a2b 100%);
+      border: 2px solid #ffda75;
+      border-radius: 6px;
+      padding: 6px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      color: #3e210a;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+    }
+
+    /* THANH ĐIỀU KHIỂN DƯỚI CÙNG */
+    .bottom-controls {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px 20px 25px 20px;
+      border-top: 2px solid #5c3a21;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .info-block {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-icon {
+      width: 20px; height: 20px;
+      border: 1px solid #8c6b4a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #8c6b4a;
+      font-family: Arial;
+    }
+    .info-val {
+      color: #ffda75;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* NÚT QUAY LỚN (SPIN) */
+    .spin-center {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ffda75 0%, #a67c52 100%);
+      border: 3px solid #3e210a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 218, 117, 0.4), inset 0 0 10px rgba(255,255,255,0.5);
+      transition: transform 0.1s;
+    }
+    .spin-center:active {
+      transform: scale(0.92);
+    }
+    .spin-inner {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #5c3a21 0%, #1f1109 100%);
+      border: 2px solid #ffda75;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .spin-arrow {
+      font-size: 24px;
+      color: #ffda75;
+      font-weight: bold;
+      transform: rotate(45deg);
+    }
+
+    /* HIỆU ỨNG THẮNG */
+    .win-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .win-title {
+      font-size: 30px;
+      color: #ffda75;
+      text-shadow: 0 0 20px #ff9800;
+      animation: pop 0.5s ease-out forwards;
+    }
+    .win-amount {
+      font-size: 50px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      text-shadow: 0 0 30px #ff1744, 0 0 10px #ff9800;
+      margin-top: 10px;
+      animation: pop 0.5s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    
+    <!-- THANH HỆ SỐ NHÂN -->
+    <div class="multiplier-bar">
+      <div class="ribbon-text ribbon-left">3600 Đường</div>
+      <div class="mult-item active" id="mx1">X1</div>
+      <div class="mult-item" id="mx2">X2</div>
+      <div class="mult-item" id="mx4">X4</div>
+      <div class="mult-item" id="mx8">X8</div>
+      <div class="ribbon-text ribbon-right">3600 Đường</div>
+    </div>
+
+    <!-- KHUNG LƯỚI QUAY (6 cột) -->
+    <div class="reels-board">
+      <div class="reels-grid" id="slotGrid">
+        <!-- JS sẽ sinh ra 6 cột, mỗi cột 4 hàng ở đây -->
+      </div>
+    </div>
+
+    <!-- BẢNG THÔNG BÁO -->
+    <div class="notice-board" id="noticeMsg">
+      Thắng tới 3600 đường!
+    </div>
+
+    <!-- THANH ĐIỀU KHIỂN DƯỚI -->
+    <div class="bottom-controls">
+      <!-- Số dư -->
+      <div class="info-block">
+        <div class="info-icon">👤</div>
+        <div class="info-val">₫<span id="balance">1.68</span></div>
+      </div>
+      
+      <!-- Nút Quay -->
+      <div class="spin-center" onclick="spin()">
+        <div class="spin-inner">
+          <div class="spin-arrow">↻</div>
+        </div>
+      </div>
+
+      <!-- Tiền cược -->
+      <div class="info-block">
+        <div class="info-icon">💰</div>
+        <div class="info-val">₫<span id="bet">0.40</span></div>
+      </div>
+    </div>
+
+    <!-- HIỆU ỨNG THẮNG LỚN -->
+    <div class="win-overlay" id="winOverlay">
+      <div class="win-title">THẮNG LỚN!</div>
+      <div class="win-amount" id="winAmountVal">₫0.00</div>
+    </div>
+
+  </div>
+
+  <script>
+    // CÁC BIỂU TƯỢNG THEO ĐÚNG VIDEO (Cao bồi, Súng, Rượu, Chữ)
+    const symbols = [
+      { char: '👩‍🌾', cls: 'sym-W' }, // Nữ cao bồi (Wild)
+      { char: '🔫', cls: 'sym-G' }, // Súng
+      { char: '🥃', cls: 'sym-B' }, // Rượu
+      { char: '👒', cls: 'sym-H' }, // Mũ
+      { char: 'A', cls: 'sym-A' },
+      { char: 'K', cls: 'sym-K' },
+      { char: 'Q', cls: 'sym-Q' },
+      { char: 'J', cls: 'sym-J' }
+    ];
+
+    const COLS = 6;
+    const ROWS = 4;
+    let balance = 1.68;
+    const bet = 0.40;
+    let isSpinning = false;
+    let currentMultiplier = 1;
+
+    // Khởi tạo lưới HTML
+    const grid = document.getElementById('slotGrid');
+    const colsData = []; // Lưu trữ DOM của các cột
+
+    function initGrid() {
+      for (let c = 0; c < COLS; c++) {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'reel-col';
+        const cells = [];
+        // Tạo 6 ô cho mỗi cột (4 hiển thị, 2 ảo để cuộn mượt)
+        for (let r = 0; r < ROWS + 2; r++) {
+          const cell = document.createElement('div');
+          cell.className = 'symbol-cell';
+          cell.style.top = `${(r - 1) * 25}%`; // Đặt vị trí
+          setRandomSymbol(cell);
+          colDiv.appendChild(cell);
+          cells.push(cell);
+        }
+        grid.appendChild(colDiv);
+        colsData.push(cells);
+      }
+    }
+
+    function setRandomSymbol(cell) {
+      const sym = symbols[Math.floor(Math.random() * symbols.length)];
+      cell.innerText = sym.char;
+      cell.className = `symbol-cell ${sym.cls}`;
+    }
+
+    // Hàm Quay
+    function spin() {
+      if (isSpinning) return;
+      if (balance < bet) {
+        document.getElementById('noticeMsg').innerHTML = '<span style="color:#8b0000">Số dư không đủ!</span>';
+        return;
+      }
+
+      isSpinning = true;
+      balance -= bet; // Trừ tiền
+      document.getElementById('balance').innerText = balance.toFixed(2);
+      document.getElementById('noticeMsg').innerText = 'Đang quay...';
+      
+      // Reset hệ số nhân về X1
+      currentMultiplier = 1;
+      updateMultiplierUI();
+
+      // Hiệu ứng nhấp nháy cho vui mắt
+      let spinTime = 0;
+      const spinInterval = setInterval(() => {
+        for (let c = 0; c < COLS; c++) {
+          for (let r = 0; r < ROWS + 2; r++) {
+            setRandomSymbol(colsData[c][r]);
+          }
+        }
+        spinTime += 50;
+      }, 50);
+
+      // Dừng quay sau 1.5 giây
+      setTimeout(() => {
+        clearInterval(spinInterval);
+        
+        // Chốt kết quả ngẫu nhiên
+        for (let c = 0; c < COLS; c++) {
+          for (let r = 0; r < ROWS + 2; r++) {
+            setRandomSymbol(colsData[c][r]);
+          }
+        }
+
+        checkWinLogic();
+      }, 1500);
+    }
+
+    // Xử lý kiểm tra trúng thưởng (Mô phỏng ngẫu nhiên)
+    function checkWinLogic() {
+      // Vì đây là giao diện tĩnh, ta sẽ dùng tỉ lệ random để quyết định thắng/thua
+      // Khoảng 30% cơ hội thắng để giống game thật
+      const isWin = Math.random() < 0.3;
+
+      if (isWin) {
+        // Tăng hệ số nhân lên ngẫu nhiên (x2, x4, x8)
+        const mults = [2, 4, 8];
+        currentMultiplier = mults[Math.floor(Math.random() * mults.length)];
+        updateMultiplierUI();
+
+        // Số tiền thắng ngẫu nhiên (từ 0.20 đến 5.00 x Hệ số)
+        const winBase = (Math.random() * 4.8 + 0.2).toFixed(2);
+        const totalWin = (winBase * currentMultiplier).toFixed(2);
+        balance += parseFloat(totalWin);
+        
+        document.getElementById('balance').innerText = balance.toFixed(2);
+        document.getElementById('noticeMsg').innerText = `Thắng ₫${totalWin}!`;
+
+        // Nếu thắng to (>2.00) thì hiện bảng Win bự
+        if (totalWin > 2.00) {
+          showBigWin(totalWin);
+        }
+      } else {
+        document.getElementById('noticeMsg').innerText = 'Thử lại vòng nữa nào!';
+      }
+
+      isSpinning = false;
+    }
+
+    function updateMultiplierUI() {
+      document.getElementById('mx1').className = 'mult-item';
+      document.getElementById('mx2').className = 'mult-item';
+      document.getElementById('mx4').className = 'mult-item';
+      document.getElementById('mx8').className = 'mult-item';
+      
+      document.getElementById('mx' + currentMultiplier).className = 'mult-item active';
+    }
+
+    function showBigWin(amount) {
+      const overlay = document.getElementById('winOverlay');
+      const amtText = document.getElementById('winAmountVal');
+      
+      amtText.innerText = `₫${amount}`;
+      overlay.style.display = 'flex';
+      
+      // Tự tắt sau 2 giây
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 2000);
+    }
+
+    // Chạy khi web tải xong
+    window.onload = initGrid;
+  </script>
+</body>
+</html>

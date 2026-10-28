@@ -1426,7 +1426,7 @@
       justify-content: space-between;
     }
     .copy-text-val {
-      color: #d97706; /* Màu cam giống ảnh */
+      color: #d97706; /* Màu cam đậm giống hệt thiết kế của bạn */
       font-weight: 700;
       font-size: 14px;
       word-break: break-all;
@@ -1933,7 +1933,7 @@
   <div id="payment-confirm-view" class="deposit-view-wrapper no-scrollbar">
     <!-- Header ACB -->
     <div class="pay-confirm-header">
-      <div class="bank-logo">ACB</div> <!-- Tạm text logo -->
+      <div class="bank-logo">ACB</div>
       <div class="header-actions">
         <div class="btn-pc-cancel" onclick="closePaymentConfirm()">HỦY BỎ</div>
         <div class="btn-pc-close" onclick="closePaymentConfirm()">✕</div>
@@ -1956,7 +1956,7 @@
       </div>
       <div class="pay-info-row">
         <span class="pay-info-label">Ngân hàng thụ hưởng</span>
-        <span class="pay-info-value">ACB</span>
+        <span class="pay-info-value" id="pc-bank-name">ACB</span>
       </div>
     </div>
 
@@ -1971,8 +1971,8 @@
         <!-- Cột trái: QR -->
         <div class="qr-left-col">
           <div class="qr-box">
-            <!-- Tạm dùng SVG/Placeholder cho mã QR -->
-            <svg viewBox="0 0 24 24" fill="#000" style="width:100%;height:100%;"><path d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2-6h2v2h-2v-2zm-2 4h2v2h-2v-2zm0-2h2v2h-2v-2zm0 4h2v2h-2v-2zM9 13h2v2H9v-2zm-2-2h2v2H7v-2zm0-2h2v2H7V9zm-2 0h2v2H5V9zm-2 0h2v2H3V9zm12-4h2v2h-2V5zm0 4h2v2h-2V9zm0-4h2v2h-2V5z"/></svg>
+            <!-- Thẻ IMG hiện mã QR thật (Dữ liệu sẽ được script đổ vào) -->
+            <img id="pc-qr-img" src="" alt="Mã QR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
           <div class="btn-download-qr" onclick="alert('Đang tải ảnh mã QR xuống thiết bị...')">Tải về</div>
         </div>
@@ -1982,7 +1982,7 @@
           <div class="copy-group">
             <div class="copy-label">Số tài khoản</div>
             <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-num">26194061</span> 
+              <span class="copy-text-val" id="pc-acc-num">00000000</span> 
               <div class="btn-copy-icon" onclick="copyText('pc-acc-num')">
                 <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               </div>
@@ -1992,7 +1992,7 @@
           <div class="copy-group">
             <div class="copy-label">Tên tài khoản</div>
             <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-name">LO VAN TUAN</span> 
+              <span class="copy-text-val" id="pc-acc-name">TEN TAI KHOAN</span> 
               <div class="btn-copy-icon" onclick="copyText('pc-acc-name')">
                 <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               </div>
@@ -2532,15 +2532,38 @@
       document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
     }
 
-    /* MỞ TRANG XÁC NHẬN THANH TOÁN (ẢNH 2) */
+    /* ========================================================
+       XỬ LÝ MỞ TRANG XÁC NHẬN THANH TOÁN (ACB)
+       ======================================================== */
     function handleDepositNext() {
-      // Ẩn trang Nạp Tiền
-      document.getElementById('deposit-view').style.display = 'none';
       
-      // Hiện trang Xác nhận
+      // ---------------------------------------------------------
+      // KHỐI 1: CẤU HÌNH THÔNG TIN TÀI KHOẢN NHẬN TIỀN (CHO DEV API)
+      // Chú ý: Đổi tên file QR thành qr_acb.png.png tải lên github để nó nhận ảnh
+      // Khi nào có API, bạn chỉ cần báo Dev truyền dữ liệu vào 4 biến này:
+      // ---------------------------------------------------------
+      const bankData = {
+        bankName: "ACB",
+        accName: "LO VAN TUAN",
+        accNumber: "26194061",
+        qrSrc: "/images/qr_acb.png.png?v=2",  // Link ảnh mã QR chính
+        qrFallback: "/images/qr_acb.png?v=2"  // Link dự phòng nếu lỗi đuôi
+      };
+
+      // ---------------------------------------------------------
+      // KHỐI 2: TỰ ĐỘNG SINH MÃ GIAO DỊCH (NỘI DUNG CHUYỂN KHOẢN)
+      // Mã này nhảy ngẫu nhiên mỗi lần ấn nút giống y hệt ảnh thật
+      // ---------------------------------------------------------
+      const random9 = Math.floor(100000000 + Math.random() * 900000000); // 9 số ngẫu nhiên
+      const random7 = Math.floor(1000000 + Math.random() * 9000000);     // 7 số ngẫu nhiên
+      const transId = 'VND' + random9 + 'VN' + random7;
+
+      
+      // Ẩn trang Nạp Tiền & Hiện trang Xác nhận
+      document.getElementById('deposit-view').style.display = 'none';
       document.getElementById('payment-confirm-view').style.display = 'block';
 
-      // Load dữ liệu động
+      // Load Số Tiền & Thời gian
       const totalVND = currentAmount * 1000;
       document.getElementById('pc-amount').innerText = totalVND.toLocaleString('en-US') + ' VND';
 
@@ -2548,9 +2571,17 @@
       const pad = (n) => String(n).padStart(2, '0');
       document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-      const transId = 'VND' + Math.floor(Math.random() * 1000000000) + 'VN' + Math.floor(1000000 + Math.random() * 9000000);
+      // Đổ dữ liệu API giả lập vào Giao diện (Render DOM)
+      document.getElementById('pc-bank-name').innerText = bankData.bankName;
       document.getElementById('pc-trans-id').innerText = transId;
       document.getElementById('pc-memo').innerText = transId;
+      document.getElementById('pc-acc-num').innerText = bankData.accNumber;
+      document.getElementById('pc-acc-name').innerText = bankData.accName;
+
+      // Xử lý ảnh QR Code tự động
+      const qrImg = document.getElementById('pc-qr-img');
+      qrImg.src = bankData.qrSrc;
+      qrImg.setAttribute('onerror', `handleImgErr(this, ['${bankData.qrFallback}'])`);
 
       // Khởi động đồng hồ đếm ngược 10 phút
       startPaymentTimer(10 * 60);

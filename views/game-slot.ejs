@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>QQ88</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      background-color: #004d25;
+      display: flex;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .app-wrapper {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background-color: #edf2ef;
+      position: relative;
+      padding-bottom: 66px;
+      overflow-x: hidden;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    /* BỎ THANH CUỘN MẶC ĐỊNH & THIẾT KẾ LẠI KIỂU MOBILE (CHỈ HIỆN KHI CẦN) */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    /* Các vùng ẩn hẳn thanh cuộn ngang */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* HEADER: BANNER QUẢNG CÁO & THANH QQ88 */
+    .top-promo-box {
+      width: 100%;
+      position: relative;
+    }
+    .top-promo-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .close-promo-hitbox {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 44px;
+      height: 100%;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .main-header-green {
+      width: 100%;
+      height: 48px;
+      background-color: #005a2b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      position: relative;
+    }
+    .header-btn-toggle {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .header-btn-toggle span {
+      display: block;
+      width: 23px;
+      height: 3px;
+      background-color: #f7d100;
+      border-radius: 2px;
+    }
+    .header-logo-title {
+      font-size: 33px;
+      font-weight: 900;
+      color: #ffde00;
+      font-style: italic;
+      letter-spacing: -1px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .header-vip-tag {
+      width: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .header-vip-tag svg {
+      width: 25px;
+      height: 20px;
+      fill: #ffde00;
+    }
+    .header-vip-tag span {
+      font-size: 8px;
+      font-weight: 900;
+      color: #ffde00;
+      letter-spacing: 0.5px;
+      margin-top: -3px;
+    }
+
+    /* Thanh Marquee */
+    .marquee-bar {
+      background: #ffffff;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #dce5df;
+    }
+    .marquee-bar .icon-sound {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: #005a2b;
+    }
+    .marquee-bar .icon-mail {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: #ca8a04;
+      cursor: pointer;
+    }
+    .marquee-content {
+      overflow: hidden;
+      white-space: nowrap;
+      flex: 1;
+      font-size: 11px;
+      color: #0b4f26;
+      font-weight: 600;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 24s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* KHỐI TÀI KHOẢN */
+    .account-wrapper {
+      padding: 4px 8px 2px 8px;
+    }
+    .account-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 4px 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .guest-box {
+      width: 100%;
+      position: relative;
+    }
+    .guest-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .touch-btn-login {
+      position: absolute;
+      top: 5%;
+      left: 2%;
+      width: 32%;
+      height: 44%;
+      cursor: pointer;
+    }
+    .touch-btn-reg {
+      position: absolute;
+      bottom: 5%;
+      left: 2%;
+      width: 32%;
+      height: 44%;
+      cursor: pointer;
+    }
+    .user-box-real {
+      width: 100%;
+      position: relative;
+    }
+    .user-phoi-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .real-username-label {
+      position: absolute;
+      top: 38%;
+      left: 6.5%;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0b572a;
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: -0.2px;
+      max-width: 82px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .touch-copy-area {
+      position: absolute;
+      top: 34%;
+      left: 23%;
+      width: 10%;
+      height: 34%;
+      cursor: pointer;
+    }
+    
+    .touch-actions-grid {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 65%;
+      height: 100%;
+      display: flex;
+      z-index: 5;
+    }
+    .touch-action-btn {
+      flex: 1;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    /* ======================================================== */
+    /* GIAO DIỆN NẠP TIỀN                                       */
+    /* ======================================================== */
+    .deposit-view-wrapper {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background: #ffffff;
+      z-index: 10001;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .deposit-header {
+      background: #18191d;
+      color: #ffffff;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .deposit-header .btn-back {
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: 300;
+      width: 32px;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+    }
+    .deposit-header .deposit-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .deposit-header .header-record-icon {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .deposit-header .header-record-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #ffffff;
+    }
+    .badge-count-1 {
+      position: absolute;
+      top: -5px;
+      right: -6px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 900;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .deposit-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-bottom: 70px;
+    }
+    .deposit-sec-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 4px;
+    }
+    .deposit-sec-title .dot-orange {
+      width: 7px;
+      height: 7px;
+      background: #ea580c;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .deposit-sec-title .dot-teal {
+      width: 7px;
+      height: 7px;
+      background: #0d9488;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* LƯỚI PHƯƠNG THỨC NẠP TIỀN */
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .method-item {
+      background: #ffffff;
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: all 0.18s ease;
+      border: 1.5px solid transparent;
+      user-select: none;
+    }
+    .method-item:not(.active) {
+      opacity: 0.92;
+    }
+    .method-item.active {
+      border: 2px solid #e11d48 !important;
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.22);
+      transform: scale(1.02);
+      opacity: 1 !important;
+    }
+    .method-item.active::after {
+      content: "✓";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 17px;
+      height: 17px;
+      background: #e11d48;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 17px;
+      text-align: center;
+      border-top-left-radius: 5px;
+      z-index: 10;
+      box-shadow: -1px -1px 3px rgba(0,0,0,0.15);
+    }
+    .method-item:active {
+      transform: scale(0.96);
+    }
+    .method-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 7px;
+      pointer-events: none;
+    }
+
+    /* LƯỚI KÊNH THANH TOÁN */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .channel-item {
+      background: #ffffff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 15px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #1e293b;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .channel-item.active {
+      border: 1.5px solid #e11d48 !important;
+      color: #e11d48 !important;
+    }
+    .channel-ribbon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* MẸO & DANH SÁCH NGÂN HÀNG */
+    .tip-box {
+      font-size: 11.5px;
+      color: #1e293b;
+      line-height: 1.45;
+      padding: 4px 2px;
+      margin-top: 2px;
+    }
+    .notice-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .icon-green-check {
+      color: #22c55e;
+      font-weight: 900;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .highlight-red {
+      color: #e11d48;
+      font-weight: 800;
+    }
+
+    .btn-deposit-next {
+      background: #e11d48;
+      color: #ffffff;
+      text-align: center;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14.5px;
+      margin-top: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+    }
+
+    /* THANH TAB SẢNH GAME */
+    .cat-bar {
+      display: flex;
+      align-items: center;
+      background: #edf2ef;
+      padding: 4px 4px;
+    }
+    .cat-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 2px 2px;
+    }
+    .cat-tab-item {
+      flex-shrink: 0;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .cat-tab-item img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+    .cat-tab-item.active {
+      background: #eaec38 !important;
+      border: 2px solid #005a2b !important;
+      box-shadow: 0 2px 6px rgba(0, 90, 43, 0.25);
+      transform: scale(1.02);
+    }
+    .cat-tab-item:not(.active) {
+      background: #f1f6f2;
+      border: 1.5px solid #b6d3be;
+      opacity: 0.95;
+    }
+
+    /* KHỐI TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ */
+    .sub-filter-header {
+      padding: 8px 10px 6px 10px;
+      background: #edf2ef;
+      display: none;
+    }
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .search-input-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #c8d8ce;
+      border-radius: 20px;
+      padding: 6px 14px;
+      gap: 8px;
+    }
+    .search-input-box svg {
+      width: 16px;
+      height: 16px;
+      fill: #85988d;
+    }
+    .search-input-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 12px;
+      color: #334155;
+      background: transparent;
+    }
+    .view-mode-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .view-btn {
+      width: 32px;
+      height: 32px;
+      background: #008a38;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .view-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #ffffff;
+    }
+    .sub-tabs-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .sub-tab-pill {
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid #107c41;
+      background: #ffffff;
+      color: #107c41;
+    }
+    .sub-tab-pill.active {
+      background: #008a38;
+      color: #ffffff;
+      border-color: #008a38;
+    }
+
+    /* CỘT HÃNG BÊN TRÁI */
+    .slot-layout-container {
+      display: flex;
+      padding: 2px 8px 10px 8px;
+      gap: 8px;
+      background: #edf2ef;
+    }
+    .brand-sidebar-left {
+      width: 84px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+    .brand-scroll-arrow {
+      width: 100%;
+      height: 22px;
+      background: #b6ccbd;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .brand-btn-item {
+      width: 100%;
+      height: 54px;
+      background: #ffffff;
+      border: 1.5px solid #d4e2d8;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.15s ease;
+    }
+    .brand-btn-item.active {
+      background: #008a38 !important;
+      border-color: #008a38 !important;
+      box-shadow: 0 2px 5px rgba(0, 138, 56, 0.25);
+    }
+    .brand-btn-item.active span {
+      color: #ffffff !important;
+    }
+    .brand-btn-item img {
+      max-height: 28px;
+      width: auto;
+      max-width: 88%;
+      object-fit: contain;
+      display: block;
+    }
+    .brand-btn-item span {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #0b572a;
+      margin-top: 2px;
+      letter-spacing: -0.2px;
+    }
+
+    /* LƯỚI GAME ĐIỆN TỬ */
+    .slot-game-grid-right {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+    .slot-card-box {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+    .slot-card-box:active {
+      transform: scale(0.96);
+    }
+    .slot-poster-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .slot-poster-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+    .slot-tag-hot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #f97316;
+      color: #ffffff;
+      font-size: 8px;
+      font-weight: 900;
+      padding: 1px 4px;
+      border-bottom-right-radius: 4px;
+    }
+    .slot-brand-logo-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: #d90429;
+      color: #fff;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .slot-game-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding: 0 2px;
+    }
+    .slot-title-text {
+      font-size: 10px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .slot-fav-heart {
+      font-size: 11px;
+      color: #107c41;
+      margin-left: 2px;
+      flex-shrink: 0;
+    }
+
+    /* SẢNH ĐỐI TÁC 2 CỘT */
+    .partner-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 6px 10px;
+    }
+    .partner-card-box {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+    .partner-card-box:active {
+      transform: scale(0.97);
+    }
+    .partner-card-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* MỤC HOT NHẤT */
+    .game-grid-hot {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 5px 8px;
+    }
+    .game-card-wrapper {
+      width: 100%;
+      aspect-ratio: 1.45 / 1;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .game-card-wrapper:active {
+      transform: scale(0.96);
+    }
+    .game-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: #ffffff;
+      border-top: 1px solid #d5e0d8;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 6px 0;
+      z-index: 99;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      width: 20%;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      fill: #829288;
+    }
+    .nav-item span {
+      font-size: 10px;
+      font-weight: 700;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .nav-item.active svg {
+      fill: #005a2b;
+    }
+    .nav-item.active span {
+      color: #005a2b;
+    }
+
+    /* SIDEBAR DRAWER */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9998;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .sidebar-drawer {
+      position: fixed;
+      top: 0;
+      left: -82%;
+      width: 76%;
+      max-width: 325px;
+      height: 100%;
+      background: #eef6f0;
+      z-index: 9999;
+      box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+      transition: left 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .sidebar-drawer.open {
+      left: 0;
+    }
+    .sidebar-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+    .sidebar-header-curve {
+      background: #005a2b;
+      padding: 18px 16px 14px 16px;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 70, 30, 0.25);
+      flex-shrink: 0;
+    }
+    .sidebar-logo-text {
+      font-size: 34px;
+      font-weight: 900;
+      color: #ffdc00;
+      font-style: italic;
+      letter-spacing: -1.5px;
+      font-family: Arial, sans-serif;
+    }
+    .sidebar-banner-terry {
+      padding: 10px 12px 2px 12px;
+      flex-shrink: 0;
+    }
+    .sidebar-banner-terry img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .sidebar-clock-text {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      padding: 6px 0 10px 0;
+      font-family: Arial, sans-serif;
+      letter-spacing: -0.2px;
+      flex-shrink: 0;
+    }
+    .sidebar-menu-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0 14px 30px 14px;
+    }
+    .sidebar-menu-item {
+      display: flex;
+      align-items: center;
+      padding: 11.5px 4px;
+      border-bottom: 1px solid #cfe0d4;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .sidebar-menu-item:active {
+      background-color: #dcece0;
+      border-radius: 6px;
+    }
+    .sidebar-item-icon {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .sidebar-item-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .sidebar-item-text {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0b572a;
+      letter-spacing: -0.3px;
+      font-family: Arial, sans-serif;
+    }
+    .sidebar-bottom-curve {
+      height: 48px;
+      background: linear-gradient(180deg, rgba(167, 218, 183, 0.4) 0%, #86cd9e 100%);
+      border-top-left-radius: 50% 18px;
+      border-top-right-radius: 50% 18px;
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(3px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-content {
+      background: #ffffff;
+      width: 100%;
+      max-width: 340px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .modal-tabs {
+      display: flex;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 16px;
+    }
+    .modal-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: #64748b;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+    .modal-tab-btn.active {
+      color: #005a2b;
+      border-bottom-color: #005a2b;
+    }
+    .input-group {
+      margin-bottom: 12px;
+    }
+    .input-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+    .input-field:focus {
+      border-color: #005a2b;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 10px 0;
+      background: #005a2b;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+  
+    /* ======================================================== */
+    /* SỐ ĐIỂM NẠP & SỰ KIỆN                                    */
+    /* ======================================================== */
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px 6px;
+      margin-top: 10px;
+    }
+    .point-item {
+      background: #ffffff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 2px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .point-item.active {
+      border-color: #e11d48;
+      color: #e11d48;
+    }
+    .point-bonus-tag {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 2px 5px;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
+    }
+    
+    .custom-amount-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 15px;
+      background: #ffffff;
+    }
+    .custom-amount-input input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      flex: 1;
+      width: 100%;
+    }
+    .custom-amount-suffix {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .custom-amount-bonus {
+      color: #ef4444;
+      font-size: 11px;
+    }
+
+    .vnd-conversion {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    /* KHỐI SỰ KIỆN PROMOTION BANNER */
+    .promo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .promo-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .promo-radio.active::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+    .promo-banner {
+      flex: 1;
+      background: linear-gradient(90deg, #ff8a4c 0%, #ff3b6a 100%);
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(255, 59, 106, 0.25);
+    }
+    .promo-tag-corner {
+      position: absolute;
+      top: 6px;
+      left: -16px;
+      background: rgba(255,255,255,0.25);
+      color: #ffffff;
+      font-size: 6px;
+      font-weight: 900;
+      padding: 2px 16px;
+      transform: rotate(-40deg);
+      letter-spacing: 0.5px;
+    }
+    .promo-left-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.4);
+      padding-right: 10px;
+    }
+    .promo-right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 10px;
+    }
+    .promo-title-main {
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .promo-title-sub {
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 900;
+    }
+    .promo-money {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .promo-money-desc {
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+    .promo-go-btn {
+      background: #ffffff;
+      color: #ff3b6a;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 14px 10px;
+      border-radius: 6px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CHI TIẾT THANH TOÁN */
+    .payment-details-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .payment-row:not(:last-child) {
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .payment-row.bg-gray {
+      background: #fdf2f4;
+    }
+    .payment-val {
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .payment-val.red {
+      color: #e11d48;
+    }
+
+    /* ======================================================== */
+    /* MÀN HÌNH XÁC NHẬN THANH TOÁN MỚI (ACB)                   */
+    /* ======================================================== */
+    #payment-confirm-view {
+      background-color: #f4f6f8;
+      padding-bottom: 30px;
+    }
+    .pay-confirm-header {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .pay-confirm-header .bank-logo {
+      color: #0b459c;
+      font-size: 24px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -1px;
+    }
+    .pay-confirm-header .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-pc-cancel {
+      background: #7a7a7a;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+    .btn-pc-close {
+      width: 26px;
+      height: 26px;
+      background: #7a7a7a;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pay-info-card {
+      background: #ffffff;
+      margin-top: 1px;
+      padding: 0 16px;
+    }
+    .pay-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13px;
+    }
+    .pay-info-row:last-child {
+      border-bottom: none;
+    }
+    .pay-info-label {
+      color: #64748b;
+      font-weight: 500;
+    }
+    .pay-info-value {
+      color: #1e293b;
+      font-weight: 600;
+      text-align: right;
+    }
+    .pay-info-value.amount {
+      font-weight: 800;
+    }
+
+    .pay-qr-card {
+      background: #ffffff;
+      margin-top: 10px;
+      border-top: 2px solid #1da1f2;
+      padding: 16px;
+    }
+    .pay-timer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #d97706;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .pay-timer svg {
+      width: 16px;
+      height: 16px;
+      fill: #d97706;
+    }
+    
+    .qr-split-layout {
+      display: flex;
+      gap: 16px;
+    }
+    .qr-left-col {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .qr-box {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 4px;
+    }
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .btn-download-qr {
+      border: 1px solid #0b459c;
+      color: #0b459c;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 0;
+      width: 100%;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .qr-right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .copy-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .copy-label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .copy-val-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy-text-val {
+      color: #d97706;
+      font-weight: 700;
+      font-size: 14px;
+      word-break: break-all;
+    }
+    .btn-copy-icon {
+      width: 24px;
+      height: 24px;
+      background: #f1f5f9;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .btn-copy-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: #0b459c;
+    }
+
+    .pay-warning-box {
+      margin: 20px 16px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .pay-warning-box svg {
+      width: 16px;
+      height: 16px;
+      fill: #2cb3e4;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .pay-warning-box p {
+      font-size: 11px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    .btn-check-result {
+      margin: 10px 16px;
+      background: #2cb3e4;
+      color: #ffffff;
+      text-align: center;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(44, 179, 228, 0.25);
+    }
+
+    /* HỆ THỐNG TOAST NOTIFICATION */
+    .toast-container {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(0, 0, 0, 0.85);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 100005;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .toast-container.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BONG BÓNG THÔNG BÁO TÙY CHỈNH -->
+  <div id="app-toast" class="toast-container">Thông báo</div>
+
+  <!-- SIDEBAR MENU 3 GẠCH -->
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
+    <div class="sidebar-header-curve">
+      <div class="sidebar-logo-text">QQ88</div>
+    </div>
+
+    <div class="sidebar-banner-terry">
+      <img src="/images/sidebar_terry.png" onerror="handleImgErr(this, ['/images/sidebar_terry.jpg', '/images/dai su thuong hieu.jpg', '/images/dai su thuong hieu.png'])" alt="John Terry">
+    </div>
+
+    <div id="sidebar-live-clock" class="sidebar-clock-text">
+      10/10/2026 02:25:00 (GMT+7)
+    </div>
+
+    <div class="sidebar-menu-list">
+      <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
+        <div class="sidebar-item-icon"><img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ"></div>
+        <span class="sidebar-item-text">ĐẠI SỨ</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
+        <div class="sidebar-item-icon"><img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook"></div>
+        <span class="sidebar-item-text">FACEBOOK</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
+        <div class="sidebar-item-icon"><img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1"></div>
+        <span class="sidebar-item-text">TẢI 1.1.1.1</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
+        <div class="sidebar-item-icon"><img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam navigation.png'])" alt="Cẩm Nang"></div>
+        <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
+        <div class="sidebar-item-icon"><img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý"></div>
+        <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
+        <div class="sidebar-item-icon"><img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu"></div>
+        <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
+        <div class="sidebar-item-icon"><img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại"></div>
+        <span class="sidebar-item-text">KHIẾU NẠI</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
+        <div class="sidebar-item-icon"><img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện"></div>
+        <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
+      </div>
+      <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
+        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý"></div>
+        <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
+      </div>
+      <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
+        <div class="sidebar-item-icon"><img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập"></div>
+        <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
+      </div>
+    </div>
+
+    <div class="sidebar-bottom-curve"></div>
+  </div>
+
+
+  <div class="app-wrapper">
+
+    <!-- 1. HEADER: BANNER QUẢNG CÁO -->
+    <div id="top-promo-section" class="top-promo-box">
+      <img src="/images/top_promo.png" onerror="handleImgErr(this, ['/images/top_promo.PNG', '/images/top_promo.jpg'])" alt="Banner Khuyến Mãi">
+      <div class="close-promo-hitbox" onclick="closePromoBanner()" title="Tắt quảng cáo"></div>
+    </div>
+
+    <!-- 2. THANH HEADER XANH LÁ QQ88 -->
+    <div class="main-header-green">
+      <div class="header-btn-toggle" onclick="openSidebar()" title="Mở menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="header-logo-title">QQ88</div>
+      <div class="header-vip-tag" onclick="showToast('Tính năng VIP đang phát triển')">
+        <svg viewBox="0 0 24 18">
+          <polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" />
+        </svg>
+        <span>VIP</span>
+      </div>
+    </div>
+
+    <!-- 3. HERO CAROUSEL -->
+    <div>
+      <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
+    </div>
+
+    <!-- 4. MARQUEE -->
+    <div class="marquee-bar">
+      <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      <div class="marquee-content">
+        <div class="marquee-inner">
+          Địa chỉ chính thức của chúng tôi là: https://qq88a3.com/ ( PC ), 8888386.com ( Mobile ) | Hotline: 0908007888
+        </div>
+      </div>
+      <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </div>
+
+    <!-- 5. KHỐI TÀI KHOẢN -->
+    <div class="account-wrapper">
+      <div class="account-card">
+        <div id="guest-zone" class="guest-box" style="display: block;">
+          <img src="/images/nen 5.png" class="guest-img" alt="Guest Bar">
+          <div class="touch-btn-login" onclick="openAuthModal('login')"></div>
+          <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
+        </div>
+
+        <div id="user-zone" class="user-box-real" style="display: none;">
+          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
+          <span class="real-username-label" id="display-username">quanmi112</span>
+          <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
+          
+          <!-- 4 VÙNG BẤM TƯƠNG ỨNG 4 ICON -->
+          <div class="touch-actions-grid">
+            <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Rút Tiền đang bảo trì')" title="Rút Tiền"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Đại Lý')" title="Đại Lý"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Giới Thiệu')" title="Giới Thiệu"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME -->
+    <div class="cat-bar">
+      <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
+      <div id="cat-list" class="cat-scroll no-scrollbar">
+        <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)">
+          <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" alt="Hot Nhất">
+        </div>
+        <div class="cat-tab-item" data-cat="casino" onclick="switchCategory('casino', this)">
+          <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" alt="Casino">
+        </div>
+        <div class="cat-tab-item" data-cat="nohu" onclick="switchCategory('nohu', this)">
+          <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" alt="Nổ Hũ">
+        </div>
+        <div class="cat-tab-item" data-cat="banca" onclick="switchCategory('banca', this)">
+          <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" alt="Bắn Cá">
+        </div>
+        <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)">
+          <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" alt="Thể Thao">
+        </div>
+        <div class="cat-tab-item" data-cat="gamebai" onclick="switchCategory('gamebai', this)">
+          <img src="/images/game bai.png" onerror="handleImgErr(this, ['/images/game%20bai.PNG', '/images/gamebai.png'])" alt="Game Bài">
+        </div>
+        <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)">
+          <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" alt="Đá Gà">
+        </div>
+        <div class="cat-tab-item" data-cat="xoso" onclick="switchCategory('xoso', this)">
+          <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" alt="Xổ Số">
+        </div>
+        <div class="cat-tab-item" data-cat="esports" onclick="switchCategory('esports', this)">
+          <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" alt="E-Sports">
+        </div>
+      </div>
+      <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
+    </div>
+
+    <!-- 7. THANH TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ -->
+    <div id="sub-filter-header" class="sub-filter-header">
+      <div class="search-row">
+        <div class="search-input-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="game-search-input" placeholder="Tìm kiếm trò chơi" oninput="handleSearchGame(this.value)">
+        </div>
+        <div class="view-mode-icons">
+          <div class="view-btn"><svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg></div>
+        </div>
+      </div>
+      <div class="sub-tabs-row no-scrollbar">
+        <div class="sub-tab-pill active" onclick="switchSubFilter('all', this)">TẤT CẢ</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('hot', this)">HOT NHẤT</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('history', this)">LỊCH SỬ</div>
+        <div class="sub-tab-pill" onclick="switchSubFilter('favorite', this)">YÊU THÍCH</div>
+      </div>
+    </div>
+
+    <!-- 8. VÙNG VIEWPORT CHỨA GAME -->
+    <div id="game-content-viewport"></div>
+
+    <!-- 9. HỘI VIÊN THẮNG LỚN -->
+    <div style="padding: 4px 6px;">
+      <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png', '/images/hoi vien thang lon.png', '/images/hoi vien thang lon.JPG'])" style="border-radius: 10px;" alt="Hội Viên Thắng LỚn">
+    </div>
+
+    <!-- 10. ĐẠI SỨ THƯƠNG HIỆU -->
+    <div style="padding: 4px 6px;">
+      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png', '/images/dai su thuong hieu.png', '/images/dai su thuong hieu.JPG'])" style="border-radius: 10px;" alt="John Terry">
+    </div>
+
+    <!-- 11. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP -->
+    <div style="padding: 4px 6px; margin-bottom: 8px;">
+      <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
+    </div>
+
+    <!-- 12. BOTTOM NAVIGATION BAR -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>TRANG CHỦ</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        <span>KHUYẾN MÃI</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S2 6.48 2 12zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        <span>TẢI APP</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+        <span>LIÊN HỆ</span>
+      </div>
+      <div class="nav-item" onclick="openUserMenu()">
+        <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        <span>CẨM NANG</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GIAO DIỆN NẠP TIỀN -->
+  <div id="deposit-view" class="deposit-view-wrapper">
+    <div class="deposit-header">
+      <div class="btn-back" onclick="closeDepositView()">⟨</div>
+      <div class="deposit-title">Nạp Tiền</div>
+      <div class="header-record-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <div class="badge-count-1">1</div>
+      </div>
+    </div>
+
+    <div class="deposit-body">
+      <!-- 1. PHƯƠNG THỨC NẠP TIỀN -->
+      <div class="deposit-sec-title">
+        <span class="dot-orange"></span>
+        <span>Phương thức nạp tiền</span>
+      </div>
+
+      <div class="methods-grid">
+        <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
+          <img src="/images/pay_bank.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_bank.png?v=2', '/images/pay_bank.jpg?v=2'])" alt="Chuyển khoản">
+        </div>
+        <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
+          <img src="/images/pay_qr.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_qr.png?v=2', '/images/pay_qr.jpg?v=2'])" alt="Quét mã QR">
+        </div>
+        <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
+          <img src="/images/pay_momo.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_momo.png?v=2', '/images/pay_momo.jpg?v=2'])" alt="MomoPay">
+        </div>
+        <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
+          <img src="/images/pay_zalopay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_zalopay.png?v=2', '/images/pay_zalopay.jpg?v=2'])" alt="ZaloPay">
+        </div>
+        <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
+          <img src="/images/pay_vtpay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_vtpay.png?v=2', '/images/pay_vtpay.jpg?v=2'])" alt="VtPay">
+        </div>
+        <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
+          <img src="/images/pay_thecao.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_thecao.png?v=2', '/images/pay_thecao.jpg?v=2'])" alt="Thẻ cào">
+        </div>
+        <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
+          <img src="/images/pay_usdt.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_usdt.png?v=2', '/images/pay_usdt.jpg?v=2'])" alt="USDT">
+        </div>
+      </div>
+
+      <!-- 2. CÁC KÊNH THANH TOÁN -->
+      <div class="deposit-sec-title" style="margin-top: 14px;">
+        <span class="dot-teal"></span>
+        <span>Các kênh thanh toán</span>
+      </div>
+
+      <div class="channels-grid">
+        <div class="channel-item active" onclick="selectChannel(this)">SUNPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
+          GOPAY 10-499,999
+        </div>
+        <div class="channel-item" onclick="selectChannel(this)">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
+          VN196PAY
+        </div>
+        <div class="channel-item" onclick="selectChannel(this)">EZPAY 10-499,999</div>
+        <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">
+          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
+          A8PAY 10-499,999
+        </div>
+        <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
+      </div>
+
+      <!-- MẸO QUÉT MÃ -->
+      <div class="tip-box">
+        <div class="notice-row">
+          <span class="icon-green-check">✅</span>
+          <span>Mẹo: Quét mã QR để cập nhật điểm nhanh nhất. Link Mobile: <span class="highlight-red">8386333.com</span> | Link PC: <span class="highlight-red">838644.com</span></span>
+        </div>
+      </div>
+
+      <!-- 3. SỐ ĐIỂM NẠP -->
+      <div class="deposit-sec-title" style="margin-top: 14px;">
+        <span class="dot-orange"></span>
+        <span>Số Điểm Nạp</span>
+      </div>
+
+      <div class="points-grid">
+        <div class="point-item active" onclick="selectPoint(this, 50)">
+          <div class="point-bonus-tag">+ 0.1</div>
+          50
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 100)">
+          <div class="point-bonus-tag">+ 0.2</div>
+          100
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 500)">
+          <div class="point-bonus-tag">+ 1</div>
+          500
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 1000)">
+          <div class="point-bonus-tag">+ 3</div>
+          1,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 5000)">
+          <div class="point-bonus-tag">+ 15</div>
+          5,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 10000)">
+          <div class="point-bonus-tag">+ 40</div>
+          10,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 50000)">
+          <div class="point-bonus-tag">+ 200</div>
+          50,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 100000)">
+          <div class="point-bonus-tag">+ 500</div>
+          100,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 200000)">
+          <div class="point-bonus-tag">+ 1,200</div>
+          200,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 300000)">
+          <div class="point-bonus-tag">+ 1,800</div>
+          300,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 350000)">
+          <div class="point-bonus-tag">+ 2,100</div>
+          350,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 400000)">
+          <div class="point-bonus-tag">+ 2,400</div>
+          400,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 450000)">
+          <div class="point-bonus-tag">+ 2,700</div>
+          450,000
+        </div>
+        <div class="point-item" onclick="selectPoint(this, 490000)">
+          <div class="point-bonus-tag">+ 2,940</div>
+          490,000
+        </div>
+      </div>
+
+      <div class="custom-amount-input">
+        <input type="number" id="input-amount" placeholder="50 - 300,000" value="50" oninput="handleAmountChange()">
+        <div class="custom-amount-suffix">
+          K <span class="custom-amount-bonus" id="display-bonus">+ 0.1 K</span>
+        </div>
+      </div>
+
+      <div class="vnd-conversion">
+        VND : <span id="display-vnd">50,000</span>
+      </div>
+
+      <!-- 4. SỰ KIỆN -->
+      <div class="deposit-sec-title" style="margin-top: 10px;">
+        <span class="dot-orange"></span>
+        <span>Sự kiện</span>
+      </div>
+      
+      <div class="promo-section">
+        <div class="promo-radio active" id="promo-radio" onclick="togglePromo()"></div>
+        <div class="promo-banner" onclick="togglePromo()">
+          <div class="promo-tag-corner">PROMOTION</div>
+          <div class="promo-left-col">
+            <div class="promo-title-main">Nạp Tiền</div>
+            <div class="promo-title-sub"><span id="promo-base">50.00</span>K</div>
+          </div>
+          <div class="promo-right-col">
+            <div class="promo-money">💰 <span id="promo-reward">0.10</span></div>
+            <div class="promo-money-desc">Doanh thu 1 lần</div>
+          </div>
+          <div class="promo-go-btn">GO</div>
+        </div>
+      </div>
+
+      <!-- 5. CHI TIẾT THANH TOÁN -->
+      <div class="deposit-sec-title" style="margin-top: 18px;">
+        <span class="dot-teal"></span>
+        <span>Chi tiết thanh toán</span>
+      </div>
+      
+      <div class="payment-details-box">
+        <div class="payment-row">
+          <span>Số Điểm Nạp</span>
+          <span class="payment-val" id="detail-points">50.00 K</span>
+        </div>
+        <div class="payment-row bg-gray">
+          <span>Số tiền thanh toán thực tế</span>
+          <span class="payment-val red" id="detail-total">50.00 K</span>
+        </div>
+      </div>
+
+      <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo</div>
+    </div>
+  </div>
+
+  <!-- GIAO DIỆN XÁC NHẬN THANH TOÁN MỚI (ACB) -->
+  <div id="payment-confirm-view" class="deposit-view-wrapper no-scrollbar">
+    <!-- Header ACB -->
+    <div class="pay-confirm-header">
+      <div class="bank-logo">ACB</div>
+      <div class="header-actions">
+        <div class="btn-pc-cancel" onclick="closePaymentConfirm()">HỦY BỎ</div>
+        <div class="btn-pc-close" onclick="closePaymentConfirm()">✕</div>
+      </div>
+    </div>
+
+    <!-- Thông tin giao dịch -->
+    <div class="pay-info-card">
+      <div class="pay-info-row">
+        <span class="pay-info-label">Mã giao dịch</span>
+        <span class="pay-info-value" id="pc-trans-id">VND...</span>
+      </div>
+      <div class="pay-info-row">
+        <span class="pay-info-label">SỐ TIỀN</span>
+        <span class="pay-info-value amount" id="pc-amount">50,000 VND</span>
+      </div>
+      <div class="pay-info-row">
+        <span class="pay-info-label">Thời gian giao dịch</span>
+        <span class="pay-info-value" id="pc-time">2026-10-22 00:00:00</span>
+      </div>
+      <div class="pay-info-row">
+        <span class="pay-info-label">Ngân hàng thụ hưởng</span>
+        <span class="pay-info-value" id="pc-bank-name">ACB</span>
+      </div>
+    </div>
+
+    <!-- QR & Tài khoản -->
+    <div class="pay-qr-card">
+      <div class="pay-timer">
+        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        <span id="pc-timer-text">10:00</span>
+      </div>
+      
+      <div class="qr-split-layout">
+        <!-- Cột trái: QR -->
+        <div class="qr-left-col">
+          <div class="qr-box">
+            <!-- Thẻ IMG hiện mã QR thật -->
+            <img id="pc-qr-img" src="" alt="Mã QR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <!-- Nút Tải QR mới -->
+          <div class="btn-download-qr" onclick="downloadQR()">Tải về</div>
+        </div>
+        
+        <!-- Cột phải: Thông tin -->
+        <div class="qr-right-col">
+          <div class="copy-group">
+            <div class="copy-label">Số tài khoản</div>
+            <div class="copy-val-row">
+              <span class="copy-text-val" id="pc-acc-num">00000000</span> 
+              <div class="btn-copy-icon" onclick="copyText('pc-acc-num')">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="copy-group">
+            <div class="copy-label">Tên tài khoản</div>
+            <div class="copy-val-row">
+              <span class="copy-text-val" id="pc-acc-name">TEN TAI KHOAN</span> 
+              <div class="btn-copy-icon" onclick="copyText('pc-acc-name')">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="copy-group">
+            <div class="copy-label">Chuyển tin nhắn</div>
+            <div class="copy-val-row">
+              <span class="copy-text-val" id="pc-memo" style="font-size: 13px;">VND...</span> 
+              <div class="btn-copy-icon" onclick="copyText('pc-memo')">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cảnh báo bảo mật -->
+    <div class="pay-warning-box">
+      <svg viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+      <p>Để bảo mật tài khoản, vui lòng không lưu hình ảnh mã QR để thanh toán.</p>
+    </div>
+
+    <!-- Nút hành động cuối -->
+    <div class="btn-check-result" onclick="showToast('Hệ thống đang kiểm tra kết quả giao dịch của bạn...')">
+      Xem kết quả thanh toán
+    </div>
+  </div>
+
+  <!-- MODAL ĐĂNG KÝ / ĐĂNG NHẬP -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeAuthModal()">✕</button>
+      <div class="modal-tabs">
+        <div id="tab-login" class="modal-tab-btn active" onclick="switchAuthTab('login')">ĐĂNG NHẬP</div>
+        <div id="tab-register" class="modal-tab-btn" onclick="switchAuthTab('register')">ĐĂNG KÝ</div>
+      </div>
+
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="input-group">
+          <label class="input-label">Tên tài khoản</label>
+          <input type="text" id="input-username" class="input-field" placeholder="Từ 4 ký tự trở lên" required autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Mật khẩu</label>
+          <input type="password" id="input-password" class="input-field" placeholder="Nhập mật khẩu" required>
+        </div>
+
+        <button type="submit" id="btn-modal-action" class="btn-submit">ĐĂNG NHẬP</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TÍNH NĂNG MỚI: KHUNG CHƠI GAME TOÀN MÀN HÌNH (IFRAME) -->
+  <div id="game-play-modal" style="display:none; position:fixed; top:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; height:100vh; background:#000; z-index:100005; flex-direction:column;">
+    
+    <!-- Thanh Header Game -->
+    <div style="height:44px; background:#18191d; display:flex; align-items:center; padding:0 10px; color:#fff; flex-shrink:0;">
+      <div onclick="closeGame()" style="font-size:24px; cursor:pointer; width:30px; line-height:44px;">⟨</div>
+      <div id="playing-game-title" style="flex:1; text-align:center; font-size:14px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Tên Game</div>
+      <div style="width:30px;"></div>
+    </div>
+    
+    <!-- Vùng chạy Game thực tế -->
+    <div style="flex:1; background:#000; position:relative;">
+      <div id="game-loader" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:13px; font-weight:bold;">Đang kết nối sảnh game...</div>
+      <!-- Nơi nhúng Link Web Game -->
+      <iframe id="game-iframe" src="" style="width:100%; height:100%; border:none; position:relative; z-index:2; background:#000; display:none;"></iframe>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       HỆ THỐNG TOAST NOTIFICATION (HIỂN THỊ BONG BÓNG)
+       ======================================================== */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('app-toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      
+      if(toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function handleImgErr(img, fallbacks) {
+      if (!img.dataset.tryCount) img.dataset.tryCount = 0;
+      let count = parseInt(img.dataset.tryCount);
+      if (count < fallbacks.length) {
+        img.src = fallbacks[count];
+        img.dataset.tryCount = count + 1;
+      }
+    }
+
+    function closePromoBanner() {
+      const banner = document.getElementById('top-promo-section');
+      if (banner) banner.style.display = 'none';
+    }
+
+    function openSidebar() {
+      document.getElementById('sidebar-drawer').classList.add('open');
+      document.getElementById('sidebar-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar-drawer').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleMenuClick(action) {
+      closeSidebar();
+      switch(action) {
+        case 'daisu': showToast('Chuyển tới trang: Đại sứ thương hiệu John Terry'); break;
+        case 'facebook': window.open('https://facebook.com', '_blank'); break;
+        case 'warp': window.open('https://1.1.1.1', '_blank'); break;
+        case 'camnang': showToast('Chuyển tới trang: Cẩm nang hướng dẫn'); break;
+        case 'gopy': showToast('Chuyển tới trang: Góp ý nhận quà'); break;
+        case 'quenmatkhau': showToast('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
+        case 'khieunai': showToast('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
+        case 'thiennguyen': showToast('Chương trình Quỹ thiện nguyện QQ88'); break;
+        case 'daily': showToast('Đăng ký đại lý nhận hoa hồng lên tới 60%'); break;
+      }
+    }
+
+    function handleSidebarAuth() {
+      closeSidebar();
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) {
+        openAuthModal('login');
+      } else {
+        if (confirm('Bạn có muốn đăng xuất khỏi tài khoản không?')) {
+          logoutAccount();
+        }
+      }
+    }
+
+    function updateSidebarClock() {
+      const clockEl = document.getElementById('sidebar-live-clock');
+      if (!clockEl) return;
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const d = pad(now.getDate());
+      const m = pad(now.getMonth() + 1);
+      const y = now.getFullYear();
+      const hh = pad(now.getHours());
+      const mm = pad(now.getMinutes());
+      const ss = pad(now.getSeconds());
+      clockEl.innerText = `${d}/${m}/${y} ${hh}:${mm}:${ss} (GMT+7)`;
+    }
+    setInterval(updateSidebarClock, 1000);
+    updateSidebarClock();
+
+    /* ========================================================
+       TÍNH NĂNG MỚI: MỞ GAME TRÊN IFRAME
+       ======================================================== */
+    function launchGame(gameName) {
+      const modal = document.getElementById('game-play-modal');
+      const title = document.getElementById('playing-game-title');
+      const iframe = document.getElementById('game-iframe');
+      const loader = document.getElementById('game-loader');
+
+      // Mở khung giao diện
+      modal.style.display = 'flex';
+      title.innerText = gameName;
+      iframe.style.display = 'none';
+      loader.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Khóa cuộn trang
+
+      // Giả lập thời gian kết nối (1 giây) sau đó tải game
+      setTimeout(() => {
+        loader.style.display = 'none';
+        iframe.style.display = 'block';
+        
+        // ĐÃ SỬA LỖI ĐƯỜNG DẪN Ở ĐÂY - Gọi bằng đường dẫn tương đối
+        iframe.src = './game-slot.html'; 
+      }, 1000);
+    }
+
+    function closeGame() {
+      document.getElementById('game-play-modal').style.display = 'none';
+      document.getElementById('game-iframe').src = ''; // Hủy tải link game
+      document.body.style.overflow = '';
+    }
+
+    /* DANH SÁCH SẢNH ĐỐI TÁC 2 CỘT */
+    const partnerRooms = {
+      casino: [
+        { name: "SE TRỰC TUYẾN", file: "sanh_se.png" },
+        { name: "DG TRỰC TUYẾN", file: "sanh_dg.png" },
+        { name: "MT TRỰC TUYẾN", file: "sanh_wm.png" },
+        { name: "EVO TRỰC TUYẾN", file: "sanh_evo.png" },
+        { name: "CHOICE TRỰC TUYẾN", file: "sanh_choice.png" }
+      ],
+      thethao: [
+        { name: "SABA THỂ THAO", file: "sanh_saba.png" },
+        { name: "CMD THỂ THAO", file: "sanh_cmd.png" },
+        { name: "IM THỂ THAO", file: "sanh_im.png" },
+        { name: "BTI THỂ THAO", file: "sanh_bti.png" }
+      ],
+      daga: [
+        { name: "SV388 ĐÁ GÀ", file: "sanh_sv388.png" },
+        { name: "GA28 ĐÁ GÀ", file: "sanh_ga28.png" },
+        { name: "WALA88 ĐÁ GÀ", file: "sanh_wala88.png" },
+        { name: "WS168 ĐÁ GÀ", file: "sanh_ws168.png" },
+        { name: "ODIN ĐÁ GÀ", file: "sanh_odin.png" }
+      ],
+      xoso: [
+        { name: "TCG XỔ SỐ", file: "sanh_tcg.png" },
+        { name: "GPI XỔ SỐ", file: "sanh_gpi.png" }
+      ],
+      esports: [
+        { name: "IA E-SPORTS", file: "sanh_ia.png" },
+        { name: "IMES E-SPORTS", file: "sanh_imes.png" },
+        { name: "TF E-SPORTS", file: "sanh_tf.png" }
+      ]
+    };
+
+    const brandLists = {
+      nohu: [
+        { id: "all", name: "Tất cả" },
+        { id: "pg", name: "PG", file: "hang_pg.png" },
+        { id: "fc", name: "FC", file: "hang_fc.png" },
+        { id: "jili", name: "JILI", file: "hang_jili.png" },
+        { id: "168", name: "168Game", file: "hang_168.png" }
+      ],
+      banca: [
+        { id: "all", name: "Tất cả" },
+        { id: "jili", name: "JILI", file: "hang_jili.png" },
+        { id: "fc", name: "FC", file: "hang_fc.png" },
+        { id: "jdb", name: "JDB", file: "hang_jdb.png" },
+        { id: "tp", name: "TP", file: "hang_tp.png" }
+      ],
+      gamebai: [
+        { id: "all", name: "Tất cả" },
+        { id: "v8", name: "V8", file: "hang_v8.png" },
+        { id: "km", name: "KM", file: "hang_km.png" },
+        { id: "kp", name: "KP", file: "hang_kp.png" },
+        { id: "r88", name: "R88", file: "hang_r88.png" }
+      ]
+    };
+
+    const slotGamesData = {
+      banca: [
+        { name: "Jackpot Đánh Cá", brand: "jili", tagLogo: "JILI", file: "JACKPOT DANH CA.png" },
+        { name: "Thợ săn ngôi sao", brand: "fc", tagLogo: "FC", file: "THỢ SAN NGOI SAO.png" },
+        { name: "Jackpot Vua Tài Lộc", brand: "jili", tagLogo: "JILI", file: "JACKPOT VUA TAI LOC.png" },
+        { name: "Câu Cá Hũ Vàng Tốc Đ...", brand: "jili", tagLogo: "JILI", file: "JACKPOT ĐÁNH CÁ 2.png" },
+        { name: "Bắn Cá Vương Giả", brand: "jili", tagLogo: "JILI", file: "VUA DANH CA.png" },
+        { name: "Jackpot Vua Đại Dương", brand: "jili", tagLogo: "JILI", file: "JACKPOT VUA DAI DUONG.png" },
+        { name: "Bắn Cá Thần Tài", brand: "jdb", tagLogo: "JDB", file: "BAN CA THAN TAI.png" },
+        { name: "Đánh Cá Vui Vẻ", brand: "jili", tagLogo: "JILI", file: "KY LAN MACH NƯỚC.png" },
+        { name: "Nhà Tư Bản Khủng Long", brand: "jili", tagLogo: "JILI", file: "CAY PHAT TAI.png" }
+      ],
+      nohu: [
+        { name: "Quyết Chiến Tiền Thưởng", brand: "pg", tagLogo: "PG", file: "QUYẾT CHIẾN TIEN THUG_.png" },
+        { name: "Đường Mạt Chược 2", brand: "pg", tagLogo: "PG", file: "DUONG MAT CHUOC 2.png" },
+        { name: "Kho Báu Aztec", brand: "pg", tagLogo: "PG", file: "KHO BAU AZTEC.png" },
+        { name: "Tiếng Gọi Danh Dự", brand: "pg", tagLogo: "PG", file: "TIENG GOI DANH DU.png" },
+        { name: "Siêu Át", brand: "jili", tagLogo: "JILI", file: "SIEU CAP ACE.png" },
+        { name: "Tết Nguyên Đán...", brand: "fc", tagLogo: "FC", file: "NĂM MỚI LỘ LỘ PHAT.png" },
+        { name: "Mạt Chược Thắng 4", brand: "168", tagLogo: "VG", file: "MAT CHƯỢC THANG 4.png" },
+        { name: "Đế Quốc Hoàng Kim", brand: "jili", tagLogo: "JILI", file: "DE QUOC HOANG KIM.png" },
+        { name: "Phi Công", brand: "pg", tagLogo: "SPRIBE", file: "AVIATOR.png" },
+        { name: "Neko May Mắn", brand: "pg", tagLogo: "PG", file: "NEKO MAY MAN.png" },
+        { name: "Siêu Ace Deluxe", brand: "jili", tagLogo: "JILI", file: "SIEU ACE DELUXE.png" },
+        { name: "Hề Xiếc 4096", brand: "jili", tagLogo: "JILI", file: "HE XIEC 4096.png" }
+      ],
+      gamebai: [
+        { name: "Tài Xỉu", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png" },
+        { name: "Xóc Đĩa", brand: "v8", tagLogo: "V8", file: "XÓC ĐĨA_.png" },
+        { name: "Tài Xỉu KM", brand: "km", tagLogo: "KM", file: "TAI Xiu.png" },
+        { name: "Xì dách", brand: "v8", tagLogo: "V8", file: "XI DACH.png" },
+        { name: "Sic Bo", brand: "km", tagLogo: "KM", file: "TAI Xiu.png" },
+        { name: "Bầu Cua", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png" },
+        { name: "Xóc đĩa 2", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png" },
+        { name: "Tài Xỉu mini", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png" },
+        { name: "Baccarat", brand: "km", tagLogo: "KM", file: "CHIEN THANG POKER.png" }
+      ]
+    };
+
+    const gameListHot = [
+      { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "sanh_se.png"] },
+      { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "sanh_dg.png"] },
+      { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"] },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"] },
+      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"] },
+      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"] },
+      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"] },
+      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png", "DUONG MAT CHUOC.png"] },
+      { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png", "SIÊU CẤP ACE.png"] },
+      { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png", "MIỀN TÂY HOANG DÃ.png"] },
+      { name: "AVIATOR", files: ["AVIATOR.png", "AVIATOR.jpg"] },
+      { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png", "NEKO MAY MẮN.png"] },
+      { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png", "NAM MOI LO LO PHAT.png"] },
+      { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png", "THANG MAT CHUOC.png"] },
+      { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png", "THO SAN NGOI SAO.png"] },
+      { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png", "ĐẾ QUỐC HOÀNG KIM.png"] },
+      { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png", "THẦN CHIẾN GARUDA 500.png"] },
+      { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png", "JACKPOT VUA TÀI LỘC.png"] },
+      { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png"] },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", files: ["QUYET CHIEN TIEN THUONG KHUNG.png"] },
+      { name: "NGỌC MAY MẮN 3", files: ["NGỌC MAY MAN 3.png"] },
+      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png"] },
+      { name: "CHIẾN THẮNG POKER", files: ["CHIEN THANG POKER.png"] },
+      { name: "DJ BOOM BOOM", files: ["DJ BOOM BOOM.png"] },
+      { name: "SABA THỂ THAO", files: ["SABA THE THAO.png", "sanh_saba.png"] },
+      { name: "MẠT CHƯỢC HOANG DÃ", files: ["MAT CHƯỢC HOANG DA.png"] },
+      { name: "KỲ LÂN MÁCH NƯỚC", files: ["KY LAN MACH NƯỚC.png"] },
+      { name: "JACKPOT ĐÁNH CÁ 2", files: ["JACKPOT ĐÁNH CÁ 2.png"] },
+      { name: "THẦN TÀI NHÂN BỘI PHÁ", files: ["THAN TAI NHAN BOI PHA_.png"] },
+      { name: "NGỌC MAY MAN 2", files: ["NGỌC MAY MAN 2.png"] },
+      { name: "CAO BỒI HOANG DA", files: ["CAO BOI HOANG DA.png"] },
+      { name: "BẬC THẦY PHI HÀNH GIA", files: ["BAC THAY PHI HANH GIA.png"] },
+      { name: "THỎ MAY MẮN", files: ["THO MAY MAN.png"] },
+      { name: "LỄ HỘI ĐÁ QUÝ", files: ["LÊ HỘI ĐÁ QUÝ.png"] },
+      { name: "BẮN CÁ THẦN TÀI", files: ["BAN CA THAN TAI.png"] },
+      { name: "SIÊU ACE DELUXE", files: ["SIEU ACE DELUXE.png"] },
+      { name: "HỀ XIẾC 4096", files: ["HE XIEC 4096.png"] },
+      { name: "ANUBIS", files: ["ANUBIS.png"] },
+      { name: "CHỢ ĐÊM", files: ["CHO DEM.png"] },
+      { name: "XÌ DÁCH", files: ["XI DACH.png"] },
+      { name: "ĐÊM TIỆC COCKTAIL", files: ["DEM TIEC COCKTAIL.png"] },
+      { name: "JACKPOT VUA ĐẠI DƯƠNG", files: ["JACKPOT VUA DAI DUONG.png"] },
+      { name: "ATHENA HOANG DÃ 2048", files: ["ATHENA HOANG DA 2048.png"] },
+      { name: "BÁT CHÂU BÁU", files: ["BAT CHAU BAU.png"] },
+      { name: "VUA ĐÁNH CÁ", files: ["VUA DANH CA.png"] },
+      { name: "KHỈ HOANG DÃ#3258", files: ["KHI HOANG DA 3258.png"] },
+      { name: "CÂY PHÁT TÀI", files: ["CAY PHAT TAI.png"] },
+      { name: "NỮ HOÀNG INCA", files: ["NU HOANG INCA.png"] },
+      { name: "SIÊU BÒ B", files: ["SIEU BO B.png"] }
+    ];
+
+    let currentMainCat = 'hot';
+    let currentActiveBrand = 'all';
+
+    function renderViewport() {
+      const viewport = document.getElementById('game-content-viewport');
+      const subHeader = document.getElementById('sub-filter-header');
+      viewport.innerHTML = '';
+
+      if (partnerRooms[currentMainCat]) {
+        subHeader.style.display = 'none';
+        const grid = document.createElement('div');
+        grid.className = 'partner-grid-2col';
+
+        partnerRooms[currentMainCat].forEach(room => {
+          const card = document.createElement('div');
+          card.className = 'partner-card-box';
+          card.onclick = () => launchGame(room.name); 
+
+          const img = document.createElement('img');
+          img.src = '/images/' + encodeURIComponent(room.file);
+          img.onerror = function() {
+            this.src = '/images/' + room.file.replace('.png', '.jpg');
+          };
+          img.alt = room.name;
+
+          card.appendChild(img);
+          grid.appendChild(card);
+        });
+
+        viewport.appendChild(grid);
+        return;
+      }
+
+      if (brandLists[currentMainCat]) {
+        subHeader.style.display = 'block';
+
+        const container = document.createElement('div');
+        container.className = 'slot-layout-container';
+
+        const leftSidebar = document.createElement('div');
+        leftSidebar.className = 'brand-sidebar-left';
+
+        const arrowUp = document.createElement('div');
+        arrowUp.className = 'brand-scroll-arrow';
+        arrowUp.innerText = '▲';
+        leftSidebar.appendChild(arrowUp);
+
+        brandLists[currentMainCat].forEach(brand => {
+          const btn = document.createElement('div');
+          btn.className = 'brand-btn-item' + (currentActiveBrand === brand.id ? ' active' : '');
+          btn.onclick = () => {
+            currentActiveBrand = brand.id;
+            renderViewport();
+          };
+
+          if (brand.id === 'all') {
+            btn.innerHTML = `<span style="font-size:12px;font-weight:900;">${brand.name}</span>`;
+          } else {
+            btn.innerHTML = `
+              <img src="/images/${brand.file}" onerror="this.style.display='none'">
+              <span>${brand.name}</span>
+            `;
+          }
+          leftSidebar.appendChild(btn);
+        });
+
+        const arrowDown = document.createElement('div');
+        arrowDown.className = 'brand-scroll-arrow';
+        arrowDown.innerText = '▼';
+        leftSidebar.appendChild(arrowDown);
+
+        const rightGrid = document.createElement('div');
+        rightGrid.className = 'slot-game-grid-right';
+
+        let list = slotGamesData[currentMainCat] || [];
+        if (currentActiveBrand !== 'all') {
+          list = list.filter(g => g.brand === currentActiveBrand);
+        }
+
+        list.forEach(g => {
+          const card = document.createElement('div');
+          card.className = 'slot-card-box';
+          card.onclick = () => launchGame(g.name);
+
+          card.innerHTML = `
+            <div class="slot-poster-frame">
+              <span class="slot-tag-hot">HOT</span>
+              <img src="/images/${encodeURIComponent(g.file)}" onerror="this.src='/images/${encodeURIComponent(g.file.replace('.png', '.jpg'))}'" alt="${g.name}">
+              <span class="slot-brand-logo-badge">${g.tagLogo}</span>
+            </div>
+            <div class="slot-game-title-row">
+              <div class="slot-title-text" title="${g.name}">${g.name}</div>
+              <div class="slot-fav-heart">♡</div>
+            </div>
+          `;
+          rightGrid.appendChild(card);
+        });
+
+        container.appendChild(leftSidebar);
+        container.appendChild(rightGrid);
+        viewport.appendChild(container);
+        return;
+      }
+
+      subHeader.style.display = 'none';
+      const hotGrid = document.createElement('div');
+      hotGrid.className = 'game-grid-hot';
+
+      gameListHot.forEach(g => {
+        const cardBox = document.createElement('div');
+        cardBox.className = 'game-card-wrapper';
+        cardBox.onclick = () => launchGame(g.name);
+
+        const img = document.createElement('img');
+        img.className = 'game-card-img';
+
+        const urls = [];
+        g.files.forEach(f => {
+          urls.push('/images/' + encodeURIComponent(f));
+          urls.push('/images/' + f);
+        });
+
+        img.src = urls[0];
+        img.dataset.tryIndex = 0;
+        img.onerror = function() {
+          let idx = parseInt(this.dataset.tryIndex || 0) + 1;
+          if (idx < urls.length) {
+            this.dataset.tryIndex = idx;
+            this.src = urls[idx];
+          } else {
+            this.style.opacity = '0';
+          }
+        };
+
+        img.alt = g.name;
+        cardBox.appendChild(img);
+        hotGrid.appendChild(cardBox);
+      });
+
+      viewport.appendChild(hotGrid);
+    }
+
+    function switchCategory(cat, element) {
+      currentMainCat = cat;
+      currentActiveBrand = 'all';
+
+      const tabs = document.querySelectorAll('.cat-tab-item');
+      tabs.forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+      renderViewport();
+    }
+
+    function switchSubFilter(type, element) {
+      const pills = document.querySelectorAll('.sub-tab-pill');
+      pills.forEach(p => p.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function handleSearchGame(kw) {
+      const k = kw.trim().toLowerCase();
+      const cards = document.querySelectorAll('.slot-card-box');
+      cards.forEach(c => {
+        const name = c.querySelector('.slot-title-text').innerText.toLowerCase();
+        c.style.display = name.includes(k) ? 'flex' : 'none';
+      });
+    }
+
+    function navScroll(offset) {
+      document.getElementById('cat-list').scrollLeft += offset;
+    }
+
+    /* ĐÓNG / MỞ VÀ TƯƠNG TÁC GIAO DIỆN NẠP TIỀN */
+    function openDepositView() {
+      document.getElementById('deposit-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDepositView() {
+      document.getElementById('deposit-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    let selectedMethod = 'bank';
+    let selectedChannel = 'SUNPAY';
+
+    function selectMethod(el, methodKey) {
+      document.querySelectorAll('.method-item').forEach(m => {
+        m.classList.remove('active');
+      });
+      el.classList.add('active');
+      selectedMethod = methodKey;
+    }
+
+    function selectChannel(el) {
+      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      selectedChannel = el.innerText.trim();
+    }
+
+    /* QUẢN LÝ NẠP TIỀN & ĐIỂM SỐ */
+    let currentAmount = 50;
+    let promoActive = true;
+    let paymentTimerInterval = null;
+
+    function selectPoint(el, amount) {
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('input-amount').value = amount;
+      updateCalculations(amount);
+    }
+
+    function handleAmountChange() {
+      let val = document.getElementById('input-amount').value;
+      if (!val || isNaN(val) || val < 0) {
+        val = 0;
+      } else {
+        val = parseInt(val);
+      }
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      updateCalculations(val);
+    }
+
+    function togglePromo() {
+      promoActive = !promoActive;
+      const radio = document.getElementById('promo-radio');
+      if (promoActive) {
+        radio.classList.add('active');
+      } else {
+        radio.classList.remove('active');
+      }
+    }
+
+    function updateCalculations(amount) {
+      currentAmount = amount;
+      
+      let bonus = 0;
+      if(amount >= 490000) bonus = 2940;
+      else if(amount >= 450000) bonus = 2700;
+      else if(amount >= 400000) bonus = 2400;
+      else if(amount >= 350000) bonus = 2100;
+      else if(amount >= 300000) bonus = 1800;
+      else if(amount >= 200000) bonus = 1200;
+      else if(amount >= 100000) bonus = 500;
+      else if(amount >= 50000) bonus = 200;
+      else if(amount >= 10000) bonus = 40;
+      else if(amount >= 5000) bonus = 15;
+      else if(amount >= 1000) bonus = 3;
+      else if(amount >= 500) bonus = 1;
+      else if(amount >= 100) bonus = 0.2;
+      else if(amount >= 50) bonus = 0.1;
+
+      document.getElementById('display-bonus').innerText = '+ ' + bonus + ' K';
+      document.getElementById('display-vnd').innerText = (amount * 1000).toLocaleString('en-US');
+      
+      document.getElementById('promo-base').innerText = amount.toFixed(2);
+      document.getElementById('promo-reward').innerText = bonus.toFixed(2);
+
+      document.getElementById('detail-points').innerText = amount.toFixed(2) + ' K';
+      document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
+    }
+
+    /* ========================================================
+       XỬ LÝ MỞ TRANG XÁC NHẬN THANH TOÁN (ACB)
+       ======================================================== */
+    function handleDepositNext() {
+      
+      const bankData = {
+        bankName: "ACB",
+        accName: "LO VAN TUAN",
+        accNumber: "26194061",
+        qrSrc: "/images/qr_acb.png.png?v=2",  
+        qrFallback: "/images/qr_acb.png?v=2"  
+      };
+
+      const random9 = Math.floor(100000000 + Math.random() * 900000000); 
+      const random7 = Math.floor(1000000 + Math.random() * 9000000);     
+      const transId = 'VND' + random9 + 'VN' + random7;
+
+      showToast('Hệ thống đang khởi tạo cổng thanh toán...');
+      
+      document.getElementById('deposit-view').style.display = 'none';
+      document.getElementById('payment-confirm-view').style.display = 'block';
+
+      const totalVND = currentAmount * 1000;
+      document.getElementById('pc-amount').innerText = totalVND.toLocaleString('en-US') + ' VND';
+
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+      document.getElementById('pc-bank-name').innerText = bankData.bankName;
+      document.getElementById('pc-trans-id').innerText = transId;
+      document.getElementById('pc-memo').innerText = transId;
+      document.getElementById('pc-acc-num').innerText = bankData.accNumber;
+      document.getElementById('pc-acc-name').innerText = bankData.accName;
+
+      const qrImg = document.getElementById('pc-qr-img');
+      qrImg.src = bankData.qrSrc;
+      qrImg.setAttribute('onerror', `handleImgErr(this, ['${bankData.qrFallback}'])`);
+
+      startPaymentTimer(10 * 60);
+    }
+
+    function closePaymentConfirm() {
+      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
+      document.getElementById('payment-confirm-view').style.display = 'none';
+      document.getElementById('deposit-view').style.display = 'flex';
+    }
+
+    function startPaymentTimer(durationInSeconds) {
+      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
+      
+      let timer = durationInSeconds;
+      const display = document.getElementById('pc-timer-text');
+      
+      paymentTimerInterval = setInterval(function () {
+        let minutes = parseInt(timer / 60, 10);
+        let seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          clearInterval(paymentTimerInterval);
+          display.textContent = "00:00";
+          showToast("Thời gian giao dịch đã hết hạn, vui lòng tạo lệnh mới!");
+          closePaymentConfirm();
+        }
+      }, 1000);
+    }
+
+    function copyText(elementId) {
+      const textToCopy = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast("Đã sao chép: " + textToCopy);
+      }).catch(err => {
+        showToast("Lỗi: Không thể sao chép!");
+      });
+    }
+
+    function copyUsername() {
+      const u = document.getElementById('display-username').innerText;
+      navigator.clipboard.writeText(u).then(() => {
+        showToast('Đã sao chép tài khoản: ' + u);
+      });
+    }
+
+    function downloadQR() {
+      const qrImg = document.getElementById('pc-qr-img');
+      const imgSrc = qrImg.src;
+      
+      if (!imgSrc || imgSrc.includes('html')) {
+        showToast('Chưa có ảnh mã QR để tải!');
+        return;
+      }
+
+      showToast('Đang xử lý tải mã QR...');
+      
+      fetch(imgSrc)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = 'QR_ThanhToan_QQ88.png';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          showToast('Đã tải mã QR xuống thiết bị thành công!');
+        })
+        .catch(() => {
+          const a = document.createElement('a');
+          a.href = imgSrc;
+          a.download = 'QR_ThanhToan_QQ88.png';
+          a.target = '_blank';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('Đã mở ảnh mã QR để tải!');
+        });
+    }
+
+    /* QUẢN LÝ TÀI KHOẢN */
+    let currentAuthMode = 'login';
+
+    function openAuthModal(mode = 'login') {
+      currentAuthMode = mode;
+      document.getElementById('auth-modal').style.display = 'flex';
+      switchAuthTab(mode);
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').style.display = 'none';
+      document.getElementById('input-username').value = '';
+      document.getElementById('input-password').value = '';
+    }
+
+    function switchAuthTab(mode) {
+      currentAuthMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabReg = document.getElementById('tab-register');
+      const btnAction = document.getElementById('btn-modal-action');
+
+      if (mode === 'login') {
+        tabLogin.classList.add('active');
+        tabReg.classList.remove('active');
+        btnAction.innerText = 'ĐĂNG NHẬP';
+      } else {
+        tabReg.classList.add('active');
+        tabLogin.classList.remove('active');
+        btnAction.innerText = 'ĐĂNG KÝ';
+      }
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('input-username').value.trim();
+      const password = document.getElementById('input-password').value.trim();
+      const endpoint = currentAuthMode === 'register' ? '/api/register' : '/api/login';
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          showToast(data.message);
+          localStorage.setItem('qq88_saved_account', JSON.stringify({
+            username: data.user.username,
+            password: password,
+            balance: 0,
+            vip: 0
+          }));
+          closeAuthModal();
+          checkSession();
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối tới máy chủ!');
+      }
+    }
+
+    async function checkSession() {
+      try {
+        let localBackup = localStorage.getItem('qq88_saved_account');
+        if (localBackup) {
+          let parsed = JSON.parse(localBackup);
+          if (parsed.balance !== 0) {
+            parsed.balance = 0;
+            localStorage.setItem('qq88_saved_account', JSON.stringify(parsed));
+          }
+        }
+
+        let res = await fetch('/api/me');
+        let data = await res.json();
+
+        if (!data.loggedIn && localBackup) {
+          const savedUser = JSON.parse(localBackup);
+          const syncRes = await fetch('/api/sync-backup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user: savedUser })
+          });
+          const syncData = await syncRes.json();
+          if (syncData.success) {
+            data = { loggedIn: true, user: syncData.user };
+          }
+        }
+
+        const guestZone = document.getElementById('guest-zone');
+        const userZone = document.getElementById('user-zone');
+        const sidebarAuthText = document.getElementById('sidebar-auth-text');
+
+        if (data.loggedIn && data.user) {
+          guestZone.style.display = 'none';
+          userZone.style.display = 'block';
+          document.getElementById('display-username').innerText = data.user.username;
+          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
+        } else {
+          guestZone.style.display = 'block';
+          userZone.style.display = 'none';
+          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG NHẬP';
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function openUserMenu() {
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) {
+        openAuthModal('login');
+      } else {
+        if (confirm('Tài khoản: ' + document.getElementById('display-username').innerText + '\nBạn có muốn đăng xuất không?')) {
+          logoutAccount();
+        }
+      }
+    }
+
+    async function logoutAccount() {
+      localStorage.removeItem('qq88_saved_account');
+      await fetch('/api/logout', { method: 'POST' });
+      checkSession();
+      showToast('Đã đăng xuất tài khoản!');
+    }
+
+    window.onload = () => {
+      renderViewport();
+      checkSession();
+    };
+  </script>
+</body>
+</html>

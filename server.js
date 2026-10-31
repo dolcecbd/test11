@@ -10,130 +10,235 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Cấp quyền truy cập thư mục public (để lấy ảnh từ public/inmages)
+// Cấp quyền truy cập thư mục public (để lấy ảnh từ public/images)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// Cấu hình Session (Lưu thông tin đăng nhập theo Cookie)
+// Cấu hình Session (Giữ trạng thái đăng nhập và số dư không bị mất khi F5)
 app.use(session({
-    secret: 'mat-khau-bi-mat-cua-quan',
+    secret: 'mat-khau-bi-mat-cua-quan-qq88',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Nếu chạy HTTPS thì đổi thành true
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 // ==========================================
-// 1. DATABASE & TỪ ĐIỂN GAME (Tạm lưu trên RAM)
+// 1. DATABASE TÀI KHOẢN & TỪ ĐIỂN CƠ CHẾ GAME
 // ==========================================
-const users_db = {};
+const users_db = {};      // Lưu theo userId: { username, password, balance, vip }
+const username_map = {};  // Map tên đăng nhập -> userId
 
+// Mỗi game có cơ chế (winRate: tỷ lệ thắng, multipliers: các mức nhân, symbols: biểu tượng riêng)
 const GAMES_CONFIG = {
     "slot-caoboi": {
-        name: "Slot Cao Bồi",
-        template: "game-slot", // Tên file EJS (không cần ghi .ejs)
-        min_bet: 10000
+        name: "Quyết Chiến Tiền Thưởng",
+        template: "game-slot",
+        min_bet: 2000,
+        win_rate: 0.35, // 35% tỷ lệ ăn
+        multipliers: [2, 3, 5, 10, 25],
+        symbols: ["🤠", "🔫", "🥃", "💰", "🎩", "⭐", "💎", "🃏"]
     },
-    // Sau này ông có game bắn cá thì thêm vào đây:
-    // "banca": { name: "Bắn Cá JL", template: "banca", min_bet: 1000 }
+    "banca-jackpot": {
+        name: "Jackpot Đánh Cá",
+        template: "game-slot",
+        min_bet: 5000,
+        win_rate: 0.40,
+        multipliers: [2, 4, 8, 20],
+        symbols: ["🦈", "🐠", "🐙", "🦀", "🐳", "🔱", "💣", "👑"]
+    },
+    "gamebai-taixiu": {
+        name: "Tài Xỉu V8",
+        template: "game-slot",
+        min_bet: 10000,
+        win_rate: 0.48,
+        multipliers: [2],
+        symbols: ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]
+    }
 };
 
+// Hàm lấy cấu hình game (Nếu bấm vào bất kỳ game nào trong 50 game chưa khai báo, tự động tạo cơ chế riêng cho mã game đó)
+function getGameConfig(gameCode) {
+    if (GAMES_CONFIG[gameCode]) return GAMES_CONFIG[gameCode];
+    return {
+        name: gameCode.toUpperCase().replace(/-/g, ' '),
+        template: "game-slot",
+        min_bet: 2000,
+        win_rate: 0.30,
+        multipliers: [2, 3, 5, 15],
+        symbols: ["🎰", "💎", "7️⃣", "🍒", "🔔", "⭐", "🍀", "👑"]
+    };
+}
+
+// Đảm bảo luôn có tài khoản trong session
+function getOrCreateUser(req) {
+    if (!req.session.userId || !users_db[req.session.userId]) {
+        const newId = uuidv4();
+        const defaultUsername = 'quanmi112';
+        req.session.userId = newId;
+        users_db[newId] = {
+            id: newId,
+            username: defaultUsername,
+            password: '123',
+            balance: 0, // Mặc định 0đ, phải nạp tiền mới chơi được
+            vip: 0
+        };
+        username_map[defaultUsername] = newId;
+    }
+    return users_db[req.session.userId];
+}
+
 // ==========================================
-// 2. SẢNH CHÍNH (LOBBY)
+// 2. SẢNH CHÍNH & API TÀI KHOẢN
 // ==========================================
 app.get('/', (req, res) => {
-    // 1. Tạo tài khoản ảo nếu chưa có session
-    if (!req.session.userId) {
-        const newId = uuidv4();
-        req.session.userId = newId;
-        users_db[newId] = { balance: 50000 }; // Tặng 50k
-    }
-
-    const userId = req.session.userId;
-    const currentBalance = users_db[userId].balance;
-
-    // 2. Render file views/index.ejs và truyền dữ liệu số dư vào
-    res.render('index', { balance: currentBalance });
+    const user = getOrCreateUser(req);
+    res.render('index', {
+        username: user.username,
+        balance: user.balance
+    });
 });
 
-// API nạp tiền (Dùng ở sảnh)
+// Lấy thông tin tài khoản & số dư hiện tại
+app.get('/api/me', (req, res) => {
+    const user = getOrCreateUser(req);
+    res.json({
+        loggedIn: true,
+        user: {
+            username: user.username,
+            balance: user.balance,
+            vip: user.vip
+        }
+    });
+});
+
+// Đăng ký
+app.post('/api/register', (req, res) => {
+    const { username, password } = req.body;
+    if (!username || username.length < 4) {
+        return res.json({ success: false, message: 'Tên tài khoản phải từ 4 ký tự!' });
+    }
+    if (username_map[username]) {
+        return res.json({ success: false, message: 'Tên tài khoản đã tồn tại!' });
+    }
+    const newId = uuidv4();
+    users_db[newId] = { id: newId, username, password, balance: 0, vip: 0 };
+    username_map[username] = newId;
+    req.session.userId = newId;
+
+    res.json({
+        success: true,
+        message: 'Đăng ký thành công! Vui lòng nạp tiền để chơi.',
+        user: users_db[newId]
+    });
+});
+
+// Đăng nhập
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    const uid = username_map[username];
+    if (!uid || users_db[uid].password !== password) {
+        return res.json({ success: false, message: 'Sai tài khoản hoặc mật khẩu!' });
+    }
+    req.session.userId = uid;
+    res.json({
+        success: true,
+        message: 'Đăng nhập thành công!',
+        user: users_db[uid]
+    });
+});
+
+// Đăng xuất
+app.post('/api/logout', (req, res) => {
+    req.session.destroy();
+    res.json({ success: true });
+});
+
+// Nạp tiền vào tài khoản
 app.post('/api/deposit', (req, res) => {
-    if (!req.session.userId) return res.status(401).json({ error: "Chưa đăng nhập!" });
-    
-    const userId = req.session.userId;
-    const amount = req.body.amount || 0;
-    
-    users_db[userId].balance += amount;
-    res.json({ new_balance: users_db[userId].balance });
-});
-
-// ==========================================
-// 3. ROUTE ĐỘNG ĐỂ MỞ GAME
-// ==========================================
-app.get('/game/:gameCode', (req, res) => {
-    if (!req.session.userId) return res.redirect('/');
-    
-    const gameCode = req.params.gameCode;
-    
-    // Nếu mã game gõ bậy bạ trên URL thì báo lỗi
-    if (!GAMES_CONFIG[gameCode]) {
-        return res.status(404).send("Game không tồn tại!");
+    const user = getOrCreateUser(req);
+    const amount = parseInt(req.body.amount) || 0;
+    if (amount <= 0) {
+        return res.status(400).json({ error: 'Số tiền nạp không hợp lệ!' });
     }
-
-    const userId = req.session.userId;
-    const gameInfo = GAMES_CONFIG[gameCode];
-
-    // Render đúng file ejs của game đó
-    res.render(gameInfo.template, {
-        game_code: gameCode,
-        game_name: gameInfo.name,
-        balance: users_db[userId].balance
+    user.balance += amount;
+    res.json({
+        status: 'success',
+        new_balance: user.balance
     });
 });
 
 // ==========================================
-// 4. API LOGIC XỬ LÝ KHI CHƠI GAME
+// 3. ROUTE ĐỘNG MỞ TỪNG GAME RIÊNG BIỆT
+// ==========================================
+app.get('/game/:gameCode', (req, res) => {
+    const user = getOrCreateUser(req);
+    const gameCode = req.params.gameCode;
+    const gameInfo = getGameConfig(gameCode);
+
+    res.render(gameInfo.template, {
+        game_code: gameCode,
+        game_name: gameInfo.name,
+        balance: user.balance,
+        min_bet: gameInfo.min_bet,
+        symbols: JSON.stringify(gameInfo.symbols)
+    });
+});
+
+// ==========================================
+// 4. API QUAY THƯỞNG / TRỪ TIỀN THẬT TRÊN SERVER
 // ==========================================
 app.post('/api/play/:gameCode', (req, res) => {
-    if (!req.session.userId) return res.status(401).json({ error: "Chưa đăng nhập!" });
-    
+    const user = getOrCreateUser(req);
     const gameCode = req.params.gameCode;
-    if (!GAMES_CONFIG[gameCode]) return res.status(400).json({ error: "Game lỗi!" });
+    const gameInfo = getGameConfig(gameCode);
 
-    const userId = req.session.userId;
-    const gameInfo = GAMES_CONFIG[gameCode];
-    const betAmount = req.body.bet_amount || gameInfo.min_bet;
+    const betAmount = parseInt(req.body.bet_amount) || gameInfo.min_bet;
 
-    // Check tiền
-    if (users_db[userId].balance < betAmount) {
-        return res.status(400).json({ error: "Số dư không đủ, vui lòng nạp thêm!" });
+    // KIỂM TRA SỐ DƯ: Nếu hết tiền hoặc không đủ cược -> Chặn ngay lập tức!
+    if (user.balance < betAmount) {
+        return res.status(400).json({
+            error: "Số dư không đủ! Vui lòng thoát ra sảnh nạp thêm tiền để tiếp tục chơi.",
+            current_balance: user.balance
+        });
     }
 
-    // Trừ tiền cược
-    users_db[userId].balance -= betAmount;
-    let winAmount = 0;
-    let resultData = {};
+    // 1. Trừ tiền cược ngay trên Server
+    user.balance -= betAmount;
 
-    // Logic từng game
-    if (gameCode === "slot-caoboi") {
-        const isWin = Math.random() < 0.25; // 25% tỷ lệ thắng
-        if (isWin) {
-            winAmount = betAmount * 3;
-            resultData.spin_result = ["WILD", "GUN", "HAT"];
-            resultData.msg = "Trúng nổ hũ x3!";
+    // 2. Xử lý cơ chế thắng/thua độc lập của từng game
+    let winAmount = 0;
+    let multiplier = 1;
+    const isWin = Math.random() < gameInfo.win_rate;
+
+    // Tạo lưới kết quả 6x4 (24 ô)
+    const grid = [];
+    const syms = gameInfo.symbols;
+    const winningSym = syms[Math.floor(Math.random() * syms.length)];
+
+    for (let i = 0; i < 24; i++) {
+        if (isWin && i < 12 && Math.random() < 0.65) {
+            grid.push(winningSym);
         } else {
-            resultData.spin_result = ["HAT", "COIN", "STAR"];
-            resultData.msg = "Tạch!";
+            grid.push(syms[Math.floor(Math.random() * syms.length)]);
         }
     }
 
-    // Cộng thưởng
-    users_db[userId].balance += winAmount;
+    if (isWin) {
+        const multis = gameInfo.multipliers;
+        multiplier = multis[Math.floor(Math.random() * multis.length)];
+        winAmount = betAmount * multiplier;
+        user.balance += winAmount;
+    }
 
+    // 3. Trả về số dư thực tế sau khi đã trừ/cộng
     res.json({
         status: "success",
-        new_balance: users_db[userId].balance,
+        is_win: isWin,
+        multiplier: multiplier,
         win_amount: winAmount,
-        game_data: resultData
+        new_balance: user.balance,
+        grid: grid,
+        msg: isWin ? `NỔ HŨ X${multiplier}! Thắng +${winAmount.toLocaleString('vi-VN')} đ` : "Chúc bạn may mắn lần sau!"
     });
 });
 

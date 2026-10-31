@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= game_name %></title>
+  <style>
+    body { background: #111; color: #fff; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    .box { background: #222; border: 2px solid #facc15; display: inline-block; padding: 20px; border-radius: 10px; }
+    .btn { background: #e11d48; color: #fff; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px; }
+    .back { display: block; margin-top: 20px; color: #38bdf8; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2><%= game_name %></h2>
+    <p>Số dư ví: <b id="balance" style="color: #facc15;"><%= Number(balance).toLocaleString('vi-VN') %> đ</b></p>
+    <p>Mức cược: <%= Number(min_bet).toLocaleString('vi-VN') %> đ</p>
+    <button class="btn" onclick="playGame()">QUAY NGAY</button>
+    <p id="msg" style="margin-top: 10px; font-weight: bold;"></p>
+    <a class="back" href="/">← Quay lại sảnh chính</a>
+  </div>
+
+  <script>
+    const gameCode = "<%= game_code %>";
+    async function playGame() {
+      try {
+        const res = await fetch(`/api/play/${gameCode}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bet_amount: <%= min_bet %> })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('balance').innerText = Number(data.new_balance).toLocaleString('vi-VN') + ' đ';
+          document.getElementById('msg').innerText = data.msg;
+          document.getElementById('msg').style.color = data.is_win ? '#4ade80' : '#f87171';
+        } else {
+          alert(data.error || 'Hết tiền!');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối máy chủ!');
+      }
+    }
+  </script>
+</body>
+</html>

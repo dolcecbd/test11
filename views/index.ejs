@@ -1298,21 +1298,10 @@
       border-bottom: 1px solid #f1f5f9;
       font-size: 13px;
     }
-    .pay-info-row:last-child {
-      border-bottom: none;
-    }
-    .pay-info-label {
-      color: #64748b;
-      font-weight: 500;
-    }
-    .pay-info-value {
-      color: #1e293b;
-      font-weight: 600;
-      text-align: right;
-    }
-    .pay-info-value.amount {
-      font-weight: 800;
-    }
+    .pay-info-row:last-child { border-bottom: none; }
+    .pay-info-label { color: #64748b; font-weight: 500; }
+    .pay-info-value { color: #1e293b; font-weight: 600; text-align: right; }
+    .pay-info-value.amount { font-weight: 800; }
 
     .pay-qr-card {
       background: #ffffff;
@@ -1330,23 +1319,10 @@
       font-size: 14px;
       margin-bottom: 20px;
     }
-    .pay-timer svg {
-      width: 16px;
-      height: 16px;
-      fill: #d97706;
-    }
+    .pay-timer svg { width: 16px; height: 16px; fill: #d97706; }
     
-    .qr-split-layout {
-      display: flex;
-      gap: 16px;
-    }
-    .qr-left-col {
-      width: 40%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
+    .qr-split-layout { display: flex; gap: 16px; }
+    .qr-left-col { width: 40%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
     .qr-box {
       width: 100%;
       aspect-ratio: 1/1;
@@ -1359,11 +1335,7 @@
       overflow: hidden;
       padding: 4px;
     }
-    .qr-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; }
     .btn-download-qr {
       border: 1px solid #0b459c;
       color: #0b459c;
@@ -1376,33 +1348,11 @@
       cursor: pointer;
     }
 
-    .qr-right-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .copy-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .copy-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 500;
-    }
-    .copy-val-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .copy-text-val {
-      color: #d97706;
-      font-weight: 700;
-      font-size: 14px;
-      word-break: break-all;
-    }
+    .qr-right-col { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+    .copy-group { display: flex; flex-direction: column; gap: 4px; }
+    .copy-label { font-size: 11px; color: #64748b; font-weight: 500; }
+    .copy-val-row { display: flex; align-items: center; justify-content: space-between; }
+    .copy-text-val { color: #d97706; font-weight: 700; font-size: 14px; word-break: break-all; }
     .btn-copy-icon {
       width: 24px;
       height: 24px;
@@ -1414,11 +1364,7 @@
       cursor: pointer;
       flex-shrink: 0;
     }
-    .btn-copy-icon svg {
-      width: 14px;
-      height: 14px;
-      fill: #0b459c;
-    }
+    .btn-copy-icon svg { width: 14px; height: 14px; fill: #0b459c; }
 
     .pay-warning-box {
       margin: 20px 16px;
@@ -1430,18 +1376,8 @@
       gap: 8px;
       align-items: flex-start;
     }
-    .pay-warning-box svg {
-      width: 16px;
-      height: 16px;
-      fill: #2cb3e4;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .pay-warning-box p {
-      font-size: 11px;
-      color: #475569;
-      line-height: 1.4;
-    }
+    .pay-warning-box svg { width: 16px; height: 16px; fill: #2cb3e4; flex-shrink: 0; margin-top: 2px; }
+    .pay-warning-box p { font-size: 11px; color: #475569; line-height: 1.4; }
 
     .btn-check-result {
       margin: 10px 16px;
@@ -1486,10 +1422,8 @@
 </head>
 <body>
 
-  <!-- BONG BÓNG THÔNG BÁO TÙY CHỈNH -->
   <div id="app-toast" class="toast-container">Thông báo</div>
 
-  <!-- SIDEBAR MENU 3 GẠCH -->
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
   <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
@@ -1498,219 +1432,119 @@
     </div>
 
     <div class="sidebar-banner-terry">
-      <img src="/images/sidebar_terry.png" onerror="handleImgErr(this, ['/images/sidebar_terry.jpg', '/images/dai su thuong hieu.jpg', '/images/dai su thuong hieu.png'])" alt="John Terry">
+      <img src="/images/sidebar_terry.png" onerror="handleImgErr(this, ['/images/sidebar_terry.jpg', '/images/dai su thuong hieu.jpg'])" alt="John Terry">
     </div>
 
-    <div id="sidebar-live-clock" class="sidebar-clock-text">
-      10/10/2026 02:25:00 (GMT+7)
-    </div>
+    <div id="sidebar-live-clock" class="sidebar-clock-text">10/10/2026 02:25:00 (GMT+7)</div>
 
     <div class="sidebar-menu-list">
       <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
-        <div class="sidebar-item-icon"><img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ"></div>
+        <div class="sidebar-item-icon"><img src="/images/ic_daisu.png" alt="Đại Sứ"></div>
         <span class="sidebar-item-text">ĐẠI SỨ</span>
       </div>
       <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
-        <div class="sidebar-item-icon"><img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook"></div>
+        <div class="sidebar-item-icon"><img src="/images/ic_fb.png" alt="Facebook"></div>
         <span class="sidebar-item-text">FACEBOOK</span>
       </div>
       <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
-        <div class="sidebar-item-icon"><img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1"></div>
+        <div class="sidebar-item-icon"><img src="/images/ic_warp.png" alt="1.1.1.1"></div>
         <span class="sidebar-item-text">TẢI 1.1.1.1</span>
       </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
-        <div class="sidebar-item-icon"><img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam navigation.png'])" alt="Cẩm Nang"></div>
-        <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
-        <div class="sidebar-item-icon"><img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý"></div>
-        <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
-        <div class="sidebar-item-icon"><img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu"></div>
-        <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
-        <div class="sidebar-item-icon"><img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại"></div>
-        <span class="sidebar-item-text">KHIẾU NẠI</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
-        <div class="sidebar-item-icon"><img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện"></div>
-        <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
-        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý"></div>
-        <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
-      </div>
       <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
-        <div class="sidebar-item-icon"><img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập"></div>
-        <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
+        <div class="sidebar-item-icon"><img src="/images/ic_login.png" alt="Auth"></div>
+        <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG XUẤT</span>
       </div>
     </div>
-
     <div class="sidebar-bottom-curve"></div>
   </div>
 
   <div class="app-wrapper">
 
-    <!-- 1. HEADER BANNER -->
+    <!-- HEADER PROMO -->
     <div id="top-promo-section" class="top-promo-box">
-      <img src="/images/top_promo.png" onerror="handleImgErr(this, ['/images/top_promo.PNG', '/images/top_promo.jpg'])" alt="Banner Khuyến Mãi">
+      <img src="/images/top_promo.png" alt="Banner Khuyến Mãi">
       <div class="close-promo-hitbox" onclick="closePromoBanner()" title="Tắt quảng cáo"></div>
     </div>
 
-    <!-- 2. THANH HEADER XANH LÁ QQ88 -->
+    <!-- HEADER XANH -->
     <div class="main-header-green">
       <div class="header-btn-toggle" onclick="openSidebar()" title="Mở menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
       <div class="header-logo-title">QQ88</div>
-      <div class="header-vip-tag" onclick="showToast('Tính năng VIP đang phát triển')">
-        <svg viewBox="0 0 24 18">
-          <polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" />
-        </svg>
+      <div class="header-vip-tag" onclick="showToast('Tính năng VIP')">
+        <svg viewBox="0 0 24 18"><polygon points="12,1 16,7 23,2 20,16 4,16 1,2 8,7" /></svg>
         <span>VIP</span>
       </div>
     </div>
 
-    <!-- 3. HERO CAROUSEL -->
-    <div>
-      <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
-    </div>
+    <!-- HERO BANNER -->
+    <div><img src="/images/nen 3.jpg" alt="Hero Banner"></div>
 
-    <!-- 4. MARQUEE -->
+    <!-- MARQUEE -->
     <div class="marquee-bar">
       <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <div class="marquee-content">
-        <div class="marquee-inner">
-          Địa chỉ chính thức của chúng tôi là: https://qq88a3.com/ ( PC ), 8888386.com ( Mobile ) | Hotline: 0908007888
-        </div>
+        <div class="marquee-inner">Chào mừng bạn đến với QQ88 - Hệ thống giải trí trực tuyến uy tín hàng đầu!</div>
       </div>
-      <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
 
-    <!-- 5. KHỐI TÀI KHOẢN -->
+    <!-- TÀI KHOẢN & SỐ DƯ THẬT -->
     <div class="account-wrapper">
       <div class="account-card">
-        <div id="guest-zone" class="guest-box" style="display: block;">
-          <img src="/images/nen 5.png" class="guest-img" alt="Guest Bar">
-          <div class="touch-btn-login" onclick="openAuthModal('login')"></div>
-          <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
-        </div>
-
-        <div id="user-zone" class="user-box-real" style="display: none;">
-          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
+        <div id="user-zone" class="user-box-real" style="display: block;">
+          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Bar">
           <span class="real-username-label" id="display-username"><%= typeof username !== 'undefined' ? username : 'quanmi112' %></span>
-          <span class="real-balance-label" id="display-balance"><%= typeof balance !== 'undefined' ? balance.toLocaleString('vi-VN') + ' đ' : '0 đ' %></span>
-          <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên tài khoản"></div>
+          <span class="real-balance-label" id="display-balance"><%= typeof balance !== 'undefined' ? Number(balance).toLocaleString('vi-VN') + ' đ' : '0 đ' %></span>
+          <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên"></div>
           
-          <!-- 4 VÙNG BẤM TƯƠNG ỨNG 4 ICON -->
           <div class="touch-actions-grid">
             <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
-            <div class="touch-action-btn" onclick="showToast('Tính năng Rút Tiền đang bảo trì')" title="Rút Tiền"></div>
+            <div class="touch-action-btn" onclick="showToast('Tính năng Rút Tiền bảo trì')" title="Rút"></div>
             <div class="touch-action-btn" onclick="showToast('Tính năng Đại Lý')" title="Đại Lý"></div>
-            <div class="touch-action-btn" onclick="showToast('Tính năng Giới Thiệu')" title="Giới Thiệu"></div>
+            <div class="touch-action-btn" onclick="showToast('Giới thiệu bạn bè')" title="Giới thiệu"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 6. THANH CUỘN DANH MỤC SẢNH GAME -->
+    <!-- SẢNH DANH MỤC GAME -->
     <div class="cat-bar">
-      <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
+      <img src="/images/ngoac trai.png" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
-        <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)">
-          <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" alt="Hot Nhất">
-        </div>
-        <div class="cat-tab-item" data-cat="casino" onclick="switchCategory('casino', this)">
-          <img src="/images/casino.png" onerror="handleImgErr(this, ['/images/casino.PNG'])" alt="Casino">
-        </div>
-        <div class="cat-tab-item" data-cat="nohu" onclick="switchCategory('nohu', this)">
-          <img src="/images/no hu.png" onerror="handleImgErr(this, ['/images/no%20hu.PNG'])" alt="Nổ Hũ">
-        </div>
-        <div class="cat-tab-item" data-cat="banca" onclick="switchCategory('banca', this)">
-          <img src="/images/ban ca.png" onerror="handleImgErr(this, ['/images/ban%20ca.PNG'])" alt="Bắn Cá">
-        </div>
-        <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)">
-          <img src="/images/the thao.png" onerror="handleImgErr(this, ['/images/the%20thao.PNG'])" alt="Thể Thao">
-        </div>
-        <div class="cat-tab-item" data-cat="gamebai" onclick="switchCategory('gamebai', this)">
-          <img src="/images/game bai.png" onerror="handleImgErr(this, ['/images/game%20bai.PNG', '/images/gamebai.png'])" alt="Game Bài">
-        </div>
-        <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)">
-          <img src="/images/da ga.png" onerror="handleImgErr(this, ['/images/da%20ga.PNG'])" alt="Đá Gà">
-        </div>
-        <div class="cat-tab-item" data-cat="xoso" onclick="switchCategory('xoso', this)">
-          <img src="/images/xo so.png" onerror="handleImgErr(this, ['/images/xo%20so.PNG'])" alt="Xổ Số">
-        </div>
-        <div class="cat-tab-item" data-cat="esports" onclick="switchCategory('esports', this)">
-          <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" alt="E-Sports">
-        </div>
+        <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)"><img src="/images/hot nhat.png" alt="Hot"></div>
+        <div class="cat-tab-item" data-cat="casino" onclick="switchCategory('casino', this)"><img src="/images/casino.png" alt="Casino"></div>
+        <div class="cat-tab-item" data-cat="nohu" onclick="switchCategory('nohu', this)"><img src="/images/no hu.png" alt="Nổ hũ"></div>
+        <div class="cat-tab-item" data-cat="banca" onclick="switchCategory('banca', this)"><img src="/images/ban ca.png" alt="Bắn cá"></div>
+        <div class="cat-tab-item" data-cat="thethao" onclick="switchCategory('thethao', this)"><img src="/images/the thao.png" alt="Thể thao"></div>
+        <div class="cat-tab-item" data-cat="gamebai" onclick="switchCategory('gamebai', this)"><img src="/images/game bai.png" alt="Game bài"></div>
+        <div class="cat-tab-item" data-cat="daga" onclick="switchCategory('daga', this)"><img src="/images/da ga.png" alt="Đá gà"></div>
+        <div class="cat-tab-item" data-cat="xoso" onclick="switchCategory('xoso', this)"><img src="/images/xo so.png" alt="Xổ số"></div>
+        <div class="cat-tab-item" data-cat="esports" onclick="switchCategory('esports', this)"><img src="/images/e-sports.png" alt="Esports"></div>
       </div>
-      <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
+      <img src="/images/ngoac phai.png" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 7. THANH TÌM KIẾM & TAB PHỤ CỦA SẢNH ĐIỆN TỬ -->
+    <!-- THANH TÌM KIẾM -->
     <div id="sub-filter-header" class="sub-filter-header">
       <div class="search-row">
         <div class="search-input-box">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <input type="text" id="game-search-input" placeholder="Tìm kiếm trò chơi" oninput="handleSearchGame(this.value)">
         </div>
-        <div class="view-mode-icons">
-          <div class="view-btn"><svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg></div>
-        </div>
-      </div>
-      <div class="sub-tabs-row no-scrollbar">
-        <div class="sub-tab-pill active" onclick="switchSubFilter('all', this)">TẤT CẢ</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('hot', this)">HOT NHẤT</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('history', this)">LỊCH SỬ</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('favorite', this)">YÊU THÍCH</div>
       </div>
     </div>
 
-    <!-- 8. VÙNG VIEWPORT CHỨA GAME -->
+    <!-- VÙNG HIỂN THỊ DANH SÁCH GAME -->
     <div id="game-content-viewport"></div>
 
-    <!-- 9. HỘI VIÊN THẮNG LỚN -->
-    <div style="padding: 4px 6px;">
-      <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png', '/images/hoi vien thang lon.png', '/images/hoi vien thang lon.JPG'])" style="border-radius: 10px;" alt="Hội Viên Thắng Lớn">
-    </div>
-
-    <!-- 10. ĐẠI SỨ THƯƠNG HIỆU -->
-    <div style="padding: 4px 6px;">
-      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png', '/images/dai su thuong hieu.png', '/images/dai su thuong hieu.JPG'])" style="border-radius: 10px;" alt="John Terry">
-    </div>
-
-    <!-- 11. CHIẾN DỊCH THƯƠNG HIỆU -->
-    <div style="padding: 4px 6px; margin-bottom: 8px;">
-      <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
-    </div>
-
-    <!-- 12. BOTTOM NAVIGATION BAR -->
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-      <div class="nav-item active">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span>TRANG CHỦ</span>
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
-        <span>KHUYẾN MÃI</span>
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S2 6.48 2 12zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-        <span>TẢI APP</span>
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
-        <span>LIÊN HỆ</span>
-      </div>
-      <div class="nav-item" onclick="openUserMenu()">
-        <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-        <span>CẨM NANG</span>
-      </div>
+      <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>TRANG CHỦ</span></div>
+      <div class="nav-item" onclick="showToast('Khuyến mãi')"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg><span>KHUYẾN MÃI</span></div>
+      <div class="nav-item" onclick="showToast('Tải App')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S2 6.48 2 12zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg><span>TẢI APP</span></div>
+      <div class="nav-item" onclick="showToast('Hỗ trợ')"><svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg><span>LIÊN HỆ</span></div>
+      <div class="nav-item" onclick="openUserMenu()"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg><span>CẨM NANG</span></div>
     </div>
 
   </div>
@@ -1720,278 +1554,45 @@
     <div class="deposit-header">
       <div class="btn-back" onclick="closeDepositView()">⟨</div>
       <div class="deposit-title">Nạp Tiền</div>
-      <div class="header-record-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        <div class="badge-count-1">1</div>
-      </div>
     </div>
-
     <div class="deposit-body">
-      <div class="deposit-sec-title">
-        <span class="dot-orange"></span>
-        <span>Phương thức nạp tiền</span>
-      </div>
-
-      <div class="methods-grid">
-        <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
-          <img src="/images/pay_bank.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_bank.png?v=2', '/images/pay_bank.jpg?v=2'])" alt="Chuyển khoản">
-        </div>
-        <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
-          <img src="/images/pay_qr.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_qr.png?v=2', '/images/pay_qr.jpg?v=2'])" alt="Quét mã QR">
-        </div>
-        <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
-          <img src="/images/pay_momo.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_momo.png?v=2', '/images/pay_momo.jpg?v=2'])" alt="MomoPay">
-        </div>
-        <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
-          <img src="/images/pay_zalopay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_zalopay.png?v=2', '/images/pay_zalopay.jpg?v=2'])" alt="ZaloPay">
-        </div>
-        <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
-          <img src="/images/pay_vtpay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_vtpay.png?v=2', '/images/pay_vtpay.jpg?v=2'])" alt="VtPay">
-        </div>
-        <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
-          <img src="/images/pay_thecao.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_thecao.png?v=2', '/images/pay_thecao.jpg?v=2'])" alt="Thẻ cào">
-        </div>
-        <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
-          <img src="/images/pay_usdt.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_usdt.png?v=2', '/images/pay_usdt.jpg?v=2'])" alt="USDT">
-        </div>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 14px;">
-        <span class="dot-teal"></span>
-        <span>Các kênh thanh toán</span>
-      </div>
-
-      <div class="channels-grid">
-        <div class="channel-item active" onclick="selectChannel(this)">SUNPAY</div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          GOPAY 10-499,999
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          VN196PAY
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">EZPAY 10-499,999</div>
-        <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          A8PAY 10-499,999
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
-      </div>
-
-      <div class="tip-box">
-        <div class="notice-row">
-          <span class="icon-green-check">✅</span>
-          <span>Mẹo: Quét mã QR để cập nhật điểm nhanh nhất. Link Mobile: <span class="highlight-red">8386333.com</span> | Link PC: <span class="highlight-red">838644.com</span></span>
-        </div>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 14px;">
-        <span class="dot-orange"></span>
-        <span>Số Điểm Nạp</span>
-      </div>
-
+      <div class="deposit-sec-title"><span class="dot-orange"></span><span>Chọn số điểm nạp (K)</span></div>
       <div class="points-grid">
-        <div class="point-item active" onclick="selectPoint(this, 50)">
-          <div class="point-bonus-tag">+ 0.1</div>
-          50
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 100)">
-          <div class="point-bonus-tag">+ 0.2</div>
-          100
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 500)">
-          <div class="point-bonus-tag">+ 1</div>
-          500
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 1000)">
-          <div class="point-bonus-tag">+ 3</div>
-          1,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 5000)">
-          <div class="point-bonus-tag">+ 15</div>
-          5,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 10000)">
-          <div class="point-bonus-tag">+ 40</div>
-          10,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 50000)">
-          <div class="point-bonus-tag">+ 200</div>
-          50,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 100000)">
-          <div class="point-bonus-tag">+ 500</div>
-          100,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 200000)">
-          <div class="point-bonus-tag">+ 1,200</div>
-          200,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 300000)">
-          <div class="point-bonus-tag">+ 1,800</div>
-          300,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 350000)">
-          <div class="point-bonus-tag">+ 2,100</div>
-          350,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 400000)">
-          <div class="point-bonus-tag">+ 2,400</div>
-          400,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 450000)">
-          <div class="point-bonus-tag">+ 2,700</div>
-          450,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 490000)">
-          <div class="point-bonus-tag">+ 2,940</div>
-          490,000
-        </div>
+        <div class="point-item active" onclick="selectPoint(this, 50)">50</div>
+        <div class="point-item" onclick="selectPoint(this, 100)">100</div>
+        <div class="point-item" onclick="selectPoint(this, 500)">500</div>
+        <div class="point-item" onclick="selectPoint(this, 1000)">1,000</div>
+        <div class="point-item" onclick="selectPoint(this, 50000)">50,000</div>
       </div>
-
-      <div class="custom-amount-input">
-        <input type="number" id="input-amount" placeholder="50 - 300,000" value="50" oninput="handleAmountChange()">
-        <div class="custom-amount-suffix">
-          K <span class="custom-amount-bonus" id="display-bonus">+ 0.1 K</span>
-        </div>
-      </div>
-
-      <div class="vnd-conversion">
-        VND : <span id="display-vnd">50,000</span>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 10px;">
-        <span class="dot-orange"></span>
-        <span>Sự kiện</span>
-      </div>
-      
-      <div class="promo-section">
-        <div class="promo-radio active" id="promo-radio" onclick="togglePromo()"></div>
-        <div class="promo-banner" onclick="togglePromo()">
-          <div class="promo-tag-corner">PROMOTION</div>
-          <div class="promo-left-col">
-            <div class="promo-title-main">Nạp Tiền</div>
-            <div class="promo-title-sub"><span id="promo-base">50.00</span>K</div>
-          </div>
-          <div class="promo-right-col">
-            <div class="promo-money">💰 <span id="promo-reward">0.10</span></div>
-            <div class="promo-money-desc">Doanh thu 1 lần</div>
-          </div>
-          <div class="promo-go-btn">GO</div>
-        </div>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 18px;">
-        <span class="dot-teal"></span>
-        <span>Chi tiết thanh toán</span>
-      </div>
-      
-      <div class="payment-details-box">
-        <div class="payment-row">
-          <span>Số Điểm Nạp</span>
-          <span class="payment-val" id="detail-points">50.00 K</span>
-        </div>
-        <div class="payment-row bg-gray">
-          <span>Số tiền thanh toán thực tế</span>
-          <span class="payment-val red" id="detail-total">50.00 K</span>
-        </div>
-      </div>
-
-      <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo</div>
+      <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo (Mở mã QR nạp tiền)</div>
     </div>
   </div>
 
-  <!-- GIAO DIỆN XÁC NHẬN THANH TOÁN (ACB) -->
+  <!-- MÀN HÌNH QR NẠP TIỀN THỰC TẾ -->
   <div id="payment-confirm-view" class="deposit-view-wrapper no-scrollbar">
     <div class="pay-confirm-header">
       <div class="bank-logo">ACB</div>
       <div class="header-actions">
         <div class="btn-pc-cancel" onclick="closePaymentConfirm()">HỦY BỎ</div>
-        <div class="btn-pc-close" onclick="closePaymentConfirm()">✕</div>
       </div>
     </div>
-
     <div class="pay-info-card">
       <div class="pay-info-row">
-        <span class="pay-info-label">Mã giao dịch</span>
-        <span class="pay-info-value" id="pc-trans-id">VND...</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">SỐ TIỀN</span>
-        <span class="pay-info-value amount" id="pc-amount">50,000 VND</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">Thời gian giao dịch</span>
-        <span class="pay-info-value" id="pc-time">2026-10-22 00:00:00</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">Ngân hàng thụ hưởng</span>
-        <span class="pay-info-value" id="pc-bank-name">ACB</span>
+        <span class="pay-info-label">SỐ TIỀN THANH TOÁN</span>
+        <span class="pay-info-value amount red" id="pc-amount">50,000 VND</span>
       </div>
     </div>
-
-    <div class="pay-qr-card">
-      <div class="pay-timer">
-        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-        <span id="pc-timer-text">10:00</span>
-      </div>
-      
-      <div class="qr-split-layout">
-        <div class="qr-left-col">
-          <div class="qr-box">
-            <img id="pc-qr-img" src="" alt="Mã QR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain;">
-          </div>
-          <div class="btn-download-qr" onclick="downloadQR()">Tải về</div>
-        </div>
-        
-        <div class="qr-right-col">
-          <div class="copy-group">
-            <div class="copy-label">Số tài khoản</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-num">00000000</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-acc-num')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="copy-group">
-            <div class="copy-label">Tên tài khoản</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-name">TEN TAI KHOAN</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-acc-name')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="copy-group">
-            <div class="copy-label">Chuyển tin nhắn</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-memo" style="font-size: 13px;">VND...</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-memo')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="pay-qr-card" style="text-align: center;">
+      <div class="qr-box" style="width: 200px; height: 200px; margin: 0 auto;">
+        <img id="pc-qr-img" src="/images/qr_acb.png" alt="QR Code">
       </div>
     </div>
-
-    <div class="pay-warning-box">
-      <svg viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-      <p>Để bảo mật tài khoản, vui lòng không lưu hình ảnh mã QR để thanh toán.</p>
-    </div>
-
-    <!-- Nút nạp tiền thực sự cập nhật vào Database máy chủ -->
     <div class="btn-check-result" onclick="confirmDepositDone()">
-      Xác nhận đã chuyển khoản thành công
+      Xác nhận đã chuyển khoản thành công (+ Tiền vào ví)
     </div>
   </div>
 
-  <!-- MODAL ĐĂNG KÝ / ĐĂNG NHẬP -->
+  <!-- MODAL ĐĂNG NHẬP / ĐĂNG KÝ -->
   <div id="auth-modal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close" onclick="closeAuthModal()">✕</button>
@@ -1999,31 +1600,27 @@
         <div id="tab-login" class="modal-tab-btn active" onclick="switchAuthTab('login')">ĐĂNG NHẬP</div>
         <div id="tab-register" class="modal-tab-btn" onclick="switchAuthTab('register')">ĐĂNG KÝ</div>
       </div>
-
       <form id="auth-form" onsubmit="handleAuthSubmit(event)">
         <div class="input-group">
           <label class="input-label">Tên tài khoản</label>
-          <input type="text" id="input-username" class="input-field" placeholder="Từ 4 ký tự trở lên" required autocomplete="off">
+          <input type="text" id="input-username" class="input-field" required autocomplete="off">
         </div>
-
         <div class="input-group">
           <label class="input-label">Mật khẩu</label>
-          <input type="password" id="input-password" class="input-field" placeholder="Nhập mật khẩu" required>
+          <input type="password" id="input-password" class="input-field" required>
         </div>
-
         <button type="submit" id="btn-modal-action" class="btn-submit">ĐĂNG NHẬP</button>
       </form>
     </div>
   </div>
 
-  <!-- KHUNG CHƠI GAME ĐỘC LẬP QUA IFRAME -->
+  <!-- IFRAME MỞ TỪNG GAME ĐỘC LẬP -->
   <div id="game-play-modal" style="display:none; position:fixed; top:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; height:100vh; background:#000; z-index:100005; flex-direction:column;">
     <div style="height:44px; background:#18191d; display:flex; align-items:center; padding:0 10px; color:#fff; flex-shrink:0;">
       <div onclick="closeGame()" style="font-size:24px; cursor:pointer; width:30px; line-height:44px;">⟨</div>
       <div id="playing-game-title" style="flex:1; text-align:center; font-size:14px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Tên Game</div>
       <div style="width:30px;"></div>
     </div>
-    
     <div style="flex:1; background:#000; position:relative;">
       <div id="game-loader" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:13px; font-weight:bold;">Đang kết nối sảnh game...</div>
       <iframe id="game-iframe" src="" style="width:100%; height:100%; border:none; position:relative; z-index:2; background:#000; display:none;"></iframe>
@@ -2037,9 +1634,7 @@
       toast.innerText = msg;
       toast.classList.add('show');
       if(toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
     function handleImgErr(img, fallbacks) {
@@ -2052,8 +1647,7 @@
     }
 
     function closePromoBanner() {
-      const banner = document.getElementById('top-promo-section');
-      if (banner) banner.style.display = 'none';
+      document.getElementById('top-promo-section').style.display = 'none';
     }
 
     function openSidebar() {
@@ -2070,50 +1664,16 @@
 
     function handleMenuClick(action) {
       closeSidebar();
-      switch(action) {
-        case 'daisu': showToast('Chuyển tới trang: Đại sứ thương hiệu John Terry'); break;
-        case 'facebook': window.open('https://facebook.com', '_blank'); break;
-        case 'warp': window.open('https://1.1.1.1', '_blank'); break;
-        case 'camnang': showToast('Chuyển tới trang: Cẩm nang hướng dẫn'); break;
-        case 'gopy': showToast('Chuyển tới trang: Góp ý nhận quà'); break;
-        case 'quenmatkhau': showToast('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
-        case 'khieunai': showToast('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
-        case 'thiennguyen': showToast('Chương trình Quỹ thiện nguyện QQ88'); break;
-        case 'daily': showToast('Đăng ký đại lý nhận hoa hồng lên tới 60%'); break;
-      }
+      if(action === 'facebook') window.open('https://facebook.com', '_blank');
+      else showToast('Đã chuyển hướng mục hỗ trợ');
     }
 
     function handleSidebarAuth() {
       closeSidebar();
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) {
-        openAuthModal('login');
-      } else {
-        if (confirm('Bạn có muốn đăng xuất khỏi tài khoản không?')) {
-          logoutAccount();
-        }
-      }
+      logoutAccount();
     }
 
-    function updateSidebarClock() {
-      const clockEl = document.getElementById('sidebar-live-clock');
-      if (!clockEl) return;
-      const now = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      const d = pad(now.getDate());
-      const m = pad(now.getMonth() + 1);
-      const y = now.getFullYear();
-      const hh = pad(now.getHours());
-      const mm = pad(now.getMinutes());
-      const ss = pad(now.getSeconds());
-      clockEl.innerText = `${d}/${m}/${y} ${hh}:${mm}:${ss} (GMT+7)`;
-    }
-    setInterval(updateSidebarClock, 1000);
-    updateSidebarClock();
-
-    /* ========================================================
-       CHUYỂN ĐỔI TÊN THÀNH SLUG GAME
-       ======================================================== */
+    /* ĐỊNH TUYẾN SLUG CHO 50 GAME */
     function getGameSlug(gameName) {
       const normalized = (gameName || '').toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -2121,14 +1681,13 @@
         .replace(/[^a-z0-9]/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
-
-      if (normalized.includes('cao-boi') || normalized.includes('slot')) return 'slot-caoboi';
+      if (normalized.includes('cao-boi') || normalized.includes('quyet-chien') || normalized.includes('slot')) return 'slot-caoboi';
+      if (normalized.includes('danh-ca') || normalized.includes('ban-ca')) return 'banca-jackpot';
+      if (normalized.includes('tai-xiu')) return 'gamebai-taixiu';
       return normalized || 'slot-caoboi';
     }
 
-    /* ========================================================
-       KHỞI CHẠY GAME RIÊNG BIỆT (DYNAMIC ROUTING)
-       ======================================================== */
+    /* MỞ CON GAME ĐỘC LẬP TƯƠNG ỨNG */
     function launchGame(gameItem) {
       const gameName = typeof gameItem === 'object' ? gameItem.name : gameItem;
       const gameCode = (typeof gameItem === 'object' && gameItem.code) ? gameItem.code : getGameSlug(gameName);
@@ -2147,49 +1706,39 @@
       setTimeout(() => {
         loader.style.display = 'none';
         iframe.style.display = 'block';
-        // Mở đúng đường dẫn động của từng game được máy chủ Node.js phục vụ
-        iframe.src = '/game/' + gameCode; 
-      }, 700);
+        // TRỎ ĐÚNG ĐƯỜNG DẪN ĐỘNG CỦA TỪNG GAME TRÊN SERVER
+        iframe.src = '/game/' + gameCode;
+      }, 500);
     }
 
     function closeGame() {
       document.getElementById('game-play-modal').style.display = 'none';
       document.getElementById('game-iframe').src = '';
       document.body.style.overflow = '';
-      // Đồng bộ lại số dư ví sau khi thoát game
       syncBalanceFromServer();
     }
 
-    /* DANH SÁCH DỮ LIỆU GAME */
+    /* DỮ LIỆU SẢNH GAME ĐẦY ĐỦ */
     const partnerRooms = {
       casino: [
         { name: "SE TRỰC TUYẾN", file: "sanh_se.png", code: "casino-se" },
         { name: "DG TRỰC TUYẾN", file: "sanh_dg.png", code: "casino-dg" },
         { name: "MT TRỰC TUYẾN", file: "sanh_wm.png", code: "casino-mt" },
-        { name: "EVO TRỰC TUYẾN", file: "sanh_evo.png", code: "casino-evo" },
-        { name: "CHOICE TRỰC TUYẾN", file: "sanh_choice.png", code: "casino-choice" }
+        { name: "EVO TRỰC TUYẾN", file: "sanh_evo.png", code: "casino-evo" }
       ],
       thethao: [
         { name: "SABA THỂ THAO", file: "sanh_saba.png", code: "thethao-saba" },
-        { name: "CMD THỂ THAO", file: "sanh_cmd.png", code: "thethao-cmd" },
-        { name: "IM THỂ THAO", file: "sanh_im.png", code: "thethao-im" },
-        { name: "BTI THỂ THAO", file: "sanh_bti.png", code: "thethao-bti" }
+        { name: "CMD THỂ THAO", file: "sanh_cmd.png", code: "thethao-cmd" }
       ],
       daga: [
         { name: "SV388 ĐÁ GÀ", file: "sanh_sv388.png", code: "daga-sv388" },
-        { name: "GA28 ĐÁ GÀ", file: "sanh_ga28.png", code: "daga-ga28" },
-        { name: "WALA88 ĐÁ GÀ", file: "sanh_wala88.png", code: "daga-wala88" },
-        { name: "WS168 ĐÁ GÀ", file: "sanh_ws168.png", code: "daga-ws168" },
-        { name: "ODIN ĐÁ GÀ", file: "sanh_odin.png", code: "daga-odin" }
+        { name: "GA28 ĐÁ GÀ", file: "sanh_ga28.png", code: "daga-ga28" }
       ],
       xoso: [
-        { name: "TCG XỔ SỐ", file: "sanh_tcg.png", code: "xoso-tcg" },
-        { name: "GPI XỔ SỐ", file: "sanh_gpi.png", code: "xoso-gpi" }
+        { name: "TCG XỔ SỐ", file: "sanh_tcg.png", code: "xoso-tcg" }
       ],
       esports: [
-        { name: "IA E-SPORTS", file: "sanh_ia.png", code: "esports-ia" },
-        { name: "IMES E-SPORTS", file: "sanh_imes.png", code: "esports-imes" },
-        { name: "TF E-SPORTS", file: "sanh_tf.png", code: "esports-tf" }
+        { name: "IA E-SPORTS", file: "sanh_ia.png", code: "esports-ia" }
       ]
     };
 
@@ -2197,78 +1746,38 @@
       nohu: [
         { id: "all", name: "Tất cả" },
         { id: "pg", name: "PG", file: "hang_pg.png" },
-        { id: "fc", name: "FC", file: "hang_fc.png" },
-        { id: "jili", name: "JILI", file: "hang_jili.png" },
-        { id: "168", name: "168Game", file: "hang_168.png" }
+        { id: "jili", name: "JILI", file: "hang_jili.png" }
       ],
       banca: [
         { id: "all", name: "Tất cả" },
-        { id: "jili", name: "JILI", file: "hang_jili.png" },
-        { id: "fc", name: "FC", file: "hang_fc.png" },
-        { id: "jdb", name: "JDB", file: "hang_jdb.png" },
-        { id: "tp", name: "TP", file: "hang_tp.png" }
+        { id: "jili", name: "JILI", file: "hang_jili.png" }
       ],
       gamebai: [
         { id: "all", name: "Tất cả" },
-        { id: "v8", name: "V8", file: "hang_v8.png" },
-        { id: "km", name: "KM", file: "hang_km.png" },
-        { id: "kp", name: "KP", file: "hang_kp.png" },
-        { id: "r88", name: "R88", file: "hang_r88.png" }
+        { id: "v8", name: "V8", file: "hang_v8.png" }
       ]
     };
 
     const slotGamesData = {
       banca: [
         { name: "Jackpot Đánh Cá", brand: "jili", tagLogo: "JILI", file: "JACKPOT DANH CA.png", code: "banca-jackpot" },
-        { name: "Thợ săn ngôi sao", brand: "fc", tagLogo: "FC", file: "THỢ SAN NGOI SAO.png", code: "banca-thosan" },
-        { name: "Jackpot Vua Tài Lộc", brand: "jili", tagLogo: "JILI", file: "JACKPOT VUA TAI LOC.png", code: "banca-tailoc" },
-        { name: "Câu Cá Hũ Vàng Tốc Đ...", brand: "jili", tagLogo: "JILI", file: "JACKPOT ĐÁNH CÁ 2.png", code: "banca-huvang" },
-        { name: "Bắn Cá Vương Giả", brand: "jili", tagLogo: "JILI", file: "VUA DANH CA.png", code: "banca-vuonggia" },
-        { name: "Jackpot Vua Đại Dương", brand: "jili", tagLogo: "JILI", file: "JACKPOT VUA DAI DUONG.png", code: "banca-daiduong" },
-        { name: "Bắn Cá Thần Tài", brand: "jdb", tagLogo: "JDB", file: "BAN CA THAN TAI.png", code: "banca-thantai" },
-        { name: "Đánh Cá Vui Vẻ", brand: "jili", tagLogo: "JILI", file: "KY LAN MACH NƯỚC.png", code: "banca-vuive" },
-        { name: "Nhà Tư Bản Khủng Long", brand: "jili", tagLogo: "JILI", file: "CAY PHAT TAI.png", code: "banca-khunglong" }
+        { name: "Bắn Cá Thần Tài", brand: "jdb", tagLogo: "JDB", file: "BAN CA THAN TAI.png", code: "banca-thantai" }
       ],
       nohu: [
         { name: "Quyết Chiến Tiền Thưởng", brand: "pg", tagLogo: "PG", file: "QUYẾT CHIẾN TIEN THUG_.png", code: "slot-caoboi" },
-        { name: "Đường Mạt Chược 2", brand: "pg", tagLogo: "PG", file: "DUONG MAT CHUOC 2.png", code: "slot-caoboi" },
-        { name: "Kho Báu Aztec", brand: "pg", tagLogo: "PG", file: "KHO BAU AZTEC.png", code: "slot-caoboi" },
-        { name: "Tiếng Gọi Danh Dự", brand: "pg", tagLogo: "PG", file: "TIENG GOI DANH DU.png", code: "slot-caoboi" },
-        { name: "Siêu Át", brand: "jili", tagLogo: "JILI", file: "SIEU CAP ACE.png", code: "slot-caoboi" },
-        { name: "Tết Nguyên Đán...", brand: "fc", tagLogo: "FC", file: "NĂM MỚI LỘ LỘ PHAT.png", code: "slot-caoboi" },
-        { name: "Mạt Chược Thắng 4", brand: "168", tagLogo: "VG", file: "MAT CHƯỢC THANG 4.png", code: "slot-caoboi" },
-        { name: "Đế Quốc Hoàng Kim", brand: "jili", tagLogo: "JILI", file: "DE QUOC HOANG KIM.png", code: "slot-caoboi" },
-        { name: "Phi Công", brand: "pg", tagLogo: "SPRIBE", file: "AVIATOR.png", code: "slot-caoboi" },
-        { name: "Neko May Mắn", brand: "pg", tagLogo: "PG", file: "NEKO MAY MAN.png", code: "slot-caoboi" },
-        { name: "Siêu Ace Deluxe", brand: "jili", tagLogo: "JILI", file: "SIEU ACE DELUXE.png", code: "slot-caoboi" },
-        { name: "Hề Xiếc 4096", brand: "jili", tagLogo: "JILI", file: "HE XIEC 4096.png", code: "slot-caoboi" }
+        { name: "Đường Mạt Chược 2", brand: "pg", tagLogo: "PG", file: "DUONG MAT CHUOC 2.png", code: "slot-caoboi" }
       ],
       gamebai: [
         { name: "Tài Xỉu", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png", code: "gamebai-taixiu" },
-        { name: "Xóc Đĩa", brand: "v8", tagLogo: "V8", file: "XÓC ĐĨA_.png", code: "gamebai-xocdia" },
-        { name: "Tài Xỉu KM", brand: "km", tagLogo: "KM", file: "TAI Xiu.png", code: "gamebai-taixiukm" },
-        { name: "Xì dách", brand: "v8", tagLogo: "V8", file: "XI DACH.png", code: "gamebai-xidach" },
-        { name: "Sic Bo", brand: "km", tagLogo: "KM", file: "TAI Xiu.png", code: "gamebai-sicbo" },
-        { name: "Bầu Cua", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png", code: "gamebai-baucua" },
-        { name: "Xóc đĩa 2", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png", code: "gamebai-xocdia2" },
-        { name: "Tài Xỉu mini", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png", code: "gamebai-taixiumini" },
-        { name: "Baccarat", brand: "km", tagLogo: "KM", file: "CHIEN THANG POKER.png", code: "gamebai-baccarat" }
+        { name: "Xóc Đĩa", brand: "v8", tagLogo: "V8", file: "XÓC ĐĨA_.png", code: "gamebai-xocdia" }
       ]
     };
 
     const gameListHot = [
-      { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "sanh_se.png"], code: "casino-se" },
-      { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "sanh_dg.png"], code: "casino-dg" },
-      { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"], code: "daga-sv388" },
-      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"], code: "slot-caoboi" },
-      { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"], code: "slot-caoboi" },
-      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"], code: "slot-caoboi" },
-      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"], code: "slot-caoboi" },
-      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"], code: "banca-jackpot" },
-      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"], code: "slot-caoboi" },
-      { name: "CAO BỒI HOANG DA", files: ["CAO BOI HOANG DA.png"], code: "slot-caoboi" },
-      { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png"], code: "gamebai-taixiu" },
-      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png"], code: "gamebai-xocdia" }
+      { name: "QQUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png"], code: "slot-caoboi" },
+      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png"], code: "banca-jackpot" },
+      { name: "TÀI XỈU", files: ["TAI Xiu.png"], code: "gamebai-taixiu" },
+      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png"], code: "gamebai-xocdia" }
     ];
 
     let currentMainCat = 'hot';
@@ -2287,60 +1796,37 @@
         partnerRooms[currentMainCat].forEach(room => {
           const card = document.createElement('div');
           card.className = 'partner-card-box';
-          card.onclick = () => launchGame(room); 
+          card.onclick = () => launchGame(room);
 
           const img = document.createElement('img');
           img.src = '/images/' + encodeURIComponent(room.file);
-          img.onerror = function() {
-            this.src = '/images/' + room.file.replace('.png', '.jpg');
-          };
-          img.alt = room.name;
-
+          img.onerror = function() { this.src = '/images/' + room.file.replace('.png', '.jpg'); };
           card.appendChild(img);
           grid.appendChild(card);
         });
-
         viewport.appendChild(grid);
         return;
       }
 
       if (brandLists[currentMainCat]) {
         subHeader.style.display = 'block';
-
         const container = document.createElement('div');
         container.className = 'slot-layout-container';
 
         const leftSidebar = document.createElement('div');
         leftSidebar.className = 'brand-sidebar-left';
 
-        const arrowUp = document.createElement('div');
-        arrowUp.className = 'brand-scroll-arrow';
-        arrowUp.innerText = '▲';
-        leftSidebar.appendChild(arrowUp);
-
         brandLists[currentMainCat].forEach(brand => {
           const btn = document.createElement('div');
           btn.className = 'brand-btn-item' + (currentActiveBrand === brand.id ? ' active' : '');
-          btn.onclick = () => {
-            currentActiveBrand = brand.id;
-            renderViewport();
-          };
-
+          btn.onclick = () => { currentActiveBrand = brand.id; renderViewport(); };
           if (brand.id === 'all') {
             btn.innerHTML = `<span style="font-size:12px;font-weight:900;">${brand.name}</span>`;
           } else {
-            btn.innerHTML = `
-              <img src="/images/${brand.file}" onerror="this.style.display='none'">
-              <span>${brand.name}</span>
-            `;
+            btn.innerHTML = `<img src="/images/${brand.file}" onerror="this.style.display='none'"><span>${brand.name}</span>`;
           }
           leftSidebar.appendChild(btn);
         });
-
-        const arrowDown = document.createElement('div');
-        arrowDown.className = 'brand-scroll-arrow';
-        arrowDown.innerText = '▼';
-        leftSidebar.appendChild(arrowDown);
 
         const rightGrid = document.createElement('div');
         rightGrid.className = 'slot-game-grid-right';
@@ -2354,7 +1840,6 @@
           const card = document.createElement('div');
           card.className = 'slot-card-box';
           card.onclick = () => launchGame(g);
-
           card.innerHTML = `
             <div class="slot-poster-frame">
               <span class="slot-tag-hot">HOT</span>
@@ -2362,8 +1847,7 @@
               <span class="slot-brand-logo-badge">${g.tagLogo}</span>
             </div>
             <div class="slot-game-title-row">
-              <div class="slot-title-text" title="${g.name}">${g.name}</div>
-              <div class="slot-fav-heart">♡</div>
+              <div class="slot-title-text">${g.name}</div>
             </div>
           `;
           rightGrid.appendChild(card);
@@ -2386,55 +1870,25 @@
 
         const img = document.createElement('img');
         img.className = 'game-card-img';
-
-        const urls = [];
-        g.files.forEach(f => {
-          urls.push('/images/' + encodeURIComponent(f));
-          urls.push('/images/' + f);
-        });
-
-        img.src = urls[0];
-        img.dataset.tryIndex = 0;
-        img.onerror = function() {
-          let idx = parseInt(this.dataset.tryIndex || 0) + 1;
-          if (idx < urls.length) {
-            this.dataset.tryIndex = idx;
-            this.src = urls[idx];
-          } else {
-            this.style.opacity = '0';
-          }
-        };
-
-        img.alt = g.name;
+        img.src = '/images/' + encodeURIComponent(g.files[0]);
+        img.onerror = function() { this.src = '/images/' + g.files[0].replace('.png', '.jpg'); };
         cardBox.appendChild(img);
         hotGrid.appendChild(cardBox);
       });
-
       viewport.appendChild(hotGrid);
     }
 
     function switchCategory(cat, element) {
       currentMainCat = cat;
       currentActiveBrand = 'all';
-
-      const tabs = document.querySelectorAll('.cat-tab-item');
-      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.cat-tab-item').forEach(t => t.classList.remove('active'));
       element.classList.add('active');
-      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
       renderViewport();
-    }
-
-    function switchSubFilter(type, element) {
-      const pills = document.querySelectorAll('.sub-tab-pill');
-      pills.forEach(p => p.classList.remove('active'));
-      element.classList.add('active');
     }
 
     function handleSearchGame(kw) {
       const k = kw.trim().toLowerCase();
-      const cards = document.querySelectorAll('.slot-card-box');
-      cards.forEach(c => {
+      document.querySelectorAll('.slot-card-box').forEach(c => {
         const name = c.querySelector('.slot-title-text').innerText.toLowerCase();
         c.style.display = name.includes(k) ? 'flex' : 'none';
       });
@@ -2444,143 +1898,51 @@
       document.getElementById('cat-list').scrollLeft += offset;
     }
 
-    /* ĐÓNG / MỞ NẠP TIỀN */
     function openDepositView() {
       document.getElementById('deposit-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
     }
-
     function closeDepositView() {
       document.getElementById('deposit-view').style.display = 'none';
-      document.body.style.overflow = '';
     }
 
-    let selectedMethod = 'bank';
-    let selectedChannel = 'SUNPAY';
-
-    function selectMethod(el, methodKey) {
-      document.querySelectorAll('.method-item').forEach(m => m.classList.remove('active'));
-      el.classList.add('active');
-      selectedMethod = methodKey;
-    }
-
-    function selectChannel(el) {
-      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      selectedChannel = el.innerText.trim();
-    }
-
-    let currentAmount = 50;
-    let promoActive = true;
-    let paymentTimerInterval = null;
-
-    function selectPoint(el, amount) {
+    let depositAmountK = 50;
+    function selectPoint(el, amt) {
       document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
-      document.getElementById('input-amount').value = amount;
-      updateCalculations(amount);
-    }
-
-    function handleAmountChange() {
-      let val = document.getElementById('input-amount').value;
-      val = (!val || isNaN(val) || val < 0) ? 0 : parseInt(val);
-      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
-      updateCalculations(val);
-    }
-
-    function togglePromo() {
-      promoActive = !promoActive;
-      const radio = document.getElementById('promo-radio');
-      if (promoActive) radio.classList.add('active');
-      else radio.classList.remove('active');
-    }
-
-    function updateCalculations(amount) {
-      currentAmount = amount;
-      let bonus = 0;
-      if(amount >= 490000) bonus = 2940;
-      else if(amount >= 450000) bonus = 2700;
-      else if(amount >= 400000) bonus = 2400;
-      else if(amount >= 350000) bonus = 2100;
-      else if(amount >= 300000) bonus = 1800;
-      else if(amount >= 200000) bonus = 1200;
-      else if(amount >= 100000) bonus = 500;
-      else if(amount >= 50000) bonus = 200;
-      else if(amount >= 10000) bonus = 40;
-      else if(amount >= 5000) bonus = 15;
-      else if(amount >= 1000) bonus = 3;
-      else if(amount >= 500) bonus = 1;
-      else if(amount >= 100) bonus = 0.2;
-      else if(amount >= 50) bonus = 0.1;
-
-      document.getElementById('display-bonus').innerText = '+ ' + bonus + ' K';
-      document.getElementById('display-vnd').innerText = (amount * 1000).toLocaleString('en-US');
-      document.getElementById('promo-base').innerText = amount.toFixed(2);
-      document.getElementById('promo-reward').innerText = bonus.toFixed(2);
-      document.getElementById('detail-points').innerText = amount.toFixed(2) + ' K';
-      document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
+      depositAmountK = amt;
     }
 
     function handleDepositNext() {
-      const bankData = {
-        bankName: "ACB",
-        accName: "LO VAN TUAN",
-        accNumber: "26194061",
-        qrSrc: "/images/qr_acb.png.png?v=2",  
-        qrFallback: "/images/qr_acb.png?v=2"  
-      };
-
-      const random9 = Math.floor(100000000 + Math.random() * 900000000); 
-      const random7 = Math.floor(1000000 + Math.random() * 9000000);     
-      const transId = 'VND' + random9 + 'VN' + random7;
-
-      showToast('Đang khởi tạo cổng thanh toán...');
-      
       document.getElementById('deposit-view').style.display = 'none';
       document.getElementById('payment-confirm-view').style.display = 'block';
-
-      const totalVND = currentAmount * 1000;
-      document.getElementById('pc-amount').innerText = totalVND.toLocaleString('en-US') + ' VND';
-
-      const now = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
-      document.getElementById('pc-bank-name').innerText = bankData.bankName;
-      document.getElementById('pc-trans-id').innerText = transId;
-      document.getElementById('pc-memo').innerText = transId;
-      document.getElementById('pc-acc-num').innerText = bankData.accNumber;
-      document.getElementById('pc-acc-name').innerText = bankData.accName;
-
-      const qrImg = document.getElementById('pc-qr-img');
-      qrImg.src = bankData.qrSrc;
-      qrImg.setAttribute('onerror', `handleImgErr(this, ['${bankData.qrFallback}'])`);
-
-      startPaymentTimer(10 * 60);
+      document.getElementById('pc-amount').innerText = (depositAmountK * 1000).toLocaleString('en-US') + ' VND';
     }
 
-    /* GỬI YÊU CẦU NẠP TIỀN THỰC SỰ LÊN SERVER */
+    function closePaymentConfirm() {
+      document.getElementById('payment-confirm-view').style.display = 'none';
+      document.getElementById('deposit-view').style.display = 'flex';
+    }
+
     async function confirmDepositDone() {
       showToast('Đang xác thực giao dịch chuyển khoản...');
       try {
-        const depositVND = currentAmount * 1000;
+        const depositVND = depositAmountK * 1000;
         const res = await fetch('/api/deposit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: depositVND })
         });
         const data = await res.json();
-        
         if (data && data.new_balance !== undefined) {
           showToast(`Nạp thành công +${depositVND.toLocaleString('vi-VN')} VND!`);
           updateUserBalanceDisplay(data.new_balance);
           closePaymentConfirm();
           closeDepositView();
         } else {
-          showToast('Chưa nhận được xác nhận từ ngân hàng, vui lòng thử lại!');
+          showToast('Xác thực thất bại!');
         }
       } catch (err) {
-        showToast('Lỗi kết nối tới máy chủ nạp tiền!');
+        showToast('Lỗi kết nối máy chủ!');
       }
     }
 
@@ -2601,176 +1963,59 @@
       } catch (e) {}
     }
 
-    function closePaymentConfirm() {
-      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
-      document.getElementById('payment-confirm-view').style.display = 'none';
-      document.getElementById('deposit-view').style.display = 'flex';
-    }
-
-    function startPaymentTimer(durationInSeconds) {
-      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
-      let timer = durationInSeconds;
-      const display = document.getElementById('pc-timer-text');
-      
-      paymentTimerInterval = setInterval(function () {
-        let minutes = parseInt(timer / 60, 10);
-        let seconds = parseInt(timer % 60, 10);
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-          clearInterval(paymentTimerInterval);
-          display.textContent = "00:00";
-          showToast("Thời gian giao dịch đã hết hạn, vui lòng tạo lệnh mới!");
-          closePaymentConfirm();
-        }
-      }, 1000);
-    }
-
-    function copyText(elementId) {
-      const textToCopy = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast("Đã sao chép: " + textToCopy);
-      }).catch(err => {
-        showToast("Lỗi: Không thể sao chép!");
-      });
-    }
-
     function copyUsername() {
       const u = document.getElementById('display-username').innerText;
-      navigator.clipboard.writeText(u).then(() => {
-        showToast('Đã sao chép tài khoản: ' + u);
-      });
+      navigator.clipboard.writeText(u).then(() => showToast('Đã sao chép: ' + u));
     }
 
-    function downloadQR() {
-      const qrImg = document.getElementById('pc-qr-img');
-      const imgSrc = qrImg.src;
-      if (!imgSrc || imgSrc.includes('html')) {
-        showToast('Chưa có ảnh mã QR để tải!');
-        return;
-      }
-      showToast('Đang tải mã QR...');
-      fetch(imgSrc)
-        .then(response => response.blob())
-        .then(blob => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          a.download = 'QR_ThanhToan_QQ88.png';
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-          showToast('Đã tải mã QR thành công!');
-        })
-        .catch(() => {
-          window.open(imgSrc, '_blank');
-        });
-    }
-
-    /* ĐĂNG NHẬP / ĐĂNG KÝ */
-    let currentAuthMode = 'login';
-
-    function openAuthModal(mode = 'login') {
-      currentAuthMode = mode;
-      document.getElementById('auth-modal').style.display = 'flex';
-      switchAuthTab(mode);
-    }
-
-    function closeAuthModal() {
-      document.getElementById('auth-modal').style.display = 'none';
-      document.getElementById('input-username').value = '';
-      document.getElementById('input-password').value = '';
-    }
-
-    function switchAuthTab(mode) {
-      currentAuthMode = mode;
-      const tabLogin = document.getElementById('tab-login');
-      const tabReg = document.getElementById('tab-register');
-      const btnAction = document.getElementById('btn-modal-action');
-
-      if (mode === 'login') {
-        tabLogin.classList.add('active');
-        tabReg.classList.remove('active');
-        btnAction.innerText = 'ĐĂNG NHẬP';
-      } else {
-        tabReg.classList.add('active');
-        tabLogin.classList.remove('active');
-        btnAction.innerText = 'ĐĂNG KÝ';
-      }
-    }
+    function openAuthModal(mode) { openAuthModalTab(mode); }
+    function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
+    function switchAuthTab(m) {}
 
     async function handleAuthSubmit(e) {
       e.preventDefault();
       const username = document.getElementById('input-username').value.trim();
       const password = document.getElementById('input-password').value.trim();
-      const endpoint = currentAuthMode === 'register' ? '/api/register' : '/api/login';
-
       try {
-        const res = await fetch(endpoint, {
+        const res = await fetch('/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
         });
         const data = await res.json();
-
         if (data.success) {
-          showToast(data.message || 'Thành công!');
+          showToast(data.message);
           closeAuthModal();
           checkSession();
         } else {
-          showToast(data.message || 'Thất bại!');
+          // Thử đăng ký nếu chưa có
+          const regRes = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const regData = await regRes.json();
+          showToast(regData.message);
+          if (regData.success) { closeAuthModal(); checkSession(); }
         }
-      } catch (err) {
-        showToast('Lỗi kết nối tới máy chủ!');
-      }
+      } catch (err) { showToast('Lỗi kết nối!'); }
     }
 
     async function checkSession() {
       try {
         let res = await fetch('/api/me');
         let data = await res.json();
-
-        const guestZone = document.getElementById('guest-zone');
-        const userZone = document.getElementById('user-zone');
-        const sidebarAuthText = document.getElementById('sidebar-auth-text');
-
         if (data && data.loggedIn && data.user) {
-          guestZone.style.display = 'none';
-          userZone.style.display = 'block';
           document.getElementById('display-username').innerText = data.user.username;
           updateUserBalanceDisplay(data.user.balance || 0);
-          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
-        } else {
-          guestZone.style.display = 'none';
-          userZone.style.display = 'block'; // Mặc định hiển thị tài khoản guest/session máy chủ
-          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
         }
-      } catch (e) {
-        // Fallback hiển thị từ EJS nếu fetch bị trễ
-        document.getElementById('guest-zone').style.display = 'none';
-        document.getElementById('user-zone').style.display = 'block';
-      }
-    }
-
-    function openUserMenu() {
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) {
-        openAuthModal('login');
-      } else {
-        if (confirm('Tài khoản: ' + document.getElementById('display-username').innerText + '\nBạn có muốn đăng xuất không?')) {
-          logoutAccount();
-        }
-      }
+      } catch (e) {}
     }
 
     async function logoutAccount() {
       await fetch('/api/logout', { method: 'POST' });
       checkSession();
-      showToast('Đã đăng xuất tài khoản!');
+      showToast('Đã đăng xuất!');
     }
 
     window.onload = () => {

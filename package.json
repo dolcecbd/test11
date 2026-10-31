@@ -1,15 +1,18 @@
 {
-  "name": "game-server",
+  "name": "qq88-app",
   "version": "1.0.0",
-  "description": "Multi-game platform",
+  "description": "QQ88 Web App Fullstack",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "ejs": "^3.1.10",
+    "compression": "^1.7.4",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "uuid": "^9.0.1"
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

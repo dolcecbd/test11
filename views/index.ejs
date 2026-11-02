@@ -229,19 +229,20 @@
     /* SỐ DƯ ĐỘNG CHE ĐÈ LÊN HÌNH 0K */
     .real-balance-label {
       position: absolute;
-      top: 63%;
-      left: 14%;
-      font-size: 12.5px;
+      top: 64%;
+      left: 11%;
+      font-size: 13px;
       font-weight: 800;
       color: #0b572a;
       background: #ffffff;
-      padding: 0 4px;
+      padding: 1px 6px;
       border-radius: 4px;
-      max-width: 85px;
+      max-width: 95px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       pointer-events: none;
+      z-index: 6;
     }
     .touch-copy-area {
       position: absolute;
@@ -1438,7 +1439,7 @@
         <span>TRANG CHỦ</span>
       </div>
       <div class="nav-item" onclick="showToast('Mục Khuyến Mãi')">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
         <span>KHUYẾN MÃI</span>
       </div>
       <div class="nav-item" onclick="openDepositView()">
@@ -1758,8 +1759,8 @@
     </div>
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN ĐẶC QUYỀN ADMIN (CHỈ HIỆN KHI LÀ ADMIN) -->
-  <div id="admin-floating-btn" style="position:fixed; bottom:75px; right:15px; z-index:99999; display:<%= (typeof isAdmin !== 'undefined' && isAdmin) ? 'block' : 'none' %>;">
+  <!-- BẢNG ĐIỀU KHIỂN ĐẶC QUYỀN ADMIN -->
+  <div id="admin-floating-btn" style="position:fixed; bottom:75px; right:15px; z-index:99999; display:none;">
     <button onclick="toggleAdminPanel()" style="background:#dc2626; color:#fff; border:2px solid #facc15; border-radius:50px; padding:10px 16px; font-weight:900; font-size:12px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
       ⚙️ ADMIN PANEL
     </button>
@@ -1930,7 +1931,7 @@
         loader.style.display = 'none';
         iframe.style.display = 'block';
         iframe.src = '/game/' + slug;
-      }, 500);
+      }, 400);
     }
 
     function closeGame() {
@@ -2455,6 +2456,14 @@
       if (balanceEl) {
         balanceEl.innerText = Number(newBalance).toLocaleString('vi-VN') + ' đ';
       }
+      const backup = localStorage.getItem('qq88_saved_account');
+      if (backup) {
+        try {
+          const u = JSON.parse(backup);
+          u.balance = Number(newBalance);
+          localStorage.setItem('qq88_saved_account', JSON.stringify(u));
+        } catch(e) {}
+      }
     }
 
     async function syncBalanceFromServer() {
@@ -2499,11 +2508,13 @@
       }
     }
 
+    /* ĐĂNG NHẬP & TỰ ĐỘNG CỨU HỘ LOCALSTORAGE KHI SERVER MẤT DỮ LIỆU */
     async function handleAuthSubmit(e) {
       e.preventDefault();
       const username = document.getElementById('input-username').value.trim();
       const password = document.getElementById('input-password').value.trim();
-      const endpoint = currentAuthMode === 'register' ? '/api/register' : '/api/login';
+      const isLogin = document.getElementById('btn-modal-action').innerText === 'ĐĂNG NHẬP';
+      const endpoint = isLogin ? '/api/login' : '/api/register';
 
       try {
         const res = await fetch(endpoint, {
@@ -2515,9 +2526,32 @@
 
         if (data.success) {
           showToast(data.message);
+          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
           closeAuthModal();
           checkSession();
         } else {
+          // Nếu báo lỗi sai pass/user, kiểm tra bộ nhớ máy xem có bản sao lưu trước đó không
+          const backup = localStorage.getItem('qq88_saved_account');
+          if (backup) {
+            try {
+              const savedUser = JSON.parse(backup);
+              if (savedUser.username === username && savedUser.password === password) {
+                showToast('Đang khôi phục tài khoản từ bộ nhớ thiết bị...');
+                const syncRes = await fetch('/api/sync-backup', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ user: savedUser })
+                });
+                const syncData = await syncRes.json();
+                if (syncData.success) {
+                  showToast('Khôi phục tài khoản thành công!');
+                  closeAuthModal();
+                  checkSession();
+                  return;
+                }
+              }
+            } catch (err) {}
+          }
           showToast(data.message);
         }
       } catch (err) {
@@ -2531,22 +2565,43 @@
         let res = await fetch('/api/me');
         let data = await res.json();
 
+        // Nếu server vừa restart và mất phiên đăng nhập, dùng bản sao lưu tự cứu
+        if (!data.loggedIn) {
+          const backup = localStorage.getItem('qq88_saved_account');
+          if (backup) {
+            try {
+              const savedUser = JSON.parse(backup);
+              const syncRes = await fetch('/api/sync-backup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user: savedUser })
+              });
+              const syncData = await syncRes.json();
+              if (syncData.success) {
+                data = { loggedIn: true, user: syncData.user };
+              }
+            } catch (err) {}
+          }
+        }
+
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
         const sidebarAuthText = document.getElementById('sidebar-auth-text');
         const admBtn = document.getElementById('admin-floating-btn');
 
         if (data.loggedIn && data.user) {
-          guestZone.style.display = 'none';
-          userZone.style.display = 'block';
+          if (guestZone) guestZone.style.display = 'none';
+          if (userZone) userZone.style.display = 'block';
           document.getElementById('display-username').innerText = data.user.username;
           updateUserBalanceDisplay(data.user.balance || 0);
+
+          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
 
           if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
           if (admBtn) admBtn.style.display = (data.user.role === 'admin') ? 'block' : 'none';
         } else {
-          guestZone.style.display = 'block';
-          userZone.style.display = 'none';
+          if (guestZone) guestZone.style.display = 'block';
+          if (userZone) userZone.style.display = 'none';
           if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG NHẬP';
           if (admBtn) admBtn.style.display = 'none';
         }
@@ -2567,6 +2622,7 @@
     }
 
     async function logoutAccount() {
+      localStorage.removeItem('qq88_saved_account');
       await fetch('/api/logout', { method: 'POST' });
       checkSession();
       showToast('Đã đăng xuất tài khoản!');
@@ -2590,7 +2646,7 @@
       });
       const data = await res.json();
       alert(data.message);
-      syncBalanceFromServer();
+      checkSession();
     }
 
     async function submitAdminUserBank() {

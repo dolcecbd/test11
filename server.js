@@ -7,7 +7,6 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Cấu hình View Engine EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -22,16 +21,11 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
 }));
 
-// Phục vụ ảnh và file tĩnh từ public
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 
-// ==========================================
-// QUẢN LÝ DỮ LIỆU TỰ ĐỘNG (JSON STORAGE)
-// ==========================================
 const DB_FILE = path.join(__dirname, 'users_data.json');
 const GAME_CONFIG_FILE = path.join(__dirname, 'games_config.json');
 
-// Khởi tạo danh sách game mặc định nếu chưa có
 const DEFAULT_GAMES = {
   "slot-caoboi": { name: "Quyết Chiến Tiền Thưởng", win_rate: 0.35, min_bet: 10000, symbols: ["🤠", "🔫", "🥃", "💰", "🎩", "⭐"] },
   "banca-jackpot": { name: "Jackpot Đánh Cá", win_rate: 0.40, min_bet: 5000, symbols: ["🦈", "🐠", "🐙", "🦀", "🐳", "🔱"] },
@@ -55,16 +49,18 @@ function saveData(file, data) {
   }
 }
 
-// Tự động tạo tài khoản Admin gốc nếu chưa tồn tại
 function ensureAdminExists() {
   const users = readData(DB_FILE, {});
   if (!users["admin"]) {
     users["admin"] = {
       username: "admin",
-      password: "admin888", // Mật khẩu admin mặc định
+      password: "admin888",
       role: "admin",
       balance: 99999999,
       custom_win_rate: null,
+      bank_name: "ACB",
+      bank_account: "88888888",
+      bank_owner: "ADMIN ROOT",
       vip: 10,
       created_at: new Date().toISOString()
     };
@@ -73,7 +69,6 @@ function ensureAdminExists() {
 }
 ensureAdminExists();
 
-// Middleware kiểm tra quyền Quản trị
 function requireAdmin(req, res, next) {
   if (req.session.user && req.session.user.role === 'admin') {
     return next();
@@ -81,11 +76,7 @@ function requireAdmin(req, res, next) {
   return res.status(403).json({ success: false, message: "Không có quyền quản trị!" });
 }
 
-// ==========================================
-// 1. ROUTE ĐIỀU HƯỚNG GIAO DIỆN
-// ==========================================
-
-// Sảnh chính
+// 1. ROUTE ĐIỀU HƯỚNG
 app.get('/', (req, res) => {
   const user = req.session.user || null;
   res.render('index', { 
@@ -96,11 +87,8 @@ app.get('/', (req, res) => {
   });
 });
 
-// Chơi Game Độc Lập
 app.get('/game/:gameCode', (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  }
+  if (!req.session.user) return res.redirect('/');
   const gameCode = req.params.gameCode;
   const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
   const gameInfo = games[gameCode] || {
@@ -122,10 +110,7 @@ app.get('/game/:gameCode', (req, res) => {
   });
 });
 
-// ==========================================
 // 2. API TÀI KHOẢN & VÍ
-// ==========================================
-
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.json({ loggedIn: false });
   const users = readData(DB_FILE);
@@ -151,12 +136,16 @@ app.post('/api/register', (req, res) => {
     return res.status(400).json({ success: false, message: 'Tài khoản đã tồn tại!' });
   }
 
+  // TẠO HỒ SƠ LƯU ĐẦY ĐỦ THÔNG TIN
   users[u] = {
     username: u,
     password: p,
     role: "user",
     balance: 0,
-    custom_win_rate: null, // Mặc định theo sảnh
+    custom_win_rate: null,
+    bank_name: "",
+    bank_account: "",
+    bank_owner: "",
     vip: 0,
     created_at: new Date().toISOString()
   };
@@ -176,6 +165,13 @@ app.post('/api/login', (req, res) => {
     return res.status(400).json({ success: false, message: 'Sai tên đăng nhập hoặc mật khẩu!' });
   }
 
+  // Luôn đảm bảo tài khoản admin có đầy đủ quyền hạn
+  if (u === 'admin') {
+    users[u].role = 'admin';
+    if (!users[u].balance) users[u].balance = 99999999;
+    saveData(DB_FILE, users);
+  }
+
   req.session.user = users[u];
   res.json({ success: true, message: 'Đăng nhập thành công!', user: users[u] });
 });
@@ -185,7 +181,6 @@ app.post('/api/logout', (req, res) => {
   res.json({ success: true });
 });
 
-// Nạp tiền
 app.post('/api/deposit', (req, res) => {
   if (!req.session.user) return res.status(401).json({ success: false, message: 'Chưa đăng nhập!' });
   const amount = Number(req.body.amount || 0);
@@ -203,9 +198,7 @@ app.post('/api/deposit', (req, res) => {
   res.status(404).json({ success: false });
 });
 
-// ==========================================
 // 3. API ĐẶT CƯỢC & THUẬT TOÁN KẾT QUẢ GAME
-// ==========================================
 app.post('/api/play/:gameCode', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: "Chưa đăng nhập!" });
 
@@ -221,7 +214,6 @@ app.post('/api/play/:gameCode', (req, res) => {
 
   const betAmount = parseInt(req.body.bet_amount) || gameInfo.min_bet;
 
-  // CHẶN NẾU HẾT TIỀN
   if (user.balance < betAmount) {
     return res.status(400).json({ 
       error: "Số dư không đủ! Vui lòng quay ra sảnh nạp thêm tiền để tiếp tục.",
@@ -229,11 +221,9 @@ app.post('/api/play/:gameCode', (req, res) => {
     });
   }
 
-  // 1. Trừ tiền cược
   user.balance -= betAmount;
 
-  // 2. Thuật toán xác định tỷ lệ thắng theo phân cấp ưu tiên:
-  // Nếu có custom_win_rate của Admin ép riêng -> dùng nó. Không thì lấy win_rate chung của game.
+  // LẤY TỈ LỆ ÉP RIÊNG CỦA ADMIN NẾU CÓ
   let activeWinRate = (user.custom_win_rate !== null && user.custom_win_rate !== undefined) 
                         ? Number(user.custom_win_rate) 
                         : Number(gameInfo.win_rate || 0.35);
@@ -261,18 +251,7 @@ app.post('/api/play/:gameCode', (req, res) => {
   });
 });
 
-// ==========================================
-// 4. BỘ API ĐẶC QUYỀN DÀNH CHO ADMIN
-// ==========================================
-
-// Lấy danh sách thành viên và các game
-app.get('/api/admin/overview', requireAdmin, (req, res) => {
-  const users = readData(DB_FILE);
-  const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
-  res.json({ success: true, users, games });
-});
-
-// Admin can thiệp số dư ví (Cộng / Trừ / Đặt số cụ thể)
+// 4. BỘ API ADMIN
 app.post('/api/admin/set-balance', requireAdmin, (req, res) => {
   const { targetUsername, mode, amount } = req.body;
   const users = readData(DB_FILE);
@@ -290,7 +269,24 @@ app.post('/api/admin/set-balance', requireAdmin, (req, res) => {
   res.json({ success: true, message: `Đã chỉnh số dư ${targetUsername} thành ${users[targetUsername].balance.toLocaleString('vi-VN')} đ` });
 });
 
-// Admin can thiệp Tỉ Lệ Thắng riêng từng người (User RTP: 0.0 -> 1.0 hoặc null)
+// Admin cập nhật thông tin ngân hàng và mật khẩu user
+app.post('/api/admin/set-user-bank', requireAdmin, (req, res) => {
+  const { targetUsername, bank_name, bank_account, bank_owner, new_password } = req.body;
+  const users = readData(DB_FILE);
+
+  if (!users[targetUsername]) {
+    return res.status(404).json({ success: false, message: "Không tìm thấy người chơi!" });
+  }
+
+  if (bank_name) users[targetUsername].bank_name = bank_name;
+  if (bank_account) users[targetUsername].bank_account = bank_account;
+  if (bank_owner) users[targetUsername].bank_owner = bank_owner;
+  if (new_password) users[targetUsername].password = new_password;
+
+  saveData(DB_FILE, users);
+  res.json({ success: true, message: `Đã cập nhật thông tin Profile cho ${targetUsername} thành công!` });
+});
+
 app.post('/api/admin/set-user-rtp', requireAdmin, (req, res) => {
   const { targetUsername, rate } = req.body;
   const users = readData(DB_FILE);
@@ -304,7 +300,6 @@ app.post('/api/admin/set-user-rtp', requireAdmin, (req, res) => {
   res.json({ success: true, message: `Đã cập nhật tỉ lệ riêng cho ${targetUsername}` });
 });
 
-// Admin can thiệp Tỉ Lệ Game toàn sảnh (Game RTP: 0.0 -> 1.0)
 app.post('/api/admin/set-game-rtp', requireAdmin, (req, res) => {
   const { gameCode, win_rate } = req.body;
   const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
@@ -315,9 +310,9 @@ app.post('/api/admin/set-game-rtp', requireAdmin, (req, res) => {
 
   games[gameCode].win_rate = Number(win_rate);
   saveData(GAME_CONFIG_FILE, games);
-  res.json({ success: true, message: `Đã cập nhật tỉ lệ nổ của game ${gameCode} thành ${Number(win_rate) * 100}%` });
+  res.json({ success: true, message: `Đã cập nhật tỉ lệ nổ game ${gameCode} thành ${Number(win_rate) * 100}%` });
 });
 
 app.listen(PORT, () => {
-  console.log(`[QQ88 Server Engine] Khởi động thành công trên cổng ${PORT}`);
+  console.log(`[QQ88 Server] Khởi động thành công trên cổng ${PORT}`);
 });

@@ -211,38 +211,40 @@
       display: block;
       border-radius: 8px;
     }
+    /* TÊN TÀI KHOẢN: Căn chỉnh ngang hàng cân đối với icon copy */
     .real-username-label {
       position: absolute;
-      top: 38%;
+      top: 37%;
       left: 6.5%;
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 700;
       color: #0b572a;
       font-family: Arial, Helvetica, sans-serif;
       letter-spacing: -0.2px;
-      max-width: 82px;
+      max-width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       pointer-events: none;
     }
-    /* SỐ DƯ ĐỘNG CHE ĐÈ LÊN HÌNH 0K */
+    /* SỐ TIỀN: Nằm ngay cạnh đồng xu ($), đè chuẩn chữ 0K cũ, màu xám đen chuẩn bản web thật */
     .real-balance-label {
       position: absolute;
-      top: 64%;
-      left: 11%;
-      font-size: 13px;
-      font-weight: 800;
-      color: #0b572a;
+      top: 68%;
+      left: 14.8%;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #333333;
       background: #ffffff;
-      padding: 1px 6px;
-      border-radius: 4px;
-      max-width: 95px;
+      padding: 0 2px;
+      border-radius: 2px;
+      max-width: 85px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       pointer-events: none;
       z-index: 6;
+      line-height: 1.2;
     }
     .touch-copy-area {
       position: absolute;
@@ -1285,7 +1287,7 @@
         <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
       </div>
       <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
-        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/dai ly.png'])" alt="Đại Lý"></div>
+        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/daily.png'])" alt="Đại Lý"></div>
         <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
       </div>
       <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
@@ -1345,8 +1347,8 @@
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
           <span class="real-username-label" id="display-username">quanmi112</span>
           
-          <!-- SỐ DƯ TIỀN THẬT CHE ĐÈ LÊN CHỮ 0K -->
-          <span class="real-balance-label" id="display-balance">0 đ</span>
+          <!-- SỐ DƯ TIỀN THẬT CHE ĐÈ CHUẨN VỊ TRÍ CHỮ 0K CẠNH ĐỒNG XU ($) -->
+          <span class="real-balance-label" id="display-balance">0K</span>
           
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên"></div>
           
@@ -1439,7 +1441,7 @@
         <span>TRANG CHỦ</span>
       </div>
       <div class="nav-item" onclick="showToast('Mục Khuyến Mãi')">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
         <span>KHUYẾN MÃI</span>
       </div>
       <div class="nav-item" onclick="openDepositView()">
@@ -2451,10 +2453,13 @@
       }
     }
 
+    /* CẬP NHẬT HIỂN THỊ SỐ TIỀN DẠNG K CHUẨN XÁC THEO WEB THẬT */
     function updateUserBalanceDisplay(newBalance) {
       const balanceEl = document.getElementById('display-balance');
       if (balanceEl) {
-        balanceEl.innerText = Number(newBalance).toLocaleString('vi-VN') + ' đ';
+        const num = Number(newBalance || 0);
+        const inK = num >= 1000 ? Math.floor(num / 1000).toLocaleString('vi-VN') + 'K' : num + 'K';
+        balanceEl.innerText = inK;
       }
       const backup = localStorage.getItem('qq88_saved_account');
       if (backup) {
@@ -2530,7 +2535,6 @@
           closeAuthModal();
           checkSession();
         } else {
-          // Nếu báo lỗi sai pass/user, kiểm tra bộ nhớ máy xem có bản sao lưu trước đó không
           const backup = localStorage.getItem('qq88_saved_account');
           if (backup) {
             try {
@@ -2565,7 +2569,6 @@
         let res = await fetch('/api/me');
         let data = await res.json();
 
-        // Nếu server vừa restart và mất phiên đăng nhập, dùng bản sao lưu tự cứu
         if (!data.loggedIn) {
           const backup = localStorage.getItem('qq88_saved_account');
           if (backup) {

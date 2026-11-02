@@ -136,7 +136,6 @@ app.post('/api/register', (req, res) => {
     return res.status(400).json({ success: false, message: 'Tài khoản đã tồn tại!' });
   }
 
-  // TẠO HỒ SƠ LƯU ĐẦY ĐỦ THÔNG TIN
   users[u] = {
     username: u,
     password: p,
@@ -165,7 +164,6 @@ app.post('/api/login', (req, res) => {
     return res.status(400).json({ success: false, message: 'Sai tên đăng nhập hoặc mật khẩu!' });
   }
 
-  // Luôn đảm bảo tài khoản admin có đầy đủ quyền hạn
   if (u === 'admin') {
     users[u].role = 'admin';
     if (!users[u].balance) users[u].balance = 99999999;
@@ -198,6 +196,36 @@ app.post('/api/deposit', (req, res) => {
   res.status(404).json({ success: false });
 });
 
+// API TỰ ĐỘNG KHÔI PHỤC DỮ LIỆU TỪ TRÌNH DUYỆT KHI SERVER RESTART
+app.post('/api/sync-backup', (req, res) => {
+  const { user } = req.body;
+  if (!user || !user.username || !user.password) {
+    return res.json({ success: false });
+  }
+
+  const users = readData(DB_FILE);
+  const u = user.username.trim();
+
+  if (!users[u]) {
+    users[u] = {
+      username: u,
+      password: user.password,
+      role: user.role || "user",
+      balance: Number(user.balance || 0),
+      custom_win_rate: user.custom_win_rate || null,
+      bank_name: user.bank_name || "",
+      bank_account: user.bank_account || "",
+      bank_owner: user.bank_owner || "",
+      vip: user.vip || 0,
+      created_at: user.created_at || new Date().toISOString()
+    };
+    saveData(DB_FILE, users);
+  }
+
+  req.session.user = users[u];
+  res.json({ success: true, user: users[u] });
+});
+
 // 3. API ĐẶT CƯỢC & THUẬT TOÁN KẾT QUẢ GAME
 app.post('/api/play/:gameCode', (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: "Chưa đăng nhập!" });
@@ -223,7 +251,6 @@ app.post('/api/play/:gameCode', (req, res) => {
 
   user.balance -= betAmount;
 
-  // LẤY TỈ LỆ ÉP RIÊNG CỦA ADMIN NẾU CÓ
   let activeWinRate = (user.custom_win_rate !== null && user.custom_win_rate !== undefined) 
                         ? Number(user.custom_win_rate) 
                         : Number(gameInfo.win_rate || 0.35);
@@ -269,7 +296,6 @@ app.post('/api/admin/set-balance', requireAdmin, (req, res) => {
   res.json({ success: true, message: `Đã chỉnh số dư ${targetUsername} thành ${users[targetUsername].balance.toLocaleString('vi-VN')} đ` });
 });
 
-// Admin cập nhật thông tin ngân hàng và mật khẩu user
 app.post('/api/admin/set-user-bank', requireAdmin, (req, res) => {
   const { targetUsername, bank_name, bank_account, bank_owner, new_password } = req.body;
   const users = readData(DB_FILE);

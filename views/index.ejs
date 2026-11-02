@@ -211,40 +211,54 @@
       display: block;
       border-radius: 8px;
     }
-    /* TÊN TÀI KHOẢN: Căn chỉnh ngang hàng cân đối với icon copy */
+    /* TÊN TÀI KHOẢN: Căn giữa tự động dưới VIP0 và ngang hàng với nút Copy */
     .real-username-label {
       position: absolute;
-      top: 37%;
-      left: 6.5%;
+      top: 38.5%;
+      left: 3.5%;
+      width: 19%;
+      text-align: center;
       font-size: 13.5px;
-      font-weight: 700;
+      font-weight: 500;
       color: #0b572a;
       font-family: Arial, Helvetica, sans-serif;
       letter-spacing: -0.2px;
-      max-width: 80px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    /* SỐ TIỀN: Nằm ngay cạnh đồng xu ($), đè chuẩn chữ 0K cũ, màu xám đen chuẩn bản web thật */
-    .real-balance-label {
-      position: absolute;
-      top: 68%;
-      left: 14.8%;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #333333;
-      background: #ffffff;
-      padding: 0 2px;
-      border-radius: 2px;
-      max-width: 85px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       pointer-events: none;
       z-index: 6;
-      line-height: 1.2;
+    }
+    /* KHỐI SỐ DƯ MỚI: Che kín 100% phần ($) 0K cũ trên ảnh phôi và vẽ lại đồng bộ */
+    .real-balance-row {
+      position: absolute;
+      top: 60%;
+      left: 3%;
+      width: 28.5%;
+      height: 36%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .balance-coin-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .real-balance-label {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #4a4a4a;
+      font-family: Arial, Helvetica, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+      line-height: 1;
     }
     .touch-copy-area {
       position: absolute;
@@ -253,6 +267,7 @@
       width: 10%;
       height: 34%;
       cursor: pointer;
+      z-index: 7;
     }
     .touch-actions-grid {
       position: absolute;
@@ -1347,8 +1362,15 @@
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
           <span class="real-username-label" id="display-username">quanmi112</span>
           
-          <!-- SỐ DƯ TIỀN THẬT CHE ĐÈ CHUẨN VỊ TRÍ CHỮ 0K CẠNH ĐỒNG XU ($) -->
-          <span class="real-balance-label" id="display-balance">0K</span>
+          <!-- CHE SẠCH 100% ICON ($) 0K CŨ VÀ VẼ LẠI ĐỒNG XU ($) + SỐ DƯ CHUẨN NHƯ WEB THẬT -->
+          <div class="real-balance-row">
+            <svg class="balance-coin-svg" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="11" fill="#595959"/>
+              <circle cx="12" cy="12" r="8.3" fill="none" stroke="#e2e2e2" stroke-width="1.2"/>
+              <text x="12" y="16.2" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="bold" font-family="Arial, sans-serif">$</text>
+            </svg>
+            <span class="real-balance-label" id="display-balance">0K</span>
+          </div>
           
           <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên"></div>
           
@@ -1441,7 +1463,7 @@
         <span>TRANG CHỦ</span>
       </div>
       <div class="nav-item" onclick="showToast('Mục Khuyến Mãi')">
-        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76V14h2V8.76L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
         <span>KHUYẾN MÃI</span>
       </div>
       <div class="nav-item" onclick="openDepositView()">

@@ -2,44 +2,157 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title><%= game_name %></title>
   <style>
-    body { background: #111; color: #fff; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-    .box { background: #222; border: 2px solid #facc15; display: inline-block; padding: 20px; border-radius: 10px; }
-    .btn { background: #e11d48; color: #fff; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px; }
-    .back { display: block; margin-top: 20px; color: #38bdf8; text-decoration: none; }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      background: radial-gradient(circle, #2b1103 0%, #0d0401 100%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .header-bar {
+      background: #18191d;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #ca8a04;
+    }
+    .header-bar a { color: #facc15; text-decoration: none; font-size: 13px; font-weight: 700; }
+    .stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .grid-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: rgba(0,0,0,0.6);
+      border: 2px solid #ca8a04;
+      border-radius: 12px;
+      padding: 15px;
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 1/1;
+    }
+    .slot-cell {
+      background: #3e1a06;
+      border: 1px solid #a16207;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+    .result-text {
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #facc15;
+      min-height: 20px;
+    }
+    .footer-control {
+      background: #18191d;
+      border-top: 2px solid #ca8a04;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .btn-spin {
+      background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
+      color: #000;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-spin:active { transform: scale(0.97); }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2><%= game_name %></h2>
-    <p>Số dư ví: <b id="balance" style="color: #facc15;"><%= Number(balance).toLocaleString('vi-VN') %> đ</b></p>
-    <p>Mức cược: <%= Number(min_bet).toLocaleString('vi-VN') %> đ</p>
-    <button class="btn" onclick="playGame()">QUAY NGAY</button>
-    <p id="msg" style="margin-top: 10px; font-weight: bold;"></p>
-    <a class="back" href="/">← Quay lại sảnh chính</a>
+
+  <div class="header-bar">
+    <span style="font-weight:800; color:#facc15;"><%= game_name %></span>
+    <a href="/">⟨ THOÁT RA SẢNH</a>
+  </div>
+
+  <div class="stage">
+    <div class="grid-board">
+      <div class="slot-cell" id="c1">⭐</div>
+      <div class="slot-cell" id="c2">💎</div>
+      <div class="slot-cell" id="c3">🔔</div>
+      <div class="slot-cell" id="c4">💰</div>
+      <div class="slot-cell" id="c5">🍒</div>
+      <div class="slot-cell" id="c6">7️⃣</div>
+      <div class="slot-cell" id="c7">🎩</div>
+      <div class="slot-cell" id="c8">🤠</div>
+      <div class="slot-cell" id="c9">👑</div>
+    </div>
+    <div class="result-text" id="status-msg">Bấm QUAY để trải nghiệm đặt cược!</div>
+  </div>
+
+  <div class="footer-control">
+    <div class="info-row">
+      <span>Ví người chơi:</span>
+      <span style="color:#4ade80;" id="user-balance"><%= Number(balance).toLocaleString('vi-VN') %> đ</span>
+    </div>
+    <div class="info-row">
+      <span>Mức cược:</span>
+      <span style="color:#facc15;"><%= Number(min_bet).toLocaleString('vi-VN') %> đ</span>
+    </div>
+    <button class="btn-spin" id="spin-btn" onclick="executeSpin()">QUAY THỬ NGHIỆM</button>
   </div>
 
   <script>
-    const gameCode = "<%= game_code %>";
-    async function playGame() {
+    const GAME_CODE = "<%= game_code %>";
+    let currentBalance = <%= Number(balance) %>;
+
+    async function executeSpin() {
+      const btn = document.getElementById('spin-btn');
+      btn.disabled = true;
+      document.getElementById('status-msg').innerText = "Đang quay...";
+
       try {
-        const res = await fetch(`/api/play/${gameCode}`, {
+        const res = await fetch(`/api/play/${GAME_CODE}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ bet_amount: <%= min_bet %> })
         });
         const data = await res.json();
-        if (res.ok) {
-          document.getElementById('balance').innerText = Number(data.new_balance).toLocaleString('vi-VN') + ' đ';
-          document.getElementById('msg').innerText = data.msg;
-          document.getElementById('msg').style.color = data.is_win ? '#4ade80' : '#f87171';
-        } else {
-          alert(data.error || 'Hết tiền!');
+
+        btn.disabled = false;
+
+        if (!res.ok || data.error) {
+          alert(data.error || "Số dư không đủ!");
+          document.getElementById('status-msg').innerText = "Vui lòng ra sảnh nạp thêm tiền!";
+          return;
         }
+
+        currentBalance = data.new_balance;
+        document.getElementById('user-balance').innerText = Number(data.new_balance).toLocaleString('vi-VN') + ' đ';
+        document.getElementById('status-msg').innerText = data.msg;
       } catch (e) {
-        alert('Lỗi kết nối máy chủ!');
+        btn.disabled = false;
+        alert("Lỗi kết nối máy chủ!");
       }
     }
   </script>

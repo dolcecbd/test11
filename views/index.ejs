@@ -211,15 +211,15 @@
       display: block;
       border-radius: 8px;
     }
-    /* TÊN TÀI KHOẢN: Căn giữa tự động dưới VIP0 và ngang hàng với nút Copy */
+    /* TÊN TÀI KHOẢN: Chữ đậm, căn chính giữa dưới VIP0, đuôi chữ sát gần nút sao chép */
     .real-username-label {
       position: absolute;
-      top: 38.5%;
-      left: 3.5%;
-      width: 19%;
+      top: 38%;
+      left: 7.5%;
+      width: 14.5%;
       text-align: center;
-      font-size: 13.5px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 700;
       color: #0b572a;
       font-family: Arial, Helvetica, sans-serif;
       letter-spacing: -0.2px;
@@ -229,7 +229,7 @@
       pointer-events: none;
       z-index: 6;
     }
-    /* KHỐI SỐ DƯ MỚI: Che kín 100% phần ($) 0K cũ trên ảnh phôi và vẽ lại đồng bộ */
+    /* KHỐI SỐ DƯ MỚI: Che phần ($) 0K cũ, chữ đậm và nhỏ gọn ~2mm */
     .real-balance-row {
       position: absolute;
       top: 60%;
@@ -240,19 +240,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       z-index: 6;
       pointer-events: none;
     }
     .balance-coin-svg {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
       flex-shrink: 0;
     }
     .real-balance-label {
-      font-size: 14.5px;
-      font-weight: 500;
-      color: #4a4a4a;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #333333;
       font-family: Arial, Helvetica, sans-serif;
       white-space: nowrap;
       overflow: hidden;
@@ -263,7 +263,7 @@
     .touch-copy-area {
       position: absolute;
       top: 34%;
-      left: 23%;
+      left: 22.5%;
       width: 10%;
       height: 34%;
       cursor: pointer;
@@ -1362,7 +1362,7 @@
           <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
           <span class="real-username-label" id="display-username">quanmi112</span>
           
-          <!-- CHE SẠCH 100% ICON ($) 0K CŨ VÀ VẼ LẠI ĐỒNG XU ($) + SỐ DƯ CHUẨN NHƯ WEB THẬT -->
+          <!-- CHE SẠCH ICON ($) 0K CŨ VÀ VẼ LẠI ĐỒNG XU ($) + SỐ DƯ ĐẬM GỌN -->
           <div class="real-balance-row">
             <svg class="balance-coin-svg" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="11" fill="#595959"/>

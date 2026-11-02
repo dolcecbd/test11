@@ -2862,5 +2862,111 @@
       checkSession();
     };
   </script>
+<!-- BẢNG ĐIỀU KHIỂN ĐẶC QUYỀN ADMIN (CHỈ ADMIN MỚI THẤY) -->
+<% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+  <div style="position:fixed; bottom:75px; right:15px; z-index:99999;">
+    <button onclick="toggleAdminPanel()" style="background:#dc2626; color:#fff; border:2px solid #facc15; border-radius:50px; padding:10px 16px; font-weight:900; font-size:12px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+      ⚙️ ADMIN PANEL
+    </button>
+  </div>
+
+  <div id="admin-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100000; justify-content:center; align-items:center; padding:15px;">
+    <div style="background:#1e293b; color:#fff; width:100%; max-width:390px; border-radius:12px; border:2px solid #eab308; padding:16px; max-height:90vh; overflow-y:auto; font-size:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #475569; padding-bottom:8px; margin-bottom:12px;">
+        <h3 style="color:#facc15; font-size:15px;">QUẢN TRỊ VIÊN QQ88</h3>
+        <button onclick="toggleAdminPanel()" style="background:none; border:none; color:#94a3b8; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+
+      <!-- 1. CHỈNH VÍ -->
+      <div style="margin-bottom:14px; background:#0f172a; padding:10px; border-radius:8px;">
+        <p style="font-weight:bold; color:#38bdf8; margin-bottom:6px;">1. Can thiệp Số Dư Ví</p>
+        <input type="text" id="adm-user" placeholder="Tên tài khoản (vd: quanmi112)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+        <input type="number" id="adm-amount" placeholder="Số tiền (VND)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+        <div style="display:flex; gap:6px;">
+          <button onclick="submitAdminBalance('add')" style="flex:1; background:#16a34a; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">+ Cộng</button>
+          <button onclick="submitAdminBalance('subtract')" style="flex:1; background:#dc2626; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">- Trừ</button>
+          <button onclick="submitAdminBalance('set')" style="flex:1; background:#2563eb; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Đặt số dư</button>
+        </div>
+      </div>
+
+      <!-- 2. CHỈNH RTP USER -->
+      <div style="margin-bottom:14px; background:#0f172a; padding:10px; border-radius:8px;">
+        <p style="font-weight:bold; color:#f59e0b; margin-bottom:6px;">2. Ép Tỉ Lệ Thắng Người Chơi</p>
+        <input type="text" id="adm-rtp-user" placeholder="Tên tài khoản" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+        <select id="adm-rtp-val" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+          <option value="1.0">Thắng 100% (Luôn luôn nổ)</option>
+          <option value="0.7">Thắng 70% (Tỉ lệ cao)</option>
+          <option value="0.35">Chuẩn mặc định (35%)</option>
+          <option value="0.05">Thua 95% (Hút tiền)</option>
+          <option value="0.0">Thua 100% (Cháy túi)</option>
+          <option value="default">Mặc định theo game</option>
+        </select>
+        <button onclick="submitAdminUserRtp()" style="width:100%; background:#eab308; color:#000; padding:7px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">LƯU TỈ LỆ RIÊNG</button>
+      </div>
+
+      <!-- 3. CHỈNH RTP GAME TOÀN SẢNH -->
+      <div style="background:#0f172a; padding:10px; border-radius:8px;">
+        <p style="font-weight:bold; color:#a855f7; margin-bottom:6px;">3. Tỉ Lệ Thắng Game Toàn Sảnh</p>
+        <select id="adm-game-code" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+          <option value="slot-caoboi">Quyết Chiến Tiền Thưởng</option>
+          <option value="banca-jackpot">Jackpot Đánh Cá</option>
+          <option value="gamebai-taixiu">Tài Xỉu V8</option>
+        </select>
+        <input type="number" step="0.05" min="0" max="1" id="adm-game-rate" placeholder="Tỉ lệ 0.0 -> 1.0 (vd: 0.4 = 40%)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
+        <button onclick="submitAdminGameRtp()" style="width:100%; background:#a855f7; color:#fff; padding:7px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">LƯU TỈ LỆ GAME</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleAdminPanel() {
+      const modal = document.getElementById('admin-modal');
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    async function submitAdminBalance(mode) {
+      const targetUsername = document.getElementById('adm-user').value.trim();
+      const amount = document.getElementById('adm-amount').value;
+      if (!targetUsername || !amount) return alert('Nhập đủ username và số tiền!');
+
+      const res = await fetch('/api/admin/set-balance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ targetUsername, mode, amount })
+      });
+      const data = await res.json();
+      alert(data.message);
+      syncBalanceFromServer();
+    }
+
+    async function submitAdminUserRtp() {
+      const targetUsername = document.getElementById('adm-rtp-user').value.trim();
+      const rate = document.getElementById('adm-rtp-val').value;
+      if (!targetUsername) return alert('Nhập username!');
+
+      const res = await fetch('/api/admin/set-user-rtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ targetUsername, rate })
+      });
+      const data = await res.json();
+      alert(data.message);
+    }
+
+    async function submitAdminGameRtp() {
+      const gameCode = document.getElementById('adm-game-code').value;
+      const win_rate = document.getElementById('adm-game-rate').value;
+      if (!win_rate) return alert('Nhập tỉ lệ!');
+
+      const res = await fetch('/api/admin/set-game-rtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameCode, win_rate })
+      });
+      const data = await res.json();
+      alert(data.message);
+    }
+  </script>
+<% } %>
 </body>
 </html>

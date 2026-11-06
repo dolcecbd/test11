@@ -10,12 +10,16 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Phục vụ toàn bộ file tĩnh và thư mục public/images
+// CẤU HÌNH EJS VIEW ENGINE
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Phục vụ thư mục file tĩnh (ảnh public/images)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ĐƯỜNG DẪN TRANG CHỦ (FIX LỖI CANNOT GET /)
+// ĐƯỜNG DẪN TRANG CHỦ GỌI FILE EJS TRONG THƯ MỤC VIEWS
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.render('index');
 });
 
 // ==========================================
@@ -29,7 +33,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     fullName: { type: String, default: '' },
     phone: { type: String, default: '' },
-    balance: { type: Number, default: 0 }, // Đơn vị: Điểm (1.43 = 1.43K)
+    balance: { type: Number, default: 0 },
     vipLevel: { type: Number, default: 0 },
     joinDate: { type: String, default: () => new Date().toISOString().split('T')[0] },
     withdrawPassword: { type: String, default: '' },
@@ -452,7 +456,7 @@ app.get('/loading-gateway', (req, res) => {
             100% { width: 89%; }
         }
         .sub-note {
-            onboarding-top: 14px;
+            margin-top: 14px;
             font-size: 12px;
             color: #888;
         }

@@ -1,344 +1,470 @@
 const express = require('express');
-const compression = require('compression');
-const session = require('express-session');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DATA_FILE = path.join(__dirname, 'data.json');
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-  secret: 'qq88_super_secure_production_key_2026',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
-}));
+// Phục vụ toàn bộ file tĩnh và thư mục public/images
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
+// ==========================================
+// 1. CẤU HÌNH LƯU TRỮ KÉP (DATA.JSON + MONGODB)
+// ==========================================
+const MONGO_URI = process.env.MONGO_URI || '';
+let isMongoConnected = false;
 
-const DB_FILE = path.join(__dirname, 'users_data.json');
-const GAME_CONFIG_FILE = path.join(__dirname, 'games_config.json');
+const userSchema = new mongoose.Schema({
+    username: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    fullName: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    balance: { type: Number, default: 0 }, // Đơn vị: Điểm (1.43 = 1.43K)
+    vipLevel: { type: Number, default: 0 },
+    joinDate: { type: String, default: () => new Date().toISOString().split('T')[0] },
+    withdrawPassword: { type: String, default: '' },
+    isBankLocked: { type: Boolean, default: false },
+    bankInfo: {
+        bankName: { type: String, default: '' },
+        accountNumber: { type: String, default: '' },
+        accountHolder: { type: String, default: '' }
+    },
+    cryptoInfo: {
+        network: { type: String, default: '' },
+        walletAddress: { type: String, default: '' }
+    },
+    momoInfo: {
+        phone: { type: String, default: '' },
+        accountHolder: { type: String, default: '' }
+    },
+    withdrawHistory: { type: Array, default: [] },
+    depositHistory: { type: Array, default: [] }
+}, { minimize: false });
 
-const DEFAULT_GAMES = {
-  "slot-caoboi": { name: "Quyết Chiến Tiền Thưởng", win_rate: 0.35, min_bet: 10000, symbols: ["🤠", "🔫", "🥃", "💰", "🎩", "⭐"] },
-  "banca-jackpot": { name: "Jackpot Đánh Cá", win_rate: 0.40, min_bet: 5000, symbols: ["🦈", "🐠", "🐙", "🦀", "🐳", "🔱"] },
-  "gamebai-taixiu": { name: "Tài Xỉu V8", win_rate: 0.48, min_bet: 10000, symbols: ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"] }
-};
+const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
 
-function readData(file, fallback = {}) {
-  try {
-    if (!fs.existsSync(file)) fs.writeFileSync(file, JSON.stringify(fallback, null, 2));
-    return JSON.parse(fs.readFileSync(file, 'utf8') || '{}');
-  } catch (e) {
-    return fallback;
-  }
+if (MONGO_URI) {
+    mongoose.connect(MONGO_URI)
+        .then(async () => {
+            isMongoConnected = true;
+            console.log('✅ Đã kết nối MongoDB Atlas thành công');
+            await syncMongoToLocal();
+        })
+        .catch(err => console.error('⚠️ Lỗi kết nối MongoDB, dùng data.json cục bộ:', err.message));
 }
 
-function saveData(file, data) {
-  try {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
-  } catch (e) {
-    console.error("Lỗi ghi file:", e);
-  }
+// Đọc dữ liệu từ data.json
+function readLocalData() {
+    try {
+        if (!fs.existsSync(DATA_FILE)) {
+            const initialData = { users: {} };
+            fs.writeFileSync(DATA_FILE, JSON.stringify(initialData, null, 2), 'utf8');
+            return initialData;
+        }
+        const raw = fs.readFileSync(DATA_FILE, 'utf8');
+        return JSON.parse(raw || '{"users":{}}');
+    } catch (e) {
+        return { users: {} };
+    }
 }
 
-function ensureAdminExists() {
-  const users = readData(DB_FILE, {});
-  if (!users["admin"]) {
-    users["admin"] = {
-      username: "admin",
-      password: "admin888",
-      role: "admin",
-      balance: 99999999,
-      custom_win_rate: null,
-      bank_name: "ACB",
-      bank_account: "88888888",
-      bank_owner: "ADMIN ROOT",
-      vip: 10,
-      created_at: new Date().toISOString()
+// Ghi dữ liệu vào data.json
+function writeLocalData(data) {
+    try {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+    } catch (e) {
+        console.error('Lỗi ghi file data.json:', e.message);
+    }
+}
+
+// Đồng bộ từ MongoDB về data.json khi khởi động server
+async function syncMongoToLocal() {
+    if (!isMongoConnected) return;
+    try {
+        const users = await UserModel.find({}).lean();
+        const localData = readLocalData();
+        if (!localData.users) localData.users = {};
+        users.forEach(u => {
+            localData.users[u.username] = u;
+        });
+        writeLocalData(localData);
+    } catch (e) {
+        console.error('Lỗi đồng bộ Mongo -> Local:', e.message);
+    }
+}
+
+// Lưu thông tin 1 user vào cả data.json và MongoDB
+async function saveUserDual(userObj) {
+    const localData = readLocalData();
+    if (!localData.users) localData.users = {};
+    localData.users[userObj.username] = userObj;
+    writeLocalData(localData);
+
+    if (isMongoConnected) {
+        try {
+            await UserModel.findOneAndUpdate(
+                { username: userObj.username },
+                { $set: userObj },
+                { upsert: true, new: true }
+            );
+        } catch (e) {
+            console.error('Lỗi lưu MongoDB:', e.message);
+        }
+    }
+}
+
+// Lấy thông tin 1 user
+async function getUserDual(username) {
+    const key = String(username || '').trim().toLowerCase();
+    const localData = readLocalData();
+    if (localData.users && localData.users[key]) {
+        return localData.users[key];
+    }
+    if (isMongoConnected) {
+        const u = await UserModel.findOne({ username: key }).lean();
+        if (u) {
+            if (!localData.users) localData.users = {};
+            localData.users[key] = u;
+            writeLocalData(localData);
+            return u;
+        }
+    }
+    return null;
+}
+
+// Hàm che tên chủ tài khoản kiểu D*****
+function maskFullName(name) {
+    if (!name || name.length === 0) return 'N*****';
+    const clean = name.trim().toUpperCase();
+    return clean.charAt(0) + '*****';
+}
+
+// ==========================================
+// 2. API ĐĂNG KÝ & ĐĂNG NHẬP
+// ==========================================
+app.post('/api/register', async (req, res) => {
+    try {
+        const { username, password, fullName, phone } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ success: false, message: 'Vui lòng nhập đầy đủ tài khoản và mật khẩu!' });
+        }
+
+        const cleanUser = username.trim().toLowerCase();
+        const existing = await getUserDual(cleanUser);
+        if (existing) {
+            return res.status(400).json({ success: false, message: 'Tên tài khoản đã tồn tại!' });
+        }
+
+        const today = new Date().toISOString().split('T')[0];
+        const newUser = {
+            username: cleanUser,
+            password: password.trim(),
+            fullName: (fullName || 'NGUYEN VAN A').trim().toUpperCase(),
+            phone: (phone || '').trim(),
+            balance: 0,
+            vipLevel: 0,
+            joinDate: today,
+            withdrawPassword: '',
+            isBankLocked: false,
+            bankInfo: { bankName: '', accountNumber: '', accountHolder: '' },
+            cryptoInfo: { network: '', walletAddress: '' },
+            momoInfo: { phone: '', accountHolder: '' },
+            withdrawHistory: [],
+            depositHistory: []
+        };
+
+        await saveUserDual(newUser);
+        return res.json({
+            success: true,
+            message: 'Đăng ký tài khoản thành công!',
+            user: sanitizeUser(newUser)
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi máy chủ!' });
+    }
+});
+
+app.post('/api/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ success: false, message: 'Vui lòng nhập tên đăng nhập và mật khẩu!' });
+        }
+
+        const cleanUser = username.trim().toLowerCase();
+        const user = await getUserDual(cleanUser);
+        if (!user || user.password !== password.trim()) {
+            return res.status(401).json({ success: false, message: 'Tài khoản hoặc mật khẩu không chính xác!' });
+        }
+
+        return res.json({
+            success: true,
+            message: 'Đăng nhập thành công!',
+            user: sanitizeUser(user)
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi máy chủ!' });
+    }
+});
+
+// Lấy thông tin tài khoản mới nhất (Đồng bộ số dư)
+app.get('/api/user/:username', async (req, res) => {
+    try {
+        const user = await getUserDual(req.params.username);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản!' });
+        }
+        return res.json({ success: true, user: sanitizeUser(user) });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi máy chủ!' });
+    }
+});
+
+function sanitizeUser(u) {
+    return {
+        username: u.username,
+        fullName: u.fullName,
+        maskedName: maskFullName(u.fullName),
+        phone: u.phone,
+        balance: Number(u.balance || 0),
+        vipLevel: u.vipLevel || 0,
+        joinDate: u.joinDate || '2026-09-30',
+        hasWithdrawPassword: Boolean(u.withdrawPassword && u.withdrawPassword.length > 0),
+        isBankLocked: Boolean(u.isBankLocked),
+        bankInfo: u.bankInfo || { bankName: '', accountNumber: '', accountHolder: '' },
+        cryptoInfo: u.cryptoInfo || { network: '', walletAddress: '' },
+        momoInfo: u.momoInfo || { phone: '', accountHolder: '' },
+        withdrawHistory: u.withdrawHistory || [],
+        depositHistory: u.depositHistory || []
     };
-    saveData(DB_FILE, users);
-  }
-}
-ensureAdminExists();
-
-function requireAdmin(req, res, next) {
-  if (req.session.user && req.session.user.role === 'admin') {
-    return next();
-  }
-  return res.status(403).json({ success: false, message: "Không có quyền quản trị!" });
 }
 
-// 1. ROUTE ĐIỀU HƯỚNG
-app.get('/', (req, res) => {
-  const user = req.session.user || null;
-  res.render('index', { 
-    user: user,
-    username: user ? user.username : 'quanmi112',
-    balance: user ? user.balance : 0,
-    isAdmin: user && user.role === 'admin'
-  });
+// ==========================================
+// 3. API THÊM NGÂN HÀNG & KHÓA CỨNG VĨNH VIỄN
+// ==========================================
+app.post('/api/user/bind-bank', async (req, res) => {
+    try {
+        const { username, bankName, accountNumber, withdrawPassword } = req.body;
+        const user = await getUserDual(username);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Tài khoản không tồn tại!' });
+        }
+
+        // KIỂM TRA KHÓA VĨNH VIỄN: Nếu đã thêm ngân hàng rồi thì chặn tuyệt đối
+        if (user.isBankLocked || (user.bankInfo && user.bankInfo.accountNumber)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Tài khoản ngân hàng đã được khóa bảo mật vĩnh viễn. Chỉ Admin mới có quyền thay đổi!'
+            });
+        }
+
+        if (!bankName || !accountNumber) {
+            return res.status(400).json({ success: false, message: 'Vui lòng chọn ngân hàng và nhập số tài khoản!' });
+        }
+
+        if (!user.withdrawPassword && !withdrawPassword) {
+            return res.status(400).json({ success: false, message: 'Vui lòng cài đặt mật khẩu rút tiền!' });
+        }
+
+        user.bankInfo = {
+            bankName: bankName.trim(),
+            accountNumber: accountNumber.trim(),
+            accountHolder: user.fullName || 'NGUYEN VAN A'
+        };
+
+        if (!user.withdrawPassword && withdrawPassword) {
+            user.withdrawPassword = withdrawPassword.trim();
+        }
+
+        // Khóa cứng vĩnh viễn trên hệ thống
+        user.isBankLocked = true;
+
+        await saveUserDual(user);
+
+        return res.json({
+            success: true,
+            message: 'Liên kết thẻ ngân hàng và cài đặt mật khẩu rút tiền thành công!',
+            user: sanitizeUser(user)
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi hệ thống khi lưu ngân hàng!' });
+    }
 });
 
-app.get('/game/:gameCode', (req, res) => {
-  if (!req.session.user) return res.redirect('/');
-  const gameCode = req.params.gameCode;
-  const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
-  const gameInfo = games[gameCode] || {
-    name: gameCode.toUpperCase().replace(/-/g, ' '),
-    min_bet: 5000,
-    win_rate: 0.30,
-    symbols: ["🎰", "💎", "7️⃣", "🍒", "🔔", "⭐"]
-  };
+// ==========================================
+// 4. API RÚT TIỀN
+// ==========================================
+app.post('/api/user/withdraw', async (req, res) => {
+    try {
+        const { username, amount, withdrawPassword, method } = req.body;
+        const user = await getUserDual(username);
 
-  const users = readData(DB_FILE);
-  const currentUser = users[req.session.user.username] || req.session.user;
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Không tìm thấy người dùng!' });
+        }
 
-  res.render('game-slot', {
-    game_code: gameCode,
-    game_name: gameInfo.name,
-    balance: currentUser.balance,
-    min_bet: gameInfo.min_bet,
-    symbols: JSON.stringify(gameInfo.symbols)
-  });
+        if (!user.isBankLocked || !user.bankInfo || !user.bankInfo.accountNumber) {
+            return res.status(400).json({ success: false, message: 'Vui lòng bấm dấu (+) để thêm thẻ ngân hàng trước khi rút tiền!' });
+        }
+
+        if (!withdrawPassword || user.withdrawPassword !== withdrawPassword.trim()) {
+            return res.status(401).json({ success: false, message: 'Mật khẩu rút tiền không chính xác!' });
+        }
+
+        const numAmount = Number(amount);
+        if (isNaN(numAmount) || numAmount < 100) {
+            return res.status(400).json({ success: false, message: 'Số tiền rút tối thiểu là 100 điểm (100,000 VNĐ)!' });
+        }
+
+        if (numAmount > Number(user.balance || 0)) {
+            return res.status(400).json({ success: false, message: 'Số dư khả dụng không đủ để thực hiện lệnh rút!' });
+        }
+
+        user.balance = Number((user.balance - numAmount).toFixed(2));
+        const record = {
+            id: 'WD' + Date.now(),
+            amount: numAmount,
+            method: method || 'Thẻ ngân hàng',
+            bankName: user.bankInfo.bankName,
+            accountNumber: user.bankInfo.accountNumber,
+            status: 'Đang xử lý',
+            time: new Date().toLocaleString('vi-VN')
+        };
+
+        if (!Array.isArray(user.withdrawHistory)) user.withdrawHistory = [];
+        user.withdrawHistory.unshift(record);
+
+        await saveUserDual(user);
+
+        return res.json({
+            success: true,
+            message: 'Gửi lệnh rút tiền thành công! Hệ thống đang xử lý.',
+            user: sanitizeUser(user)
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi xử lý rút tiền!' });
+    }
 });
 
-// 2. API TÀI KHOẢN & VÍ
-app.get('/api/me', (req, res) => {
-  if (!req.session.user) return res.json({ loggedIn: false });
-  const users = readData(DB_FILE);
-  const u = req.session.user.username;
-  if (users[u]) {
-    req.session.user = users[u];
-    return res.json({ loggedIn: true, user: users[u] });
-  }
-  res.json({ loggedIn: false });
+// ==========================================
+// 5. API DÀNH RIÊNG CHO ADMIN (MỞ KHÓA / SỬA NGÂN HÀNG & SỐ DƯ)
+// ==========================================
+app.post('/api/admin/update-user', async (req, res) => {
+    try {
+        const { adminKey, username, balance, bankName, accountNumber, fullName, withdrawPassword, isBankLocked } = req.body;
+        // Mật khẩu admin mặc định hoặc cấu hình qua biến môi trường
+        const VALID_ADMIN_KEY = process.env.ADMIN_KEY || 'qq88admin';
+        if (adminKey !== VALID_ADMIN_KEY) {
+            return res.status(403).json({ success: false, message: 'Không có quyền Admin!' });
+        }
+
+        const user = await getUserDual(username);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản người chơi!' });
+        }
+
+        if (balance !== undefined) user.balance = Number(balance);
+        if (fullName !== undefined) user.fullName = fullName.trim().toUpperCase();
+        if (withdrawPassword !== undefined) user.withdrawPassword = withdrawPassword.trim();
+        if (isBankLocked !== undefined) user.isBankLocked = Boolean(isBankLocked);
+
+        if (bankName !== undefined || accountNumber !== undefined) {
+            user.bankInfo = {
+                bankName: bankName !== undefined ? bankName : user.bankInfo.bankName,
+                accountNumber: accountNumber !== undefined ? accountNumber : user.bankInfo.accountNumber,
+                accountHolder: user.fullName
+            };
+        }
+
+        await saveUserDual(user);
+        return res.json({ success: true, message: 'Admin đã cập nhật thông tin người chơi!', user: sanitizeUser(user) });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Lỗi cập nhật Admin!' });
+    }
 });
 
-app.post('/api/register', (req, res) => {
-  const { username, password } = req.body;
-  const u = (username || '').trim();
-  const p = (password || '').trim();
-
-  if (u.length < 4 || !p) {
-    return res.status(400).json({ success: false, message: 'Tài khoản tối thiểu 4 ký tự!' });
-  }
-
-  const users = readData(DB_FILE);
-  if (users[u]) {
-    return res.status(400).json({ success: false, message: 'Tài khoản đã tồn tại!' });
-  }
-
-  users[u] = {
-    username: u,
-    password: p,
-    role: "user",
-    balance: 0,
-    custom_win_rate: null,
-    bank_name: "",
-    bank_account: "",
-    bank_owner: "",
-    vip: 0,
-    created_at: new Date().toISOString()
-  };
-  saveData(DB_FILE, users);
-
-  req.session.user = users[u];
-  res.json({ success: true, message: 'Đăng ký thành công!', user: users[u] });
-});
-
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  const u = (username || '').trim();
-  const p = (password || '').trim();
-
-  const users = readData(DB_FILE);
-  if (!users[u] || users[u].password !== p) {
-    return res.status(400).json({ success: false, message: 'Sai tên đăng nhập hoặc mật khẩu!' });
-  }
-
-  if (u === 'admin') {
-    users[u].role = 'admin';
-    if (!users[u].balance) users[u].balance = 99999999;
-    saveData(DB_FILE, users);
-  }
-
-  req.session.user = users[u];
-  res.json({ success: true, message: 'Đăng nhập thành công!', user: users[u] });
-});
-
-app.post('/api/logout', (req, res) => {
-  req.session.destroy();
-  res.json({ success: true });
-});
-
-app.post('/api/deposit', (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Chưa đăng nhập!' });
-  const amount = Number(req.body.amount || 0);
-  if (amount <= 0) return res.status(400).json({ success: false, message: 'Số tiền nạp không hợp lệ!' });
-
-  const users = readData(DB_FILE);
-  const u = req.session.user.username;
-
-  if (users[u]) {
-    users[u].balance = (users[u].balance || 0) + amount;
-    saveData(DB_FILE, users);
-    req.session.user = users[u];
-    return res.json({ status: 'success', new_balance: users[u].balance });
-  }
-  res.status(404).json({ success: false });
-});
-
-// API TỰ ĐỘNG KHÔI PHỤC DỮ LIỆU TỪ TRÌNH DUYỆT KHI SERVER RESTART
-app.post('/api/sync-backup', (req, res) => {
-  const { user } = req.body;
-  if (!user || !user.username || !user.password) {
-    return res.json({ success: false });
-  }
-
-  const users = readData(DB_FILE);
-  const u = user.username.trim();
-
-  if (!users[u]) {
-    users[u] = {
-      username: u,
-      password: user.password,
-      role: user.role || "user",
-      balance: Number(user.balance || 0),
-      custom_win_rate: user.custom_win_rate || null,
-      bank_name: user.bank_name || "",
-      bank_account: user.bank_account || "",
-      bank_owner: user.bank_owner || "",
-      vip: user.vip || 0,
-      created_at: user.created_at || new Date().toISOString()
-    };
-    saveData(DB_FILE, users);
-  }
-
-  req.session.user = users[u];
-  res.json({ success: true, user: users[u] });
-});
-
-// 3. API ĐẶT CƯỢC & THUẬT TOÁN KẾT QUẢ GAME
-app.post('/api/play/:gameCode', (req, res) => {
-  if (!req.session.user) return res.status(401).json({ error: "Chưa đăng nhập!" });
-
-  const gameCode = req.params.gameCode;
-  const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
-  const gameInfo = games[gameCode] || { win_rate: 0.30, min_bet: 5000 };
-
-  const users = readData(DB_FILE);
-  const u = req.session.user.username;
-  const user = users[u];
-
-  if (!user) return res.status(404).json({ error: "Tài khoản không tồn tại!" });
-
-  const betAmount = parseInt(req.body.bet_amount) || gameInfo.min_bet;
-
-  if (user.balance < betAmount) {
-    return res.status(400).json({ 
-      error: "Số dư không đủ! Vui lòng quay ra sảnh nạp thêm tiền để tiếp tục.",
-      current_balance: user.balance 
-    });
-  }
-
-  user.balance -= betAmount;
-
-  let activeWinRate = (user.custom_win_rate !== null && user.custom_win_rate !== undefined) 
-                        ? Number(user.custom_win_rate) 
-                        : Number(gameInfo.win_rate || 0.35);
-
-  const isWin = Math.random() < activeWinRate;
-  let winAmount = 0;
-  let multiplier = 1;
-
-  if (isWin) {
-    multiplier = [2, 3, 5, 10][Math.floor(Math.random() * 4)];
-    winAmount = betAmount * multiplier;
-    user.balance += winAmount;
-  }
-
-  saveData(DB_FILE, users);
-  req.session.user = user;
-
-  res.json({
-    status: "success",
-    is_win: isWin,
-    multiplier: multiplier,
-    win_amount: winAmount,
-    new_balance: user.balance,
-    msg: isWin ? `NỔ HŨ X${multiplier}! Nhận +${winAmount.toLocaleString('vi-VN')} đ` : "Chúc bạn may mắn lần sau!"
-  });
-});
-
-// 4. BỘ API ADMIN
-app.post('/api/admin/set-balance', requireAdmin, (req, res) => {
-  const { targetUsername, mode, amount } = req.body;
-  const users = readData(DB_FILE);
-
-  if (!users[targetUsername]) {
-    return res.status(404).json({ success: false, message: "Không tìm thấy người chơi!" });
-  }
-
-  const num = Number(amount || 0);
-  if (mode === 'add') users[targetUsername].balance += num;
-  else if (mode === 'subtract') users[targetUsername].balance = Math.max(0, users[targetUsername].balance - num);
-  else if (mode === 'set') users[targetUsername].balance = num;
-
-  saveData(DB_FILE, users);
-  res.json({ success: true, message: `Đã chỉnh số dư ${targetUsername} thành ${users[targetUsername].balance.toLocaleString('vi-VN')} đ` });
-});
-
-app.post('/api/admin/set-user-bank', requireAdmin, (req, res) => {
-  const { targetUsername, bank_name, bank_account, bank_owner, new_password } = req.body;
-  const users = readData(DB_FILE);
-
-  if (!users[targetUsername]) {
-    return res.status(404).json({ success: false, message: "Không tìm thấy người chơi!" });
-  }
-
-  if (bank_name) users[targetUsername].bank_name = bank_name;
-  if (bank_account) users[targetUsername].bank_account = bank_account;
-  if (bank_owner) users[targetUsername].bank_owner = bank_owner;
-  if (new_password) users[targetUsername].password = new_password;
-
-  saveData(DB_FILE, users);
-  res.json({ success: true, message: `Đã cập nhật thông tin Profile cho ${targetUsername} thành công!` });
-});
-
-app.post('/api/admin/set-user-rtp', requireAdmin, (req, res) => {
-  const { targetUsername, rate } = req.body;
-  const users = readData(DB_FILE);
-
-  if (!users[targetUsername]) {
-    return res.status(404).json({ success: false, message: "Không tìm thấy người chơi!" });
-  }
-
-  users[targetUsername].custom_win_rate = (rate === 'default' || rate === '' || rate === null) ? null : Number(rate);
-  saveData(DB_FILE, users);
-  res.json({ success: true, message: `Đã cập nhật tỉ lệ riêng cho ${targetUsername}` });
-});
-
-app.post('/api/admin/set-game-rtp', requireAdmin, (req, res) => {
-  const { gameCode, win_rate } = req.body;
-  const games = readData(GAME_CONFIG_FILE, DEFAULT_GAMES);
-
-  if (!games[gameCode]) {
-    games[gameCode] = { name: gameCode, win_rate: 0.35, min_bet: 5000 };
-  }
-
-  games[gameCode].win_rate = Number(win_rate);
-  saveData(GAME_CONFIG_FILE, games);
-  res.json({ success: true, message: `Đã cập nhật tỉ lệ nổ game ${gameCode} thành ${Number(win_rate) * 100}%` });
+// ==========================================
+// 6. TRANG LOADING XOAY VÔ TẬN (ĐẠI LÝ, GIỚI THIỆU, TẢI APP)
+// ==========================================
+app.get('/loading-gateway', (req, res) => {
+    res.send(`<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đang kết nối máy chủ QQ88...</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #f4f6f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+        .spinner {
+            width: 54px;
+            height: 54px;
+            border: 4px solid rgba(0, 122, 51, 0.18);
+            border-top-color: #007a33;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #006837;
+            margin-bottom: 12px;
+        }
+        .progress-box {
+            width: 240px;
+            height: 6px;
+            background: #e0e5e9;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 15%;
+            height: 100%;
+            background: linear-gradient(90deg, #007a33, #00b84c);
+            animation: stallProgress 18s ease-out infinite;
+        }
+        @keyframes stallProgress {
+            0% { width: 5%; }
+            30% { width: 45%; }
+            60% { width: 78%; }
+            85% { width: 88%; }
+            100% { width: 89%; }
+        }
+        .sub-note {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner"></div>
+    <div class="status-text">Đang đồng bộ đường truyền máy chủ...</div>
+    <div class="progress-box"><div class="progress-bar"></div></div>
+    <div class="sub-note">Vui lòng không đóng trình duyệt...</div>
+</body>
+</html>`);
 });
 
 app.listen(PORT, () => {
-  console.log(`[QQ88 Server] Khởi động thành công trên cổng ${PORT}`);
+    console.log(\`🚀 Server QQ88 đang chạy tại cổng \${PORT}\`);
 });

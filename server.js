@@ -13,6 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 // Phục vụ toàn bộ file tĩnh và thư mục public/images
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ĐƯỜNG DẪN TRANG CHỦ (FIX LỖI CANNOT GET /)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // ==========================================
 // 1. CẤU HÌNH LƯU TRỮ KÉP (DATA.JSON + MONGODB)
 // ==========================================
@@ -256,7 +261,6 @@ app.post('/api/user/bind-bank', async (req, res) => {
             return res.status(404).json({ success: false, message: 'Tài khoản không tồn tại!' });
         }
 
-        // KIỂM TRA KHÓA VĨNH VIỄN: Nếu đã thêm ngân hàng rồi thì chặn tuyệt đối
         if (user.isBankLocked || (user.bankInfo && user.bankInfo.accountNumber)) {
             return res.status(403).json({
                 success: false,
@@ -282,7 +286,6 @@ app.post('/api/user/bind-bank', async (req, res) => {
             user.withdrawPassword = withdrawPassword.trim();
         }
 
-        // Khóa cứng vĩnh viễn trên hệ thống
         user.isBankLocked = true;
 
         await saveUserDual(user);
@@ -353,12 +356,11 @@ app.post('/api/user/withdraw', async (req, res) => {
 });
 
 // ==========================================
-// 5. API DÀNH RIÊNG CHO ADMIN (MỞ KHÓA / SỬA NGÂN HÀNG & SỐ DƯ)
+// 5. API DÀNH RIÊNG CHO ADMIN
 // ==========================================
 app.post('/api/admin/update-user', async (req, res) => {
     try {
         const { adminKey, username, balance, bankName, accountNumber, fullName, withdrawPassword, isBankLocked } = req.body;
-        // Mật khẩu admin mặc định hoặc cấu hình qua biến môi trường
         const VALID_ADMIN_KEY = process.env.ADMIN_KEY || 'qq88admin';
         if (adminKey !== VALID_ADMIN_KEY) {
             return res.status(403).json({ success: false, message: 'Không có quyền Admin!' });
@@ -390,7 +392,7 @@ app.post('/api/admin/update-user', async (req, res) => {
 });
 
 // ==========================================
-// 6. TRANG LOADING XOAY VÔ TẬN (ĐẠI LÝ, GIỚI THIỆU, TẢI APP)
+// 6. TRANG LOADING XOAY VÔ TẬN
 // ==========================================
 app.get('/loading-gateway', (req, res) => {
     res.send(`<!DOCTYPE html>
@@ -450,7 +452,7 @@ app.get('/loading-gateway', (req, res) => {
             100% { width: 89%; }
         }
         .sub-note {
-            margin-top: 14px;
+            onboarding-top: 14px;
             font-size: 12px;
             color: #888;
         }

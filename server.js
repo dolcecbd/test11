@@ -466,5 +466,5 @@ app.get('/loading-gateway', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(\`🚀 Server QQ88 đang chạy tại cổng \${PORT}\`);
+    console.log(`🚀 Server QQ88 đang chạy tại cổng ${PORT}`);
 });

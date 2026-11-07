@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>QQ88 - Trang Chủ Chính Thức</title>
+  <title>QQ88 - Dễ Chơi, Dễ Phát Tài</title>
   <style>
     * {
       box-sizing: border-box;
@@ -33,34 +33,14 @@
       width: 100%;
       height: auto;
     }
-    
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.3);
-    }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 4px; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* HEADER */
-    .top-promo-box {
-      width: 100%;
-      position: relative;
-    }
-    .top-promo-box img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    .top-promo-box { width: 100%; position: relative; }
     .close-promo-hitbox {
       position: absolute;
       top: 0;
@@ -70,7 +50,6 @@
       cursor: pointer;
       z-index: 10;
     }
-
     .main-header-green {
       width: 100%;
       height: 48px;
@@ -103,7 +82,6 @@
       color: #ffde00;
       font-style: italic;
       letter-spacing: -1px;
-      font-family: Arial, Helvetica, sans-serif;
     }
     .header-vip-tag {
       width: 32px;
@@ -112,11 +90,7 @@
       align-items: center;
       cursor: pointer;
     }
-    .header-vip-tag svg {
-      width: 25px;
-      height: 20px;
-      fill: #ffde00;
-    }
+    .header-vip-tag svg { width: 25px; height: 20px; fill: #ffde00; }
     .header-vip-tag span {
       font-size: 8px;
       font-weight: 900;
@@ -125,7 +99,7 @@
       margin-top: -3px;
     }
 
-    /* MARQUEE CHUẨN: Chữ đen mảnh #222222, loa xám đen, nút thư tròn vàng viền xanh */
+    /* MARQUEE CHUẨN: Chữ đen mảnh, loa xám đen, nút thư tròn vàng viền xanh */
     .marquee-bar {
       background: #ffffff;
       padding: 4px 8px;
@@ -134,12 +108,7 @@
       gap: 7px;
       border-bottom: 1px solid #dce5df;
     }
-    .marquee-bar .icon-sound {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      fill: #333333;
-    }
+    .marquee-bar .icon-sound { width: 16px; height: 16px; flex-shrink: 0; fill: #333333; }
     .marquee-mail-btn {
       width: 22px;
       height: 22px;
@@ -152,50 +121,28 @@
       flex-shrink: 0;
       cursor: pointer;
     }
-    .marquee-mail-btn svg {
-      width: 12px;
-      height: 12px;
-      fill: #005a2b;
-    }
+    .marquee-mail-btn svg { width: 12px; height: 12px; fill: #005a2b; }
     .marquee-content {
       overflow: hidden;
       white-space: nowrap;
       flex: 1;
       font-size: 11.5px;
       color: #222222;
-      font-weight: 400;
+      font-weight: 500;
     }
-    .marquee-inner {
-      display: inline-block;
-      animation: marquee 24s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+    .marquee-inner { display: inline-block; animation: marquee 24s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-    /* KHỐI TÀI KHOẢN */
-    .account-wrapper {
-      padding: 4px 8px 2px 8px;
-    }
+    /* KHỐI SẢNH CHƯA ĐĂNG NHẬP */
+    .account-wrapper { padding: 4px 8px 2px 8px; }
     .account-card {
       background: #ffffff;
       border-radius: 12px;
       padding: 4px 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       position: relative;
-      overflow: hidden;
     }
-    .guest-box {
-      width: 100%;
-      position: relative;
-    }
-    .guest-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-    }
+    .guest-box { width: 100%; position: relative; }
     .touch-btn-login {
       position: absolute;
       top: 5%;
@@ -214,72 +161,6 @@
       cursor: pointer;
       z-index: 6;
     }
-    .user-box-real {
-      width: 100%;
-      position: relative;
-    }
-    .user-phoi-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-    }
-    .real-username-label {
-      position: absolute;
-      top: 38%;
-      left: 7.5%;
-      width: 14.5%;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: #0b572a;
-      font-family: Arial, Helvetica, sans-serif;
-      letter-spacing: -0.2px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 6;
-    }
-    .real-balance-row {
-      position: absolute;
-      top: 60%;
-      left: 3%;
-      width: 28.5%;
-      height: 36%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      z-index: 6;
-      pointer-events: none;
-    }
-    .balance-coin-svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-    }
-    .real-balance-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #333333;
-      font-family: Arial, Helvetica, sans-serif;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 85px;
-      line-height: 1;
-    }
-    .touch-copy-area {
-      position: absolute;
-      top: 34%;
-      left: 22.5%;
-      width: 10%;
-      height: 34%;
-      cursor: pointer;
-      z-index: 7;
-    }
     .touch-actions-grid {
       position: absolute;
       top: 0;
@@ -289,298 +170,127 @@
       display: flex;
       z-index: 5;
     }
-    .touch-action-btn {
-      flex: 1;
-      height: 100%;
-      cursor: pointer;
-    }
+    .touch-action-btn { flex: 1; height: 100%; cursor: pointer; }
 
-    /* KHUNG MÀN HÌNH TRÀN NỘI BỘ DÙNG CHUNG */
-    .deposit-view-wrapper,
-    .internal-screen-wrapper {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      height: 100vh;
-      background: #f4f6f8;
-      z-index: 10001;
-      display: none;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-    .deposit-view-wrapper {
-      background: #ffffff;
-    }
-    .deposit-header,
-    .internal-header {
-      background: #005a2b;
-      color: #ffffff;
-      padding: 13px 16px;
+    /* KHỐI SẢNH ĐÃ ĐĂNG NHẬP (CHUẨN ẢNH 1) */
+    .user-box-layout {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      flex-shrink: 0;
+      padding: 6px 4px;
     }
-    .deposit-header {
-      background: #18191d;
+    .user-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 110px;
     }
-    .deposit-header .btn-back,
-    .internal-header .btn-back {
-      font-size: 20px;
+    .vip-badge-pill-small {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #fef08a;
+      border: 1px solid #facc15;
+      color: #854d0e;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: 12px;
+      width: fit-content;
+    }
+    .user-name-row { display: flex; align-items: center; gap: 6px; }
+    .user-name-text { font-size: 14.5px; font-weight: 800; color: #1e293b; }
+    .btn-copy-box {
+      width: 14px;
+      height: 14px;
+      background: #005a2b;
+      border-radius: 3px;
       cursor: pointer;
-      font-weight: 400;
-      width: 32px;
       display: flex;
       align-items: center;
+      justify-content: center;
+    }
+    .user-bal-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #334155;
+    }
+    .user-coin-icon {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #475569;
       color: #ffffff;
-    }
-    .deposit-header .deposit-title,
-    .internal-header .internal-title {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .deposit-header .header-record-icon {
-      position: relative;
-      cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid #cbd5e1;
     }
-    .deposit-header .header-record-icon svg {
-      width: 22px;
-      height: 22px;
-      fill: #ffffff;
+    .user-actions-row { display: flex; align-items: center; gap: 10px; }
+    .user-action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      position: relative;
     }
-    .badge-count-1 {
+    .user-action-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1.5px solid #008a38;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .user-action-icon-box svg { width: 22px; height: 22px; fill: #008a38; }
+    .user-action-label { font-size: 11px; font-weight: 800; color: #0b572a; }
+    .badge-tag-red {
       position: absolute;
-      top: -5px;
+      top: -6px;
       right: -6px;
-      background: #ef4444;
+      background: #dc2626;
       color: #ffffff;
       font-size: 9px;
       font-weight: 900;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 1px 5px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(220, 38, 38, 0.4);
     }
 
-    .deposit-body {
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 70px;
-    }
-    .deposit-sec-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: #1e293b;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 4px;
-    }
-    .deposit-sec-title .dot-orange {
-      width: 7px;
-      height: 7px;
-      background: #ea580c;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .deposit-sec-title .dot-teal {
-      width: 7px;
-      height: 7px;
-      background: #0d9488;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .methods-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    .method-item {
-      background: #ffffff;
-      border-radius: 9px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      transition: all 0.18s ease;
-      border: 1.5px solid transparent;
-      user-select: none;
-    }
-    .method-item:not(.active) { opacity: 0.92; }
-    .method-item.active {
-      border: 2px solid #e11d48 !important;
-      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.22);
-      transform: scale(1.02);
-      opacity: 1 !important;
-    }
-    .method-item.active::after {
-      content: "✓";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 17px;
-      height: 17px;
-      background: #e11d48;
-      color: #ffffff;
-      font-size: 10px;
-      font-weight: 900;
-      line-height: 17px;
-      text-align: center;
-      border-top-left-radius: 5px;
-      z-index: 10;
-      box-shadow: -1px -1px 3px rgba(0,0,0,0.15);
-    }
-    .method-item:active { transform: scale(0.96); }
-    .method-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 7px;
-      pointer-events: none;
-    }
-
-    .channels-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .channel-item {
-      background: #ffffff;
-      border: 1.2px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 15px 4px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: #1e293b;
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
-    }
-    .channel-item.active {
-      border: 1.5px solid #e11d48 !important;
-      color: #e11d48 !important;
-    }
-    .channel-ribbon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 12px;
-      height: auto;
-      pointer-events: none;
-    }
-
-    .tip-box {
-      font-size: 11.5px;
-      color: #1e293b;
-      line-height: 1.45;
-      padding: 4px 2px;
-      margin-top: 2px;
-    }
-    .notice-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 4px;
-      margin-bottom: 4px;
-    }
-    .icon-green-check {
-      color: #22c55e;
-      font-weight: 900;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-    .highlight-red {
-      color: #e11d48;
-      font-weight: 800;
-    }
-
-    .btn-deposit-next {
-      background: #e11d48;
-      color: #ffffff;
-      text-align: center;
-      padding: 13px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14.5px;
-      margin-top: 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
-    }
-
-    /* THANH TAB SẢNH GAME */
-    .cat-bar {
-      display: flex;
-      align-items: center;
-      background: #edf2ef;
-      padding: 4px 4px;
-    }
-    .cat-scroll {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 2px 2px;
-    }
+    /* TABS SẢNH GAME */
+    .cat-bar { display: flex; align-items: center; background: #edf2ef; padding: 4px 4px; }
+    .cat-scroll { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px; }
     .cat-tab-item {
       flex-shrink: 0;
       border-radius: 12px;
       cursor: pointer;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
     }
-    .cat-tab-item img {
-      height: 60px;
-      width: auto;
-      display: block;
-    }
+    .cat-tab-item img { height: 60px; width: auto; }
     .cat-tab-item.active {
       background: #eaec38 !important;
       border: 2px solid #005a2b !important;
-      box-shadow: 0 2px 6px rgba(0, 90, 43, 0.25);
       transform: scale(1.02);
     }
     .cat-tab-item:not(.active) {
       background: #f1f6f2;
       border: 1.5px solid #b6d3be;
-      opacity: 0.95;
     }
 
-    .sub-filter-header {
-      padding: 8px 10px 6px 10px;
-      background: #edf2ef;
-      display: none;
-    }
-    .search-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
+    .sub-filter-header { padding: 8px 10px 6px 10px; background: #edf2ef; display: none; }
+    .search-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .search-input-box {
       flex: 1;
       display: flex;
@@ -591,45 +301,9 @@
       padding: 6px 14px;
       gap: 8px;
     }
-    .search-input-box svg {
-      width: 16px;
-      height: 16px;
-      fill: #85988d;
-    }
-    .search-input-box input {
-      border: none;
-      outline: none;
-      width: 100%;
-      font-size: 12px;
-      color: #334155;
-      background: transparent;
-    }
-    .view-mode-icons {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .view-btn {
-      width: 32px;
-      height: 32px;
-      background: #008a38;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .view-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: #ffffff;
-    }
-    .sub-tabs-row {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-    }
+    .search-input-box svg { width: 16px; height: 16px; fill: #85988d; }
+    .search-input-box input { border: none; outline: none; width: 100%; font-size: 12px; background: transparent; }
+    .sub-tabs-row { display: flex; gap: 8px; overflow-x: auto; }
     .sub-tab-pill {
       padding: 5px 14px;
       border-radius: 16px;
@@ -641,19 +315,9 @@
       background: #ffffff;
       color: #107c41;
     }
-    .sub-tab-pill.active {
-      background: #008a38;
-      color: #ffffff;
-      border-color: #008a38;
-    }
+    .sub-tab-pill.active { background: #008a38; color: #ffffff; border-color: #008a38; }
 
-    /* BÀN CHƠI SLOT */
-    .slot-layout-container {
-      display: flex;
-      padding: 2px 8px 10px 8px;
-      gap: 8px;
-      background: #edf2ef;
-    }
+    .slot-layout-container { display: flex; padding: 2px 8px 10px 8px; gap: 8px; background: #edf2ef; }
     .brand-sidebar-left {
       width: 84px;
       flex-shrink: 0;
@@ -661,18 +325,6 @@
       flex-direction: column;
       gap: 6px;
       align-items: center;
-    }
-    .brand-scroll-arrow {
-      width: 100%;
-      height: 22px;
-      background: #b6ccbd;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-size: 11px;
-      cursor: pointer;
     }
     .brand-btn-item {
       width: 100%;
@@ -686,43 +338,14 @@
       justify-content: center;
       cursor: pointer;
       padding: 4px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-      transition: all 0.15s ease;
     }
-    .brand-btn-item.active {
-      background: #008a38 !important;
-      border-color: #008a38 !important;
-      box-shadow: 0 2px 5px rgba(0, 138, 56, 0.25);
-    }
+    .brand-btn-item.active { background: #008a38 !important; border-color: #008a38 !important; }
     .brand-btn-item.active span { color: #ffffff !important; }
-    .brand-btn-item img {
-      max-height: 28px;
-      width: auto;
-      max-width: 88%;
-      object-fit: contain;
-      display: block;
-    }
-    .brand-btn-item span {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #0b572a;
-      margin-top: 2px;
-      letter-spacing: -0.2px;
-    }
+    .brand-btn-item img { max-height: 28px; width: auto; max-width: 88%; object-fit: contain; }
+    .brand-btn-item span { font-size: 10.5px; font-weight: 800; color: #0b572a; margin-top: 2px; }
 
-    .slot-game-grid-right {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 7px;
-    }
-    .slot-card-box {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      position: relative;
-    }
-    .slot-card-box:active { transform: scale(0.96); }
+    .slot-game-grid-right { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .slot-card-box { display: flex; flex-direction: column; cursor: pointer; }
     .slot-poster-frame {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -730,14 +353,8 @@
       overflow: hidden;
       position: relative;
       background: #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-    .slot-poster-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      display: block;
-    }
+    .slot-poster-frame img { width: 100%; height: 100%; object-fit: fill; }
     .slot-tag-hot {
       position: absolute;
       top: 0;
@@ -771,58 +388,22 @@
       font-size: 10px;
       font-weight: 700;
       color: #1e293b;
-      line-height: 1.2;
       flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .slot-fav-heart {
-      font-size: 11px;
-      color: #107c41;
-      margin-left: 2px;
-      flex-shrink: 0;
-    }
 
-    .partner-grid-2col {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      padding: 6px 10px;
-    }
-    .partner-card-box {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #ffffff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      cursor: pointer;
-    }
-    .partner-card-box:active { transform: scale(0.97); }
-    .partner-card-box img { width: 100%; height: auto; display: block; }
-
-    .game-grid-hot {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      padding: 5px 8px;
-    }
+    .partner-grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 6px 10px; }
+    .partner-card-box { width: 100%; border-radius: 10px; overflow: hidden; background: #ffffff; cursor: pointer; }
+    .game-grid-hot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 5px 8px; }
     .game-card-wrapper {
       width: 100%;
       aspect-ratio: 1.45 / 1;
       border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
-      position: relative;
       background: #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    .game-card-wrapper:active { transform: scale(0.96); }
-    .game-card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      display: block;
     }
 
     /* BOTTOM NAV */
@@ -840,7 +421,6 @@
       align-items: center;
       padding: 6px 0;
       z-index: 99;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
     }
     .nav-item {
       display: flex;
@@ -849,119 +429,13 @@
       cursor: pointer;
       width: 20%;
     }
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      fill: #829288;
-    }
-    .nav-item span {
-      font-size: 10px;
-      font-weight: 700;
-      color: #64748b;
-      margin-top: 2px;
-    }
+    .nav-item svg { width: 22px; height: 22px; fill: #829288; }
+    .nav-item span { font-size: 10px; font-weight: 700; color: #64748b; margin-top: 2px; }
     .nav-item.active svg { fill: #005a2b; }
     .nav-item.active span { color: #005a2b; }
 
-    /* SIDEBAR */
-    .sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 9998;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .sidebar-drawer {
-      position: fixed;
-      top: 0;
-      left: -82%;
-      width: 76%;
-      max-width: 325px;
-      height: 100%;
-      background: #eef6f0;
-      z-index: 9999;
-      box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
-      transition: left 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    .sidebar-drawer.open { left: 0; }
-    .sidebar-overlay.open { display: block; opacity: 1; }
-    .sidebar-header-curve {
-      background: #005a2b;
-      padding: 18px 16px 14px 16px;
-      border-bottom-left-radius: 22px;
-      border-bottom-right-radius: 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 10px rgba(0, 70, 30, 0.25);
-      flex-shrink: 0;
-    }
-    .sidebar-logo-text {
-      font-size: 34px;
-      font-weight: 900;
-      color: #ffdc00;
-      font-style: italic;
-      letter-spacing: -1.5px;
-      font-family: Arial, sans-serif;
-    }
-    .sidebar-banner-terry { padding: 10px 12px 2px 12px; flex-shrink: 0; }
-    .sidebar-banner-terry img { width: 100%; border-radius: 8px; }
-    .sidebar-clock-text {
-      text-align: center;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #1e293b;
-      padding: 6px 0 10px 0;
-      font-family: Arial, sans-serif;
-      letter-spacing: -0.2px;
-      flex-shrink: 0;
-    }
-    .sidebar-menu-list { display: flex; flex-direction: column; padding: 0 14px 30px 14px; }
-    .sidebar-menu-item {
-      display: flex;
-      align-items: center;
-      padding: 11.5px 4px;
-      border-bottom: 1px solid #cfe0d4;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .sidebar-item-icon {
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      flex-shrink: 0;
-    }
-    .sidebar-item-icon img { width: 100%; height: 100%; object-fit: contain; }
-    .sidebar-item-text {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #0b572a;
-      letter-spacing: -0.3px;
-      font-family: Arial, sans-serif;
-    }
-    .sidebar-bottom-curve {
-      height: 48px;
-      background: linear-gradient(180deg, rgba(167, 218, 183, 0.4) 0%, #86cd9e 100%);
-      border-top-left-radius: 50% 18px;
-      border-top-right-radius: 50% 18px;
-      margin-top: 10px;
-      flex-shrink: 0;
-    }
-
-    /* MÀN HÌNH ĐĂNG KÝ / ĐĂNG NHẬP TRÀN VIỀN JOHN TERRY */
-    .modal-overlay {
+    /* KHUNG MÀN HÌNH TRÀN CHUNG */
+    .internal-screen-wrapper, .deposit-view-wrapper {
       position: fixed;
       top: 0;
       left: 50%;
@@ -969,366 +443,272 @@
       width: 100%;
       max-width: 430px;
       height: 100vh;
-      background: #eef5f0;
+      background: #f8fafc;
+      z-index: 10001;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .internal-header {
+      background: #005a2b;
+      color: #ffffff;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+    .internal-header.dark { background: #18191d; }
+    .internal-header .btn-back { font-size: 22px; cursor: pointer; width: 30px; color: #fff; }
+    .internal-header .internal-title { font-size: 17px; font-weight: 800; }
+
+    /* MÀN HÌNH ĐĂNG KÝ & ĐĂNG NHẬP (CHUẨN ẢNH 2-6) */
+    .auth-fullscreen-view {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background: #ffffff;
       z-index: 10002;
       display: none;
       flex-direction: column;
       overflow-y: auto;
     }
-    .auth-terry-top {
-      position: relative;
-      width: 100%;
-      background: linear-gradient(135deg, #004d25 0%, #007a3d 100%);
-      overflow: hidden;
-    }
-    .auth-terry-top img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .auth-close-circle {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1.5px solid rgba(255, 255, 255, 0.7);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      z-index: 10;
-    }
-    .auth-sig-bar {
-      background: #ffffff;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #d8e6dc;
-    }
-    .auth-sig-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .auth-sig-logo {
-      font-size: 24px;
-      font-weight: 900;
-      color: #005a2b;
-      font-style: italic;
-      font-family: Arial, sans-serif;
-    }
-    .auth-sig-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: #334155;
-      line-height: 1.25;
-    }
-    .auth-sig-autograph {
-      font-family: "Brush Script MT", cursive, sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: #0b572a;
-      font-style: italic;
-    }
-    .modal-content {
-      background: #ffffff;
-      width: 100%;
-      flex: 1;
-      padding: 16px 18px 28px 18px;
-    }
-    .modal-tabs { display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 16px; }
-    .modal-tab-btn {
-      flex: 1;
+    .auth-header-green {
+      background: #006837;
+      padding: 16px 14px 20px 14px;
       text-align: center;
-      padding: 10px 0;
-      font-size: 14.5px;
+      position: relative;
+    }
+    .auth-close-yellow {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      color: #e2ec37;
+      font-size: 24px;
+      cursor: pointer;
+      font-weight: 300;
+    }
+    .auth-logo-text { font-size: 44px; font-weight: 900; color: #facc15; font-style: italic; line-height: 1; }
+    .auth-slogan-text {
+      font-size: 19px;
       font-weight: 800;
-      color: #64748b;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -2px;
+      color: #facc15;
+      font-style: italic;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
     }
-    .modal-tab-btn.active { color: #005a2b; border-bottom-color: #005a2b; }
-    .input-group { margin-bottom: 12px; }
-    .input-label { display: block; font-size: 11.5px; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
-    .input-field {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1.2px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 13px;
-      outline: none;
+    .auth-form-card {
       background: #f8fafc;
+      border-radius: 0 0 20px 20px;
+      padding: 16px 16px 22px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
-    .input-field:focus { border-color: #005a2b; background: #ffffff; }
-    .btn-submit {
-      width: 100%;
-      padding: 12px 0;
-      background: linear-gradient(90deg, #006b34 0%, #004d25 100%);
-      color: #ffde00;
-      font-size: 14px;
-      font-weight: 900;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 8px;
-      box-shadow: 0 4px 10px rgba(0, 90, 43, 0.25);
-    }
-    .auth-utilities-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 22px;
-      padding-top: 16px;
-      border-top: 1px dashed #cbd5e1;
-    }
-    .auth-util-item {
+    .auth-ambassador-row {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .auth-ambassador-meta { display: flex; flex-direction: column; line-height: 1.3; }
+    .auth-ambassador-meta strong { font-size: 13.5px; color: #000; }
+    .auth-ambassador-meta span { font-size: 12px; color: #475569; }
+    .auth-sig-img { height: 38px; width: auto; object-fit: contain; }
+
+    .pill-input-group {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 99px;
+      padding: 0 14px;
+      height: 44px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .pill-input-icon { width: 20px; height: 20px; margin-right: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .pill-input-icon svg { width: 100%; height: 100%; fill: #007a33; }
+    .pill-input-field { border: none; outline: none; flex: 1; font-size: 13px; color: #1e293b; background: transparent; }
+    .pill-input-right-icon { width: 20px; height: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .pill-input-right-icon svg { width: 100%; height: 100%; fill: #94a3b8; }
+    .phone-prefix-box {
+      display: flex;
       align-items: center;
       gap: 5px;
-      cursor: pointer;
-    }
-    .auth-util-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #edf7f0;
-      border: 1px solid #b7dec4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #005a2b;
-      font-size: 16px;
-      font-weight: 800;
-    }
-    .auth-util-item span {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #334155;
-    }
-
-    /* ĐIỂM NẠP */
-    .points-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px 6px; margin-top: 10px; }
-    .point-item {
-      background: #ffffff;
-      border: 1.2px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 10px 2px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: #334155;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.15s ease;
-    }
-    .point-item.active { border-color: #e11d48; color: #e11d48; }
-    .point-bonus-tag {
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #ef4444;
-      color: #ffffff;
-      font-size: 7.5px;
-      font-weight: 900;
-      padding: 2px 5px;
-      border-radius: 4px;
-      white-space: nowrap;
-      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
-    }
-    .custom-amount-input {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1.2px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 15px;
-      background: #ffffff;
-    }
-    .custom-amount-input input {
-      border: none;
-      outline: none;
+      padding-right: 8px;
+      margin-right: 8px;
+      border-right: 1px solid #cbd5e1;
       font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+    }
+    .auth-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 10px 4px 14px 4px;
+      font-size: 12px;
+      color: #1e293b;
       font-weight: 600;
-      color: #1e293b;
-      flex: 1;
+    }
+    .auth-checkbox-row input { accent-color: #007a33; width: 15px; height: 15px; }
+    .btn-pill-auth-action {
       width: 100%;
-    }
-    .custom-amount-suffix {
-      font-size: 13px;
-      font-weight: 800;
-      color: #1e293b;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .custom-amount-bonus { color: #ef4444; font-size: 11px; }
-    .vnd-conversion { font-size: 13.5px; font-weight: 700; color: #0f172a; margin-top: 15px; margin-bottom: 5px; }
-
-    .promo-section { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-    .promo-radio {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 1.5px solid #ef4444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      height: 44px;
+      background: #e2ec37;
+      color: #005a2b;
+      font-size: 15px;
+      font-weight: 900;
+      border: none;
+      border-radius: 99px;
       cursor: pointer;
-    }
-    .promo-radio.active::after {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #ef4444;
-      border-radius: 50%;
-    }
-    .promo-banner {
-      flex: 1;
-      background: linear-gradient(90deg, #ff8a4c 0%, #ff3b6a 100%);
-      border-radius: 8px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 12px 10px;
-      overflow: hidden;
-      box-shadow: 0 3px 6px rgba(255, 59, 106, 0.25);
-    }
-    .promo-tag-corner {
-      position: absolute;
-      top: 6px;
-      left: -16px;
-      background: rgba(255,255,255,0.25);
-      color: #ffffff;
-      font-size: 6px;
-      font-weight: 900;
-      padding: 2px 16px;
-      transform: rotate(-40deg);
-      letter-spacing: 0.5px;
-    }
-    .promo-left-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-right: 1px solid rgba(255,255,255,0.4);
-      padding-right: 10px;
-    }
-    .promo-right-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-left: 10px;
-    }
-    .promo-title-main { color: #ffffff; font-size: 12.5px; font-weight: 700; }
-    .promo-title-sub { color: #ffffff; font-size: 14.5px; font-weight: 900; }
-    .promo-money { color: #ffffff; font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 4px; }
-    .promo-money-desc { color: #ffffff; font-size: 8.5px; font-weight: 600; opacity: 0.95; }
-    .promo-go-btn {
-      background: #ffffff;
-      color: #ff3b6a;
-      font-size: 12px;
-      font-weight: 900;
-      padding: 14px 10px;
-      border-radius: 6px;
-      margin-left: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 8px rgba(226, 236, 55, 0.4);
     }
+    .auth-switch-link-row { text-align: center; margin-top: 12px; font-size: 12.5px; color: #334155; }
+    .auth-switch-link-row span { color: #007a33; font-weight: 800; text-decoration: underline; cursor: pointer; }
 
-    .payment-details-box { border: 1px solid #e2e8f0; border-radius: 8px; margin-top: 10px; overflow: hidden; }
-    .payment-row { display: flex; justify-content: space-between; padding: 12px 14px; font-size: 11.5px; font-weight: 600; color: #475569; }
-    .payment-row:not(:last-child) { border-bottom: 1px solid #f1f5f9; }
-    .payment-row.bg-gray { background: #fdf2f4; }
-    .payment-val { font-weight: 800; color: #1e293b; }
-    .payment-val.red { color: #e11d48; }
-
-    /* MÀN HÌNH ACB */
-    #payment-confirm-view { background-color: #f4f6f8; padding-bottom: 30px; }
-    .pay-confirm-header {
-      background: #ffffff;
+    .auth-login-util-sections {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 30;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed #cbd5e1;
     }
-    .pay-confirm-header .bank-logo {
-      color: #0b459c;
-      font-size: 24px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -1px;
-    }
-    .pay-confirm-header .header-actions { display: flex; align-items: center; gap: 10px; }
-    .btn-pc-cancel {
-      background: #7a7a7a;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 16px;
-      cursor: pointer;
-    }
-    .btn-pc-close {
-      width: 26px;
-      height: 26px;
-      background: #7a7a7a;
-      color: #ffffff;
+    .auth-util-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .auth-util-group-title { font-size: 11px; font-weight: 800; color: #000000; }
+    .auth-util-items-row { display: flex; gap: 14px; }
+    .auth-util-sub-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+    .auth-util-sub-btn-box {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
+      border: 1.5px solid #007a33;
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
+    }
+    .auth-util-sub-btn-box svg { width: 18px; height: 18px; fill: #007a33; }
+    .auth-util-sub-btn span { font-size: 10px; font-weight: 800; color: #007a33; }
+    .auth-bottom-terry-box { padding: 16px 14px 24px 14px; text-align: center; }
+    .auth-terry-3men-img { width: 100%; max-width: 380px; margin: 0 auto; }
+    .auth-terry-bottom-text { font-size: 32px; font-weight: 900; font-style: italic; color: #007a33; letter-spacing: 1px; margin-top: 10px; }
+
+    /* MÀN HÌNH TÀI KHOẢN (THÔNG TIN - CHUẨN ẢNH 7 & 8) */
+    .vip-card-metal-gold {
+      margin: 12px;
+      background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #ffffff;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+    }
+    .vip-card-head-row { display: flex; align-items: center; gap: 12px; }
+    .vip-avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .vip-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .vip-user-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .vip-level-pill-gold {
+      background: #475569;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 10px;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .vip-username-title-row { display: flex; align-items: center; gap: 6px; }
+    .vip-username-title { font-size: 16px; font-weight: 900; color: #0f172a; }
+    .btn-copy-black-square { width: 14px; height: 14px; background: #0f172a; border-radius: 3px; cursor: pointer; }
+    .vip-joindate-text { font-size: 11px; font-weight: 600; color: #334155; }
+    .btn-checkin-red-ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-bottom-left-radius: 12px;
+      border-top-right-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       cursor: pointer;
     }
-    .pay-info-card { background: #ffffff; margin-top: 1px; padding: 0 16px; }
-    .pay-info-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-    .pay-info-row:last-child { border-bottom: none; }
-    .pay-info-label { color: #64748b; font-weight: 500; }
-    .pay-info-value { color: #1e293b; font-weight: 600; text-align: right; }
-    .pay-info-value.amount { font-weight: 800; }
-    .pay-qr-card { background: #ffffff; margin-top: 10px; border-top: 2px solid #1da1f2; padding: 16px; }
-    .pay-timer { display: flex; align-items: center; justify-content: center; gap: 6px; color: #d97706; font-weight: 700; font-size: 14px; margin-bottom: 20px; }
-    .pay-timer svg { width: 16px; height: 16px; fill: #d97706; }
-    
-    .qr-split-layout { display: flex; gap: 16px; }
-    .qr-left-col { width: 40%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .qr-box { width: 100%; aspect-ratio: 1/1; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px; }
-    .qr-box img { width: 100%; height: 100%; object-fit: contain; }
-    .btn-download-qr { border: 1px solid #0b459c; color: #0b459c; font-size: 12px; font-weight: 700; padding: 8px 0; width: 100%; text-align: center; border-radius: 6px; cursor: pointer; }
-    .qr-right-col { flex: 1; display: flex; flex-direction: column; gap: 16px; }
-    .copy-group { display: flex; flex-direction: column; gap: 4px; }
-    .copy-label { font-size: 11px; color: #64748b; font-weight: 500; }
-    .copy-val-row { display: flex; align-items: center; justify-content: space-between; }
-    .copy-text-val { color: #d97706; font-weight: 700; font-size: 14px; word-break: break-all; }
-    .btn-copy-icon { width: 24px; height: 24px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-    .btn-copy-icon svg { width: 14px; height: 14px; fill: #0b459c; }
-    .pay-warning-box { margin: 20px 16px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px; display: flex; gap: 8px; align-items: flex-start; }
-    .pay-warning-box svg { width: 16px; height: 16px; fill: #2cb3e4; flex-shrink: 0; margin-top: 2px; }
-    .pay-warning-box p { font-size: 11px; color: #475569; line-height: 1.4; }
-    .btn-check-result { margin: 10px 16px; background: #005a2b; color: #ffffff; text-align: center; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 14.5px; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 90, 43, 0.25); }
+    .vip-balance-large-row { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 10px 0; }
+    .vip-balance-big-text { font-size: 26px; font-weight: 900; color: #0f172a; }
+    .vip-refresh-icon { font-size: 18px; color: #475569; cursor: pointer; }
+    .vip-quick-3btns-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .vip-btn-light-pill {
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      border-radius: 20px;
+      padding: 7px 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #451a03;
+      cursor: pointer;
+    }
+    .prof-sub-title-pill {
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin: 8px 12px 4px 12px;
+      width: fit-content;
+    }
+    .prof-grid-16-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px; padding: 12px 8px 30px 8px; }
+    .prof-grid-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; cursor: pointer; position: relative; }
+    .prof-grid-icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid #fed7aa;
+      background: #fffbeb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d97706;
+      font-size: 22px;
+    }
+    .prof-grid-label { font-size: 11px; font-weight: 600; color: #334155; line-height: 1.25; }
+    .prof-red-badge-num {
+      position: absolute;
+      top: -4px;
+      left: 12px;
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
 
-    /* MÀN HÌNH KHUYẾN MÃI (10 DANH MỤC) */
+    /* KHUYẾN MÃI (10 DANH MỤC LỌC BANNER) */
     .promo-cats-bar {
       display: flex;
       gap: 6px;
@@ -1351,18 +731,8 @@
       color: #0b572a;
       border: 1px solid #c8d8ce;
     }
-    .promo-cat-pill.active {
-      background: #005a2b;
-      color: #ffde00;
-      border-color: #005a2b;
-    }
-    .promo-banners-list {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 40px;
-    }
+    .promo-cat-pill.active { background: #005a2b; color: #ffde00; border-color: #005a2b; }
+    .promo-banners-list { padding: 12px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 40px; }
     .promo-card-item {
       background: #ffffff;
       border-radius: 10px;
@@ -1403,12 +773,8 @@
       color: #1e293b;
     }
 
-    /* MÀN HÌNH HOÀN TRẢ */
-    .rebate-tabs-bar {
-      display: flex;
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-    }
+    /* HOÀN TRẢ */
+    .rebate-tabs-bar { display: flex; background: #ffffff; border-bottom: 1px solid #e2e8f0; }
     .rebate-tab-item {
       flex: 1;
       text-align: center;
@@ -1419,10 +785,7 @@
       cursor: pointer;
       border-bottom: 2.5px solid transparent;
     }
-    .rebate-tab-item.active {
-      color: #005a2b;
-      border-bottom-color: #005a2b;
-    }
+    .rebate-tab-item.active { color: #005a2b; border-bottom-color: #005a2b; }
     .rebate-summary-card {
       margin: 14px;
       background: linear-gradient(135deg, #005a2b 0%, #008a38 100%);
@@ -1432,101 +795,8 @@
       box-shadow: 0 4px 12px rgba(0, 90, 43, 0.2);
     }
 
-    /* MÀN HÌNH TÀI KHOẢN CÁ NHÂN (VIP + 16 TIỆN ÍCH) */
-    .vip-gold-card {
-      margin: 12px;
-      background: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #ca8a04 100%);
-      border-radius: 14px;
-      padding: 16px;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(202, 138, 4, 0.3);
-      position: relative;
-    }
-    .vip-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .vip-badge-pill {
-      background: #004d25;
-      color: #ffde00;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 900;
-    }
-    .btn-checkin-pill {
-      background: #ffffff;
-      color: #b45309;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    .profile-quick-actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin: 0 12px 12px 12px;
-    }
-    .profile-quick-btn {
-      background: #ffffff;
-      border: 1.5px solid #005a2b;
-      border-radius: 10px;
-      padding: 11px;
-      text-align: center;
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #005a2b;
-      cursor: pointer;
-    }
-    .profile-quick-btn.primary {
-      background: #005a2b;
-      color: #ffde00;
-    }
-    .profile-grid-16 {
-      background: #ffffff;
-      margin: 0 12px 16px 12px;
-      border-radius: 12px;
-      padding: 14px 8px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px 6px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    }
-    .profile-util-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .profile-util-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: #edf7f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #005a2b;
-    }
-    .profile-util-box span {
-      font-size: 11px;
-      font-weight: 700;
-      color: #334155;
-      line-height: 1.2;
-    }
-
-    /* MÀN HÌNH RÚT TIỀN (3 TAB + KHÓA CỨNG NGÂN HÀNG) */
-    .wd-tabs-bar {
-      display: flex;
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-    }
+    /* RÚT TIỀN (3 TAB + KHÓA CỨNG NGÂN HÀNG) */
+    .wd-tabs-bar { display: flex; background: #ffffff; border-bottom: 1px solid #e2e8f0; }
     .wd-tab-btn {
       flex: 1;
       text-align: center;
@@ -1537,10 +807,7 @@
       cursor: pointer;
       border-bottom: 2.5px solid transparent;
     }
-    .wd-tab-btn.active {
-      color: #005a2b;
-      border-bottom-color: #005a2b;
-    }
+    .wd-tab-btn.active { color: #005a2b; border-bottom-color: #005a2b; }
     .wd-card-slot {
       margin: 14px;
       background: #ffffff;
@@ -1575,6 +842,118 @@
       padding: 2px 8px;
       border-radius: 12px;
     }
+    .input-group { margin-bottom: 12px; }
+    .input-label { display: block; font-size: 11.5px; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
+    .input-field {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.2px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      background: #ffffff;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #006b34 0%, #004d25 100%);
+      color: #ffde00;
+      font-size: 14px;
+      font-weight: 900;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* NẠP TIỀN SUNPAY + ACB */
+    .deposit-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 70px; }
+    .deposit-sec-title { font-size: 14px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 7px; }
+    .deposit-sec-title .dot-orange { width: 7px; height: 7px; background: #ea580c; border-radius: 50%; display: inline-block; }
+    .deposit-sec-title .dot-teal { width: 7px; height: 7px; background: #0d9488; border-radius: 50%; display: inline-block; }
+    .methods-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .method-item {
+      background: #ffffff;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .method-item.active { border: 2px solid #e11d48 !important; }
+    .channels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .channel-item {
+      background: #ffffff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 15px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #1e293b;
+      cursor: pointer;
+    }
+    .channel-item.active { border: 1.5px solid #e11d48 !important; color: #e11d48 !important; }
+    .points-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px 6px; margin-top: 10px; }
+    .point-item {
+      background: #ffffff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 2px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      position: relative;
+    }
+    .point-item.active { border-color: #e11d48; color: #e11d48; }
+    .point-bonus-tag {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    .btn-deposit-next {
+      background: #e11d48;
+      color: #ffffff;
+      text-align: center;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14.5px;
+      cursor: pointer;
+    }
+
+    #payment-confirm-view { background-color: #f4f6f8; }
+    .pay-confirm-header {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .pay-info-card { background: #ffffff; padding: 0 16px; }
+    .pay-info-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .pay-qr-card { background: #ffffff; margin-top: 10px; padding: 16px; }
+    .qr-split-layout { display: flex; gap: 16px; }
+    .qr-left-col { width: 40%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .qr-box { width: 100%; aspect-ratio: 1/1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 4px; }
+    .qr-right-col { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+    .copy-group { display: flex; flex-direction: column; gap: 4px; }
+    .copy-text-val { color: #d97706; font-weight: 700; font-size: 14px; }
 
     /* TOAST */
     .toast-container {
@@ -1595,89 +974,24 @@
       text-align: center;
       white-space: nowrap;
       pointer-events: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    .toast-container.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast-container.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
   <div id="app-toast" class="toast-container">Thông báo</div>
 
-  <!-- SIDEBAR MENU 3 GẠCH -->
-  <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
-
-  <div id="sidebar-drawer" class="sidebar-drawer no-scrollbar">
-    <div class="sidebar-header-curve">
-      <div class="sidebar-logo-text">QQ88</div>
-    </div>
-
-    <div class="sidebar-banner-terry">
-      <img src="/images/sidebar_terry.png" onerror="handleImgErr(this, ['/images/sidebar_terry.jpg', '/images/dai su thuong hieu.jpg', '/images/dai su thuong hieu.png'])" alt="John Terry">
-    </div>
-
-    <div id="sidebar-live-clock" class="sidebar-clock-text">10/10/2026 02:25:00 (GMT+7)</div>
-
-    <div class="sidebar-menu-list">
-      <div class="sidebar-menu-item" onclick="handleMenuClick('daisu')">
-        <div class="sidebar-item-icon"><img src="/images/ic_daisu.png" onerror="handleImgErr(this, ['/images/ic_daisu.PNG'])" alt="Đại Sứ"></div>
-        <span class="sidebar-item-text">ĐẠI SỨ</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('facebook')">
-        <div class="sidebar-item-icon"><img src="/images/ic_fb.png" onerror="handleImgErr(this, ['/images/ic_fb.PNG', '/images/facebook.png'])" alt="Facebook"></div>
-        <span class="sidebar-item-text">FACEBOOK</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('warp')">
-        <div class="sidebar-item-icon"><img src="/images/ic_warp.png" onerror="handleImgErr(this, ['/images/ic_warp.PNG', '/images/1.1.1.1.png'])" alt="1.1.1.1"></div>
-        <span class="sidebar-item-text">TẢI 1.1.1.1</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('camnang')">
-        <div class="sidebar-item-icon"><img src="/images/ic_camnang.png" onerror="handleImgErr(this, ['/images/ic_camnang.PNG', '/images/cam navigation.png'])" alt="Cẩm Nang"></div>
-        <span class="sidebar-item-text">CẨM NANG HƯỚNG DẪN</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('gopy')">
-        <div class="sidebar-item-icon"><img src="/images/ic_gopy.png" onerror="handleImgErr(this, ['/images/ic_gopy.PNG', '/images/gop y.png'])" alt="Góp Ý"></div>
-        <span class="sidebar-item-text">GÓP Ý NHẬN QUÀ</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('quenmatkhau')">
-        <div class="sidebar-item-icon"><img src="/images/ic_pass.png" onerror="handleImgErr(this, ['/images/ic_pass.PNG', '/images/mat khau.png'])" alt="Mật Khẩu"></div>
-        <span class="sidebar-item-text">LẤY LẠI MẬT KHẨU</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('khieunai')">
-        <div class="sidebar-item-icon"><img src="/images/ic_khieunai.png" onerror="handleImgErr(this, ['/images/ic_khieunai.PNG', '/images/khieu nai.png'])" alt="Khiếu Nại"></div>
-        <span class="sidebar-item-text">KHIẾU NẠI</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('thiennguyen')">
-        <div class="sidebar-item-icon"><img src="/images/ic_thiennguyen.png" onerror="handleImgErr(this, ['/images/ic_thiennguyen.PNG', '/images/thien nguyen.png'])" alt="Thiện Nguyện"></div>
-        <span class="sidebar-item-text">QUỸ THIỆN NGUYỆN</span>
-      </div>
-      <div class="sidebar-menu-item" onclick="handleMenuClick('daily')">
-        <div class="sidebar-item-icon"><img src="/images/ic_daily.png" onerror="handleImgErr(this, ['/images/ic_daily.PNG', '/images/daily.png'])" alt="Đại Lý"></div>
-        <span class="sidebar-item-text">ĐĂNG KÝ ĐẠI LÝ</span>
-      </div>
-      <div class="sidebar-menu-item" id="sidebar-auth-btn" onclick="handleSidebarAuth()">
-        <div class="sidebar-item-icon"><img src="/images/ic_login.png" onerror="handleImgErr(this, ['/images/ic_login.PNG', '/images/dang nhap.png'])" alt="Đăng Nhập"></div>
-        <span class="sidebar-item-text" id="sidebar-auth-text">ĐĂNG NHẬP</span>
-      </div>
-    </div>
-    <div class="sidebar-bottom-curve"></div>
-  </div>
-
   <div class="app-wrapper">
-
-    <!-- 1. HEADER BANNER QUẢNG CÁO -->
+    <!-- 1. BANNER TRÊN ĐẦU -->
     <div id="top-promo-section" class="top-promo-box">
       <img src="/images/top_promo.png" onerror="handleImgErr(this, ['/images/top_promo.PNG', '/images/top_promo.jpg'])" alt="Banner Khuyến Mãi">
-      <div class="close-promo-hitbox" onclick="closePromoBanner()" title="Tắt quảng cáo"></div>
+      <div class="close-promo-hitbox" onclick="closePromoBanner()"></div>
     </div>
 
-    <!-- 2. THANH HEADER XANH LÁ QQ88 -->
+    <!-- 2. THANH HEADER XANH LÁ -->
     <div class="main-header-green">
-      <div class="header-btn-toggle" onclick="openSidebar()" title="Mở menu">
+      <div class="header-btn-toggle" onclick="showToast('Menu tiện ích')" title="Mở menu">
         <span></span><span></span><span></span>
       </div>
       <div class="header-logo-title">QQ88</div>
@@ -1692,28 +1006,27 @@
       <img src="/images/nen 3.jpg" onerror="handleImgErr(this, ['/images/nen%203.png', '/images/nen 3.JPG', '/images/nen 3.PNG'])" alt="Hero Banner">
     </div>
 
-    <!-- 4. MARQUEE: Chữ đen mảnh #222222, loa xám đen, nút tròn thư vàng viền xanh -->
+    <!-- 4. MARQUEE CHUẨN ẢNH 1 -->
     <div class="marquee-bar">
       <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <div class="marquee-content">
         <div class="marquee-inner">
-          Địa chỉ chính thức của chúng tôi là: https://qq88a3.com/ ( PC ), 8888386.com ( Mobile ) — Ngày hội thành viên 01 - 16 - 26 tặng thêm 5% — Kích hoạt App 1.1.1.1 truy cập QQ88 mượt mà!
+          TẢI VÀ BẬT APP 1.1.1.1 TRUY CẬP QQ88 KHÔNG CHẶN — NGÀY HỘI THÀNH VIÊN 01 - 16 - 26 TẶNG THÊM 5% NẠP TIỀN
         </div>
       </div>
-      <div class="marquee-mail-btn" onclick="showToast('Hộp thư hệ thống (0 tin mới)')">
+      <div class="marquee-mail-btn" onclick="showToast('Hộp thư hệ thống (0)')">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
       </div>
     </div>
 
-    <!-- 5. KHỐI TÀI KHOẢN & SỐ DƯ ĐỘNG -->
+    <!-- 5. KHỐI TÀI KHOẢN HỘI VIÊN -->
     <div class="account-wrapper">
       <div class="account-card">
         <!-- CHƯA ĐĂNG NHẬP -->
         <div id="guest-zone" class="guest-box" style="display: block;">
-          <img src="/images/nen 5.png" class="guest-img" alt="Guest Bar">
-          <div class="touch-btn-login" onclick="openAuthModal('login')"></div>
-          <div class="touch-btn-reg" onclick="openAuthModal('register')"></div>
-          <!-- 4 nút tiện ích bên phải khi chưa login: Đổi Quà, Tin Tức, Đại Lý, Giới Thiệu -->
+          <img src="/images/nen 5.png" alt="Guest Bar">
+          <div class="touch-btn-login" onclick="openLoginView()"></div>
+          <div class="touch-btn-reg" onclick="openRegisterView()"></div>
           <div class="touch-actions-grid">
             <div class="touch-action-btn" onclick="window.open('https://quatangqq88.pages.dev', '_blank')" title="Đổi Quà"></div>
             <div class="touch-action-btn" onclick="window.open('https://giaitriqq88.com', '_blank')" title="Tin Tức"></div>
@@ -1722,27 +1035,54 @@
           </div>
         </div>
 
-        <!-- ĐÃ ĐĂNG NHẬP -->
-        <div id="user-zone" class="user-box-real" style="display: none;">
-          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
-          <span class="real-username-label" id="display-username">quanmi112</span>
-          
-          <div class="real-balance-row">
-            <svg class="balance-coin-svg" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="11" fill="#595959"/>
-              <circle cx="12" cy="12" r="8.3" fill="none" stroke="#e2e2e2" stroke-width="1.2"/>
-              <text x="12" y="16.2" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="bold" font-family="Arial, sans-serif">$</text>
-            </svg>
-            <span class="real-balance-label" id="display-balance">0K</span>
+        <!-- ĐÃ ĐĂNG NHẬP (CHUẨN ẢNH 1) -->
+        <div id="user-zone" class="user-box-layout" style="display: none;">
+          <div class="user-info-col">
+            <div class="vip-badge-pill-small">
+              <span>🏅 VIP0</span>
+            </div>
+            <div class="user-name-row">
+              <span class="user-name-text" id="display-username">quanmi112</span>
+              <div class="btn-copy-box" onclick="copyUsername()" title="Sao chép">
+                <svg viewBox="0 0 24 24" style="width: 10px; height: 10px; fill: #fff;"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              </div>
+            </div>
+            <div class="user-bal-row">
+              <div class="user-coin-icon">$</div>
+              <span id="display-balance">1K</span>
+            </div>
           </div>
-          
-          <div class="touch-copy-area" onclick="copyUsername()" title="Sao chép tên"></div>
-          
-          <div class="touch-actions-grid">
-            <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
-            <div class="touch-action-btn" onclick="openWithdrawView()" title="Rút Tiền"></div>
-            <div class="touch-action-btn" onclick="openLoadingGateway()" title="Đại Lý"></div>
-            <div class="touch-action-btn" onclick="openLoadingGateway()" title="Giới Thiệu"></div>
+
+          <div class="user-actions-row">
+            <div class="user-action-item" onclick="openDepositView()">
+              <div class="user-action-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+              </div>
+              <span class="user-action-label">Nạp Tiền</span>
+            </div>
+
+            <div class="user-action-item" onclick="openWithdrawView()">
+              <div class="user-action-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              </div>
+              <span class="user-action-label">Rút Tiền</span>
+            </div>
+
+            <div class="user-action-item" onclick="openLoadingGateway()">
+              <div class="user-action-icon-box">
+                <span class="badge-tag-red">60%</span>
+                <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+              </div>
+              <span class="user-action-label">Đại Lý</span>
+            </div>
+
+            <div class="user-action-item" onclick="openLoadingGateway()">
+              <div class="user-action-icon-box">
+                <span class="badge-tag-red">+276K</span>
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+              </div>
+              <span class="user-action-label">Giới Thiệu</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1750,7 +1090,6 @@
 
     <!-- 6. THANH TAB SẢNH GAME -->
     <div class="cat-bar">
-      <img src="/images/ngoac trai.png" onerror="handleImgErr(this, ['/images/ngoac%20trai.PNG'])" onclick="navScroll(-80)" style="width: auto; height: 24px; cursor: pointer;" alt="<">
       <div id="cat-list" class="cat-scroll no-scrollbar">
         <div class="cat-tab-item active" data-cat="hot" onclick="switchCategory('hot', this)">
           <img src="/images/hot nhat.png" onerror="handleImgErr(this, ['/images/hot%20nhat.PNG'])" alt="Hot Nhất">
@@ -1780,49 +1119,41 @@
           <img src="/images/e-sports.png" onerror="handleImgErr(this, ['/images/e-sports.PNG'])" alt="E-Sports">
         </div>
       </div>
-      <img src="/images/ngoac phai.png" onerror="handleImgErr(this, ['/images/ngoac%20phai.PNG'])" onclick="navScroll(80)" style="width: auto; height: 24px; cursor: pointer;" alt=">">
     </div>
 
-    <!-- 7. TÌM KIẾM & TAB PHỤ SẢNH ĐIỆN TỬ -->
+    <!-- 7. TÌM KIẾM SẢNH ĐIỆN TỬ -->
     <div id="sub-filter-header" class="sub-filter-header">
       <div class="search-row">
         <div class="search-input-box">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input type="text" id="game-search-input" placeholder="Tìm kiếm trò chơi" oninput="handleSearchGame(this.value)">
-        </div>
-        <div class="view-mode-icons">
-          <div class="view-btn"><svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg></div>
+          <input type="text" placeholder="Tìm kiếm trò chơi" oninput="handleSearchGame(this.value)">
         </div>
       </div>
       <div class="sub-tabs-row no-scrollbar">
-        <div class="sub-tab-pill active" onclick="switchSubFilter('all', this)">TẤT CẢ</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('hot', this)">HOT NHẤT</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('history', this)">LỊCH SỬ</div>
-        <div class="sub-tab-pill" onclick="switchSubFilter('favorite', this)">YÊU THÍCH</div>
+        <div class="sub-tab-pill active">TẤT CẢ</div>
+        <div class="sub-tab-pill">HOT NHẤT</div>
+        <div class="sub-tab-pill">LỊCH SỬ</div>
+        <div class="sub-tab-pill">YÊU THÍCH</div>
       </div>
     </div>
 
-    <!-- 8. VÙNG VIEWPORT CHỨA GAME -->
+    <!-- 8. VÙNG VIEWPORT GAME -->
     <div id="game-content-viewport"></div>
 
-    <!-- 9. HỘI VIÊN THẮNG LỚN -->
+    <!-- 9. BANNER CHÂN TRANG -->
     <div style="padding: 4px 6px;">
-      <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png', '/images/hoi vien thang lon.png', '/images/hoi vien thang lon.JPG'])" style="border-radius: 10px;" alt="Hội Viên Thắng Lớn">
+      <img src="/images/hoi vien thang lon.jpg" onerror="handleImgErr(this, ['/images/hoi%20vien%20thang%20lon.png'])" style="border-radius: 10px;" alt="Hội Viên Thắng Lớn">
     </div>
-
-    <!-- 10. ĐẠI SỨ THƯƠNG HIỆU -->
     <div style="padding: 4px 6px;">
-      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png', '/images/dai su thuong hieu.png', '/images/dai su thuong hieu.JPG'])" style="border-radius: 10px;" alt="John Terry">
+      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/dai%20su%20thuong%20hieu.png'])" style="border-radius: 10px;" alt="John Terry">
     </div>
-
-    <!-- 11. CHIẾN DỊCH THƯƠNG HIỆU & GIẤY PHÉP -->
     <div style="padding: 4px 6px; margin-bottom: 8px;">
-      <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png', '/images/chien dich thuong hieu.png', '/images/chien dich thuong hieu.JPG'])" style="border-radius: 10px;" alt="Chiến Dịch">
+      <img src="/images/chien dich thuong hieu.jpg" onerror="handleImgErr(this, ['/images/chien%20dich%20thuong%20hieu.png'])" style="border-radius: 10px;" alt="Chiến Dịch">
     </div>
 
-    <!-- 12A. BOTTOM NAV KHI CHƯA ĐĂNG NHẬP -->
+    <!-- 10A. BOTTOM NAV KHI CHƯA ĐĂNG NHẬP -->
     <div id="bottom-nav-guest" class="bottom-nav">
-      <div class="nav-item active" onclick="closeAllInternalViews()">
+      <div class="nav-item active" onclick="closeAllViews()">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         <span>TRANG CHỦ</span>
       </div>
@@ -1834,7 +1165,7 @@
         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
         <span>TẢI APP</span>
       </div>
-      <div class="nav-item" onclick="openCskhLink()">
+      <div class="nav-item" onclick="showToast('Hỗ trợ trực tuyến 24/7')">
         <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
         <span>LIÊN HỆ</span>
       </div>
@@ -1844,9 +1175,9 @@
       </div>
     </div>
 
-    <!-- 12B. BOTTOM NAV KHI ĐÃ ĐĂNG NHẬP -->
+    <!-- 10B. BOTTOM NAV KHI ĐÃ ĐĂNG NHẬP (CHUẨN ẢNH 1) -->
     <div id="bottom-nav-user" class="bottom-nav" style="display: none;">
-      <div class="nav-item active" onclick="closeAllInternalViews()">
+      <div class="nav-item active" onclick="closeAllViews()">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         <span>TRANG CHỦ</span>
       </div>
@@ -1858,7 +1189,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>
         <span>HOÀN TRẢ</span>
       </div>
-      <div class="nav-item" onclick="openCskhLink()">
+      <div class="nav-item" onclick="showToast('Hỗ trợ trực tuyến 24/7')">
         <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
         <span>LIÊN HỆ</span>
       </div>
@@ -1867,17 +1198,284 @@
         <span>TÀI KHOẢN</span>
       </div>
     </div>
-
   </div>
 
   <!-- ======================================================== -->
-  <!-- MÀN HÌNH 1: KHUYẾN MÃI (10 DANH MỤC LỌC BANNER)          -->
+  <!-- MÀN HÌNH ĐĂNG KÝ RIÊNG BIỆT (CHUẨN ẢNH 2 & 3)             -->
+  <!-- ======================================================== -->
+  <div id="register-fullscreen-view" class="auth-fullscreen-view no-scrollbar">
+    <div class="auth-header-green">
+      <div class="auth-close-yellow" onclick="closeAuthViews()">✕</div>
+      <div class="auth-logo-text">QQ88</div>
+      <div class="auth-slogan-text">DỄ CHƠI, DỄ PHÁT TÀI</div>
+    </div>
+
+    <div class="auth-form-card">
+      <div class="auth-ambassador-row">
+        <div class="auth-ambassador-meta">
+          <strong>Đại Sứ Thương Hiệu</strong>
+          <strong>Năm 2025 - 2026</strong>
+          <span>John Terry</span>
+        </div>
+        <img src="/images/signature_terry.png" class="auth-sig-img" onerror="this.src='/images/ic_pass.png'" alt="Signature">
+      </div>
+
+      <form onsubmit="handleRegisterSubmit(event)">
+        <div class="pill-input-group">
+          <div class="pill-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <input type="text" id="reg-username" class="pill-input-field" placeholder="Vui lòng nhập tên đăng nhập" required autocomplete="off">
+        </div>
+
+        <div class="pill-input-group">
+          <div class="pill-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <input type="password" id="reg-password" class="pill-input-field" placeholder="Vui lòng nhập mật khẩu đăng nhập" required>
+          <div class="pill-input-right-icon" onclick="togglePassView('reg-password')">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </div>
+        </div>
+
+        <div class="pill-input-group">
+          <div class="pill-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <input type="text" id="reg-fullname" class="pill-input-field" placeholder="Vui lòng nhập họ và tên đầy đủ" style="text-transform: uppercase;">
+        </div>
+
+        <div class="pill-input-group">
+          <div class="phone-prefix-box"><span>🇻🇳</span><span>+84</span></div>
+          <input type="tel" id="reg-phone" class="pill-input-field" placeholder="Vui lòng nhập chính xác SĐT">
+        </div>
+
+        <div class="auth-checkbox-row">
+          <input type="checkbox" checked required>
+          <span>Tôi đồng ý <strong style="color: #007a33;">"Thỏa thuận đăng ký người dùng"</strong></span>
+        </div>
+
+        <button type="submit" class="btn-pill-auth-action">ĐĂNG KÝ</button>
+
+        <div class="auth-switch-link-row">
+          Bạn đã có tài khoản ? <span onclick="switchToLogin()">Đăng nhập ngay</span>
+        </div>
+      </form>
+    </div>
+
+    <div class="auth-bottom-terry-box">
+      <img src="/images/john_terry_3men.png" class="auth-terry-3men-img" onerror="this.src='/images/dai su thuong hieu.jpg'" alt="John Terry">
+      <div class="auth-terry-bottom-text">JOHN TERRY</div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MÀN HÌNH ĐĂNG NHẬP RIÊNG BIỆT (CHUẨN ẢNH 5 & 6)           -->
+  <!-- ======================================================== -->
+  <div id="login-fullscreen-view" class="auth-fullscreen-view no-scrollbar">
+    <div class="auth-header-green">
+      <div class="auth-close-yellow" onclick="closeAuthViews()">✕</div>
+      <div class="auth-logo-text">QQ88</div>
+      <div class="auth-slogan-text">DỄ CHƠI, DỄ PHÁT TÀI</div>
+    </div>
+
+    <div class="auth-form-card">
+      <div class="auth-ambassador-row">
+        <div class="auth-ambassador-meta">
+          <strong>Đại Sứ Thương Hiệu</strong>
+          <strong>Năm 2025 - 2026</strong>
+          <span>John Terry</span>
+        </div>
+        <img src="/images/signature_terry.png" class="auth-sig-img" onerror="this.src='/images/ic_pass.png'" alt="Signature">
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)">
+        <div class="pill-input-group">
+          <div class="pill-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <input type="text" id="login-username" class="pill-input-field" placeholder="Vui lòng nhập tên tài khoản" required autocomplete="off">
+        </div>
+
+        <div class="pill-input-group">
+          <div class="pill-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <input type="password" id="login-password" class="pill-input-field" placeholder="Vui lòng nhập mật khẩu" required>
+          <div class="pill-input-right-icon" onclick="togglePassView('login-password')">
+            <svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z"/></svg>
+          </div>
+        </div>
+
+        <div class="auth-checkbox-row">
+          <input type="checkbox" checked>
+          <span>Lưu thông tin đăng nhập</span>
+        </div>
+
+        <button type="submit" class="btn-pill-auth-action">ĐĂNG NHẬP</button>
+
+        <div class="auth-switch-link-row">
+          Bạn chưa có tài khoản? <span onclick="switchToRegister()">Đăng ký ngay</span>
+        </div>
+
+        <div class="auth-login-util-sections">
+          <div class="auth-util-group">
+            <span class="auth-util-group-title">LẤY LẠI MẬT KHẨU</span>
+            <div class="auth-util-items-row">
+              <div class="auth-util-sub-btn" onclick="showToast('Hỗ trợ qua Email: cskh@qq88.com')">
+                <div class="auth-util-sub-btn-box"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                <span>EMAIL</span>
+              </div>
+              <div class="auth-util-sub-btn" onclick="showToast('Hỗ trợ xác thực SMS')">
+                <div class="auth-util-sub-btn-box"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg></div>
+                <span>SMS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-util-group">
+            <span class="auth-util-group-title">TẢI APP NHẬN THƯỞNG</span>
+            <div class="auth-util-items-row">
+              <div class="auth-util-sub-btn" onclick="openLoadingGateway()">
+                <div class="auth-util-sub-btn-box"><svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.93.04-2.04.62-2.69 1.39-.57.66-.99 1.76-.86 2.81 1.03.08 2.06-.54 2.61-1.27z"/></svg></div>
+                <span>IOS</span>
+              </div>
+              <div class="auth-util-sub-btn" onclick="openLoadingGateway()">
+                <div class="auth-util-sub-btn-box"><svg viewBox="0 0 24 24"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-4.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 2.23 12.97 2 12 2c-.97 0-1.85.23-2.64.63L7.88 1.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C6.84 4.16 5.75 5.8 5.54 8h12.92c-.21-2.2-1.3-3.84-2.93-4.84zM9 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg></div>
+                <span>ANDROID</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="auth-bottom-terry-box">
+      <img src="/images/john_terry_3men.png" class="auth-terry-3men-img" onerror="this.src='/images/dai su thuong hieu.jpg'" alt="John Terry">
+      <div class="auth-terry-bottom-text">JOHN TERRY</div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MÀN HÌNH TÀI KHOẢN CỦA TÔI (CHUẨN ẢNH 7 & 8)               -->
+  <!-- ======================================================== -->
+  <div id="profile-fullscreen-view" class="internal-screen-wrapper no-scrollbar">
+    <div class="internal-header dark">
+      <div class="btn-back" onclick="closeProfileView()">⟨</div>
+      <div class="internal-title">Thông tin</div>
+      <div style="width: 30px;"></div>
+    </div>
+
+    <div class="vip-card-metal-gold">
+      <div class="btn-checkin-red-ribbon" onclick="showToast('Điểm danh nhận quà thành công!')">
+        <span>📅 Điểm Danh ></span>
+      </div>
+
+      <div class="vip-card-head-row">
+        <div class="vip-avatar-circle">
+          <img src="/images/avatar_girl.png" onerror="this.src='/images/ic_daisu.png'" alt="Avatar">
+        </div>
+        <div class="vip-user-meta">
+          <div class="vip-level-pill-gold"><span>🎖️ VIP0</span></div>
+          <div class="vip-username-title-row">
+            <span class="vip-username-title" id="prof-username-text">quanmi112</span>
+            <div class="btn-copy-black-square" onclick="copyUsername()" title="Sao chép"></div>
+          </div>
+          <div class="vip-joindate-text">Đã tham gia: 2026-09-30</div>
+        </div>
+      </div>
+
+      <div class="vip-balance-large-row">
+        <div class="vip-balance-big-text" id="prof-balance-text">1.43K</div>
+        <div class="vip-refresh-icon" onclick="syncBalanceFromServer()" title="Làm mới">🔄</div>
+      </div>
+
+      <div class="vip-quick-3btns-row">
+        <div class="vip-btn-light-pill" onclick="closeProfileView(); openDepositView();">Nạp Tiền</div>
+        <div class="vip-btn-light-pill" onclick="closeProfileView(); openWithdrawView();">Rút Tiền</div>
+        <div class="vip-btn-light-pill" onclick="closeProfileView(); openWithdrawView();">Thẻ của tôi</div>
+      </div>
+    </div>
+
+    <div class="prof-sub-title-pill">Tài khoản của Tôi</div>
+
+    <div class="prof-grid-16-items">
+      <div class="prof-grid-item" onclick="showToast('Bạn có 11 phần thưởng chưa nhận!')">
+        <span class="prof-red-badge-num">11</span>
+        <div class="prof-grid-icon-circle">🏆</div>
+        <span class="prof-grid-label">Phần thưởng của tôi</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Lịch sử đặt cược các sảnh')">
+        <div class="prof-grid-icon-circle">📑</div>
+        <span class="prof-grid-label">Lịch sử cược</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Báo cáo lãi lỗ chi tiết')">
+        <div class="prof-grid-icon-circle">📊</div>
+        <span class="prof-grid-label">Lịch sử lãi lỗ</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Lịch sử các lệnh nạp tiền')">
+        <div class="prof-grid-icon-circle">💳</div>
+        <span class="prof-grid-label">Lịch sử nạp tiền</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Lịch sử các lệnh rút tiền')">
+        <div class="prof-grid-icon-circle">🏧</div>
+        <span class="prof-grid-label">Lịch sử rút tiền</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Lịch sử biến động số dư')">
+        <div class="prof-grid-icon-circle">📈</div>
+        <span class="prof-grid-label">Lịch sử giao dịch</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Thông tin chi tiết tài khoản')">
+        <div class="prof-grid-icon-circle">👤</div>
+        <span class="prof-grid-label">Thông tin</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Bảo mật tài khoản & Mật khẩu')">
+        <div class="prof-grid-icon-circle">🛡️</div>
+        <span class="prof-grid-label">Bảo mật tài khoản</span>
+      </div>
+      <div class="prof-grid-item" onclick="openLoadingGateway()">
+        <div class="prof-grid-icon-circle">🤝</div>
+        <span class="prof-grid-label">Thưởng Giới Thiệu Bạn Bè</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Chính sách hoàn trả cược')">
+        <div class="prof-grid-icon-circle">💰</div>
+        <span class="prof-grid-label">Người chơi hoàn tiền</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Hộp thư cá nhân (0 tin mới)')">
+        <div class="prof-grid-icon-circle">✉️</div>
+        <span class="prof-grid-label">Tin nhắn</span>
+      </div>
+      <div class="prof-grid-item" onclick="window.open('https://quatangqq88.pages.dev', '_blank')">
+        <div class="prof-grid-icon-circle">💬</div>
+        <span class="prof-grid-label">Phản Hồi</span>
+      </div>
+      <div class="prof-grid-item" onclick="openLoadingGateway()">
+        <div class="prof-grid-icon-circle">📲</div>
+        <span class="prof-grid-label">Tải ứng dụng</span>
+      </div>
+      <div class="prof-grid-item" onclick="showToast('Hỗ trợ trực tuyến 24/7')">
+        <div class="prof-grid-icon-circle">🎧</div>
+        <span class="prof-grid-label">Hỗ trợ</span>
+      </div>
+      <div class="prof-grid-item" onclick="window.open('https://giaitriqq88.com', '_blank')">
+        <div class="prof-grid-icon-circle">❓</div>
+        <span class="prof-grid-label">Trung tâm trợ giúp</span>
+      </div>
+      <div class="prof-grid-item" onclick="logoutAccount()">
+        <div class="prof-grid-icon-circle" style="color: #dc2626;">🚪</div>
+        <span class="prof-grid-label" style="color: #dc2626; font-weight: 800;">Đăng xuất</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MÀN HÌNH KHUYẾN MÃI (10 DANH MỤC LỌC)                     -->
   <!-- ======================================================== -->
   <div id="promo-view" class="internal-screen-wrapper">
     <div class="internal-header">
       <div class="btn-back" onclick="closePromoView()">⟨</div>
       <div class="internal-title">Khuyến Mãi</div>
-      <div style="width: 32px;"></div>
+      <div style="width: 30px;"></div>
     </div>
     <div class="promo-cats-bar no-scrollbar" id="promo-cat-tabs">
       <div class="promo-cat-pill active" onclick="filterPromos('ALL', this)">TẤT CẢ</div>
@@ -1895,13 +1493,13 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- MÀN HÌNH 2: HOÀN TRẢ (2 TAB)                             -->
+  <!-- MÀN HÌNH HOÀN TRẢ                                        -->
   <!-- ======================================================== -->
   <div id="rebate-view" class="internal-screen-wrapper">
     <div class="internal-header">
       <div class="btn-back" onclick="closeRebateView()">⟨</div>
       <div class="internal-title">Hoàn Trả Tức Thời</div>
-      <div style="width: 32px;"></div>
+      <div style="width: 30px;"></div>
     </div>
     <div class="rebate-tabs-bar">
       <div class="rebate-tab-item active" id="rtab-1" onclick="switchRebateTab(1)">Hoàn trả cược của tôi</div>
@@ -1916,14 +1514,13 @@
             <div style="font-size: 11px; opacity: 0.9;">Tiền hoàn trả có thể nhận</div>
             <div style="font-size: 18px; font-weight: 800;">0.00 K</div>
           </div>
-          <button onclick="showToast('Chưa có doanh thu cược phát sinh cần hoàn trả!')" style="background: #ffde00; color: #004d25; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 900; font-size: 12px; cursor: pointer;">Nhận Ngay</button>
+          <button onclick="showToast('Chưa có cược hợp lệ phát sinh!')" style="background: #ffde00; color: #004d25; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 900; font-size: 12px; cursor: pointer;">Nhận Ngay</button>
         </div>
       </div>
       <div style="padding: 0 14px; font-size: 12px; color: #475569; line-height: 1.5;">
         <p style="font-weight: 800; color: #0b572a; margin-bottom: 6px;">Tỷ lệ hoàn trả độc quyền QQ88:</p>
         <p>• Nổ Hũ / Bắn Cá: Hoàn trả lên đến 2.0% mỗi ngày.</p>
         <p>• Live Casino / Thể Thao: Hoàn trả không giới hạn 1.2%.</p>
-        <p>• Game Bài / Đá Gà: Tự động kết toán chỉ trong 1 phút.</p>
       </div>
     </div>
     <div id="rebate-content-2" style="display: none; padding: 40px 16px; text-align: center; color: #64748b; font-size: 13px;">
@@ -1932,90 +1529,32 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- MÀN HÌNH 3: TÀI KHOẢN CÁ NHÂN (THẺ VIP + 16 TIỆN ÍCH)     -->
-  <!-- ======================================================== -->
-  <div id="profile-view" class="internal-screen-wrapper">
-    <div class="internal-header">
-      <div class="btn-back" onclick="closeProfileView()">⟨</div>
-      <div class="internal-title">Tài Khoản Cá Nhân</div>
-      <div style="width: 32px;"></div>
-    </div>
-
-    <div class="vip-gold-card">
-      <div class="vip-card-top">
-        <div>
-          <span class="vip-badge-pill">👑 VIP 0</span>
-          <div style="font-size: 16px; font-weight: 900; margin-top: 6px;" id="prof-username">quanmi112</div>
-        </div>
-        <div class="btn-checkin-pill" onclick="showToast('Điểm danh thành công! Hãy tích lũy nạp để nhận thưởng VIP')">📅 Điểm Danh</div>
-      </div>
-      <div style="margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 12px; font-weight: 700;">Số dư ví chính:</span>
-        <span style="font-size: 19px; font-weight: 900;" id="prof-balance">0K</span>
-      </div>
-    </div>
-
-    <div class="profile-quick-actions">
-      <div class="profile-quick-btn primary" onclick="closeProfileView(); openDepositView();">💰 NẠP TIỀN</div>
-      <div class="profile-quick-btn" onclick="closeProfileView(); openWithdrawView();">🏦 RÚT TIỀN</div>
-    </div>
-
-    <!-- LƯỚI 16 TIỆN ÍCH -->
-    <div class="profile-grid-16">
-      <div class="profile-util-box" onclick="closeProfileView(); openDepositView();"><div class="profile-util-icon">💳</div><span>Nạp Tiền</span></div>
-      <div class="profile-util-box" onclick="closeProfileView(); openWithdrawView();"><div class="profile-util-icon">🏧</div><span>Rút Tiền</span></div>
-      <div class="profile-util-box" onclick="closeProfileView(); openRebateView();"><div class="profile-util-icon">💸</div><span>Hoàn Trả</span></div>
-      <div class="profile-util-box" onclick="closeProfileView(); openWithdrawView();"><div class="profile-util-icon">🏛️</div><span>Thẻ Ngân Hàng</span></div>
-      <div class="profile-util-box" onclick="showToast('Chưa có lịch sử đặt cược mới')"><div class="profile-util-icon">📊</div><span>Lịch Sử Cược</span></div>
-      <div class="profile-util-box" onclick="showToast('Chi tiết giao dịch Nạp / Rút')"><div class="profile-util-icon">📑</div><span>GD Chi Tiết</span></div>
-      <div class="profile-util-box" onclick="closeProfileView(); openPromoView();"><div class="profile-util-icon">🎁</div><span>Khuyến Mãi</span></div>
-      <div class="profile-util-box" onclick="showToast('Cấp độ hiện tại: VIP 0')"><div class="profile-util-icon">👑</div><span>Đặc Quyền VIP</span></div>
-      <div class="profile-util-box" onclick="openLoadingGateway()"><div class="profile-util-icon">🤝</div><span>Đại Lý 60%</span></div>
-      <div class="profile-util-box" onclick="openLoadingGateway()"><div class="profile-util-icon">🔗</div><span>Giới Thiệu</span></div>
-      <div class="profile-util-box" onclick="window.open('https://quatangqq88.pages.dev', '_blank')"><div class="profile-util-icon">💎</div><span>Đổi Quà</span></div>
-      <div class="profile-util-box" onclick="window.open('https://giaitriqq88.com', '_blank')"><div class="profile-util-icon">📘</div><span>Cẩm Nang</span></div>
-      <div class="profile-util-box" onclick="showToast('Hộp thư cá nhân (0)')"><div class="profile-util-icon">✉️</div><span>Hộp Thư</span></div>
-      <div class="profile-util-box" onclick="showToast('Liên hệ CSKH để đổi mật khẩu bảo mật')"><div class="profile-util-icon">🔒</div><span>Bảo Mật</span></div>
-      <div class="profile-util-box" onclick="openLoadingGateway()"><div class="profile-util-icon">📲</div><span>Tải App</span></div>
-      <div class="profile-util-box" onclick="openCskhLink()"><div class="profile-util-icon">🎧</div><span>CSKH 24/7</span></div>
-    </div>
-
-    <div style="padding: 0 12px 40px 12px;">
-      <button onclick="logoutAccount(); closeProfileView();" style="width: 100%; padding: 13px; background: #dc2626; color: #ffffff; border: none; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer;">ĐĂNG XUẤT TÀI KHOẢN</button>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- MÀN HÌNH 4: RÚT TIỀN (3 TAB + KHÓA CỨNG NGÂN HÀNG)        -->
+  <!-- MÀN HÌNH RÚT TIỀN (3 TAB + KHÓA CỨNG BẢO MẬT)            -->
   <!-- ======================================================== -->
   <div id="withdraw-view" class="internal-screen-wrapper">
     <div class="internal-header">
       <div class="btn-back" onclick="closeWithdrawView()">⟨</div>
       <div class="internal-title">Rút Tiền</div>
-      <div style="width: 32px;"></div>
+      <div style="width: 30px;"></div>
     </div>
 
-    <!-- 3 TAB RÚT TIỀN -->
     <div class="wd-tabs-bar">
       <div class="wd-tab-btn active" id="wd-tab-bank" onclick="switchWithdrawMethod('bank')">Thẻ ngân hàng (<span id="wd-count-bank">0/3</span>)</div>
       <div class="wd-tab-btn" id="wd-tab-crypto" onclick="switchWithdrawMethod('crypto')">Ví ảo (0/2)</div>
       <div class="wd-tab-btn" id="wd-tab-momo" onclick="switchWithdrawMethod('momo')">Ví MoMo (0/1)</div>
     </div>
 
-    <!-- SỐ DƯ KHẢ DỤNG -->
     <div style="background: #ffffff; margin: 12px 14px 0 14px; padding: 14px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #dce5df;">
       <span style="font-size: 13px; font-weight: 700; color: #475569;">Số dư khả dụng:</span>
       <span style="font-size: 17px; font-weight: 900; color: #005a2b;" id="wd-available-balance">0K</span>
     </div>
 
-    <!-- KHUNG CHƯA LIÊN KẾT THẺ -->
     <div id="wd-unbound-box" class="wd-card-slot" onclick="openBindBankModal()">
       <div style="width: 40px; height: 40px; border-radius: 50%; background: #edf7f0; color: #005a2b; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900;">+</div>
       <div style="font-size: 13px; font-weight: 800; color: #005a2b;" id="wd-add-label">Thêm Thẻ Ngân Hàng Nhận Tiền</div>
       <div style="font-size: 11px; color: #64748b;">Vui lòng liên kết chính xác thông tin chính chủ</div>
     </div>
 
-    <!-- KHUNG ĐÃ LIÊN KẾT & KHÓA CỨNG VĨNH VIỄN -->
     <div id="wd-bound-box" class="wd-locked-card" style="display: none;" onclick="showToast('Tài khoản ngân hàng đã được khóa bảo mật vĩnh viễn. Chỉ Admin mới có quyền thay đổi!')">
       <div class="wd-lock-tag">🔒 Đã khóa bảo mật</div>
       <div style="font-size: 15px; font-weight: 900; color: #ffde00;" id="wd-bound-bankname">VIETCOMBANK</div>
@@ -2023,7 +1562,6 @@
       <div style="font-size: 12px; opacity: 0.9;">Chủ thẻ: <strong id="wd-bound-owner">NGUYEN VAN A</strong></div>
     </div>
 
-    <!-- FORM NHẬP SỐ TIỀN RÚT & MẬT KHẨU RÚT TIỀN -->
     <div style="padding: 6px 14px 40px 14px;">
       <div class="input-group">
         <label class="input-label" id="wd-limit-label">Số điểm rút (1 Điểm = 1,000 VNĐ | Hạn mức: 100 ~ 300,000)</label>
@@ -2037,25 +1575,21 @@
     </div>
   </div>
 
-  <!-- MODAL LIÊN KẾT NGÂN HÀNG (KHÓA VĨNH VIỄN SAU KHI LƯU) -->
+  <!-- MODAL LIÊN KẾT NGÂN HÀNG -->
   <div id="bind-bank-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10005; align-items: center; justify-content: center; padding: 16px;">
     <div style="background: #ffffff; width: 100%; max-width: 360px; border-radius: 14px; padding: 18px; position: relative;">
       <button onclick="closeBindBankModal()" style="position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 18px; cursor: pointer; color: #64748b;">✕</button>
       <h3 style="color: #005a2b; font-size: 16px; font-weight: 900; margin-bottom: 12px;">Liên Kết Thẻ Ngân Hàng</h3>
       <div class="input-group">
-        <label class="input-label">Ngân hàng / Ví thanh toán</label>
+        <label class="input-label">Ngân hàng / Phương thức</label>
         <select id="bind-bank-name" class="input-field">
           <option value="">-- Chọn ngân hàng --</option>
-          <option value="VIETCOMBANK">Vietcombank (VCB)</option>
-          <option value="MB BANK">MB Bank (Quân Đội)</option>
-          <option value="TECHCOMBANK">Techcombank (TCB)</option>
-          <option value="ACB">Ngân hàng Á Châu (ACB)</option>
+          <option value="VIETCOMBANK">Vietcombank</option>
+          <option value="MB BANK">MB Bank</option>
+          <option value="TECHCOMBANK">Techcombank</option>
+          <option value="ACB">ACB</option>
           <option value="BIDV">BIDV</option>
           <option value="VIETINBANK">VietinBank</option>
-          <option value="VPBANK">VPBank</option>
-          <option value="TPBANK">TPBank</option>
-          <option value="AGRIBANK">Agribank</option>
-          <option value="SACOMBANK">Sacombank</option>
           <option value="MOMO">Ví MoMo</option>
           <option value="USDT-TRC20">Ví USDT (TRC20)</option>
         </select>
@@ -2066,28 +1600,27 @@
       </div>
       <div class="input-group">
         <label class="input-label">Số tài khoản / Địa chỉ ví</label>
-        <input type="text" id="bind-bank-acc" class="input-field" placeholder="Nhập chính xác số tài khoản">
+        <input type="text" id="bind-bank-acc" class="input-field" placeholder="Nhập số tài khoản ngân hàng">
       </div>
       <div class="input-group">
         <label class="input-label">Cài đặt mật khẩu rút tiền</label>
         <input type="password" id="bind-withdraw-pass" class="input-field" placeholder="Từ 4 ký tự trở lên">
       </div>
       <p style="font-size: 11px; color: #dc2626; margin-bottom: 10px; font-weight: 600;">
-        * Lưu ý: Sau khi liên kết, thông tin thẻ sẽ được khóa bảo mật vĩnh viễn và chỉ Quản trị viên mới có thể thay đổi!
+        * Lưu ý: Sau khi liên kết, thông tin thẻ sẽ được khóa vĩnh viễn và chỉ Admin mới có quyền mở khóa!
       </p>
       <button class="btn-submit" onclick="submitBindBank()">LƯU & KHÓA BẢO MẬT</button>
     </div>
   </div>
 
-  <!-- GIAO DIỆN NẠP TIỀN (GIỮ NGUYÊN BẢN GỐC CỦA BẠN) -->
+  <!-- ======================================================== -->
+  <!-- MÀN HÌNH NẠP TIỀN SUNPAY + ACB                            -->
+  <!-- ======================================================== -->
   <div id="deposit-view" class="deposit-view-wrapper">
-    <div class="deposit-header">
+    <div class="internal-header dark">
       <div class="btn-back" onclick="closeDepositView()">⟨</div>
-      <div class="deposit-title">Nạp Tiền</div>
-      <div class="header-record-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        <div class="badge-count-1">1</div>
-      </div>
+      <div class="internal-title">Nạp Tiền</div>
+      <div style="width: 30px;"></div>
     </div>
 
     <div class="deposit-body">
@@ -2095,409 +1628,92 @@
         <span class="dot-orange"></span>
         <span>Phương thức nạp tiền</span>
       </div>
-
       <div class="methods-grid">
-        <div class="method-item active" data-method="bank" onclick="selectMethod(this, 'bank')">
-          <img src="/images/pay_bank.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_bank.png?v=2', '/images/pay_bank.jpg?v=2'])" alt="Chuyển khoản">
-        </div>
-        <div class="method-item" data-method="qr" onclick="selectMethod(this, 'qr')">
-          <img src="/images/pay_qr.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_qr.png?v=2', '/images/pay_qr.jpg?v=2'])" alt="Quét mã QR">
-        </div>
-        <div class="method-item" data-method="momo" onclick="selectMethod(this, 'momo')">
-          <img src="/images/pay_momo.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_momo.png?v=2', '/images/pay_momo.jpg?v=2'])" alt="MomoPay">
-        </div>
-        <div class="method-item" data-method="zalo" onclick="selectMethod(this, 'zalo')">
-          <img src="/images/pay_zalopay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_zalopay.png?v=2', '/images/pay_zalopay.jpg?v=2'])" alt="ZaloPay">
-        </div>
-        <div class="method-item" data-method="vtpay" onclick="selectMethod(this, 'vtpay')">
-          <img src="/images/pay_vtpay.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_vtpay.png?v=2', '/images/pay_vtpay.jpg?v=2'])" alt="VtPay">
-        </div>
-        <div class="method-item" data-method="thecao" onclick="selectMethod(this, 'thecao')">
-          <img src="/images/pay_thecao.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_thecao.png?v=2', '/images/pay_thecao.jpg?v=2'])" alt="Thẻ cào">
-        </div>
-        <div class="method-item" data-method="usdt" onclick="selectMethod(this, 'usdt')">
-          <img src="/images/pay_usdt.png.png?v=2" onerror="handleImgErr(this, ['/images/pay_usdt.png?v=2', '/images/pay_usdt.jpg?v=2'])" alt="USDT">
-        </div>
+        <div class="method-item active" onclick="selectMethod(this, 'bank')"><img src="/images/pay_bank.png" onerror="this.src='/images/ic_daisu.png'" alt="Bank"></div>
+        <div class="method-item" onclick="selectMethod(this, 'qr')"><img src="/images/pay_qr.png" onerror="this.src='/images/ic_daisu.png'" alt="QR"></div>
+        <div class="method-item" onclick="selectMethod(this, 'momo')"><img src="/images/pay_momo.png" onerror="this.src='/images/ic_daisu.png'" alt="MoMo"></div>
+        <div class="method-item" onclick="selectMethod(this, 'usdt')"><img src="/images/pay_usdt.png" onerror="this.src='/images/ic_daisu.png'" alt="USDT"></div>
       </div>
 
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-teal"></span>
         <span>Các kênh thanh toán</span>
       </div>
-
       <div class="channels-grid">
         <div class="channel-item active" onclick="selectChannel(this)">SUNPAY</div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          GOPAY 10-499,999
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          VN196PAY
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">EZPAY 10-499,999</div>
-        <div class="channel-item" onclick="selectChannel(this)">ANPAY</div>
-        <div class="channel-item" onclick="selectChannel(this)">
-          <img src="/images/ribbon_rec.png.png?v=2" onerror="handleImgErr(this, ['/images/ribbon_rec.png?v=2'])" class="channel-ribbon" alt="rec">
-          A8PAY 10-499,999
-        </div>
-        <div class="channel-item" onclick="selectChannel(this)">TOPPAY</div>
-      </div>
-
-      <div class="tip-box">
-        <div class="notice-row">
-          <span class="icon-green-check">✅</span>
-          <span>Mẹo: Quét mã QR để cập nhật điểm nhanh nhất. Link Mobile: <span class="highlight-red">8386333.com</span> | Link PC: <span class="highlight-red">838644.com</span></span>
-        </div>
+        <div class="channel-item" onclick="selectChannel(this)">GOPAY</div>
+        <div class="channel-item" onclick="selectChannel(this)">VN196PAY</div>
       </div>
 
       <div class="deposit-sec-title" style="margin-top: 14px;">
         <span class="dot-orange"></span>
         <span>Số Điểm Nạp</span>
       </div>
-
       <div class="points-grid">
-        <div class="point-item active" onclick="selectPoint(this, 50)">
-          <div class="point-bonus-tag">+ 0.1</div>50
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 100)">
-          <div class="point-bonus-tag">+ 0.2</div>100
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 500)">
-          <div class="point-bonus-tag">+ 1</div>500
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 1000)">
-          <div class="point-bonus-tag">+ 3</div>1,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 5000)">
-          <div class="point-bonus-tag">+ 15</div>5,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 10000)">
-          <div class="point-bonus-tag">+ 40</div>10,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 50000)">
-          <div class="point-bonus-tag">+ 200</div>50,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 100000)">
-          <div class="point-bonus-tag">+ 500</div>100,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 200000)">
-          <div class="point-bonus-tag">+ 1,200</div>200,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 300000)">
-          <div class="point-bonus-tag">+ 1,800</div>300,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 350000)">
-          <div class="point-bonus-tag">+ 2,100</div>350,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 400000)">
-          <div class="point-bonus-tag">+ 2,400</div>400,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 450000)">
-          <div class="point-bonus-tag">+ 2,700</div>450,000
-        </div>
-        <div class="point-item" onclick="selectPoint(this, 490000)">
-          <div class="point-bonus-tag">+ 2,940</div>490,000
-        </div>
+        <div class="point-item active" onclick="selectPoint(this, 50)"><div class="point-bonus-tag">+ 0.1</div>50</div>
+        <div class="point-item" onclick="selectPoint(this, 100)"><div class="point-bonus-tag">+ 0.2</div>100</div>
+        <div class="point-item" onclick="selectPoint(this, 500)"><div class="point-bonus-tag">+ 1</div>500</div>
+        <div class="point-item" onclick="selectPoint(this, 1000)"><div class="point-bonus-tag">+ 3</div>1,000</div>
+        <div class="point-item" onclick="selectPoint(this, 5000)"><div class="point-bonus-tag">+ 15</div>5,000</div>
+        <div class="point-item" onclick="selectPoint(this, 10000)"><div class="point-bonus-tag">+ 40</div>10,000</div>
+        <div class="point-item" onclick="selectPoint(this, 50000)"><div class="point-bonus-tag">+ 200</div>50,000</div>
+        <div class="point-item" onclick="selectPoint(this, 100000)"><div class="point-bonus-tag">+ 500</div>100,000</div>
+        <div class="point-item" onclick="selectPoint(this, 200000)"><div class="point-bonus-tag">+ 1,200</div>200,000</div>
+        <div class="point-item" onclick="selectPoint(this, 300000)"><div class="point-bonus-tag">+ 1,800</div>300,000</div>
       </div>
 
-      <div class="custom-amount-input">
-        <input type="number" id="input-amount" placeholder="50 - 300,000" value="50" oninput="handleAmountChange()">
-        <div class="custom-amount-suffix">
-          K <span class="custom-amount-bonus" id="display-bonus">+ 0.1 K</span>
-        </div>
-      </div>
-
-      <div class="vnd-conversion">
-        VND : <span id="display-vnd">50,000</span>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 10px;">
-        <span class="dot-orange"></span>
-        <span>Sự kiện</span>
-      </div>
-      
-      <div class="promo-section">
-        <div class="promo-radio active" id="promo-radio" onclick="togglePromo()"></div>
-        <div class="promo-banner" onclick="togglePromo()">
-          <div class="promo-tag-corner">PROMOTION</div>
-          <div class="promo-left-col">
-            <div class="promo-title-main">Nạp Tiền</div>
-            <div class="promo-title-sub"><span id="promo-base">50.00</span>K</div>
-          </div>
-          <div class="promo-right-col">
-            <div class="promo-money">💰 <span id="promo-reward">0.10</span></div>
-            <div class="promo-money-desc">Doanh thu 1 lần</div>
-          </div>
-          <div class="promo-go-btn">GO</div>
-        </div>
-      </div>
-
-      <div class="deposit-sec-title" style="margin-top: 18px;">
-        <span class="dot-teal"></span>
-        <span>Chi tiết thanh toán</span>
-      </div>
-      
-      <div class="payment-details-box">
-        <div class="payment-row">
-          <span>Số Điểm Nạp</span>
-          <span class="payment-val" id="detail-points">50.00 K</span>
-        </div>
-        <div class="payment-row bg-gray">
-          <span>Số tiền thanh toán thực tế</span>
-          <span class="payment-val red" id="detail-total">50.00 K</span>
-        </div>
+      <div class="input-group" style="margin-top: 15px;">
+        <input type="number" id="input-deposit-amount" class="input-field" value="50" oninput="handleDepositAmountChange()">
       </div>
 
       <div class="btn-deposit-next" onclick="handleDepositNext()">Tiếp theo</div>
     </div>
   </div>
 
-  <!-- GIAO DIỆN XÁC NHẬN ACB -->
+  <!-- XÁC NHẬN THANH TOÁN ACB -->
   <div id="payment-confirm-view" class="deposit-view-wrapper no-scrollbar">
     <div class="pay-confirm-header">
-      <div class="bank-logo">ACB</div>
-      <div class="header-actions">
-        <div class="btn-pc-cancel" onclick="closePaymentConfirm()">HỦY BỎ</div>
-        <div class="btn-pc-close" onclick="closePaymentConfirm()">✕</div>
-      </div>
+      <div style="color: #0b459c; font-size: 24px; font-weight: 900; font-style: italic;">ACB</div>
+      <div onclick="closePaymentConfirm()" style="cursor: pointer; font-size: 18px; font-weight: 800;">✕</div>
     </div>
-
     <div class="pay-info-card">
-      <div class="pay-info-row">
-        <span class="pay-info-label">Mã giao dịch</span>
-        <span class="pay-info-value" id="pc-trans-id">VND...</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">SỐ TIỀN</span>
-        <span class="pay-info-value amount" id="pc-amount">50,000 VND</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">Thời gian giao dịch</span>
-        <span class="pay-info-value" id="pc-time">2026-10-22 00:00:00</span>
-      </div>
-      <div class="pay-info-row">
-        <span class="pay-info-label">Ngân hàng thụ hưởng</span>
-        <span class="pay-info-value" id="pc-bank-name">ACB</span>
-      </div>
+      <div class="pay-info-row"><span>Mã giao dịch</span><strong id="pc-trans-id">VND...</strong></div>
+      <div class="pay-info-row"><span>SỐ TIỀN</span><strong id="pc-amount" style="color: #dc2626;">50,000 VND</strong></div>
+      <div class="pay-info-row"><span>Thời gian giao dịch</span><span id="pc-time">2026-11-07 00:00:00</span></div>
+      <div class="pay-info-row"><span>Ngân hàng thụ hưởng</span><strong>ACB</strong></div>
     </div>
-
     <div class="pay-qr-card">
-      <div class="pay-timer">
-        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-        <span id="pc-timer-text">10:00</span>
-      </div>
-      
+      <div style="text-align: center; color: #d97706; font-weight: 800; margin-bottom: 12px;" id="pc-timer-text">10:00</div>
       <div class="qr-split-layout">
         <div class="qr-left-col">
           <div class="qr-box">
-            <img id="pc-qr-img" src="" alt="Mã QR Thanh Toán" style="width: 100%; height: 100%; object-fit: contain;">
+            <img id="pc-qr-img" src="/images/qr_acb.png" onerror="this.src='/images/ic_daisu.png'" alt="QR Code">
           </div>
-          <div class="btn-download-qr" onclick="downloadQR()">Tải về</div>
         </div>
-        
         <div class="qr-right-col">
-          <div class="copy-group">
-            <div class="copy-label">Số tài khoản</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-num">00000000</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-acc-num')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="copy-group">
-            <div class="copy-label">Tên tài khoản</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-acc-name">TEN TAI KHOAN</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-acc-name')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="copy-group">
-            <div class="copy-label">Chuyển tin nhắn</div>
-            <div class="copy-val-row">
-              <span class="copy-text-val" id="pc-memo" style="font-size: 13px;">VND...</span> 
-              <div class="btn-copy-icon" onclick="copyText('pc-memo')">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </div>
-            </div>
-          </div>
+          <div class="copy-group"><span style="font-size: 11px; color: #64748b;">Số tài khoản</span><strong class="copy-text-val" id="pc-acc-num">26194061</strong></div>
+          <div class="copy-group"><span style="font-size: 11px; color: #64748b;">Tên tài khoản</span><strong class="copy-text-val" id="pc-acc-name">LO VAN TUAN</strong></div>
+          <div class="copy-group"><span style="font-size: 11px; color: #64748b;">Nội dung chuyển tiền</span><strong class="copy-text-val" id="pc-memo">VND...</strong></div>
         </div>
       </div>
     </div>
-
-    <div class="pay-warning-box">
-      <svg viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-      <p>Để bảo mật tài khoản, vui lòng không lưu hình ảnh mã QR để thanh toán.</p>
-    </div>
-
-    <div class="btn-check-result" onclick="confirmDepositDone()">
-      Xác nhận đã chuyển khoản thành công (+ Tiền vào ví)
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- MÀN HÌNH ĐĂNG KÝ / ĐĂNG NHẬP TRÀN VIỀN JOHN TERRY         -->
-  <!-- ======================================================== -->
-  <div id="auth-modal" class="modal-overlay">
-    <div class="auth-terry-top">
-      <div class="auth-close-circle" onclick="closeAuthModal()">✕</div>
-      <img src="/images/dai su thuong hieu.jpg" onerror="handleImgErr(this, ['/images/sidebar_terry.png', '/images/dai su thuong hieu.png'])" alt="John Terry">
-    </div>
-    <div class="auth-sig-bar">
-      <div class="auth-sig-left">
-        <div class="auth-sig-logo">QQ88</div>
-        <div class="auth-sig-text">Đại Sứ Thương Hiệu Độc Quyền<br><strong>John Terry (2025 - 2026)</strong></div>
-      </div>
-      <div class="auth-sig-autograph">John Terry #26</div>
-    </div>
-    <div class="modal-content">
-      <div class="modal-tabs">
-        <div id="tab-login" class="modal-tab-btn active" onclick="switchAuthTab('login')">ĐĂNG NHẬP</div>
-        <div id="tab-register" class="modal-tab-btn" onclick="switchAuthTab('register')">ĐĂNG KÝ</div>
-      </div>
-
-      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
-        <div class="input-group">
-          <label class="input-label">Tên tài khoản</label>
-          <input type="text" id="input-username" class="input-field" placeholder="Từ 4 - 16 ký tự chữ và số" required autocomplete="off">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Mật khẩu</label>
-          <input type="password" id="input-password" class="input-field" placeholder="Nhập mật khẩu bảo mật" required>
-        </div>
-
-        <div id="reg-extra-fields" style="display: none;">
-          <div class="input-group">
-            <label class="input-label">Họ và tên thật (Khớp thẻ ngân hàng)</label>
-            <input type="text" id="input-fullname" class="input-field" placeholder="VD: NGUYEN VAN A" style="text-transform: uppercase;">
-          </div>
-          <div class="input-group">
-            <label class="input-label">Số điện thoại</label>
-            <input type="tel" id="input-phone" class="input-field" placeholder="Nhập số điện thoại chính chủ">
-          </div>
-        </div>
-
-        <button type="submit" id="btn-modal-action" class="btn-submit">ĐĂNG NHẬP NGAY</button>
-      </form>
-
-      <!-- 4 TIỆN ÍCH DƯỚI ĐÁY FORM ĐĂNG NHẬP -->
-      <div class="auth-utilities-grid">
-        <div class="auth-util-item" onclick="showToast('Hỗ trợ qua Email: cskh@qq88.com')">
-          <div class="auth-util-circle">✉️</div>
-          <span>Email</span>
-        </div>
-        <div class="auth-util-item" onclick="showToast('Hệ thống xác thực SMS tự động')">
-          <div class="auth-util-circle">💬</div>
-          <span>SMS</span>
-        </div>
-        <div class="auth-util-item" onclick="openLoadingGateway()">
-          <div class="auth-util-circle">🍎</div>
-          <span>Tải iOS</span>
-        </div>
-        <div class="auth-util-item" onclick="openLoadingGateway()">
-          <div class="auth-util-circle">🤖</div>
-          <span>Android</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KHUNG CHƠI GAME ĐỘC LẬP TRÊN IFRAME -->
-  <div id="game-play-modal" style="display:none; position:fixed; top:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; height:100vh; background:#000; z-index:100005; flex-direction:column;">
-    <div style="height:44px; background:#18191d; display:flex; align-items:center; padding:0 10px; color:#fff; flex-shrink:0;">
-      <div onclick="closeGame()" style="font-size:24px; cursor:pointer; width:30px; line-height:44px;">⟨</div>
-      <div id="playing-game-title" style="flex:1; text-align:center; font-size:14px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Tên Game</div>
-      <div style="width:30px;"></div>
-    </div>
-    
-    <div style="flex:1; background:#000; position:relative;">
-      <div id="game-loader" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:13px; font-weight:bold;">Đang kết nối sảnh game...</div>
-      <iframe id="game-iframe" src="" style="width:100%; height:100%; border:none; position:relative; z-index:2; background:#000; display:none;"></iframe>
-    </div>
-  </div>
-
-  <!-- BẢNG ĐIỀU KHIỂN ĐẶC QUYỀN ADMIN -->
-  <div id="admin-floating-btn" style="position:fixed; bottom:75px; right:15px; z-index:99999; display:none;">
-    <button onclick="toggleAdminPanel()" style="background:#dc2626; color:#fff; border:2px solid #facc15; border-radius:50px; padding:10px 16px; font-weight:900; font-size:12px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-      ⚙️ ADMIN PANEL
-    </button>
-  </div>
-
-  <div id="admin-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100000; justify-content:center; align-items:center; padding:15px;">
-    <div style="background:#1e293b; color:#fff; width:100%; max-width:390px; border-radius:12px; border:2px solid #eab308; padding:16px; max-height:90vh; overflow-y:auto; font-size:12px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #475569; padding-bottom:8px; margin-bottom:12px;">
-        <h3 style="color:#facc15; font-size:15px;">QUẢN TRỊ VIÊN QQ88</h3>
-        <button onclick="toggleAdminPanel()" style="background:none; border:none; color:#94a3b8; font-size:18px; cursor:pointer;">✕</button>
-      </div>
-
-      <!-- 1. CHỈNH VÍ -->
-      <div style="margin-bottom:14px; background:#0f172a; padding:10px; border-radius:8px;">
-        <p style="font-weight:bold; color:#38bdf8; margin-bottom:6px;">1. Can thiệp Số Dư Ví</p>
-        <input type="text" id="adm-user" placeholder="Tên tài khoản (vd: hihi)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="number" id="adm-amount" placeholder="Số tiền (VND)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <div style="display:flex; gap:6px;">
-          <button onclick="submitAdminBalance('add')" style="flex:1; background:#16a34a; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">+ Cộng</button>
-          <button onclick="submitAdminBalance('subtract')" style="flex:1; background:#dc2626; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">- Trừ</button>
-          <button onclick="submitAdminBalance('set')" style="flex:1; background:#2563eb; color:#fff; padding:6px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Đặt số dư</button>
-        </div>
-      </div>
-
-      <!-- 2. QUẢN LÝ THÔNG TIN NGÂN HÀNG & MẬT KHẨU USER (CÓ MỞ KHÓA THẺ) -->
-      <div style="margin-bottom:14px; background:#0f172a; padding:10px; border-radius:8px;">
-        <p style="font-weight:bold; color:#22c55e; margin-bottom:6px;">2. Hồ Sơ Ngân Hàng & Mở Khóa Thẻ</p>
-        <input type="text" id="adm-bank-user" placeholder="Tên tài khoản cần sửa" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="text" id="adm-bank-name" placeholder="Tên ngân hàng (vd: Vietcombank, MB)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="text" id="adm-bank-acc" placeholder="Số tài khoản ngân hàng" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="text" id="adm-bank-owner" placeholder="Tên chủ thẻ (VIET HOA KHONG DAU)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="text" id="adm-new-pass" placeholder="Mật khẩu đăng nhập mới (bỏ trống nếu ko đổi)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <input type="text" id="adm-wd-pass" placeholder="Mật khẩu rút tiền mới (bỏ trống nếu ko đổi)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <button onclick="submitAdminUserBank()" style="width:100%; background:#16a34a; color:#fff; padding:7px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">LƯU HỒ SƠ PROFILE</button>
-      </div>
-
-      <!-- 3. ÉP TỈ LỆ THẮNG NGƯỜI CHƠI -->
-      <div style="margin-bottom:14px; background:#0f172a; padding:10px; border-radius:8px;">
-        <p style="font-weight:bold; color:#f59e0b; margin-bottom:6px;">3. Ép Tỉ Lệ Thắng Người Chơi</p>
-        <input type="text" id="adm-rtp-user" placeholder="Tên tài khoản (vd: hihi)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <select id="adm-rtp-val" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-          <option value="1.0">Thắng 100% (Luôn luôn nổ)</option>
-          <option value="0.7">Thắng 70% (Tỉ lệ cao)</option>
-          <option value="0.35">Chuẩn mặc định (35%)</option>
-          <option value="0.05">Thua 95% (Hút tiền)</option>
-          <option value="0.0">Thua 100% (Cháy túi)</option>
-          <option value="default">Mặc định theo game</option>
-        </select>
-        <button onclick="submitAdminUserRtp()" style="width:100%; background:#eab308; color:#000; padding:7px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">LƯU TỈ LỆ RIÊNG</button>
-      </div>
-
-      <!-- 4. TỈ LỆ THẮNG GAME TOÀN SẢNH -->
-      <div style="background:#0f172a; padding:10px; border-radius:8px;">
-        <p style="font-weight:bold; color:#a855f7; margin-bottom:6px;">4. Tỉ Lệ Thắng Game Toàn Sảnh</p>
-        <select id="adm-game-code" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-          <option value="slot-caoboi">Quyết Chiến Tiền Thưởng</option>
-          <option value="banca-jackpot">Jackpot Đánh Cá</option>
-          <option value="gamebai-taixiu">Tài Xỉu V8</option>
-        </select>
-        <input type="number" step="0.05" min="0" max="1" id="adm-game-rate" placeholder="Tỉ lệ 0.0 -> 1.0 (vd: 0.4 = 40%)" style="width:100%; padding:7px; border-radius:4px; margin-bottom:6px; border:1px solid #475569; background:#1e293b; color:#fff;">
-        <button onclick="submitAdminGameRtp()" style="width:100%; background:#a855f7; color:#fff; padding:7px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">LƯU TỈ LỆ GAME</button>
-      </div>
+    <div style="padding: 14px;">
+      <button class="btn-submit" onclick="confirmDepositDone()">XÁC NHẬN ĐÃ CHUYỂN TIỀN THÀNH CÔNG</button>
     </div>
   </div>
 
   <script>
-    let currentUserData = null;
     let toastTimer;
+    let currentUserData = null;
+    let currentDepositAmount = 50;
+    let paymentTimerInterval = null;
+    let currentWdMethod = 'bank';
 
     function showToast(msg) {
       const toast = document.getElementById('app-toast');
       toast.innerText = msg;
       toast.classList.add('show');
-      if(toastTimer) clearTimeout(toastTimer);
+      if (toastTimer) clearTimeout(toastTimer);
       toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2500);
     }
 
@@ -2515,117 +1731,452 @@
       if (banner) banner.style.display = 'none';
     }
 
-    function openLoadingGateway() {
-      window.location.href = '/loading-gateway';
+    function openLoadingGateway() { window.location.href = '/loading-gateway'; }
+
+    function openRegisterView() {
+      closeAllViews();
+      document.getElementById('register-fullscreen-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
-    function openCskhLink() {
-      showToast('Đang kết nối Chăm Sóc Khách Hàng 24/7...');
+    function openLoginView() {
+      closeAllViews();
+      document.getElementById('login-fullscreen-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
-    function closeAllInternalViews() {
+    function closeAuthViews() {
+      document.getElementById('register-fullscreen-view').style.display = 'none';
+      document.getElementById('login-fullscreen-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function switchToLogin() {
+      document.getElementById('register-fullscreen-view').style.display = 'none';
+      document.getElementById('login-fullscreen-view').style.display = 'flex';
+    }
+
+    function switchToRegister() {
+      document.getElementById('login-fullscreen-view').style.display = 'none';
+      document.getElementById('register-fullscreen-view').style.display = 'flex';
+    }
+
+    function openProfileView() {
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) return openLoginView();
+      closeAllViews();
+      document.getElementById('profile-fullscreen-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProfileView() {
+      document.getElementById('profile-fullscreen-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function openPromoView() {
+      closeAllViews();
+      document.getElementById('promo-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      filterPromos('ALL', document.querySelector('#promo-cat-tabs .promo-cat-pill'));
+    }
+
+    function closePromoView() {
       document.getElementById('promo-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function openRebateView() {
+      closeAllViews();
+      document.getElementById('rebate-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeRebateView() {
       document.getElementById('rebate-view').style.display = 'none';
-      document.getElementById('profile-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function openWithdrawView() {
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) return openLoginView();
+      closeAllViews();
+      document.getElementById('wd-available-balance').innerText = document.getElementById('display-balance').innerText;
+      renderWithdrawBankState();
+      document.getElementById('withdraw-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWithdrawView() {
       document.getElementById('withdraw-view').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function openDepositView() {
+      const isLogged = document.getElementById('user-zone').style.display !== 'none';
+      if (!isLogged) return openLoginView();
+      closeAllViews();
+      document.getElementById('deposit-view').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDepositView() {
       document.getElementById('deposit-view').style.display = 'none';
       document.body.style.overflow = '';
     }
 
-    /* SIDEBAR */
-    function openSidebar() {
-      document.getElementById('sidebar-drawer').classList.add('open');
-      document.getElementById('sidebar-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
+    function closeAllViews() {
+      closeAuthViews();
+      closeProfileView();
+      closePromoView();
+      closeRebateView();
+      closeWithdrawView();
+      closeDepositView();
     }
 
-    function closeSidebar() {
-      document.getElementById('sidebar-drawer').classList.remove('open');
-      document.getElementById('sidebar-overlay').classList.remove('open');
-      document.body.style.overflow = '';
+    function togglePassView(inputId) {
+      const el = document.getElementById(inputId);
+      if (el) el.type = el.type === 'password' ? 'text' : 'password';
     }
 
-    function handleMenuClick(action) {
-      closeSidebar();
-      switch(action) {
-        case 'daisu': showToast('Đại sứ thương hiệu độc quyền: John Terry'); break;
-        case 'facebook': window.open('https://facebook.com', '_blank'); break;
-        case 'warp': window.open('https://1.1.1.1', '_blank'); break;
-        case 'camnang': window.open('https://giaitriqq88.com', '_blank'); break;
-        case 'gopy': window.open('https://quatangqq88.pages.dev', '_blank'); break;
-        case 'quenmatkhau': showToast('Vui lòng liên hệ CSKH trực tuyến 24/7 để khôi phục mật khẩu!'); break;
-        case 'khieunai': showToast('Bộ phận khiếu nại CSKH 24/7: Hotline 0908007888'); break;
-        case 'thiennguyen': showToast('Chương trình Quỹ thiện nguyện QQ88'); break;
-        case 'daily': openLoadingGateway(); break;
-      }
+    function copyUsername() {
+      const u = document.getElementById('display-username').innerText;
+      navigator.clipboard.writeText(u).then(() => {
+        showToast('Đã sao chép tài khoản: ' + u);
+      });
     }
 
-    function handleSidebarAuth() {
-      closeSidebar();
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) {
-        openAuthModal('login');
-      } else {
-        if (confirm('Bạn có muốn đăng xuất khỏi tài khoản không?')) {
-          logoutAccount();
+    function updateBalanceUI(balanceNumber) {
+      const num = Number(balanceNumber || 0);
+      const textK = num >= 1000 ? (num / 1000).toFixed(2).replace(/\.00$/, '') + 'K' : num + 'K';
+      document.getElementById('display-balance').innerText = textK;
+      document.getElementById('prof-balance-text').innerText = textK;
+      const wdBal = document.getElementById('wd-available-balance');
+      if (wdBal) wdBal.innerText = textK;
+    }
+
+    /* ĐĂNG KÝ / ĐĂNG NHẬP */
+    async function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('reg-username').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+      const fullName = document.getElementById('reg-fullname').value.trim().toUpperCase();
+      const phone = document.getElementById('reg-phone').value.trim();
+
+      try {
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, fullName, phone })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message);
+          currentUserData = data.user;
+          localStorage.setItem('qq88_user', JSON.stringify(data.user));
+          closeAuthViews();
+          applyLoggedInState(data.user);
+        } else {
+          showToast(data.message);
         }
+      } catch (err) {
+        showToast('Lỗi kết nối máy chủ!');
       }
     }
 
-    function updateSidebarClock() {
-      const clockEl = document.getElementById('sidebar-live-clock');
-      if (!clockEl) return;
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message);
+          currentUserData = data.user;
+          localStorage.setItem('qq88_user', JSON.stringify(data.user));
+          closeAuthViews();
+          applyLoggedInState(data.user);
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối máy chủ!');
+      }
+    }
+
+    function applyLoggedInState(user) {
+      currentUserData = user;
+      document.getElementById('guest-zone').style.display = 'none';
+      document.getElementById('user-zone').style.display = 'flex';
+      document.getElementById('bottom-nav-guest').style.display = 'none';
+      document.getElementById('bottom-nav-user').style.display = 'flex';
+
+      document.getElementById('display-username').innerText = user.username;
+      document.getElementById('prof-username-text').innerText = user.username;
+      updateBalanceUI(user.balance || 0);
+    }
+
+    function applyLoggedOutState() {
+      currentUserData = null;
+      document.getElementById('guest-zone').style.display = 'block';
+      document.getElementById('user-zone').style.display = 'none';
+      document.getElementById('bottom-nav-guest').style.display = 'flex';
+      document.getElementById('bottom-nav-user').style.display = 'none';
+    }
+
+    async function syncBalanceFromServer() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        if (data && data.loggedIn && data.user) {
+          applyLoggedInState(data.user);
+          showToast('Số dư đã được đồng bộ!');
+        }
+      } catch (e) {}
+    }
+
+    async function checkSession() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        if (data && data.loggedIn && data.user) {
+          applyLoggedInState(data.user);
+        } else {
+          const cached = localStorage.getItem('qq88_user');
+          if (cached) applyLoggedInState(JSON.parse(cached));
+          else applyLoggedOutState();
+        }
+      } catch (e) {
+        applyLoggedOutState();
+      }
+    }
+
+    async function logoutAccount() {
+      localStorage.removeItem('qq88_user');
+      await fetch('/api/logout', { method: 'POST' });
+      closeAllViews();
+      applyLoggedOutState();
+      showToast('Đã đăng xuất tài khoản!');
+    }
+
+    /* RÚT TIỀN & KHÓA CỨNG */
+    function switchWithdrawMethod(method) {
+      currentWdMethod = method;
+      document.getElementById('wd-tab-bank').classList.toggle('active', method === 'bank');
+      document.getElementById('wd-tab-crypto').classList.toggle('active', method === 'crypto');
+      document.getElementById('wd-tab-momo').classList.toggle('active', method === 'momo');
+      const addLabel = document.getElementById('wd-add-label');
+      if (method === 'crypto') addLabel.innerText = 'Thêm Địa Chỉ Ví USDT';
+      else if (method === 'momo') addLabel.innerText = 'Thêm Ví MoMo';
+      else addLabel.innerText = 'Thêm Thẻ Ngân Hàng Nhận Tiền';
+    }
+
+    function renderWithdrawBankState() {
+      const u = currentUserData || {};
+      const hasBank = Boolean(u.bank_account && u.bank_name);
+      document.getElementById('wd-unbound-box').style.display = hasBank ? 'none' : 'flex';
+      document.getElementById('wd-bound-box').style.display = hasBank ? 'block' : 'none';
+      document.getElementById('wd-count-bank').innerText = hasBank ? '1/3' : '0/3';
+      if (hasBank) {
+        document.getElementById('wd-bound-bankname').innerText = u.bank_name;
+        const acc = String(u.bank_account);
+        document.getElementById('wd-bound-accnum').innerText = acc.length > 4 ? '**** **** ' + acc.slice(-4) : acc;
+        document.getElementById('wd-bound-owner').innerText = u.bank_owner || 'NGUYEN VAN A';
+      }
+    }
+
+    function openBindBankModal() {
+      if (currentUserData && (currentUserData.isBankLocked || currentUserData.bank_account)) {
+        return showToast('Tài khoản ngân hàng đã được khóa bảo mật vĩnh viễn!');
+      }
+      document.getElementById('bind-bank-modal').style.display = 'flex';
+    }
+    function closeBindBankModal() { document.getElementById('bind-bank-modal').style.display = 'none'; }
+
+    async function submitBindBank() {
+      const bank_name = document.getElementById('bind-bank-name').value.trim();
+      const bank_owner = document.getElementById('bind-bank-owner').value.trim().toUpperCase();
+      const bank_account = document.getElementById('bind-bank-acc').value.trim();
+      const withdraw_password = document.getElementById('bind-withdraw-pass').value.trim();
+
+      if (!bank_name || !bank_owner || !bank_account || !withdraw_password) {
+        return showToast('Vui lòng điền đầy đủ thông tin!');
+      }
+
+      try {
+        const res = await fetch('/api/user/bind-bank', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bank_name, bank_owner, bank_account, withdraw_password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message);
+          currentUserData = data.user;
+          localStorage.setItem('qq88_user', JSON.stringify(data.user));
+          closeBindBankModal();
+          renderWithdrawBankState();
+        } else {
+          showToast(data.message);
+        }
+      } catch (e) {
+        showToast('Lỗi kết nối máy chủ!');
+      }
+    }
+
+    async function submitWithdrawOrder() {
+      const amountK = Number(document.getElementById('wd-input-amount').value);
+      const withdraw_password = document.getElementById('wd-input-pass').value.trim();
+      if (!currentUserData || !currentUserData.bank_account) return showToast('Vui lòng thêm thẻ ngân hàng trước khi rút!');
+      if (!amountK || amountK < 100) return showToast('Số điểm rút tối thiểu là 100 điểm (100,000 VNĐ)!');
+      if (!withdraw_password) return showToast('Vui lòng nhập mật khẩu rút tiền!');
+
+      try {
+        const res = await fetch('/api/user/withdraw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amountPoints: amountK, withdraw_password, method: currentWdMethod })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message);
+          currentUserData = data.user;
+          updateBalanceUI(data.user.balance);
+          document.getElementById('wd-input-amount').value = '';
+          document.getElementById('wd-input-pass').value = '';
+        } else {
+          showToast(data.message);
+        }
+      } catch (e) {
+        showToast('Lỗi máy chủ!');
+      }
+    }
+
+    /* NẠP TIỀN SUNPAY + ACB */
+    function selectMethod(el) {
+      document.querySelectorAll('.method-item').forEach(m => m.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function selectChannel(el) {
+      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function selectPoint(el, amount) {
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      currentDepositAmount = amount;
+      document.getElementById('input-deposit-amount').value = amount;
+    }
+    function handleDepositAmountChange() {
+      let val = Number(document.getElementById('input-deposit-amount').value || 0);
+      currentDepositAmount = val;
+      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
+    }
+
+    function handleDepositNext() {
+      const transId = 'VND' + Math.floor(100000000 + Math.random() * 900000000) + 'VN' + Math.floor(1000000 + Math.random() * 9000000);
+      document.getElementById('deposit-view').style.display = 'none';
+      document.getElementById('payment-confirm-view').style.display = 'block';
+
+      const totalVND = currentDepositAmount * 1000;
+      document.getElementById('pc-amount').innerText = totalVND.toLocaleString('en-US') + ' VND';
+      document.getElementById('pc-trans-id').innerText = transId;
+      document.getElementById('pc-memo').innerText = transId;
+
       const now = new Date();
       const pad = (n) => String(n).padStart(2, '0');
-      clockEl.innerText = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} (GMT+7)`;
-    }
-    setInterval(updateSidebarClock, 1000);
-    updateSidebarClock();
+      document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-    /* ĐỊNH TUYẾN SLUG CHUẨN XÁC ĐỂ KHÔNG BỊ TRÙNG TRANG SẢNH */
-    function getGameSlug(gameName) {
-      const n = (gameName || '').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd')
-        .replace(/[^a-z0-9]/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-
-      if (n.includes('cao-boi') || n.includes('quyet-chien') || n.includes('slot')) return 'slot-caoboi';
-      if (n.includes('danh-ca') || n.includes('ban-ca')) return 'banca-jackpot';
-      if (n.includes('tai-xiu')) return 'gamebai-taixiu';
-      return n || 'slot-caoboi';
+      let timer = 600;
+      if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+      paymentTimerInterval = setInterval(() => {
+        let m = parseInt(timer / 60, 10);
+        let s = parseInt(timer % 60, 10);
+        document.getElementById('pc-timer-text').innerText = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+        if (--timer < 0) {
+          clearInterval(paymentTimerInterval);
+          closePaymentConfirm();
+        }
+      }, 1000);
     }
 
-    /* MỞ CON GAME ĐỘC LẬP TRÊN IFRAME */
-    function launchGame(gameName) {
-      const slug = getGameSlug(gameName);
-      const modal = document.getElementById('game-play-modal');
-      const title = document.getElementById('playing-game-title');
-      const iframe = document.getElementById('game-iframe');
-      const loader = document.getElementById('game-loader');
-
-      modal.style.display = 'flex';
-      title.innerText = gameName;
-      iframe.style.display = 'none';
-      loader.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-
-      setTimeout(() => {
-        loader.style.display = 'none';
-        iframe.style.display = 'block';
-        iframe.src = '/game/' + slug;
-      }, 400);
+    function closePaymentConfirm() {
+      if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+      document.getElementById('payment-confirm-view').style.display = 'none';
+      document.getElementById('deposit-view').style.display = 'flex';
     }
 
-    function closeGame() {
-      document.getElementById('game-play-modal').style.display = 'none';
-      document.getElementById('game-iframe').src = '';
-      document.body.style.overflow = '';
-      syncBalanceFromServer();
+    async function confirmDepositDone() {
+      try {
+        const depositVND = currentDepositAmount * 1000;
+        const res = await fetch('/api/deposit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: depositVND })
+        });
+        const data = await res.json();
+        if (data && data.new_balance !== undefined) {
+          showToast(`Nạp thành công +${depositVND.toLocaleString('vi-VN')} đ!`);
+          updateBalanceUI(data.new_balance);
+          closePaymentConfirm();
+          closeDepositView();
+        } else {
+          showToast('Nạp tiền không thành công!');
+        }
+      } catch (err) {
+        showToast('Lỗi máy chủ!');
+      }
     }
 
-    /* DANH SÁCH TOÀN BỘ SẢNH ĐỐI TÁC */
+    /* KHUYẾN MÃI (10 DANH MỤC LỌC) */
+    const PROMO_LIST = [
+      { cat: 'HOT', badge: 'HOT', title: 'Thưởng Nạp Đầu Hội Viên Mới 8,888K', sub: 'Áp dụng Nổ Hũ - Bắn Cá - Game Bài' },
+      { cat: 'SCATTER', badge: 'SCATTER NỔ HŨ', title: 'Săn Biểu Tượng Scatter Nhận Thưởng Tới 18,888K', sub: 'Dành riêng cho sảnh PG & JILI Nổ Hũ' },
+      { cat: 'NOHU_BANCA', badge: 'NỔ HŨ - BẮN CÁ', title: 'Phao Cứu Trợ Hoàn Thua Mỗi Ngày 28,888K', sub: 'Tự động kết toán vào 14:00 hôm sau' },
+      { cat: 'THETHAO', badge: 'THỂ THAO', title: 'Bảo Hiểm Vé Cược Thể Thao Đầu Tiên 100%', sub: 'SABA, CMD, IM, BTI Thể Thao' },
+      { cat: 'CASINO', badge: 'CASINO', title: 'Thắng Liên Tiếp Baccarat Thưởng Nóng 88,888K', sub: 'SE, DG, EVO, WM Casino Trực Tuyến' },
+      { cat: 'GAMEBAI', badge: 'GAME BÀI', title: 'Vượt Ải Game Bài V8 - KM Nhận Lì Xì Mỗi Ngày', sub: 'Doanh thu cược càng cao thưởng càng lớn' },
+      { cat: 'DAGA', badge: 'ĐÁ GÀ', title: 'Thưởng Thắng Liên Tiếp Đá Gà Thomo SV388', sub: 'Hoàn trả không giới hạn mỗi vé cược' },
+      { cat: 'XOSO', badge: 'XỔ SỐ', title: 'Siêu Thưởng Xổ Số Lô Đề 1 Ăn 99.5', sub: 'Kết toán siêu tốc ngay sau giờ quay thưởng' },
+      { cat: 'VIP', badge: 'VIP CLUB', title: 'Đặc Quyền Thăng Cấp VIP - Lương Tháng Tới 200 Triệu', sub: 'Quà sinh nhật & Quản lý VIP 1-1 riêng biệt' }
+    ];
+
+    function filterPromos(catKey, el) {
+      if (el) {
+        document.querySelectorAll('#promo-cat-tabs .promo-cat-pill').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+      }
+      const box = document.getElementById('promo-banners-container');
+      const items = catKey === 'ALL' ? PROMO_LIST : PROMO_LIST.filter(x => x.cat === catKey);
+      box.innerHTML = items.map(item => `
+        <div class="promo-card-item" onclick="showToast('Sự kiện: ${item.title}')">
+          <div class="promo-card-banner">
+            <span class="promo-card-badge">${item.badge}</span>
+            <div style="font-size: 15px; font-weight: 900; color: #ffde00; margin-bottom: 4px;">${item.title}</div>
+            <div style="font-size: 11.5px; opacity: 0.9;">${item.sub}</div>
+          </div>
+          <div class="promo-card-foot">
+            <span>Thời gian: Đang diễn ra</span>
+            <span style="color: #005a2b;">Xem chi tiết ❯</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchRebateTab(idx) {
+      document.getElementById('rtab-1').classList.toggle('active', idx === 1);
+      document.getElementById('rtab-2').classList.toggle('active', idx === 2);
+      document.getElementById('rebate-content-1').style.display = idx === 1 ? 'block' : 'none';
+      document.getElementById('rebate-content-2').style.display = idx === 2 ? 'block' : 'none';
+    }
+
+    /* DANH SÁCH 51 CON GAME HOT VÀ CÁC SẢNH */
     const partnerRooms = {
       casino: [
         { name: "SE TRỰC TUYẾN", file: "sanh_se.png" },
@@ -2690,9 +2241,7 @@
         { name: "Câu Cá Hũ Vàng Tốc Đ...", brand: "jili", tagLogo: "JILI", file: "JACKPOT ĐÁNH CÁ 2.png" },
         { name: "Bắn Cá Vương Giả", brand: "jili", tagLogo: "JILI", file: "VUA DANH CA.png" },
         { name: "Jackpot Vua Đại Dương", brand: "jili", tagLogo: "JILI", file: "JACKPOT VUA DAI DUONG.png" },
-        { name: "Bắn Cá Thần Tài", brand: "jdb", tagLogo: "JDB", file: "BAN CA THAN TAI.png" },
-        { name: "Đánh Cá Vui Vẻ", brand: "jili", tagLogo: "JILI", file: "KY LAN MACH NƯỚC.png" },
-        { name: "Nhà Tư Bản Khủng Long", brand: "jili", tagLogo: "JILI", file: "CAY PHAT TAI.png" }
+        { name: "Bắn Cá Thần Tài", brand: "jdb", tagLogo: "JDB", file: "BAN CA THAN TAI.png" }
       ],
       nohu: [
         { name: "Quyết Chiến Tiền Thưởng", brand: "pg", tagLogo: "PG", file: "QUYẾT CHIẾN TIEN THUG_.png" },
@@ -2704,49 +2253,42 @@
         { name: "Mạt Chược Thắng 4", brand: "168", tagLogo: "VG", file: "MAT CHƯỢC THANG 4.png" },
         { name: "Đế Quốc Hoàng Kim", brand: "jili", tagLogo: "JILI", file: "DE QUOC HOANG KIM.png" },
         { name: "Phi Công", brand: "pg", tagLogo: "SPRIBE", file: "AVIATOR.png" },
-        { name: "Neko May Mắn", brand: "pg", tagLogo: "PG", file: "NEKO MAY MAN.png" },
-        { name: "Siêu Ace Deluxe", brand: "jili", tagLogo: "JILI", file: "SIEU ACE DELUXE.png" },
-        { name: "Hề Xiếc 4096", brand: "jili", tagLogo: "JILI", file: "HE XIEC 4096.png" }
+        { name: "Neko May Mắn", brand: "pg", tagLogo: "PG", file: "NEKO MAY MAN.png" }
       ],
       gamebai: [
         { name: "Tài Xỉu", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png" },
         { name: "Xóc Đĩa", brand: "v8", tagLogo: "V8", file: "XÓC ĐĨA_.png" },
         { name: "Tài Xỉu KM", brand: "km", tagLogo: "KM", file: "TAI Xiu.png" },
         { name: "Xì dách", brand: "v8", tagLogo: "V8", file: "XI DACH.png" },
-        { name: "Sic Bo", brand: "km", tagLogo: "KM", file: "TAI Xiu.png" },
-        { name: "Bầu Cua", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png" },
-        { name: "Xóc đĩa 2", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png" },
-        { name: "Tài Xỉu mini", brand: "v8", tagLogo: "V8", file: "TAI Xiu.png" },
-        { name: "Baccarat", brand: "km", tagLogo: "KM", file: "CHIEN THANG POKER.png" }
+        { name: "Bầu Cua", brand: "km", tagLogo: "KM", file: "XÓC ĐĨA_.png" }
       ]
     };
 
-    /* DANH SÁCH 51 CON GAME HOT ĐẦY ĐỦ 100% */
     const gameListHot = [
-      { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "SE TRỰC TUYẾN.png", "sanh_se.png"] },
-      { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "DG TRỰC TUYẾN.png", "sanh_dg.png"] },
-      { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "SV388 ĐÁ GÀ THOMO.png", "sanh_sv388.png"] },
-      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png", "QUYET CHIEN TIEN THUONG.png"] },
-      { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png", "ĐƯỜNG MẠT CHƯỢC 2.png"] },
-      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png", "TIẾNG GỌI DANH DỰ.png"] },
-      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png", "KHO BÁU AZTEC.png"] },
-      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png", "JACKPOT ĐÁNH CÁ.png"] },
-      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png", "MAT CHUOC THANG 4.png"] },
-      { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png", "DUONG MAT CHUOC.png"] },
-      { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png", "SIÊU CẤP ACE.png"] },
-      { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png", "MIỀN TÂY HOANG DÃ.png"] },
-      { name: "AVIATOR", files: ["AVIATOR.png", "AVIATOR.jpg"] },
-      { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png", "NEKO MAY MẮN.png"] },
-      { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png", "NAM MOI LO LO PHAT.png"] },
-      { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png", "THANG MAT CHUOC.png"] },
-      { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png", "THO SAN NGOI SAO.png"] },
-      { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png", "ĐẾ QUỐC HOÀNG KIM.png"] },
-      { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png", "THẦN CHIẾN GARUDA 500.png"] },
-      { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png", "JACKPOT VUA TÀI LỘC.png"] },
-      { name: "TÀI XỈU", files: ["TAI Xiu.png", "TAI XIU.png"] },
+      { name: "SE TRỰC TUYẾN", files: ["SE TRUC TUYEN.png", "sanh_se.png"] },
+      { name: "DG TRỰC TUYẾN", files: ["DG TRUC TUYEN.png", "sanh_dg.png"] },
+      { name: "SV388 ĐÁ GÀ THOMO", files: ["SV388 DA GA THOMO.png", "sanh_sv388.png"] },
+      { name: "QUYẾT CHIẾN TIỀN THƯỞNG", files: ["QUYẾT CHIẾN TIEN THUG_.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC 2", files: ["DUONG MAT CHUOC 2.png"] },
+      { name: "TIẾNG GỌI DANH DỰ", files: ["TIENG GOI DANH DU.png"] },
+      { name: "KHO BÁU AZTEC", files: ["KHO BAU AZTEC.png"] },
+      { name: "JACKPOT ĐÁNH CÁ", files: ["JACKPOT DANH CA.png"] },
+      { name: "MẠT CHƯỢC THẮNG 4", files: ["MAT CHƯỢC THANG 4.png"] },
+      { name: "ĐƯỜNG MẠT CHƯỢC", files: ["DUONG MAT CHƯỢC.png"] },
+      { name: "SIÊU CẤP ACE", files: ["SIEU CAP ACE.png"] },
+      { name: "MIỀN TÂY HOANG DÃ", files: ["MIEN TAY HOANG DA.png"] },
+      { name: "AVIATOR", files: ["AVIATOR.png"] },
+      { name: "NEKO MAY MẮN", files: ["NEKO MAY MAN.png"] },
+      { name: "NĂM MỚI LỘ LỘ PHÁT", files: ["NĂM MỚI LỘ LỘ PHAT.png"] },
+      { name: "THẮNG MẠT CHƯỢC", files: ["THANG MAT CHƯỢC.png"] },
+      { name: "THỢ SĂN NGÔI SAO", files: ["THỢ SAN NGOI SAO.png"] },
+      { name: "ĐẾ QUỐC HOÀNG KIM", files: ["DE QUOC HOANG KIM.png"] },
+      { name: "THẦN CHIẾN GARUDA 500", files: ["THAN CHIEN GARUDA 500.png"] },
+      { name: "JACKPOT VUA TÀI LỘC", files: ["JACKPOT VUA TAI LOC.png"] },
+      { name: "TÀI XỈU", files: ["TAI Xiu.png"] },
       { name: "QUYẾT CHIẾN TIỀN THƯỞNG KHỦNG", files: ["QUYET CHIEN TIEN THUONG KHUNG.png"] },
       { name: "NGỌC MAY MẮN 3", files: ["NGỌC MAY MAN 3.png"] },
-      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png", "XOC DIA.png"] },
+      { name: "XÓC ĐĨA", files: ["XÓC ĐĨA_.png"] },
       { name: "CHIẾN THẮNG POKER", files: ["CHIEN THANG POKER.png"] },
       { name: "DJ BOOM BOOM", files: ["DJ BOOM BOOM.png"] },
       { name: "SABA THỂ THAO", files: ["SABA THE THAO.png", "sanh_saba.png"] },
@@ -2792,7 +2334,7 @@
         partnerRooms[currentMainCat].forEach(room => {
           const card = document.createElement('div');
           card.className = 'partner-card-box';
-          card.onclick = () => launchGame(room.name); 
+          card.onclick = () => showToast('Mở sảnh: ' + room.name);
 
           const img = document.createElement('img');
           img.src = '/images/' + encodeURIComponent(room.file);
@@ -2809,17 +2351,11 @@
 
       if (brandLists[currentMainCat]) {
         subHeader.style.display = 'block';
-
         const container = document.createElement('div');
         container.className = 'slot-layout-container';
 
         const leftSidebar = document.createElement('div');
         leftSidebar.className = 'brand-sidebar-left';
-
-        const arrowUp = document.createElement('div');
-        arrowUp.className = 'brand-scroll-arrow';
-        arrowUp.innerText = '▲';
-        leftSidebar.appendChild(arrowUp);
 
         brandLists[currentMainCat].forEach(brand => {
           const btn = document.createElement('div');
@@ -2830,20 +2366,12 @@
           };
 
           if (brand.id === 'all') {
-            btn.innerHTML = `<span style="font-size:12px;font-weight:900;">${brand.name}</span>`;
+            btn.innerHTML = `<span>${brand.name}</span>`;
           } else {
-            btn.innerHTML = `
-              <img src="/images/${brand.file}" onerror="this.style.display='none'">
-              <span>${brand.name}</span>
-            `;
+            btn.innerHTML = `<img src="/images/${brand.file}" onerror="this.style.display='none'"><span>${brand.name}</span>`;
           }
           leftSidebar.appendChild(btn);
         });
-
-        const arrowDown = document.createElement('div');
-        arrowDown.className = 'brand-scroll-arrow';
-        arrowDown.innerText = '▼';
-        leftSidebar.appendChild(arrowDown);
 
         const rightGrid = document.createElement('div');
         rightGrid.className = 'slot-game-grid-right';
@@ -2856,7 +2384,7 @@
         list.forEach(g => {
           const card = document.createElement('div');
           card.className = 'slot-card-box';
-          card.onclick = () => launchGame(g.name);
+          card.onclick = () => showToast('Mở game: ' + g.name);
 
           card.innerHTML = `
             <div class="slot-poster-frame">
@@ -2865,8 +2393,7 @@
               <span class="slot-brand-logo-badge">${g.tagLogo}</span>
             </div>
             <div class="slot-game-title-row">
-              <div class="slot-title-text" title="${g.name}">${g.name}</div>
-              <div class="slot-fav-heart">♡</div>
+              <div class="slot-title-text">${g.name}</div>
             </div>
           `;
           rightGrid.appendChild(card);
@@ -2885,11 +2412,9 @@
       gameListHot.forEach(g => {
         const cardBox = document.createElement('div');
         cardBox.className = 'game-card-wrapper';
-        cardBox.onclick = () => launchGame(g.name);
+        cardBox.onclick = () => showToast('Mở game: ' + g.name);
 
         const img = document.createElement('img');
-        img.className = 'game-card-img';
-
         const urls = [];
         g.files.forEach(f => {
           urls.push('/images/' + encodeURIComponent(f));
@@ -2919,711 +2444,17 @@
     function switchCategory(cat, element) {
       currentMainCat = cat;
       currentActiveBrand = 'all';
-
-      const tabs = document.querySelectorAll('.cat-tab-item');
-      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.cat-tab-item').forEach(t => t.classList.remove('active'));
       element.classList.add('active');
-      element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
       renderViewport();
-    }
-
-    function switchSubFilter(type, element) {
-      const pills = document.querySelectorAll('.sub-tab-pill');
-      pills.forEach(p => p.classList.remove('active'));
-      element.classList.add('active');
     }
 
     function handleSearchGame(kw) {
       const k = kw.trim().toLowerCase();
-      const cards = document.querySelectorAll('.slot-card-box');
-      cards.forEach(c => {
+      document.querySelectorAll('.slot-card-box').forEach(c => {
         const name = c.querySelector('.slot-title-text').innerText.toLowerCase();
         c.style.display = name.includes(k) ? 'flex' : 'none';
       });
-    }
-
-    function navScroll(offset) {
-      document.getElementById('cat-list').scrollLeft += offset;
-    }
-
-    /* ======================================================== */
-    /* LOGIC KHUYẾN MÃI 10 DANH MỤC                              */
-    /* ======================================================== */
-    const PROMO_LIST = [
-      { cat: 'HOT', badge: 'HOT', title: 'Thưởng Nạp Đầu Hội Viên Mới 8,888K', sub: 'Áp dụng Nổ Hũ - Bắn Cá - Game Bài' },
-      { cat: 'SCATTER', badge: 'SCATTER NỔ HŨ', title: 'Săn Biểu Tượng Scatter Nhận Thưởng Tới 18,888K', sub: 'Dành riêng cho sảnh PG & JILI Nổ Hũ' },
-      { cat: 'NOHU_BANCA', badge: 'NỔ HŨ - BẮN CÁ', title: 'Phao Cứu Trợ Hoàn Thua Mỗi Ngày 28,888K', sub: 'Tự động kết toán vào 14:00 hôm sau' },
-      { cat: 'THETHAO', badge: 'THỂ THAO', title: 'Bảo Hiểm Vé Cược Thể Thao Đầu Tiên 100%', sub: 'SABA, CMD, IM, BTI Thể Thao' },
-      { cat: 'CASINO', badge: 'CASINO', title: 'Thắng Liên Tiếp Baccarat Thưởng Nóng 88,888K', sub: 'SE, DG, EVO, WM Casino Trực Tuyến' },
-      { cat: 'GAMEBAI', badge: 'GAME BÀI', title: 'Vượt Ải Game Bài V8 - KM Nhận Lì Xì Mỗi Ngày', sub: 'Doanh thu cược càng cao thưởng càng lớn' },
-      { cat: 'DAGA', badge: 'ĐÁ GÀ', title: 'Thưởng Thắng Liên Tiếp Đá Gà Thomo SV388', sub: 'Hoàn trả không giới hạn mỗi vé cược' },
-      { cat: 'XOSO', badge: 'XỔ SỐ', title: 'Siêu Thưởng Xổ Số Lô Đề 1 Ăn 99.5', sub: 'Kết toán siêu tốc ngay sau giờ quay thưởng' },
-      { cat: 'VIP', badge: 'VIP CLUB', title: 'Đặc Quyền Thăng Cấp VIP - Lương Tháng Tới 200 Triệu', sub: 'Quà sinh nhật & Quản lý VIP 1-1 riêng biệt' }
-    ];
-
-    function openPromoView() {
-      closeAllInternalViews();
-      document.getElementById('promo-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      filterPromos('ALL', document.querySelector('#promo-cat-tabs .promo-cat-pill'));
-    }
-
-    function closePromoView() {
-      document.getElementById('promo-view').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    function filterPromos(catKey, el) {
-      if (el) {
-        document.querySelectorAll('#promo-cat-tabs .promo-cat-pill').forEach(p => p.classList.remove('active'));
-        el.classList.add('active');
-      }
-      const box = document.getElementById('promo-banners-container');
-      const items = catKey === 'ALL' ? PROMO_LIST : PROMO_LIST.filter(x => x.cat === catKey);
-      box.innerHTML = items.map(item => `
-        <div class="promo-card-item" onclick="showToast('Đang tải chi tiết sự kiện: ${item.title}')">
-          <div class="promo-card-banner">
-            <span class="promo-card-badge">${item.badge}</span>
-            <div style="font-size: 15px; font-weight: 900; color: #ffde00; margin-bottom: 4px;">${item.title}</div>
-            <div style="font-size: 11.5px; opacity: 0.9;">${item.sub}</div>
-          </div>
-          <div class="promo-card-foot">
-            <span>Thời gian: Đang diễn ra</span>
-            <span style="color: #005a2b;">Xem chi tiết ❯</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    /* ======================================================== */
-    /* LOGIC HOÀN TRẢ & TÀI KHOẢN CÁ NHÂN                        */
-    /* ======================================================== */
-    function openRebateView() {
-      closeAllInternalViews();
-      document.getElementById('rebate-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeRebateView() {
-      document.getElementById('rebate-view').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-    function switchRebateTab(idx) {
-      document.getElementById('rtab-1').classList.toggle('active', idx === 1);
-      document.getElementById('rtab-2').classList.toggle('active', idx === 2);
-      document.getElementById('rebate-content-1').style.display = idx === 1 ? 'block' : 'none';
-      document.getElementById('rebate-content-2').style.display = idx === 2 ? 'block' : 'none';
-    }
-
-    function openProfileView() {
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) return openAuthModal('login');
-      closeAllInternalViews();
-      document.getElementById(' prof-username') && (document.getElementById('prof-username').innerText = document.getElementById('display-username').innerText);
-      document.getElementById('prof-username').innerText = document.getElementById('display-username').innerText;
-      document.getElementById('prof-balance').innerText = document.getElementById('display-balance').innerText;
-      document.getElementById('profile-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeProfileView() {
-      document.getElementById('profile-view').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    /* ======================================================== */
-    /* LOGIC RÚT TIỀN & KHÓA CỨNG NGÂN HÀNG VĨNH VIỄN           */
-    /* ======================================================== */
-    let currentWdMethod = 'bank';
-
-    function openWithdrawView() {
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) return openAuthModal('login');
-      closeAllInternalViews();
-      document.getElementById('wd-available-balance').innerText = document.getElementById('display-balance').innerText;
-      renderWithdrawBankState();
-      document.getElementById('withdraw-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeWithdrawView() {
-      document.getElementById('withdraw-view').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    function switchWithdrawMethod(method) {
-      currentWdMethod = method;
-      document.getElementById('wd-tab-bank').classList.toggle('active', method === 'bank');
-      document.getElementById('wd-tab-crypto').classList.toggle('active', method === 'crypto');
-      document.getElementById('wd-tab-momo').classList.toggle('active', method === 'momo');
-
-      const limitLabel = document.getElementById('wd-limit-label');
-      const amountInput = document.getElementById('wd-input-amount');
-      const addLabel = document.getElementById('wd-add-label');
-
-      if (method === 'crypto') {
-        limitLabel.innerText = 'Số điểm rút (Hạn mức: 500 ~ 1,000,000)';
-        amountInput.placeholder = '500 ~ 1,000,000';
-        addLabel.innerText = 'Thêm Địa Chỉ Ví Ảo USDT';
-      } else if (method === 'momo') {
-        limitLabel.innerText = 'Số điểm rút (Hạn mức: 100 ~ 300,000)';
-        amountInput.placeholder = '100 ~ 300,000';
-        addLabel.innerText = 'Thêm Tài Khoản Ví MoMo';
-      } else {
-        limitLabel.innerText = 'Số điểm rút (Hạn mức: 100 ~ 300,000)';
-        amountInput.placeholder = '100 ~ 300,000';
-        addLabel.innerText = 'Thêm Thẻ Ngân Hàng Nhận Tiền';
-      }
-    }
-
-    function renderWithdrawBankState() {
-      const u = currentUserData || {};
-      const hasBank = Boolean(u.bank_account && u.bank_name);
-      const unboundBox = document.getElementById('wd-unbound-box');
-      const boundBox = document.getElementById('wd-bound-box');
-      const countSpan = document.getElementById('wd-count-bank');
-
-      if (hasBank) {
-        unboundBox.style.display = 'none';
-        boundBox.style.display = 'block';
-        countSpan.innerText = '1/3';
-        document.getElementById('wd-bound-bankname').innerText = u.bank_name;
-        const acc = String(u.bank_account);
-        document.getElementById('wd-bound-accnum').innerText = acc.length > 4 ? '**** **** ' + acc.slice(-4) : acc;
-        document.getElementById('wd-bound-owner').innerText = u.bank_owner || 'NGUYEN VAN A';
-      } else {
-        unboundBox.style.display = 'flex';
-        boundBox.style.display = 'none';
-        countSpan.innerText = '0/3';
-      }
-    }
-
-    function openBindBankModal() {
-      if (currentUserData && (currentUserData.isBankLocked || currentUserData.bank_account)) {
-        return showToast('Tài khoản ngân hàng đã được khóa bảo mật vĩnh viễn. Chỉ Admin mới có quyền thay đổi!');
-      }
-      if (currentUserData && currentUserData.bank_owner) {
-        document.getElementById('bind-bank-owner').value = currentUserData.bank_owner;
-      }
-      document.getElementById('bind-bank-modal').style.display = 'flex';
-    }
-
-    function closeBindBankModal() {
-      document.getElementById('bind-bank-modal').style.display = 'none';
-    }
-
-    async function submitBindBank() {
-      const bank_name = document.getElementById('bind-bank-name').value.trim();
-      const bank_owner = document.getElementById('bind-bank-owner').value.trim().toUpperCase();
-      const bank_account = document.getElementById('bind-bank-acc').value.trim();
-      const withdraw_password = document.getElementById('bind-withdraw-pass').value.trim();
-
-      if (!bank_name || !bank_owner || !bank_account || !withdraw_password) {
-        return showToast('Vui lòng điền đầy đủ thông tin thẻ và mật khẩu rút tiền!');
-      }
-
-      try {
-        const res = await fetch('/api/user/bind-bank', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ bank_name, bank_owner, bank_account, withdraw_password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast(data.message);
-          currentUserData = data.user;
-          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
-          closeBindBankModal();
-          renderWithdrawBankState();
-        } else {
-          showToast(data.message);
-        }
-      } catch (e) {
-        showToast('Lỗi kết nối máy chủ!');
-      }
-    }
-
-    async function submitWithdrawOrder() {
-      const amountK = Number(document.getElementById('wd-input-amount').value);
-      const withdraw_password = document.getElementById('wd-input-pass').value.trim();
-
-      if (!currentUserData || !currentUserData.bank_account) {
-        return showToast('Vui lòng bấm dấu (+) liên kết thẻ ngân hàng trước khi rút tiền!');
-      }
-      if (!amountK || amountK < 100) {
-        return showToast('Số điểm rút tối thiểu là 100 điểm (100,000 VNĐ)!');
-      }
-      if (!withdraw_password) {
-        return showToast('Vui lòng nhập mật khẩu rút tiền!');
-      }
-
-      try {
-        const res = await fetch('/api/user/withdraw', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amountPoints: amountK, withdraw_password, method: currentWdMethod })
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast(data.message);
-          currentUserData = data.user;
-          updateUserBalanceDisplay(data.user.balance);
-          document.getElementById('wd-available-balance').innerText = document.getElementById('display-balance').innerText;
-          document.getElementById('wd-input-amount').value = '';
-          document.getElementById('wd-input-pass').value = '';
-        } else {
-          showToast(data.message);
-        }
-      } catch (e) {
-        showToast('Lỗi kết nối máy chủ!');
-      }
-    }
-
-    /* ĐIỀU KHIỂN NẠP TIỀN */
-    function openDepositView() {
-      const isLogged = document.getElementById('user-zone').style.display !== 'none';
-      if (!isLogged) return openAuthModal('login');
-      closeAllInternalViews();
-      document.getElementById('deposit-view').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDepositView() {
-      document.getElementById('deposit-view').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    let selectedMethod = 'bank';
-    let selectedChannel = 'SUNPAY';
-
-    function selectMethod(el, methodKey) {
-      document.querySelectorAll('.method-item').forEach(m => m.classList.remove('active'));
-      el.classList.add('active');
-      selectedMethod = methodKey;
-    }
-
-    function selectChannel(el) {
-      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      selectedChannel = el.innerText.trim();
-    }
-
-    let currentAmount = 50;
-    let promoActive = true;
-    let paymentTimerInterval = null;
-
-    function selectPoint(el, amount) {
-      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('input-amount').value = amount;
-      updateCalculations(amount);
-    }
-
-    function handleAmountChange() {
-      let val = document.getElementById('input-amount').value;
-      if (!val || isNaN(val) || val < 0) val = 0;
-      else val = parseInt(val);
-      document.querySelectorAll('.point-item').forEach(p => p.classList.remove('active'));
-      updateCalculations(val);
-    }
-
-    function togglePromo() {
-      promoActive = !promoActive;
-      const radio = document.getElementById('promo-radio');
-      if (promoActive) radio.classList.add('active');
-      else radio.classList.remove('active');
-    }
-
-    function updateCalculations(amount) {
-      currentAmount = amount;
-      let bonus = 0;
-      if(amount >= 490000) bonus = 2940;
-      else if(amount >= 450000) bonus = 2700;
-      else if(amount >= 400000) bonus = 2400;
-      else if(amount >= 350000) bonus = 2100;
-      else if(amount >= 300000) bonus = 1800;
-      else if(amount >= 200000) bonus = 1200;
-      else if(amount >= 100000) bonus = 500;
-      else if(amount >= 50000) bonus = 200;
-      else if(amount >= 10000) bonus = 40;
-      else if(amount >= 5000) bonus = 15;
-      else if(amount >= 1000) bonus = 3;
-      else if(amount >= 500) bonus = 1;
-      else if(amount >= 100) bonus = 0.2;
-      else if(amount >= 50) bonus = 0.1;
-
-      document.getElementById('display-bonus').innerText = '+ ' + bonus + ' K';
-      document.getElementById('display-vnd').innerText = (amount * 1000).toLocaleString('en-US');
-      document.getElementById('promo-base').innerText = amount.toFixed(2);
-      document.getElementById('promo-reward').innerText = bonus.toFixed(2);
-      document.getElementById('detail-points').innerText = amount.toFixed(2) + ' K';
-      document.getElementById('detail-total').innerText = amount.toFixed(2) + ' K';
-    }
-
-    function handleDepositNext() {
-      const bankData = {
-        bankName: "ACB",
-        accName: "LO VAN TUAN",
-        accNumber: "26194061",
-        qrSrc: "/images/qr_acb.png.png?v=2",  
-        qrFallback: "/images/qr_acb.png?v=2"  
-      };
-
-      const random9 = Math.floor(100000000 + Math.random() * 900000000); 
-      const random7 = Math.floor(1000000 + Math.random() * 9000000);     
-      const transId = 'VND' + random9 + 'VN' + random7;
-
-      showToast('Đang khởi tạo cổng thanh toán...');
-      document.getElementById('deposit-view').style.display = 'none';
-      document.getElementById('payment-confirm-view').style.display = 'block';
-
-      const totalVND = currentAmount * 1000;
-      document.getElementById('pc-amount').innerText = totalVND.toLocaleString('en-US') + ' VND';
-
-      const now = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      document.getElementById('pc-time').innerText = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
-      document.getElementById('pc-bank-name').innerText = bankData.bankName;
-      document.getElementById('pc-trans-id').innerText = transId;
-      document.getElementById('pc-memo').innerText = transId;
-      document.getElementById('pc-acc-num').innerText = bankData.accNumber;
-      document.getElementById('pc-acc-name').innerText = bankData.accName;
-
-      const qrImg = document.getElementById('pc-qr-img');
-      qrImg.src = bankData.qrSrc;
-      qrImg.setAttribute('onerror', `handleImgErr(this, ['${bankData.qrFallback}'])`);
-
-      startPaymentTimer(10 * 60);
-    }
-
-    function closePaymentConfirm() {
-      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
-      document.getElementById('payment-confirm-view').style.display = 'none';
-      document.getElementById('deposit-view').style.display = 'flex';
-    }
-
-    function startPaymentTimer(durationInSeconds) {
-      if(paymentTimerInterval) clearInterval(paymentTimerInterval);
-      let timer = durationInSeconds;
-      const display = document.getElementById('pc-timer-text');
-      paymentTimerInterval = setInterval(function () {
-        let minutes = parseInt(timer / 60, 10);
-        let seconds = parseInt(timer % 60, 10);
-        display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-        if (--timer < 0) {
-          clearInterval(paymentTimerInterval);
-          closePaymentConfirm();
-        }
-      }, 1000);
-    }
-
-    function copyText(elementId) {
-      const textToCopy = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast("Đã sao chép: " + textToCopy);
-      });
-    }
-
-    function copyUsername() {
-      const u = document.getElementById('display-username').innerText;
-      navigator.clipboard.writeText(u).then(() => {
-        showToast('Đã sao chép tài khoản: ' + u);
-      });
-    }
-
-    function downloadQR() {
-      const qrImg = document.getElementById('pc-qr-img');
-      const imgSrc = qrImg.src;
-      if (!imgSrc || imgSrc.includes('html')) return showToast('Chưa có ảnh mã QR!');
-      const a = document.createElement('a');
-      a.href = imgSrc;
-      a.download = 'QR_ThanhToan_QQ88.png';
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast('Đã mở ảnh mã QR để lưu!');
-    }
-
-    /* XÁC NHẬN NẠP TIỀN THỰC VÀO TÀI KHOẢN */
-    async function confirmDepositDone() {
-      showToast('Đang cộng điểm vào tài khoản...');
-      try {
-        const depositVND = currentAmount * 1000;
-        const res = await fetch('/api/deposit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: depositVND })
-        });
-        const data = await res.json();
-        if (data && data.new_balance !== undefined) {
-          showToast(`Nạp thành công +${depositVND.toLocaleString('vi-VN')} đ!`);
-          updateUserBalanceDisplay(data.new_balance);
-          closePaymentConfirm();
-          closeDepositView();
-        } else {
-          showToast('Nạp tiền không thành công!');
-        }
-      } catch (err) {
-        showToast('Lỗi kết nối máy chủ!');
-      }
-    }
-
-    /* CẬP NHẬT HIỂN THỊ SỐ TIỀN DẠNG K CHUẨN XÁC THEO WEB THẬT */
-    function updateUserBalanceDisplay(newBalance) {
-      const balanceEl = document.getElementById('display-balance');
-      if (balanceEl) {
-        const num = Number(newBalance || 0);
-        const inK = num >= 1000 ? Math.floor(num / 1000).toLocaleString('vi-VN') + 'K' : num + 'K';
-        balanceEl.innerText = inK;
-      }
-      if (currentUserData) {
-        currentUserData.balance = Number(newBalance);
-      }
-      const backup = localStorage.getItem('qq88_saved_account');
-      if (backup) {
-        try {
-          const u = JSON.parse(backup);
-          u.balance = Number(newBalance);
-          localStorage.setItem('qq88_saved_account', JSON.stringify(u));
-        } catch(e) {}
-      }
-    }
-
-    async function syncBalanceFromServer() {
-      try {
-        const res = await fetch('/api/me');
-        const data = await res.json();
-        if (data && data.user && data.user.balance !== undefined) {
-          currentUserData = data.user;
-          updateUserBalanceDisplay(data.user.balance);
-        }
-      } catch (e) {}
-    }
-
-    /* AUTH QUẢN LÝ TÀI KHOẢN */
-    let currentAuthMode = 'login';
-
-    function openAuthModal(mode = 'login') {
-      currentAuthMode = mode;
-      document.getElementById('auth-modal').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      switchAuthTab(mode);
-    }
-
-    function closeAuthModal() {
-      document.getElementById('auth-modal').style.display = 'none';
-      document.body.style.overflow = '';
-      document.getElementById('input-username').value = '';
-      document.getElementById('input-password').value = '';
-    }
-
-    function switchAuthTab(mode) {
-      currentAuthMode = mode;
-      const tabLogin = document.getElementById('tab-login');
-      const tabReg = document.getElementById('tab-register');
-      const btnAction = document.getElementById('btn-modal-action');
-      const extraFields = document.getElementById('reg-extra-fields');
-
-      if (mode === 'login') {
-        tabLogin.classList.add('active');
-        tabReg.classList.remove('active');
-        btnAction.innerText = 'ĐĂNG NHẬP';
-        if (extraFields) extraFields.style.display = 'none';
-      } else {
-        tabReg.classList.add('active');
-        tabLogin.classList.remove('active');
-        btnAction.innerText = 'ĐĂNG KÝ';
-        if (extraFields) extraFields.style.display = 'block';
-      }
-    }
-
-    /* ĐĂNG NHẬP & TỰ ĐỘNG CỨU HỘ LOCALSTORAGE KHI SERVER MẤT DỮ LIỆU */
-    async function handleAuthSubmit(e) {
-      e.preventDefault();
-      const username = document.getElementById('input-username').value.trim();
-      const password = document.getElementById('input-password').value.trim();
-      const fullName = document.getElementById('input-fullname') ? document.getElementById('input-fullname').value.trim().toUpperCase() : '';
-      const phone = document.getElementById('input-phone') ? document.getElementById('input-phone').value.trim() : '';
-      const isLogin = currentAuthMode === 'login';
-      const endpoint = isLogin ? '/api/login' : '/api/register';
-
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password, fullName, phone })
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          showToast(data.message);
-          currentUserData = data.user;
-          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
-          closeAuthModal();
-          checkSession();
-        } else {
-          const backup = localStorage.getItem('qq88_saved_account');
-          if (backup) {
-            try {
-              const savedUser = JSON.parse(backup);
-              if (savedUser.username === username && savedUser.password === password) {
-                showToast('Đang khôi phục tài khoản từ bộ nhớ thiết bị...');
-                const syncRes = await fetch('/api/sync-backup', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ user: savedUser })
-                });
-                const syncData = await syncRes.json();
-                if (syncData.success) {
-                  showToast('Khôi phục tài khoản thành công!');
-                  closeAuthModal();
-                  checkSession();
-                  return;
-                }
-              }
-            } catch (err) {}
-          }
-          showToast(data.message);
-        }
-      } catch (err) {
-        showToast('Lỗi kết nối tới máy chủ!');
-      }
-    }
-
-    /* ĐỒNG BỘ SESSION & TỰ ĐỔI BOTTOM NAV THEO TRẠNG THÁI ĐĂNG NHẬP */
-    async function checkSession() {
-      try {
-        let res = await fetch('/api/me');
-        let data = await res.json();
-
-        if (!data.loggedIn) {
-          const backup = localStorage.getItem('qq88_saved_account');
-          if (backup) {
-            try {
-              const savedUser = JSON.parse(backup);
-              const syncRes = await fetch('/api/sync-backup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user: savedUser })
-              });
-              const syncData = await syncRes.json();
-              if (syncData.success) {
-                data = { loggedIn: true, user: syncData.user };
-              }
-            } catch (err) {}
-          }
-        }
-
-        const guestZone = document.getElementById('guest-zone');
-        const userZone = document.getElementById('user-zone');
-        const navGuest = document.getElementById('bottom-nav-guest');
-        const navUser = document.getElementById('bottom-nav-user');
-        const sidebarAuthText = document.getElementById('sidebar-auth-text');
-        const admBtn = document.getElementById('admin-floating-btn');
-
-        if (data.loggedIn && data.user) {
-          currentUserData = data.user;
-          if (guestZone) guestZone.style.display = 'none';
-          if (userZone) userZone.style.display = 'block';
-          if (navGuest) navGuest.style.display = 'none';
-          if (navUser) navUser.style.display = 'flex';
-
-          document.getElementById('display-username').innerText = data.user.username;
-          updateUserBalanceDisplay(data.user.balance || 0);
-
-          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
-
-          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG XUẤT';
-          if (admBtn) admBtn.style.display = (data.user.role === 'admin') ? 'block' : 'none';
-        } else {
-          currentUserData = null;
-          if (guestZone) guestZone.style.display = 'block';
-          if (userZone) userZone.style.display = 'none';
-          if (navGuest) navGuest.style.display = 'flex';
-          if (navUser) navUser.style.display = 'none';
-          if (sidebarAuthText) sidebarAuthText.innerText = 'ĐĂNG NHẬP';
-          if (admBtn) admBtn.style.display = 'none';
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    async function logoutAccount() {
-      localStorage.removeItem('qq88_saved_account');
-      await fetch('/api/logout', { method: 'POST' });
-      checkSession();
-      showToast('Đã đăng xuất tài khoản!');
-    }
-
-    /* BẢNG ĐIỀU KHIỂN QUẢN TRỊ ADMIN */
-    function toggleAdminPanel() {
-      const modal = document.getElementById('admin-modal');
-      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    async function submitAdminBalance(mode) {
-      const targetUsername = document.getElementById('adm-user').value.trim();
-      const amount = document.getElementById('adm-amount').value;
-      if (!targetUsername || !amount) return alert('Nhập đủ username và số tiền!');
-
-      const res = await fetch('/api/admin/set-balance', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetUsername, mode, amount })
-      });
-      const data = await res.json();
-      alert(data.message);
-      checkSession();
-    }
-
-    async function submitAdminUserBank() {
-      const targetUsername = document.getElementById('adm-bank-user').value.trim();
-      const bank_name = document.getElementById('adm-bank-name').value.trim();
-      const bank_account = document.getElementById('adm-bank-acc').value.trim();
-      const bank_owner = document.getElementById('adm-bank-owner').value.trim();
-      const new_password = document.getElementById('adm-new-pass').value.trim();
-      const withdraw_password = document.getElementById('adm-wd-pass').value.trim();
-
-      if (!targetUsername) return alert('Cần nhập tên tài khoản người chơi!');
-
-      const res = await fetch('/api/admin/set-user-bank', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetUsername, bank_name, bank_account, bank_owner, new_password, withdraw_password })
-      });
-      const data = await res.json();
-      alert(data.message);
-      checkSession();
-    }
-
-    async function submitAdminUserRtp() {
-      const targetUsername = document.getElementById('adm-rtp-user').value.trim();
-      const rate = document.getElementById('adm-rtp-val').value;
-      if (!targetUsername) return alert('Nhập username!');
-
-      const res = await fetch('/api/admin/set-user-rtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetUsername, rate })
-      });
-      const data = await res.json();
-      alert(data.message);
-    }
-
-    async function submitAdminGameRtp() {
-      const gameCode = document.getElementById('adm-game-code').value;
-      const win_rate = document.getElementById('adm-game-rate').value;
-      if (!win_rate) return alert('Nhập tỉ lệ!');
-
-      const res = await fetch('/api/admin/set-game-rtp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gameCode, win_rate })
-      });
-      const data = await res.json();
-      alert(data.message);
     }
 
     window.onload = () => {

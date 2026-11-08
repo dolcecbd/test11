@@ -341,4 +341,4 @@ app.post('/api/admin/set-game-rtp', requireAdmin, (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`[QQ88 Server] Khởi động thành công trên cổng ${PORT}`);
-}); server.js
+});

@@ -1266,48 +1266,52 @@
       box-shadow: 0 0 25px rgba(0,0,0,0.3);
     }
     
-    /* 1. MÀN HÌNH ĐĂNG NHẬP & ĐĂNG KÝ JOHN TERRY CHUẨN REP 1:1 */
+    /* 1. MÀN HÌNH ĐĂNG NHẬP & ĐĂNG KÝ JOHN TERRY CHUẨN REP 1:1 (CỠ TO CHUẨN ẢNH REAL) */
     .auth-jt-view {
-      background: linear-gradient(180deg, #ffffff 0%, #ffffff 40%, #e6f4ea 100%) !important;
+      background: linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #e6f4ea 100%) !important;
       padding-bottom: 30px;
     }
     .auth-jt-header {
       background: #005a2b !important;
-      padding: 14px 16px 12px 16px;
+      padding: 16px 16px 14px 16px;
       text-align: center;
       position: relative;
     }
+    /* NÚT X VÀNG TƯƠI CHUẨN ẢNH REAL */
     .auth-jt-header .close-btn {
       position: absolute;
-      top: 10px;
-      right: 14px;
+      top: 12px;
+      right: 16px;
       font-size: 24px;
-      color: #e5e7eb;
+      color: #ffde00 !important;
       cursor: pointer;
-      font-weight: 300;
+      font-weight: 700;
     }
     .auth-jt-logo {
-      font-size: 36px;
+      font-size: 42px;
       font-weight: 900;
       color: #ffde00 !important;
       font-style: italic;
-      line-height: 1.1;
-      letter-spacing: -1px;
+      line-height: 1;
+      letter-spacing: -1.5px;
     }
     .auth-jt-slogan {
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 14.5px;
+      font-weight: 900;
       color: #ffde00 !important;
-      letter-spacing: 0.6px;
-      margin-top: 2px;
+      letter-spacing: 0.8px;
+      margin-top: 4px;
     }
+
     .auth-jt-card {
       background: transparent !important;
       border-radius: 0 !important;
       margin: 0 !important;
-      padding: 16px 18px 10px 18px !important;
+      padding: 18px 16px 10px 16px !important;
       box-shadow: none !important;
     }
+
+    /* ĐẠI SỨ THƯƠNG HIỆU & CHỮ KÝ TO RÕ */
     .auth-jt-ambassador {
       display: flex;
       justify-content: space-between;
@@ -1316,38 +1320,39 @@
       padding: 0 4px;
     }
     .auth-jt-amb-text {
-      font-size: 12px;
+      font-size: 13.5px;
       color: #1e293b;
-      line-height: 1.35;
-      font-weight: 600;
+      line-height: 1.4;
+      font-weight: 700;
     }
     .auth-jt-amb-text strong {
-      font-size: 12.5px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 900;
       color: #0f172a;
     }
     .auth-jt-signature {
-      width: 105px;
-      height: 42px;
+      width: 120px;
+      height: 48px;
       object-fit: contain;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
     }
+
+    /* Ô NHẬP PILL: DÀY DẶN, CAO 48PX, CHỮ TO 14PX */
     .auth-input-pill {
       display: flex;
       align-items: center;
       background: #ffffff;
-      border: 1.2px solid #86c49c !important;
-      border-radius: 28px;
-      padding: 9px 16px;
-      margin-bottom: 12px;
-      gap: 10px;
+      border: 1.5px solid #86c49c !important;
+      border-radius: 30px;
+      padding: 11px 18px;
+      margin-bottom: 14px;
+      gap: 12px;
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
     }
     .auth-input-pill svg {
-      width: 18px !important;
-      height: 18px !important;
-      max-width: 18px !important;
-      max-height: 18px !important;
+      width: 22px !important;
+      height: 22px !important;
+      max-width: 22px !important;
+      max-height: 22px !important;
       fill: #008a38 !important;
       flex-shrink: 0;
     }
@@ -1355,75 +1360,83 @@
       flex: 1;
       border: none;
       outline: none;
-      font-size: 12px;
-      color: #334155;
+      font-size: 14px;
+      color: #1e293b;
       background: transparent;
-      font-weight: 500;
+      font-weight: 600;
     }
     .auth-input-pill input::placeholder {
       color: #94a3b8;
-      font-size: 12px;
+      font-size: 13.5px;
+      font-weight: 500;
     }
     .auth-input-pill .eye-toggle {
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     }
     .auth-input-pill .eye-toggle svg {
-      width: 18px !important;
-      height: 18px !important;
-      fill: #94a3b8 !important;
+      width: 21px !important;
+      height: 21px !important;
+      fill: #85988d !important;
     }
+
+    /* CHECKBOX VÀ CHỮ LƯU ĐĂNG NHẬP CỠ LỚN */
     .auth-terms-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 11.5px;
+      font-size: 13px;
       font-weight: 700;
       color: #1e293b;
-      margin: 10px 4px 14px 4px;
+      margin: 12px 6px 16px 6px;
       cursor: pointer;
     }
     .auth-terms-row input[type="checkbox"] {
       accent-color: #008a38;
-      width: 15px;
-      height: 15px;
-      border-radius: 3px;
+      width: 17px;
+      height: 17px;
+      border-radius: 4px;
     }
+
+    /* NÚT VÀNG CHANH TO, DÀY, NẢY */
     .btn-auth-yellow {
       background: #edf125 !important;
       border: none;
       width: 100%;
-      padding: 13px 0;
-      border-radius: 28px;
-      font-size: 15px;
+      padding: 14px 0;
+      border-radius: 30px;
+      font-size: 16.5px;
       font-weight: 900;
       color: #0b572a !important;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
       text-transform: uppercase;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
     .btn-auth-yellow:active {
       transform: scale(0.98);
       background: #e2e61f !important;
     }
+
     .auth-switch-link {
       text-align: center;
-      font-size: 12px;
+      font-size: 13.5px;
       font-weight: 600;
       color: #334155;
-      margin: 14px 0 16px 0;
+      margin: 16px 0 18px 0;
     }
     .auth-switch-link span {
       color: #008a38;
       text-decoration: underline;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
     }
+
+    /* 4 TIỆN ÍCH DƯỚI: ICON PHÓNG LÊN 46PX, CHỮ RÕ RÀNG */
     .auth-quick-tools {
       display: flex;
       justify-content: space-around;
@@ -1435,41 +1448,43 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       width: 48%;
     }
     .auth-tool-title {
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 900;
       color: #0f172a;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.3px;
     }
     .auth-tool-btns {
       display: flex;
-      gap: 18px;
+      gap: 22px;
       justify-content: center;
     }
     .auth-tool-circle {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       cursor: pointer;
     }
     .auth-tool-circle img {
-      width: 36px;
-      height: 36px;
+      width: 46px;
+      height: 46px;
       object-fit: contain;
     }
     .auth-tool-circle span {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 800;
       color: #008a38;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.4px;
     }
+
+    /* BANNER CHÂN TRANG TRÀN VIỀN */
     .auth-jt-footer-banner {
       width: 100%;
-      margin-top: 8px;
+      margin-top: 10px;
       padding: 0 !important;
     }
     .auth-jt-footer-banner img {

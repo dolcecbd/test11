@@ -61,6 +61,8 @@ function ensureAdminExists() {
       bank_name: "ACB",
       bank_account: "88888888",
       bank_owner: "ADMIN ROOT",
+      bank_locked: true,
+      withdraw_password: "888",
       vip: 10,
       created_at: new Date().toISOString()
     };
@@ -76,7 +78,7 @@ function requireAdmin(req, res, next) {
   return res.status(403).json({ success: false, message: "Không có quyền quản trị!" });
 }
 
-// 1. ROUTE ĐIỀU HƯỚNG
+// 1. ROUTE ĐIỀU HƯỚNG SẢNH VÀ GAME
 app.get('/', (req, res) => {
   const user = req.session.user || null;
   res.render('index', { 
@@ -85,6 +87,86 @@ app.get('/', (req, res) => {
     balance: user ? user.balance : 0,
     isAdmin: user && user.role === 'admin'
   });
+});
+
+// ROUTE CỔNG CHUYỂN HƯỚNG XOAY LOADING VÔ TẬN (ĐẠI LÝ & GIỚI THIỆU)
+app.get('/loading-gateway', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <title>QQ88 - Đang Kết Nối Cổng Hệ Thống</title>
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          background-color: #004d25;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          color: #ffffff;
+        }
+        .gateway-card {
+          width: 90%;
+          max-width: 360px;
+          background: rgba(0, 90, 43, 0.85);
+          border: 1.5px solid #ffde00;
+          border-radius: 16px;
+          padding: 35px 20px;
+          text-align: center;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid rgba(255, 222, 0, 0.25);
+          border-top-color: #ffde00;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .title {
+          font-size: 18px;
+          font-weight: 800;
+          color: #ffde00;
+          margin-bottom: 8px;
+          letter-spacing: 0.5px;
+        }
+        .desc {
+          font-size: 13px;
+          color: #d1fae5;
+          line-height: 1.5;
+        }
+        .btn-back {
+          display: inline-block;
+          margin-top: 25px;
+          padding: 8px 24px;
+          background: #ffffff;
+          color: #005a2b;
+          font-size: 12.5px;
+          font-weight: 800;
+          border-radius: 20px;
+          text-decoration: none;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="gateway-card">
+        <div class="spinner"></div>
+        <div class="title">ĐANG KẾT NỐI HỆ THỐNG</div>
+        <div class="desc">Hệ thống đang đồng bộ dữ liệu cổng liên kết bảo mật. Vui lòng chờ trong giây lát...</div>
+        <a href="/" class="btn-back">Quay về sảnh</a>
+      </div>
+    </body>
+    </html>
+  `);
 });
 
 app.get('/game/:gameCode', (req, res) => {
@@ -110,7 +192,7 @@ app.get('/game/:gameCode', (req, res) => {
   });
 });
 
-// 2. API TÀI KHOẢN & VÍ
+// 2. API TÀI KHOẢN, LIÊN KẾT NGÂN HÀNG & NẠP RÚT
 app.get('/api/me', (req, res) => {
   if (!req.session.user) return res.json({ loggedIn: false });
   const users = readData(DB_FILE);
@@ -123,9 +205,11 @@ app.get('/api/me', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, fullname, phone } = req.body;
   const u = (username || '').trim();
   const p = (password || '').trim();
+  const fn = (fullname || '').trim();
+  const ph = (phone || '').trim();
 
   if (u.length < 4 || !p) {
     return res.status(400).json({ success: false, message: 'Tài khoản tối thiểu 4 ký tự!' });
@@ -139,12 +223,16 @@ app.post('/api/register', (req, res) => {
   users[u] = {
     username: u,
     password: p,
+    fullname: fn,
+    phone: ph,
     role: "user",
     balance: 0,
     custom_win_rate: null,
     bank_name: "",
     bank_account: "",
-    bank_owner: "",
+    bank_owner: fn ? fn.toUpperCase() : u.toUpperCase(),
+    withdraw_password: "",
+    bank_locked: false,
     vip: 0,
     created_at: new Date().toISOString()
   };
@@ -179,6 +267,40 @@ app.post('/api/logout', (req, res) => {
   res.json({ success: true });
 });
 
+// LIÊN KẾT THẺ NGÂN HÀNG & KHÓA BẢO MẬT VĨNH VIỄN
+app.post('/api/user/bind-bank', (req, res) => {
+  if (!req.session.user) return res.status(401).json({ success: false, message: 'Chưa đăng nhập!' });
+
+  const { bank_name, bank_account, withdraw_password } = req.body;
+  const users = readData(DB_FILE);
+  const u = req.session.user.username;
+  const user = users[u];
+
+  if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản!' });
+
+  // Kiểm tra khóa bảo mật
+  if (user.bank_locked) {
+    return res.status(403).json({ 
+      success: false, 
+      message: 'Tài khoản ngân hàng đã được khóa bảo mật vĩnh viễn. Vui lòng liên hệ CSKH/Admin để chỉnh sửa!' 
+    });
+  }
+
+  if (!bank_name || !bank_account || !withdraw_password) {
+    return res.status(400).json({ success: false, message: 'Vui lòng nhập đầy đủ thông tin!' });
+  }
+
+  user.bank_name = bank_name;
+  user.bank_account = bank_account;
+  user.withdraw_password = withdraw_password;
+  user.bank_locked = true; // Khóa thẻ vĩnh viễn
+
+  saveData(DB_FILE, users);
+  req.session.user = user;
+
+  res.json({ success: true, message: 'Liên kết ngân hàng và khóa bảo mật thành công!', user });
+});
+
 app.post('/api/deposit', (req, res) => {
   if (!req.session.user) return res.status(401).json({ success: false, message: 'Chưa đăng nhập!' });
   const amount = Number(req.body.amount || 0);
@@ -210,12 +332,16 @@ app.post('/api/sync-backup', (req, res) => {
     users[u] = {
       username: u,
       password: user.password,
+      fullname: user.fullname || "",
+      phone: user.phone || "",
       role: user.role || "user",
       balance: Number(user.balance || 0),
       custom_win_rate: user.custom_win_rate || null,
       bank_name: user.bank_name || "",
       bank_account: user.bank_account || "",
-      bank_owner: user.bank_owner || "",
+      bank_owner: user.bank_owner || (user.fullname ? user.fullname.toUpperCase() : u.toUpperCase()),
+      withdraw_password: user.withdraw_password || "",
+      bank_locked: user.bank_locked || false,
       vip: user.vip || 0,
       created_at: user.created_at || new Date().toISOString()
     };
@@ -278,7 +404,7 @@ app.post('/api/play/:gameCode', (req, res) => {
   });
 });
 
-// 4. BỘ API ADMIN
+// 4. BỘ API ADMIN (QUẢN TRỊ VIÊN ĐẶC QUYỀN)
 app.post('/api/admin/set-balance', requireAdmin, (req, res) => {
   const { targetUsername, mode, amount } = req.body;
   const users = readData(DB_FILE);
@@ -308,6 +434,9 @@ app.post('/api/admin/set-user-bank', requireAdmin, (req, res) => {
   if (bank_account) users[targetUsername].bank_account = bank_account;
   if (bank_owner) users[targetUsername].bank_owner = bank_owner;
   if (new_password) users[targetUsername].password = new_password;
+
+  // Cho phép Admin mở khóa hoặc đặt lại thẻ
+  users[targetUsername].bank_locked = false;
 
   saveData(DB_FILE, users);
   res.json({ success: true, message: `Đã cập nhật thông tin Profile cho ${targetUsername} thành công!` });

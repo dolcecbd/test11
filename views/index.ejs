@@ -216,74 +216,73 @@
       display: block;
       border-radius: 8px;
     }
-    /* KHỐI HỒ SƠ BÊN TRÁI: CHE SẠCH PHÔI CŨ, TỰ ĐỘNG CĂN TÊN VÀ NÚT COPY ĐI LIỀN NHAU */
-    .user-profile-left-col {
+    /* KHỐI TÊN TÀI KHOẢN VÀ ICON SAO CHÉP LUÔN HÍT SÁT NHAU */
+    .user-name-copy-wrap {
       position: absolute;
       top: 32%;
-      left: 1%;
-      width: 33%;
-      height: 65%;
+      left: 1.5%;
+      width: 32%;
+      height: 25%;
       background: #ffffff;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      z-index: 6;
-      border-radius: 0 0 0 10px;
-    }
-
-    /* HÀNG TÊN + NÚT SAO CHÉP: BẤT KỂ DÀI HAY NGẮN LUÔN BÁM SÁT NHAU VÀ CĂN GIỮA DƯỚI VIP0 */
-    .user-name-copy-wrap {
-      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
       cursor: pointer;
-      max-width: 95%;
+      z-index: 7;
     }
     .real-username-label {
       font-size: 13.5px;
       font-weight: 700;
       color: #0b572a;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       letter-spacing: -0.2px;
-      white-space: nowrap;
+      max-width: 82px;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 82px;
-      line-height: 1.2;
-    }
-    .copy-icon-svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      fill: #0b572a;
-    }
-
-    /* HÀNG SỐ DƯ: ĐỒNG XU CẮT GITHUB + SỐ TIỀN ĐẬM ĐEN XÁM CHUẨN REAL */
-    .user-balance-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      margin-top: 1px;
-    }
-    .real-coin-img {
-      width: 19px;
-      height: 19px;
-      object-fit: contain;
-      flex-shrink: 0;
-      display: block;
-    }
-    .real-balance-label {
-      font-size: 15px;
-      font-weight: 800;
-      color: #262626 !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       white-space: nowrap;
       line-height: 1;
     }
+    .real-copy-svg {
+      width: 14px;
+      height: 14px;
+      fill: #0b572a;
+      flex-shrink: 0;
+    }
+
+    /* KHỐI ĐỒNG XU $ VÀ SỐ DƯ CHUẨN REAL (XÓA SẠCH VẾT BỤI PHÍA DƯỚI) */
+    .real-balance-row {
+      position: absolute;
+      top: 57%;
+      left: 1.5%;
+      width: 32%;
+      height: 39%;
+      background: #ffffff;
+      border-radius: 0 0 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .balance-coin-img {
+      width: 17px;
+      height: 17px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .real-balance-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+      line-height: 1;
+    }
+
     .touch-actions-grid {
       position: absolute;
       top: 0;
@@ -1954,26 +1953,22 @@
         </div>
 
         <div id="user-zone" class="user-box-real" style="display: none;">
-          <!-- KHỐI HỒ SƠ BÊN TRÁI: TÊN SÁT NÚT SAO CHÉP & ĐỒNG XU + SỐ DƯ CHUẨN REAL 1:1 -->
-        <div class="user-profile-left-col">
-          <!-- HÀNG 1: TÊN VÀ NÚT COPY LUÔN ĐI LIỀN NHAU DÙ DÀI HAY NGẮN -->
+          <img src="/images/user_phoi_real.png" class="user-phoi-img" alt="User Real Bar">
+          
+          <!-- CỤM TÊN + NÚT SAO CHÉP LIỀN KỀ -->
           <div class="user-name-copy-wrap" onclick="copyUsername()" title="Sao chép tên">
             <span class="real-username-label" id="display-username">quanmi112</span>
-            <svg class="copy-icon-svg" viewBox="0 0 24 24">
-              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            <svg class="real-copy-svg" viewBox="0 0 24 24">
+              <path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
             </svg>
           </div>
-
-          <!-- HÀNG 2: ĐỒNG XU ($) TỪ GITHUB + TIỀN ĐẬM CHUẨN ẢNH REAL -->
-          <div class="user-balance-wrap">
-            <img src="/images/coin.png" 
-                 onerror="handleImgErr(this, ['/images/ic_coin.png', '/images/dong_xu.png', '/images/dongxu.png', '/images/coin.PNG', '/images/xu.png'])" 
-                 class="real-coin-img" 
-                 alt="$">
+          
+          <!-- CỤM ĐỒNG XU CẮT GITHUB + SỐ DƯ CHUẨN 1:1 -->
+          <div class="real-balance-row">
+            <img src="/images/coin.png" class="balance-coin-img" onerror="handleImgErr(this, ['/images/ic_coin.png', '/images/dollar.png', '/images/ic_dollar.png', '/images/dongxu.png', '/images/dong_xu.png'])" alt="$">
             <span class="real-balance-label" id="display-balance">0K</span>
           </div>
-        </div>
-          
+
           <div class="touch-actions-grid">
             <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>
             <div class="touch-action-btn" onclick="openWithdrawView()" title="Rút Tiền"></div>
@@ -1981,8 +1976,6 @@
             <div class="touch-action-btn" onclick="window.location.href='/loading-gateway'" title="Giới Thiệu"></div>
           </div>
         </div>
-      </div>
-    </div>
 
     <!-- 6. THANH TAB SẢNH GAME -->
     <div class="cat-bar">

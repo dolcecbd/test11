@@ -1963,11 +1963,19 @@
             </svg>
           </div>
           
-          <!-- CỤM ĐỒNG XU CẮT GITHUB + SỐ DƯ CHUẨN 1:1 -->
-          <div class="real-balance-row">
-            <img src="/images/coin.png" class="balance-coin-img" onerror="handleImgErr(this, ['/images/ic_coin.png', '/images/dollar.png', '/images/ic_dollar.png', '/images/dongxu.png', '/images/dong_xu.png'])" alt="$">
-            <span class="real-balance-label" id="display-balance">0K</span>
-          </div>
+          <!-- CỤM ĐỒNG XU KIM LOẠI VECTOR + SỐ DƯ CHUẨN REAL 1:1 -->
+        <div class="real-balance-row" style="position: absolute; top: 54%; left: 2%; width: 31%; height: 43%; background: #ffffff; border-radius: 0 0 0 10px; display: flex; align-items: center; justify-content: center; gap: 5px; z-index: 6; pointer-events: none;">
+          <!-- ĐỒNG XU XÁM BẠC KIM LOẠI VECTOR NÉT CĂNG -->
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; flex-shrink: 0; display: block;">
+            <circle cx="12" cy="12" r="11" fill="#4b5563"/>
+            <circle cx="12" cy="12" r="9" fill="none" stroke="#e5e7eb" stroke-width="1.2" stroke-dasharray="2.5 1.5"/>
+            <circle cx="12" cy="12" r="7.2" fill="#374151"/>
+            <text x="12" y="16.2" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif">$</text>
+          </svg>
+
+          <!-- SỐ DƯ FONT KHÔNG CHÂN DÀY DẶN MÀU XÁM ĐEN CHUẨN REAL -->
+          <span class="real-balance-label" id="display-balance" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 15px !important; font-weight: 800 !important; color: #262626 !important; line-height: 1; letter-spacing: -0.2px;">0K</span>
+        </div>
 
           <div class="touch-actions-grid">
             <div class="touch-action-btn" onclick="openDepositView()" title="Nạp Tiền"></div>

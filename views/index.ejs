@@ -124,10 +124,10 @@
       margin-top: -3px;
     }
 
-    /* MARQUEE */
+    /* MARQUEE CHUẨN NÉT BẢN THẬT */
     .marquee-bar {
       background: #ffffff;
-      padding: 4px 8px;
+      padding: 5px 8px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -137,7 +137,7 @@
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      fill: #005a2b;
+      fill: #475569;
     }
     .marquee-bar .icon-mail {
       width: 16px;
@@ -150,9 +150,10 @@
       overflow: hidden;
       white-space: nowrap;
       flex: 1;
-      font-size: 11px;
-      color: #0b4f26;
-      font-weight: 600;
+      font-size: 10.5px;
+      color: #1e293b;
+      font-weight: 800;
+      letter-spacing: -0.1px;
     }
     .marquee-inner {
       display: inline-block;
@@ -215,17 +216,16 @@
       display: block;
       border-radius: 8px;
     }
-    /* TÊN TÀI KHOẢN: Chữ đậm, căn chính giữa dưới VIP0, đuôi chữ sát gần nút sao chép */
+    /* TÊN TÀI KHOẢN (HIỂN THỊ ĐẦY ĐỦ KHÔNG BỊ CẮT CHỮ) */
     .real-username-label {
       position: absolute;
       top: 38%;
-      left: 7.5%;
-      width: 14.5%;
+      left: 5%;
+      width: 19%;
       text-align: center;
-      font-size: 14px;
+      font-size: 12.5px;
       font-weight: 700;
       color: #0b572a;
-      font-family: Arial, Helvetica, sans-serif;
       letter-spacing: -0.2px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -233,31 +233,31 @@
       pointer-events: none;
       z-index: 6;
     }
-    /* KHỐI SỐ DƯ MỚI: Che phần ($) 0K cũ, chữ đậm và nhỏ gọn ~2mm */
+    /* KHỐI SỐ DƯ: PHỦ RỘNG ĐỂ XÓA SẠCH VẾT BỤI, CỠ TO VỪA VẶN */
     .real-balance-row {
       position: absolute;
-      top: 60%;
-      left: 3%;
-      width: 28.5%;
-      height: 36%;
+      top: 54%;
+      left: 2%;
+      width: 30.5%;
+      height: 43%;
       background: #ffffff;
+      border-radius: 0 0 0 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 5px;
       z-index: 6;
       pointer-events: none;
     }
     .balance-coin-svg {
-      width: 15px;
-      height: 15px;
+      width: 18.5px;
+      height: 18.5px;
       flex-shrink: 0;
     }
     .real-balance-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #333333;
-      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #111827;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1949,9 +1949,9 @@
           <!-- CHE SẠCH ICON ($) 0K CŨ VÀ VẼ LẠI ĐỒNG XU ($) + SỐ DƯ ĐẬM GỌN -->
           <div class="real-balance-row">
             <svg class="balance-coin-svg" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="11" fill="#595959"/>
-              <circle cx="12" cy="12" r="8.3" fill="none" stroke="#e2e2e2" stroke-width="1.2"/>
-              <text x="12" y="16.2" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="bold" font-family="Arial, sans-serif">$</text>
+              <circle cx="12" cy="12" r="11" fill="#64748b"/>
+              <circle cx="12" cy="12" r="8.5" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="12" y="16.5" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="900" font-family="Arial, sans-serif">$</text>
             </svg>
             <span class="real-balance-label" id="display-balance">0K</span>
           </div>

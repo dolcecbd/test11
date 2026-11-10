@@ -4043,30 +4043,70 @@
       }
     }
 
-    // 3. XỬ LÝ ĐĂNG NHẬP / ĐĂNG KÝ THỰC TẾ
-    async function handleRealLogin(e) {
-      e.preventDefault();
-      const username = document.getElementById('login-input-user').value.trim();
-      const password = document.getElementById('login-input-pass').value.trim();
-      try {
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast(data.message);
-          localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
-          closeAuthOverlay('login');
-          checkSession();
-        } else {
-          showToast(data.message || 'Đăng nhập thất bại!');
-        }
-      } catch (err) {
-        showToast('Lỗi kết nối máy chủ!');
-      }
+    // 3. XỬ LÝ ĐĂNG NHẬP / ĐĂNG KÝ THỰC TẾ & TỰ ĐỘNG ĐỒNG BỘ THẺ VÀNG
+function syncProfileGoldCard(user) {
+  if (!user) return;
+  
+  // 1. Tự đổi tên tài khoản trên thẻ vàng
+  const nameEl = document.getElementById('acc-username-val');
+  if (nameEl && user.username) nameEl.innerText = user.username;
+  
+  // 2. Tự đổi ngày tham gia chuẩn YYYY-MM-DD theo từng tài khoản
+  const joinEl = document.getElementById('acc-join-val');
+  if (joinEl) {
+    const rawDate = user.created_at || user.createdAt;
+    const dateStr = rawDate 
+      ? (rawDate.includes('T') ? rawDate.split('T')[0] : rawDate) 
+      : new Date().toLocaleDateString('en-CA');
+    joinEl.innerText = 'Đã tham gia: ' + dateStr;
+  }
+
+  // 3. Tự cập nhật số dư
+  const balEl = document.getElementById('acc-balance-val');
+  if (balEl && user.balance !== undefined) {
+    balEl.innerText = user.balance + 'K';
+  }
+}
+
+// Tự động kiểm tra và đổ ngày + tên lên thẻ khi F5 tải trang hoặc khi bấm chuyển tab
+window.addEventListener('load', () => {
+  try {
+    const saved = localStorage.getItem('qq88_saved_account');
+    if (saved) syncProfileGoldCard(JSON.parse(saved));
+  } catch (e) {}
+});
+
+document.addEventListener('click', () => {
+  try {
+    const saved = localStorage.getItem('qq88_saved_account');
+    if (saved) syncProfileGoldCard(JSON.parse(saved));
+  } catch (e) {}
+});
+
+async function handleRealLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-input-user').value.trim();
+  const password = document.getElementById('login-input-pass').value.trim();
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(data.message);
+      localStorage.setItem('qq88_saved_account', JSON.stringify(data.user));
+      syncProfileGoldCard(data.user);
+      closeAuthOverlay('login');
+      checkSession();
+    } else {
+      showToast(data.message || 'Đăng nhập thất bại!');
     }
+  } catch (err) {
+    showToast('Lỗi kết nối máy chủ!');
+  }
+}
 
     async function handleRealRegister(e) {
       e.preventDefault();

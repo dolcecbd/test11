@@ -234,7 +234,7 @@ app.post('/api/register', (req, res) => {
     withdraw_password: "",
     bank_locked: false,
     vip: 0,
-    created_at: new Date().toISOString()
+    created_at: new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' })
   };
   saveData(DB_FILE, users);
 

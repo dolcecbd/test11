@@ -1595,7 +1595,7 @@
       display: block;
     }
 
-    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN CHUẨN REAL 1:1 */
+    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN CHUẨN XÁC 1:1 THEO WEB REAL */
     #overlay-user-profile {
       background: #ffffff !important;
     }
@@ -1616,205 +1616,181 @@
       letter-spacing: 0.3px;
     }
 
-    /* THẺ GOLD CARD SANG TRỌNG CÓ HOA VĂN CHÌM */
-    .acc-gold-card {
-      background: linear-gradient(135deg, #fce2a0 0%, #f6c873 45%, #f1ad47 100%) !important;
-      border-radius: 20px;
-      margin: 12px 12px 10px 12px;
-      padding: 18px 16px 16px 16px;
+    /* KHUNG THẺ VÀNG DÙNG TRỰC TIẾP ẢNH PHÔI PHOTOSHOP */
+    .acc-card-real-wrapper {
       position: relative;
-      box-shadow: 0 4px 15px rgba(241, 173, 71, 0.35);
-      color: #2b1d0c;
+      width: calc(100% - 24px);
+      margin: 12px 12px 6px 12px;
+      border-radius: 18px;
       overflow: hidden;
+      box-shadow: 0 4px 15px rgba(230, 160, 40, 0.25);
     }
-    .acc-card-watermark {
-      position: absolute;
-      right: -10px;
-      top: 5px;
-      width: 145px;
-      height: 145px;
-      pointer-events: none;
-      opacity: 0.22;
-      z-index: 1;
-    }
-    /* RUY BĂNG ĐIỂM DANH BO GÓC TRÁI */
-    .acc-ribbon-diemdanh-box {
-      position: absolute;
-      top: 14px;
-      right: 0;
-      background: linear-gradient(90deg, #e62e3d 0%, #db1b2a 100%);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 4px 12px 4px 10px;
-      border-radius: 14px 0 0 14px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-      box-shadow: -2px 2px 6px rgba(219, 27, 42, 0.3);
-      z-index: 5;
-    }
-    .acc-profile-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      position: relative;
-      z-index: 3;
-    }
-    .acc-avatar-frame {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 2.5px solid #ffffff;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-      flex-shrink: 0;
-    }
-    .acc-avatar-frame img {
+    .acc-card-bg-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      display: block;
+      pointer-events: none;
     }
-    .acc-user-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .acc-vip-pill {
-      background: #3e3833;
-      color: #ffdc73;
-      font-size: 10.5px;
-      font-weight: 800;
-      padding: 2px 10px 2px 7px;
-      border-radius: 12px;
+
+    /* GHIM THÔNG TIN ĐÈ CHUẨN TỌA ĐỘ TRÊN PHÔI */
+    .acc-pos-username {
+      position: absolute;
+      top: 32%;
+      left: 39%;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      width: fit-content;
-      margin-bottom: 2px;
-    }
-    .acc-user-name-row {
-      font-size: 16.5px;
+      gap: 6px;
+      font-size: 16px;
       font-weight: 800;
       color: #1a1510;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      z-index: 2;
     }
-    .acc-copy-btn {
+    .acc-pos-username svg {
       width: 14px;
       height: 14px;
       cursor: pointer;
       fill: #1a1510;
-      display: flex;
-      align-items: center;
     }
-    .acc-join-date {
+    .acc-pos-date {
+      position: absolute;
+      top: 45.5%;
+      left: 39%;
       font-size: 11px;
-      color: #5a4732;
       font-weight: 600;
-      margin-top: 2px;
+      color: #5a4732;
+      font-family: Arial, sans-serif;
+      z-index: 2;
     }
-    .acc-balance-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-top: 14px;
-      padding: 0 4px;
-      position: relative;
-      z-index: 3;
-    }
-    .acc-balance-num {
-      font-size: 22px;
+    .acc-pos-balance {
+      position: absolute;
+      top: 61%;
+      left: 14%;
+      font-size: 21px;
       font-weight: 800;
       color: #221504;
       font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-    }
-    .acc-btn-reload {
-      cursor: pointer;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #5a4732;
-      opacity: 0.85;
-    }
-    .acc-btn-reload svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: #44321c;
-      stroke-width: 2.2;
-    }
-    .acc-btn-actions {
-      display: flex;
-      gap: 9px;
-      margin-top: 14px;
-      position: relative;
-      z-index: 3;
-    }
-    .acc-action-pill {
-      flex: 1;
-      padding: 8.5px 0;
-      background: linear-gradient(180deg, #fffcf5 0%, #fbe8c8 100%);
-      border: 1.2px solid #ebc68d;
-      border-radius: 20px;
-      text-align: center;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #361f06;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(180, 120, 30, 0.12);
-      transition: transform 0.1s ease;
-    }
-    .acc-action-pill:active {
-      transform: scale(0.97);
+      letter-spacing: -0.3px;
+      z-index: 2;
     }
 
-    /* TIÊU ĐỀ VIÊN THUỐC XÁM NHẸ CHUẨN BẢN THẬT */
+    /* VÙNG CHẠM CẢM ỨNG TRÊN THẺ */
+    .hitbox-diemdanh {
+      position: absolute;
+      top: 2%;
+      right: 0;
+      width: 36%;
+      height: 18%;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .hitbox-reload {
+      position: absolute;
+      top: 57%;
+      right: 5%;
+      width: 14%;
+      height: 20%;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .hitbox-action-bar {
+      position: absolute;
+      bottom: 6%;
+      left: 5%;
+      width: 90%;
+      height: 22%;
+      display: flex;
+      gap: 3%;
+      z-index: 3;
+    }
+    .hitbox-btn-item {
+      flex: 1;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    /* TIÊU ĐỀ VIÊN THUỐC */
     .acc-section-pill-wrap {
-      padding: 14px 14px 8px 14px;
+      padding: 12px 14px 6px 14px;
     }
     .acc-section-pill {
       background: #ebf0f2;
       color: #475569;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
       padding: 3.5px 12px;
       border-radius: 12px;
       display: inline-block;
-      letter-spacing: -0.1px;
     }
 
-    /* LƯỚI 16 ICON TO RÕ NÉT CĂNG THEO FILE CẮT THẬT */
+    /* LƯỚI 16 ICON CÂN ĐỐI ĐỒNG ĐỀU 52PX */
     .acc-tools-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px 6px;
-      padding: 10px 8px 90px 8px;
+      gap: 14px 4px;
+      padding: 4px 6px 85px 6px;
       background: #ffffff;
     }
     .acc-tool-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      text-align: center;
+      gap: 6px;
       cursor: pointer;
-      user-select: none;
     }
     .acc-tool-item:active {
-      transform: scale(0.94);
-      transition: transform 0.1s ease;
+      transform: scale(0.95);
     }
-    .acc-tool-item img {
-      width: 100%;
-      max-width: 82px;
-      height: auto;
-      display: block;
+    .acc-tool-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff8eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    /* Icon đã có sẵn vòng tròn */
+    .acc-tool-icon-wrap img.icon-full {
+      width: 52px;
+      height: 52px;
       object-fit: contain;
+      border-radius: 50%;
+      display: block;
+    }
+    /* 3 icon bị cắt thiếu vòng tròn: tự động căn giữa trong vòng tròn kem */
+    .acc-tool-icon-wrap img.icon-raw {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+    }
+    .acc-tool-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 900;
+      padding: 1px 5px;
+      border-radius: 10px;
+      border: 1.5px solid #ffffff;
+      line-height: 1.2;
+    }
+    .acc-tool-name {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #334155;
+      line-height: 1.25;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -0.1px;
     }
 
     /* 4. MÀN HÌNH RÚT TIỀN */
@@ -2766,6 +2742,7 @@
   </div>
 
   <!-- 4. OVERLAY TRANG TÀI KHOẢN CÁ NHÂN CHUẨN XÁC 1:1 -->
+  <!-- 4. OVERLAY TRANG TÀI KHOẢN CÁ NHÂN (DÙNG PHÔI ẢNH 2 & 16 ICON CÂN XỨNG) -->
   <div id="overlay-user-profile" class="fs-overlay-view no-scrollbar">
     <div class="promo-view-header">
       <div onclick="closeProfileView()" style="font-size: 22px; cursor: pointer; width: 30px;">⟨</div>
@@ -2773,52 +2750,38 @@
       <div style="width: 30px;"></div>
     </div>
 
-    <!-- KHỐI GOLD CARD CÓ VƯƠNG MIỆN & RUY BĂNG ĐIỂM DANH -->
-    <div class="acc-gold-card">
-      <!-- HOA VĂN NGÔI SAO & VƯƠNG MIỆN CHÌM HOÀNG GIA -->
-      <svg class="acc-card-watermark" viewBox="0 0 100 100">
-        <polygon points="50,5 64,35 96,38 72,60 79,92 50,75 21,92 28,60 4,38 36,35" fill="#ca8a04"/>
-        <circle cx="50" cy="50" r="28" fill="#eab308"/>
-        <path d="M38 58 L42 42 L50 49 L58 42 L62 58 Z" fill="#ffffff" opacity="0.6"/>
-      </svg>
+    <!-- KHỐI PHÔI THẺ VÀNG PHOTOSHOP -->
+    <div class="acc-card-real-wrapper">
+      <img src="/images/acc_gold_card_real.png" 
+           onerror="this.src='/images/gold_card.png'" 
+           class="acc-card-bg-img" 
+           alt="Gold Card">
 
-      <!-- RUY BĂNG ĐIỂM DANH -->
-      <div class="acc-ribbon-diemdanh-box" onclick="showToast('Điểm danh nhận quà thành công!')">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#ffffff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        <span>Điểm Danh</span>
-        <span style="font-weight:900;font-size:12px;">›</span>
+      <!-- VÙNG CHẠM ĐIỂM DANH -->
+      <div class="hitbox-diemdanh" onclick="showToast('Điểm danh nhận quà thành công!')" title="Điểm Danh"></div>
+
+      <!-- TÊN TÀI KHOẢN + NÚT SAO CHÉP -->
+      <div class="acc-pos-username">
+        <span id="acc-username-val">quanmi112</span>
+        <svg viewBox="0 0 24 24" onclick="copyUsername()" title="Sao chép tên">
+          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+        </svg>
       </div>
 
-      <div class="acc-profile-row">
-        <div class="acc-avatar-frame">
-          <img src="/images/user_avatar.png" onerror="this.src='/images/user_avatar.jpg'" alt="Avatar">
-        </div>
-        <div class="acc-user-meta">
-          <div class="acc-vip-pill">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="#ffdc73"><polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/></svg>
-            VIP0
-          </div>
-          <div class="acc-user-name-row">
-            <span id="acc-username-val">quanmi112</span>
-            <div class="acc-copy-btn" onclick="copyUsername()" title="Sao chép tên">
-              <svg viewBox="0 0 24 24" width="14" height="14"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-            </div>
-          </div>
-          <div class="acc-join-date" id="acc-join-val">Đã tham gia: 2026-09-30</div>
-        </div>
-      </div>
+      <!-- NGÀY THAM GIA -->
+      <div class="acc-pos-date" id="acc-join-val">Đã tham gia: 2026-09-30</div>
 
-      <div class="acc-balance-row">
-        <div class="acc-balance-num" id="acc-balance-val">0K</div>
-        <div class="acc-btn-reload" onclick="syncBalanceFromServer()" title="Làm mới số dư">
-          <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M21.5 8A10 10 0 0 0 4.5 7.5L2.5 9.5M2.5 16a10 10 0 0 0 17 1.5l2-2"/></svg>
-        </div>
-      </div>
+      <!-- SỐ DƯ HIỂN THỊ -->
+      <div class="acc-pos-balance" id="acc-balance-val">0K</div>
 
-      <div class="acc-btn-actions">
-        <div class="acc-action-pill" onclick="closeProfileView(); openDepositView();">Nạp Tiền</div>
-        <div class="acc-action-pill" onclick="closeProfileView(); openWithdrawView();">Rút Tiền</div>
-        <div class="acc-action-pill" onclick="closeProfileView(); openWithdrawView();">Thẻ của tôi</div>
+      <!-- VÙNG CHẠM LÀM MỚI SỐ DƯ -->
+      <div class="hitbox-reload" onclick="syncBalanceFromServer()" title="Làm mới số dư"></div>
+
+      <!-- VÙNG CHẠM 3 NÚT BẤM DƯỚI CHÂN THẺ -->
+      <div class="hitbox-action-bar">
+        <div class="hitbox-btn-item" onclick="closeProfileView(); openDepositView();" title="Nạp Tiền"></div>
+        <div class="hitbox-btn-item" onclick="closeProfileView(); openWithdrawView();" title="Rút Tiền"></div>
+        <div class="hitbox-btn-item" onclick="closeProfileView(); openWithdrawView();" title="Thẻ của tôi"></div>
       </div>
     </div>
 
@@ -2827,88 +2790,138 @@
       <div class="acc-section-pill">Tài khoản của Tôi</div>
     </div>
 
-    <!-- 16 ICON TIỆN ÍCH DÙNG ĐÚNG TÊN FILE CẮT TỪ WEB THẬT -->
+    <!-- 16 ICON TIỆN ÍCH ĐỒNG ĐỀU 52PX -->
     <div class="acc-tools-grid">
-      <!-- 1. Phần thưởng của tôi -->
+      <!-- 1 -->
       <div class="acc-tool-item" onclick="showToast('Phần thưởng độc quyền!')">
-        <img src="/images/ic_acc_reward.png" alt="Phần thưởng của tôi">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_reward.png" class="icon-full" alt="Phần thưởng">
+        </div>
+        <span class="acc-tool-name">Phần thưởng<br>của tôi</span>
       </div>
 
-      <!-- 2. Lịch sử cược -->
+      <!-- 2 (Icon thiếu vòng: dùng class icon-raw để khớp vòng tròn kem) -->
       <div class="acc-tool-item" onclick="showToast('Lịch sử cược rỗng')">
-        <img src="/images/ic_acc_bet_history.png" alt="Lịch sử cược">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_bet_history.png" class="icon-raw" alt="Lịch sử cược">
+        </div>
+        <span class="acc-tool-name">Lịch sử cược</span>
       </div>
 
-      <!-- 3. Lịch sử lãi lỗ -->
+      <!-- 3 (Icon thiếu vòng: dùng class icon-raw) -->
       <div class="acc-tool-item" onclick="showToast('Lịch sử lãi lỗ rỗng')">
-        <img src="/images/ic_acc_profit_loss.png" alt="Lịch sử lãi lỗ">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_profit_loss.png" class="icon-raw" alt="Lịch sử lãi lỗ">
+        </div>
+        <span class="acc-tool-name">Lịch sử lãi lỗ</span>
       </div>
 
-      <!-- 4. Lịch sử nạp tiền -->
+      <!-- 4 -->
       <div class="acc-tool-item" onclick="showToast('Lịch sử nạp tiền')">
-        <img src="/images/ic_acc_deposit_hist.png" alt="Lịch sử nạp tiền">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_deposit_hist.png" class="icon-full" alt="Lịch sử nạp tiền">
+        </div>
+        <span class="acc-tool-name">Lịch sử nạp<br>tiền</span>
       </div>
 
-      <!-- 5. Lịch sử rút tiền -->
+      <!-- 5 -->
       <div class="acc-tool-item" onclick="showToast('Lịch sử rút tiền')">
-        <img src="/images/ic_acc_withdraw_hist.png" alt="Lịch sử rút tiền">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_withdraw_hist.png" class="icon-full" alt="Lịch sử rút tiền">
+        </div>
+        <span class="acc-tool-name">Lịch sử rút<br>tiền</span>
       </div>
 
-      <!-- 6. Lịch sử giao dịch -->
+      <!-- 6 -->
       <div class="acc-tool-item" onclick="showToast('Lịch sử giao dịch')">
-        <img src="/images/ic_acc_trans_hist.png" alt="Lịch sử giao dịch">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_trans_hist.png" class="icon-full" alt="Lịch sử giao dịch">
+        </div>
+        <span class="acc-tool-name">Lịch sử giao<br>dịch</span>
       </div>
 
-      <!-- 7. Thông tin -->
+      <!-- 7 -->
       <div class="acc-tool-item" onclick="showToast('Thông tin tài khoản đã kích hoạt')">
-        <img src="/images/ic_acc_profile.png" alt="Thông tin">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_profile.png" class="icon-full" alt="Thông tin">
+        </div>
+        <span class="acc-tool-name">Thông tin</span>
       </div>
 
-      <!-- 8. Bảo mật tài khoản -->
+      <!-- 8 -->
       <div class="acc-tool-item" onclick="showToast('Bảo mật: Cấp độ cao nhất')">
-        <img src="/images/ic_acc_security.png" alt="Bảo mật tài khoản">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_security.png" class="icon-full" alt="Bảo mật tài khoản">
+        </div>
+        <span class="acc-tool-name">Bảo mật tài<br>khoản</span>
       </div>
 
-      <!-- 9. Thưởng Giới Thiệu Bạn Bè -->
+      <!-- 9 (Icon thiếu vòng: dùng class icon-raw) -->
       <div class="acc-tool-item" onclick="window.location.href='/loading-gateway'">
-        <img src="/images/ic_acc_referral.png" alt="Thưởng Giới Thiệu Bạn Bè">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_referral.png" class="icon-raw" alt="Thưởng Giới Thiệu Bạn Bè">
+        </div>
+        <span class="acc-tool-name">Thưởng Giới<br>Thiệu Bạn Bè</span>
       </div>
 
-      <!-- 10. Người chơi hoàn tiền -->
+      <!-- 10 -->
       <div class="acc-tool-item" onclick="openRefundView()">
-        <img src="/images/ic_acc_cashback.png" alt="Người chơi hoàn tiền">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_cashback.png" class="icon-full" alt="Người chơi hoàn tiền">
+        </div>
+        <span class="acc-tool-name">Người chơi<br>hoàn tiền</span>
       </div>
 
-      <!-- 11. Tin nhắn -->
+      <!-- 11 -->
       <div class="acc-tool-item" onclick="showToast('Hòm thư tin nhắn trống')">
-        <img src="/images/ic_acc_message.png" alt="Tin nhắn">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_message.png" class="icon-full" alt="Tin nhắn">
+          <span class="acc-tool-badge">4</span>
+        </div>
+        <span class="acc-tool-name">Tin nhắn</span>
       </div>
 
-      <!-- 12. Phản Hồi -->
+      <!-- 12 -->
       <div class="acc-tool-item" onclick="showToast('Phản hồi ý kiến đóng góp')">
-        <img src="/images/ic_acc_feedback.png" alt="Phản Hồi">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_feedback.png" class="icon-full" alt="Phản Hồi">
+        </div>
+        <span class="acc-tool-name">Phản Hồi</span>
       </div>
 
-      <!-- 13. Tải ứng dụng -->
+      <!-- 13 -->
       <div class="acc-tool-item" onclick="showToast('Tải ứng dụng QQ88')">
-        <img src="/images/ic_acc_download.png" alt="Tải ứng dụng">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_download.png" class="icon-full" alt="Tải ứng dụng">
+        </div>
+        <span class="acc-tool-name">Tải ứng dụng</span>
       </div>
 
-      <!-- 14. Hỗ trợ -->
+      <!-- 14 -->
       <div class="acc-tool-item" onclick="showToast('Hỗ trợ CSKH trực tuyến 24/7')">
-        <img src="/images/ic_acc_support.png" alt="Hỗ trợ">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_support.png" class="icon-full" alt="Hỗ trợ">
+        </div>
+        <span class="acc-tool-name">Hỗ trợ</span>
       </div>
 
-      <!-- 15. Trung tâm trợ giúp -->
+      <!-- 15 -->
       <div class="acc-tool-item" onclick="showToast('Trung tâm trợ giúp hội viên')">
-        <img src="/images/ic_acc_help.png" alt="Trung tâm trợ giúp">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_help.png" class="icon-full" alt="Trung tâm trợ giúp">
+        </div>
+        <span class="acc-tool-name">Trung tâm trợ<br>giúp</span>
       </div>
 
-      <!-- 16. Đăng xuất -->
+      <!-- 16 -->
       <div class="acc-tool-item" onclick="logoutAccount()">
-        <img src="/images/ic_acc_logout.png" alt="Đăng xuất">
+        <div class="acc-tool-icon-wrap">
+          <img src="/images/ic_acc_logout.png" class="icon-full" alt="Đăng xuất">
+        </div>
+        <span class="acc-tool-name">Đăng xuất</span>
       </div>
     </div>
+  </div>
 
   <!-- 5. OVERLAY RÚT TIỀN (3 TAB & THÊM TÀI KHOẢN NGÂN HÀNG) -->
   <div id="overlay-withdraw-view" class="fs-overlay-view no-scrollbar">

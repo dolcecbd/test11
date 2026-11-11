@@ -1915,29 +1915,42 @@
       letter-spacing: 0.1px !important;
     }
 
-    /* 2. Chỉnh tên tài khoản, icon copy xanh lá & số dư ở sảnh chính thanh thoát */
+    /* 2. ÉP HIỂN THỊ TÊN TÀI KHOẢN (CHỐNG MẤT CHỮ) & ICON COPY XANH LÁ Ở SẢNH */
     #display-username {
-      font-weight: 500 !important;
+      display: inline-block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      font-weight: 600 !important;
       font-size: 14.5px !important;
-      color: #2b2b2b !important;
-      letter-spacing: 0.2px !important;
+      color: #1a1a1a !important;
+      min-width: 40px !important; /* Ép khung luôn có độ rộng để không bao giờ bị teo mất chữ */
+      vertical-align: middle !important;
     }
-    /* Đổi icon copy cạnh tên ở sảnh sang màu xanh lá đậm giống ảnh 2 */
+    
+    /* Đổi icon copy cạnh tên sang màu xanh lá đậm và căn giữa */
     #display-username + svg,
     #display-username ~ svg,
-    [onclick="copyUsername()"]:not(.card-text-username svg) {
+    [onclick="copyUsername()"]:not(.card-text-username svg):not(.acc-pos-username svg) {
+      display: inline-block !important;
       fill: #0d632a !important;
+      stroke: #0d632a !important; /* Chống lỗi nếu icon dùng nét viền */
       color: #0d632a !important;
-      width: 15px !important;
-      height: 15px !important;
+      width: 16px !important;
+      height: 16px !important;
+      vertical-align: middle !important;
+      margin-left: 4px !important;
+      margin-bottom: 2px !important;
     }
-    /* Số dư ở sảnh chính mảnh gọn */
+    
+    /* Số dư ở sảnh chính mảnh gọn và thẳng hàng */
     #display-balance,
     #user-balance {
-      font-weight: 500 !important;
+      display: inline-block !important;
+      font-weight: 600 !important;
       font-size: 15px !important;
-      color: #222222 !important;
+      color: #1a1a1a !important;
       font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
+      vertical-align: middle !important;
     }
 
     /* 3. Chữ dưới 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu rõ nét */

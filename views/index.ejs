@@ -1896,6 +1896,77 @@
       font-weight: 800;
       color: #e11d48;
     }
+	/* ===== TINH CHỈNH SẢNH CHÍNH CHUẨN NÉT 1:1 NHƯ WEB GỐC ===== */
+
+    /* 1. Làm mảnh và gọn font chữ thanh thông báo chạy (Marquee) */
+    marquee, 
+    marquee *, 
+    .marquee-bar, 
+    .marquee-bar *,
+    .notice-bar,
+    .notice-bar *,
+    [class*="marquee"] span,
+    [class*="marquee"] div,
+    [class*="notice-text"] {
+      font-weight: 400 !important;
+      font-size: 12.5px !important;
+      color: #222222 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+      letter-spacing: 0.1px !important;
+    }
+
+    /* 2. Chỉnh tên tài khoản, icon copy xanh lá & số dư ở sảnh chính thanh thoát */
+    #display-username {
+      font-weight: 500 !important;
+      font-size: 14.5px !important;
+      color: #2b2b2b !important;
+      letter-spacing: 0.2px !important;
+    }
+    /* Đổi icon copy cạnh tên ở sảnh sang màu xanh lá đậm giống ảnh 2 */
+    #display-username + svg,
+    #display-username ~ svg,
+    [onclick="copyUsername()"]:not(.card-text-username svg) {
+      fill: #0d632a !important;
+      color: #0d632a !important;
+      width: 15px !important;
+      height: 15px !important;
+    }
+    /* Số dư ở sảnh chính mảnh gọn */
+    #display-balance,
+    #user-balance {
+      font-weight: 500 !important;
+      font-size: 15px !important;
+      color: #222222 !important;
+      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
+    }
+
+    /* 3. Chữ dưới 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu rõ nét */
+    .action-item span,
+    .quick-actions span,
+    [class*="quick-btn"] span {
+      font-weight: 700 !important;
+      font-size: 12px !important;
+      color: #0b5e28 !important;
+    }
+
+    /* 4. Làm mịn khung thẻ Game 3 cột & chữ tên game xanh đậm sắc nét */
+    .game-card,
+    .lobby-game-item,
+    [class*="game-item"] {
+      border: 1px solid #e2ece7 !important;
+      border-radius: 10px !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04) !important;
+      background: #ffffff !important;
+    }
+    .game-title,
+    .game-name,
+    [class*="game-item"] span,
+    [class*="game-card"] p {
+      color: #0c5d36 !important;
+      font-weight: 700 !important;
+      font-size: 10.5px !important;
+      letter-spacing: -0.2px !important;
+    }
   </style>
 </head>
 <body>
@@ -1991,7 +2062,7 @@
       <svg class="icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <div class="marquee-content">
         <div class="marquee-inner">
-          Địa chỉ chính thức của chúng tôi là: https://qq88a3.com/ ( PC ), 8888386.com ( Mobile ) | Hotline: 0908007888
+          trời đất dung hoa vạn vật sinh sôi con mẹ mày lôi thôi đầu xanh đầu đỏ địt con mẹ mày
         </div>
       </div>
       <svg class="icon-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>

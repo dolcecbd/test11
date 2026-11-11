@@ -1595,7 +1595,7 @@
       display: block;
     }
 
-    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN (DÙNG 100% ẢNH PHÔI THẬT) */
+    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN (KHÓA TỶ LỆ CHUẨN 100% MOBILE & PC) */
     #overlay-user-profile {
       background: #ffffff !important;
     }
@@ -1616,24 +1616,32 @@
       letter-spacing: 0.3px;
     }
 
-    /* KHUNG THẺ VÀNG CHỨA ẢNH PHÔI GỐC */
+    /* KHUNG THẺ VÀNG KHÓA CỨNG TỶ LỆ THEO ẢNH PHÔI - KHÔNG BAO GIỜ BỊ CẮT TRÊN IPHONE */
     .acc-gold-card-container {
-      position: relative;
-      width: calc(100% - 24px);
-      margin: 12px auto 8px auto;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      user-select: none;
+      position: relative !important;
+      width: calc(100% - 24px) !important;
+      margin: 12px auto 8px auto !important;
+      border-radius: 18px !important;
+      overflow: hidden !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+      user-select: none !important;
+      aspect-ratio: 1000 / 670 !important; /* KHÓA TỶ LỆ CHUẨN ẢNH GỐC */
+      height: auto !important;
+      max-height: none !important;
+      min-height: unset !important;
     }
     .acc-gold-card-container img.card-bg {
-      width: 100%;
-      height: auto;
-      display: block;
-      pointer-events: none;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      object-fit: fill !important;
+      pointer-events: none !important;
     }
 
-    /* 1. TỌA ĐỘ TÊN TÀI KHOẢN (NGAY DƯỚI HUY HIỆU VIP0 TRÊN ẢNH) */
+    /* 1. TÊN TÀI KHOẢN (NGAY DƯỚI VIP0 TRÊN ẢNH) */
     .card-text-username {
       position: absolute;
       top: 32%;
@@ -1654,10 +1662,10 @@
       fill: #1a1a1a;
     }
 
-    /* 2. TỌA ĐỘ NGÀY THAM GIA (NGAY DƯỚI USERNAME) */
+    /* 2. NGÀY THAM GIA (NGAY DƯỚI TÊN) */
     .card-text-date {
       position: absolute;
-      top: 46%;
+      top: 45.5%;
       left: 36%;
       font-family: Arial, sans-serif;
       font-size: 11px;
@@ -1666,22 +1674,22 @@
       z-index: 5;
     }
 
-    /* 3. TỌA ĐỘ SỐ DƯ (NGAY DƯỚI AVATAR TRÊN ẢNH) */
+    /* 3. SỐ DƯ (NGAY DƯỚI AVATAR TRÊN ẢNH) */
     .card-text-balance {
       position: absolute;
       top: 57%;
-      left: 10%;
-      width: 25%;
+      left: 8%;
+      width: 28%;
       text-align: center;
       font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       color: #221504;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
       z-index: 5;
     }
 
-    /* CÁC VÙNG CẢM ỨNG (HITBOX) ĐÈ LÊN NÚT CỦA ẢNH */
+    /* VÙNG CHẠM CẢM ỨNG (HITBOX) */
     .hitbox-diemdanh {
       position: absolute;
       top: 2%;
@@ -1702,7 +1710,7 @@
     }
     .hitbox-bottom-actions {
       position: absolute;
-      bottom: 5%;
+      bottom: 6%;
       left: 6%;
       width: 88%;
       height: 22%;
@@ -1730,12 +1738,12 @@
       display: inline-block;
     }
 
-    /* LƯỚI 16 ICON TIỆN ÍCH DÙNG TRỰC TIẾP FILE ẢNH BẠN ĐÃ CẮT */
+    /* LƯỚI 16 ICON TIỆN ÍCH */
     .acc-tools-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px 4px;
-      padding: 4px 6px 85px 6px;
+      padding: 4px 6px 95px 6px;
       background: #ffffff;
     }
     .acc-tool-item {

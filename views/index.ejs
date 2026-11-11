@@ -1595,11 +1595,14 @@
       display: block;
     }
 
-    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN (KHÓA TỶ LỆ CHUẨN 100% MOBILE & PC) */
+    /* 3. MÀN HÌNH TÀI KHOẢN CÁ NHÂN (CHỐNG MÉO 100% TRÊN MỌI ĐIỆN THOẠI) */
     #overlay-user-profile {
       background: #ffffff !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
     }
     #overlay-user-profile .promo-view-header {
+      flex-shrink: 0 !important;
       background: #252220 !important;
       color: #ffffff;
       padding: 14px 16px;
@@ -1616,36 +1619,33 @@
       letter-spacing: 0.3px;
     }
 
-    /* KHUNG THẺ VÀNG KHÓA CỨNG TỶ LỆ THEO ẢNH PHÔI - KHÔNG BAO GIỜ BỊ CẮT TRÊN IPHONE */
+    /* KHUNG THẺ VÀNG GIỮ NGUYÊN TỶ LỆ GỐC - TUYỆT ĐỐI KHÔNG BỊ ÉP LÙN */
     .acc-gold-card-container {
+      flex-shrink: 0 !important;
       position: relative !important;
       width: calc(100% - 24px) !important;
       margin: 12px auto 8px auto !important;
       border-radius: 18px !important;
       overflow: hidden !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
       user-select: none !important;
-      aspect-ratio: 1000 / 670 !important; /* KHÓA TỶ LỆ CHUẨN ẢNH GỐC */
       height: auto !important;
-      max-height: none !important;
-      min-height: unset !important;
+      aspect-ratio: auto !important;
     }
     .acc-gold-card-container img.card-bg {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
+      position: relative !important;
       width: 100% !important;
-      height: 100% !important;
+      height: auto !important;
       display: block !important;
-      object-fit: fill !important;
+      object-fit: contain !important;
       pointer-events: none !important;
     }
 
-    /* 1. TÊN TÀI KHOẢN (NGAY DƯỚI VIP0 TRÊN ẢNH) */
+    /* 1. TÊN TÀI KHOẢN (NẰM NGAY NGẮN DƯỚI HUY HIỆU VIP0) */
     .card-text-username {
       position: absolute;
-      top: 32%;
-      left: 36%;
+      top: 31.5%;
+      left: 36.5%;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -1662,34 +1662,34 @@
       fill: #1a1a1a;
     }
 
-    /* 2. NGÀY THAM GIA (NGAY DƯỚI TÊN) */
+    /* 2. NGÀY THAM GIA (NẰM DƯỚI TÊN TÀI KHOẢN) */
     .card-text-date {
       position: absolute;
-      top: 45.5%;
-      left: 36%;
+      top: 44.5%;
+      left: 36.5%;
       font-family: Arial, sans-serif;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 600;
       color: #554433;
       z-index: 5;
     }
 
-    /* 3. SỐ DƯ (NGAY DƯỚI AVATAR TRÊN ẢNH) */
+    /* 3. SỐ DƯ (CĂN TRÁI THẲNG HÀNG DƯỚI AVATAR NHƯ WEB THẬT) */
     .card-text-balance {
       position: absolute;
-      top: 57%;
-      left: 8%;
-      width: 28%;
-      text-align: center;
+      top: 56.5%;
+      left: 10.5%;
+      width: auto;
+      text-align: left;
       font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       color: #221504;
       letter-spacing: -0.3px;
       z-index: 5;
     }
 
-    /* VÙNG CHẠM CẢM ỨNG (HITBOX) */
+    /* CÁC VÙNG CẢM ỨNG (HITBOX) TRÊN THẺ VÀNG */
     .hitbox-diemdanh {
       position: absolute;
       top: 2%;
@@ -1701,7 +1701,7 @@
     }
     .hitbox-reload {
       position: absolute;
-      top: 55%;
+      top: 54%;
       right: 5%;
       width: 14%;
       height: 18%;
@@ -1710,7 +1710,7 @@
     }
     .hitbox-bottom-actions {
       position: absolute;
-      bottom: 6%;
+      bottom: 5%;
       left: 6%;
       width: 88%;
       height: 22%;
@@ -1726,6 +1726,7 @@
 
     /* TIÊU ĐỀ VIÊN THUỐC */
     .acc-section-pill-wrap {
+      flex-shrink: 0 !important;
       padding: 10px 14px 6px 14px;
     }
     .acc-section-pill {
@@ -1738,19 +1739,21 @@
       display: inline-block;
     }
 
-    /* LƯỚI 16 ICON TIỆN ÍCH */
+    /* LƯỚI 16 ICON TIỆN ÍCH CÂN BẰNG KÍCH THƯỚC ĐỒNG ĐỀU */
     .acc-tools-grid {
+      flex-shrink: 0 !important;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px 4px;
-      padding: 4px 6px 95px 6px;
+      gap: 14px 4px;
+      padding: 6px 6px 95px 6px;
       background: #ffffff;
+      align-items: start;
     }
     .acc-tool-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       cursor: pointer;
       user-select: none;
     }
@@ -1759,10 +1762,40 @@
     }
     .acc-tool-item img {
       width: 100%;
-      max-width: 80px;
+      max-width: 76px;
       height: auto;
       display: block;
       object-fit: contain;
+    }
+    /* Bù dòng chữ cho icon số 1 (Phần thưởng của tôi) bị cắt thiếu chữ */
+    .acc-tool-item:nth-child(1) img {
+      max-width: 56px !important;
+      margin-bottom: 5px;
+    }
+    .acc-tool-item:nth-child(1)::after {
+      content: "Phần thưởng\A của tôi";
+      white-space: pre;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #475569;
+      text-align: center;
+      line-height: 1.25;
+    }
+    /* Thu gọn các icon chữ ngắn để vòng tròn bằng khít các icon khác */
+    .acc-tool-item:nth-child(7) img,
+    .acc-tool-item:nth-child(11) img,
+    .acc-tool-item:nth-child(12) img,
+    .acc-tool-item:nth-child(14) img,
+    .acc-tool-item:nth-child(16) img {
+      max-width: 65px !important;
+    }
+    /* Mở rộng nhẹ các icon chữ dài để vòng tròn không bị bé */
+    .acc-tool-item:nth-child(2) img,
+    .acc-tool-item:nth-child(3) img,
+    .acc-tool-item:nth-child(9) img,
+    .acc-tool-item:nth-child(13) img,
+    .acc-tool-item:nth-child(15) img {
+      max-width: 86px !important;
     }
 
     /* 4. MÀN HÌNH RÚT TIỀN */

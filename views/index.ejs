@@ -1762,7 +1762,7 @@
     }
     .acc-tool-item img {
       width: 100%;
-      max-width: 76px;
+      max-width: 76px; /* Kích thước gốc để tất cả tự bung to đều nhau */
       height: auto;
       display: block;
       object-fit: contain;
@@ -1781,15 +1781,13 @@
       text-align: center;
       line-height: 1.25;
     }
-    /* Thu gọn các icon chữ ngắn để vòng tròn bằng khít các icon khác */
-    .acc-tool-item:nth-child(7) img,
+    /* Thu gọn nhẹ các icon chữ ngắn để vòng tròn không bị phình to hơn bình thường */
     .acc-tool-item:nth-child(11) img,
     .acc-tool-item:nth-child(12) img,
-    .acc-tool-item:nth-child(14) img,
-    .acc-tool-item:nth-child(16) img {
+    .acc-tool-item:nth-child(14) img {
       max-width: 65px !important;
     }
-    /* Mở rộng nhẹ các icon chữ dài để vòng tròn không bị bé */
+    /* Mở rộng nhẹ các icon chữ dài để vòng tròn không bị bóp méo */
     .acc-tool-item:nth-child(2) img,
     .acc-tool-item:nth-child(3) img,
     .acc-tool-item:nth-child(9) img,

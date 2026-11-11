@@ -1915,42 +1915,30 @@
       letter-spacing: 0.1px !important;
     }
 
-    /* 2. ÉP HIỂN THỊ TÊN TÀI KHOẢN (CHỐNG MẤT CHỮ) & ICON COPY XANH LÁ Ở SẢNH */
+    /* 2. TRẢ LẠI GIAO DIỆN TÊN TÀI KHOẢN & SỐ DƯ CHUẨN NHƯ ẢNH 2 (KHÔNG PHÁ LAYOUT) */
     #display-username {
-      display: inline-block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      font-weight: 600 !important;
-      font-size: 14.5px !important;
-      color: #1a1a1a !important;
-      min-width: 40px !important; /* Ép khung luôn có độ rộng để không bao giờ bị teo mất chữ */
-      vertical-align: middle !important;
+      font-weight: 400 !important;
+      font-size: 14px !important;
+      color: #0b5e28 !important; /* Tên màu xanh lá đậm nét mảnh */
     }
     
-    /* Đổi icon copy cạnh tên sang màu xanh lá đậm và căn giữa */
+    /* Chỉ đổi màu icon copy sang xanh lá, không đụng vào vị trí */
     #display-username + svg,
     #display-username ~ svg,
-    [onclick="copyUsername()"]:not(.card-text-username svg):not(.acc-pos-username svg) {
-      display: inline-block !important;
-      fill: #0d632a !important;
-      stroke: #0d632a !important; /* Chống lỗi nếu icon dùng nét viền */
-      color: #0d632a !important;
-      width: 16px !important;
-      height: 16px !important;
-      vertical-align: middle !important;
-      margin-left: 4px !important;
-      margin-bottom: 2px !important;
+    #display-username + img,
+    #display-username + i {
+      fill: #0b5e28 !important;
+      color: #0b5e28 !important;
+      width: 14px !important;
+      height: 14px !important;
     }
     
-    /* Số dư ở sảnh chính mảnh gọn và thẳng hàng */
+    /* Số dư xám đen, nét mảnh gọn */
     #display-balance,
     #user-balance {
-      display: inline-block !important;
-      font-weight: 600 !important;
-      font-size: 15px !important;
-      color: #1a1a1a !important;
-      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
-      vertical-align: middle !important;
+      font-weight: 400 !important;
+      font-size: 14px !important;
+      color: #333333 !important;
     }
 
     /* 3. Chữ dưới 4 nút Nạp Tiền - Rút Tiền - Đại Lý - Giới Thiệu rõ nét */

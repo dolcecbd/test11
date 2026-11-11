@@ -1968,6 +1968,77 @@
       font-size: 10.5px !important;
       letter-spacing: -0.2px !important;
     }
+	/* ===== CHUẨN HÓA MỤC LỤC 13 NÚT & DANH SÁCH KHUYẾN MÃI 1:1 ===== */
+    .km-tabs-wrapper {
+      background: #ffffff !important;
+      padding: 8px 6px 6px 6px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+    }
+    .km-tabs-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      width: 100% !important;
+    }
+
+    /* Trạng thái bình thường (khi chưa bấm): Nền trắng bạc 3D nhẹ + viền xanh lá tươi */
+    .km-tab-btn {
+      height: 30px !important;
+      padding: 0 4px !important;
+      border: 1px solid #19a336 !important;
+      border-radius: 4px !important;
+      background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 58%, #e6e6e6 100%) !important;
+      box-shadow: inset 0 1px 0 #ffffff, 0 1px 1px rgba(0, 0, 0, 0.05) !important;
+      color: #065a24 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.15px !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      outline: none !important;
+      transition: all 0.1s ease !important;
+    }
+
+    /* Trạng thái khi bấm chọn (Active): Đổi sang nền xanh lá đậm + chữ trắng */
+    .km-tab-btn.active {
+      background: #00661b !important;
+      border-color: #005717 !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    /* Xóa viền trắng thừa quanh các tấm ảnh banner khuyến mãi bên dưới để tràn nét như Ảnh 2 */
+    #km-card-container,
+    .km-card-list {
+      padding: 6px 8px 90px 8px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+    #km-card-container > div,
+    .km-card-item {
+      padding: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 10px !important;
+      overflow: hidden !important;
+    }
+    #km-card-container img,
+    .km-card-item img {
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
+      border-radius: 10px !important;
+    }
   </style>
 </head>
 <body>
@@ -2791,27 +2862,52 @@
       <div style="width: 30px;"></div>
     </div>
 
-    <div class="km-tab-grid">
-      <div class="km-tab-row">
-        <div class="km-tab-btn active" onclick="filterPromoCards('hot', this)">HOT</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('tanthu', this)">THÀNH VIÊN MỚI</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('naptien', this)">NẠP TIỀN</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('vip', this)">VIP</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('all', this)">TẤT CẢ</div>
+    <!-- BỘ 13 NÚT MỤC LỤC KHUYẾN MÃI CHUẨN 4 HÀNG NHƯ WEB GỐC -->
+    <div class="km-tabs-wrapper">
+      <!-- Hàng 1: 5 mục -->
+      <div class="km-tabs-row">
+        <button type="button" class="km-tab-btn active" style="flex: 1;" onclick="switchKmTab(this, 'hot')">HOT</button>
+        <button type="button" class="km-tab-btn" style="flex: 1.75;" onclick="switchKmTab(this, 'newbie')">THÀNH VIÊN MỚI</button>
+        <button type="button" class="km-tab-btn" style="flex: 1.15;" onclick="switchKmTab(this, 'deposit')">NẠP TIỀN</button>
+        <button type="button" class="km-tab-btn" style="flex: 0.92;" onclick="switchKmTab(this, 'vip')">VIP</button>
+        <button type="button" class="km-tab-btn" style="flex: 1;" onclick="switchKmTab(this, 'all')">TẤT CẢ</button>
       </div>
-      <div class="km-tab-row">
-        <div class="km-tab-btn" onclick="filterPromoCards('nohu', this)">NỔ HŨ-BẮN CÁ-GAME BÀI</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('casino', this)">CASINO</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('usdt', this)">USDT</div>
+
+      <!-- Hàng 2: 3 mục -->
+      <div class="km-tabs-row">
+        <button type="button" class="km-tab-btn" style="flex: 1.42;" onclick="switchKmTab(this, 'slot_fish_card')">NỔ HŨ-BẮN CÁ-GAME BÀI</button>
+        <button type="button" class="km-tab-btn" style="flex: 1;" onclick="switchKmTab(this, 'casino')">CASINO</button>
+        <button type="button" class="km-tab-btn" style="flex: 0.92;" onclick="switchKmTab(this, 'usdt')">USDT</button>
       </div>
-      <div class="km-tab-row">
-        <div class="km-tab-btn" onclick="filterPromoCards('thethao', this)">THỂ THAO-ĐÁ GÀ</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('quatang', this)">QUÀ TẶNG</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('event', this)">EVENT</div>
-        <div class="km-tab-btn" onclick="filterPromoCards('olduser', this)">THÀNH VIÊN CŨ</div>
+
+      <!-- Hàng 3: 4 mục -->
+      <div class="km-tabs-row">
+        <button type="button" class="km-tab-btn" style="flex: 1.38;" onclick="switchKmTab(this, 'sport_cockfight')">THỂ THAO-ĐÁ GÀ</button>
+        <button type="button" class="km-tab-btn" style="flex: 1;" onclick="switchKmTab(this, 'gift')">QUÀ TẶNG</button>
+        <button type="button" class="km-tab-btn" style="flex: 0.95;" onclick="switchKmTab(this, 'event')">EVENT</button>
+        <button type="button" class="km-tab-btn" style="flex: 1.25;" onclick="switchKmTab(this, 'old_member')">THÀNH VIÊN CŨ</button>
       </div>
-      <div class="km-tab-full" onclick="filterPromoCards('scatter', this)">SCATTER NỔ HŨ</div>
+
+      <!-- Hàng 4: 1 mục trải dài (Bấm vào mới xanh đậm, bình thường màu trắng) -->
+      <div class="km-tabs-row">
+        <button type="button" class="km-tab-btn" style="flex: 1;" onclick="switchKmTab(this, 'scatter')">SCATTER NỔ HŨ</button>
+      </div>
     </div>
+
+    <script>
+      function switchKmTab(btnEl, categoryKey) {
+        // 1. Trả toàn bộ 13 nút (kể cả HOT và SCATTER NỔ HŨ) về màu trắng viền xanh
+        const allBtns = document.querySelectorAll('.km-tab-btn');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+
+        // 2. Tô màu xanh lá đậm duy nhất cho nút vừa được bấm
+        if (btnEl) btnEl.classList.add('active');
+
+        // 3. Nếu web đã có hàm lọc danh sách thẻ khuyến mãi thì tự động gọi
+        if (typeof filterKmCards === 'function') filterKmCards(categoryKey);
+        else if (typeof renderKmCards === 'function') renderKmCards(categoryKey);
+      }
+    </script>
 
     <div id="km-card-container" class="km-card-list"></div>
   </div>

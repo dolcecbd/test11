@@ -5046,5 +5046,548 @@ async function handleRealLogin(e) {
       checkSession();
     };
   </script>
+  <!-- ========================================================================= -->
+<!-- CỤM 1: TÀI KHOẢN - PHẦN THƯỞNG CỦA TÔI & ĐIỂM DANH (CHUẨN WEB REAL 100%) -->
+<!-- ========================================================================= -->
+<style>
+  /* --- CSS CHUNG CHO CÁC OVERLAY --- */
+  .acc-fs-overlay {
+    position: fixed;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 430px;
+    height: 100vh;
+    background: #f4f6f8;
+    z-index: 10006;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .acc-fs-overlay.dark-bg { background: #111111; }
+  .acc-header {
+    height: 50px; display: flex; align-items: center; padding: 0 14px;
+    position: sticky; top: 0; z-index: 50; flex-shrink: 0;
+  }
+  .acc-header.dark { background: #111111; color: #ffffff; justify-content: space-between; }
+  .acc-header.gradient-orange { background: linear-gradient(to right, #ff8a00, #ff5200); color: #ffffff; justify-content: center; }
+  .acc-header .btn-back { position: absolute; left: 14px; width: 32px; height: 32px; display: flex; align-items: center; cursor: pointer; }
+  .acc-header .title { font-size: 17px; font-weight: 500; }
+
+  /* --- 1. MÀN HÌNH "PHẦN THƯỞNG CỦA TÔI" --- */
+  .rw-main-bg { background: linear-gradient(180deg, #ff6a00 0%, #ff9d00 30%, #f4f6f8 30%); min-height: 100vh; }
+  .rw-gold-card {
+    margin: 16px; border-radius: 16px; padding: 20px;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    box-shadow: 0 8px 16px rgba(253, 160, 133, 0.3);
+    position: relative; overflow: hidden;
+  }
+  /* Icon mờ trang trí trong thẻ */
+  .rw-gold-card::before {
+    content: '👑'; position: absolute; right: -20px; top: -10px;
+    font-size: 120px; opacity: 0.1; line-height: 1;
+  }
+  .rw-ribbon {
+    position: absolute; top: 0; right: 0; background: #dc2626; color: #fff;
+    padding: 4px 12px 4px 20px; border-bottom-left-radius: 16px;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 4px; cursor: pointer;
+  }
+  .rw-user-row { display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; }
+  .rw-avatar { width: 56px; height: 56px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+  .rw-u-info { flex: 1; }
+  .rw-u-name { font-size: 16px; font-weight: 700; color: #111; display: flex; align-items: center; gap: 6px; }
+  .rw-u-vip { background: rgba(0,0,0,0.5); color: #ffd700; font-size: 11px; padding: 2px 8px; border-radius: 12px; display: inline-block; margin-top: 4px; font-weight: 600; }
+  .rw-balance-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; position: relative; z-index: 2; }
+  .rw-balance { font-size: 26px; font-weight: 800; color: #111; }
+  .rw-vip-progress { margin-top: 16px; position: relative; z-index: 2; }
+  .rw-vip-texts { display: flex; justify-content: space-between; font-size: 12px; color: #444; margin-bottom: 6px; font-weight: 500; }
+  .rw-progress-bar { height: 4px; background: rgba(255,255,255,0.4); border-radius: 2px; overflow: hidden; }
+  .rw-progress-fill { width: 50%; height: 100%; background: #111; border-radius: 2px; }
+  
+  .rw-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; }
+  .rw-action-box {
+    border-radius: 14px; padding: 20px 16px; color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; cursor: pointer; text-align: center; overflow: hidden;
+  }
+  .rw-action-box::after { content: ''; position: absolute; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%; top: -10px; right: -10px; }
+  .rw-action-box.box-green { background: linear-gradient(135deg, #34d399, #10b981); }
+  .rw-action-box.box-blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+  .rw-action-box.box-red { background: linear-gradient(135deg, #fb7185, #f43f5e); grid-column: 1 / 2; }
+  .rw-action-box .icon-circle { width: 44px; height: 44px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; position: relative; }
+  .rw-action-box .badge { position: absolute; top: -4px; right: -8px; background: #dc2626; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; border: 1px solid #fff; }
+  .rw-action-box span { font-size: 14px; font-weight: 600; }
+
+  /* --- 2. MÀN HÌNH DANH SÁCH VOUCHER LƯỢN SÓNG --- */
+  .rw-wave-header {
+    background: #0ea5e9;
+    height: 180px; position: relative; padding: 20px 16px; color: #fff;
+    overflow: hidden;
+  }
+  /* Tạo nền sóng nước bằng CSS vắt chéo */
+  .rw-wave-header::before, .rw-wave-header::after {
+    content: ''; position: absolute; left: -50%; width: 200%; height: 200px;
+    background: rgba(255,255,255,0.15); border-radius: 40%; animation: waveAnim 6s infinite linear;
+  }
+  .rw-wave-header::after { background: rgba(255,255,255,0.25); animation: waveAnim 4s infinite linear; top: 120px; }
+  .rw-wave-header::before { top: 130px; }
+  @keyframes waveAnim { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  
+  .rw-wave-user { display: flex; align-items: center; gap: 12px; position: relative; z-index: 10; margin-top: 20px; }
+  .rw-wave-user .avt { width: 64px; height: 64px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3); }
+  .rw-wave-user .info h3 { margin: 0 0 4px 0; font-size: 15px; font-weight: 500; opacity: 0.9; }
+  .rw-wave-user .info h2 { margin: 0; font-size: 24px; font-weight: 800; }
+
+  .rw-voucher-list { padding: 16px; background: #f4f6f8; min-height: calc(100vh - 180px); }
+  .voucher-card {
+    background: #fff; border-radius: 12px; margin-bottom: 12px;
+    display: flex; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .voucher-card .v-left {
+    width: 110px; padding: 16px 8px; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;
+  }
+  .voucher-card .v-left::after { /* Răng cưa chia voucher */
+    content: ''; position: absolute; right: -6px; top: 0; bottom: 0; width: 12px;
+    background-image: radial-gradient(circle at 6px, #fff 4px, transparent 5px);
+    background-size: 12px 12px;
+  }
+  .voucher-card.pink .v-left { background: linear-gradient(135deg, #f472b6, #db2777); }
+  .voucher-card.green .v-left { background: linear-gradient(135deg, #4ade80, #16a34a); }
+  .v-left .v-type { font-size: 11px; margin-bottom: 4px; opacity: 0.9; }
+  .v-left .v-name { font-size: 13px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+  .v-left .v-date { font-size: 10px; opacity: 0.8; }
+  
+  .voucher-card .v-mid { flex: 1; padding: 16px 12px; }
+  .v-mid h4 { margin: 0 0 6px 0; font-size: 14px; font-weight: 700; color: #333; line-height: 1.3; }
+  .v-mid p { margin: 0; font-size: 11px; color: #666; line-height: 1.4; }
+  .v-mid .v-desc-btn { font-size: 10px; color: #888; margin-top: 8px; display: inline-block; cursor: pointer; }
+  
+  .voucher-card .v-right { width: 85px; padding: 16px 8px; border-left: 1px dashed #e2e8f0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .v-right .time-lbl { font-size: 10px; color: #888; }
+  .v-right .time-val { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 2px; }
+  .v-right .time-val span { font-size: 11px; font-weight: 500; }
+  .v-right .time-sub { font-size: 11px; color: #555; font-weight: 500; margin-bottom: 12px; }
+  .v-right .btn-receive {
+    background: #22c55e; color: #fff; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 16px; border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(34,197,94,0.4);
+  }
+
+  /* --- 3. POPUP NHIỆM VỤ NHẬN VÉ --- */
+  #modal-tasks {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px; height: 100vh;
+    background: rgba(0,0,0,0.7); z-index: 10010;
+    display: none; align-items: center; justify-content: center;
+  }
+  .task-box {
+    background: #fff; width: 90%; max-width: 340px; border-radius: 16px;
+    padding: 0; position: relative;
+    /* Làm nền thẻ nhiệm vụ hơi xám mờ giống bản gốc */
+    background: linear-gradient(180deg, #334155 0%, #1e293b 100%); color: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+  .task-crown {
+    position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+    width: 140px; height: auto; z-index: 2;
+  }
+  .task-box-header { padding: 40px 16px 16px 16px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .task-box-header h3 { margin: 0 0 16px 0; font-size: 15px; font-weight: 500; }
+  .t-progress-bg { background: rgba(0,0,0,0.4); height: 6px; border-radius: 3px; position: relative; }
+  .t-progress-fill { background: #f59e0b; height: 100%; width: 0%; border-radius: 3px; }
+  .t-progress-txt { font-size: 11px; text-align: right; margin-top: 6px; color: #cbd5e1; }
+  
+  .task-list { padding: 16px; }
+  .task-item {
+    background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px;
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .task-item.col { flex-direction: column; align-items: stretch; gap: 12px; }
+  .task-item-top { display: flex; justify-content: space-between; align-items: center; }
+  .task-item h4 { margin: 0; font-size: 14px; font-weight: 500; }
+  .btn-task {
+    background: linear-gradient(180deg, #f59e0b, #d97706); color: #fff;
+    border: none; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .task-mini-progress { display: flex; align-items: center; gap: 8px; }
+  .task-mini-bar { flex: 1; height: 4px; background: rgba(0,0,0,0.5); border-radius: 2px; position: relative; }
+  .task-mini-fill { width: 0%; height: 100%; background: #f59e0b; border-radius: 2px; }
+  .task-mini-num { font-size: 11px; color: #cbd5e1; }
+  
+  .btn-close-modal {
+    position: absolute; top: -40px; right: 0; width: 30px; height: 30px;
+    border: 2px solid #fff; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
+  }
+
+  /* --- 4. MÀN HÌNH ĐIỂM DANH --- */
+  .att-main-bg { background: #f4f6f8; min-height: 100vh; }
+  .att-header-zone {
+    background: linear-gradient(135deg, #ff8a00, #ff5200);
+    padding: 16px 16px 40px 16px; position: relative; color: #fff;
+  }
+  .att-user-row { display: flex; align-items: center; gap: 12px; }
+  .att-user-row img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); }
+  .att-user-row h4 { margin: 0 0 4px 0; font-size: 14px; font-weight: 500; opacity: 0.9; }
+  .att-user-row .bal { font-size: 20px; font-weight: 800; }
+  
+  .att-stat-box {
+    background: #fff; border-radius: 12px; margin: -26px 16px 16px 16px; position: relative; z-index: 10;
+    display: flex; padding: 16px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .att-stat-col { flex: 1; text-align: center; border-right: 1px solid #f1f5f9; }
+  .att-stat-col:last-child { border: none; }
+  .att-stat-num { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .att-stat-num.blue { color: #2563eb; }
+  .att-stat-num.red { color: #dc2626; }
+  .att-stat-lbl { font-size: 11px; color: #94a3b8; }
+  
+  .att-info-box { background: #fff; margin-bottom: 12px; padding: 16px; text-align: center; }
+  .att-info-box h3 { color: #2563eb; font-size: 13px; font-weight: 700; margin: 0 0 12px 0; }
+  .att-req-row { display: flex; gap: 12px; margin-top: 12px; }
+  .att-req-box { flex: 1; background: #fff7ed; padding: 10px; border-radius: 8px; text-align: left; }
+  .att-req-box p { margin: 0 0 4px 0; font-size: 11px; color: #64748b; }
+  .att-req-box strong { font-size: 13px; color: #dc2626; }
+  
+  .att-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 16px 16px 16px; }
+  .att-card { background: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+  .att-c-head { background: #3b82f6; color: #fff; font-size: 12px; font-weight: 700; padding: 6px 0; }
+  .att-c-body {
+    flex: 1; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(circle, #fffbeb 0%, #fff 70%); /* Giả lập tia sáng */
+  }
+  .att-c-body img { width: 44px; height: auto; margin-bottom: 8px; }
+  .att-c-val { font-size: 10px; color: #475569; display: flex; justify-content: space-between; width: 100%; font-weight: 600; }
+  .att-c-val strong { color: #111; font-size: 11px; }
+  .att-btn { background: #e2e8f0; color: #fff; padding: 6px 0; font-size: 11px; font-weight: 700; margin: 0 8px 8px 8px; border-radius: 16px; }
+  .att-btn.done { color: #94a3b8; }
+  .att-btn.active { background: #22c55e; color: #fff; cursor: pointer; }
+</style>
+
+<!-- OVERLAY 1: MENU PHẦN THƯỞNG CỦA TÔI -->
+<div id="overlay-rewards" class="acc-fs-overlay rw-main-bg">
+  <div class="acc-header gradient-orange" style="box-shadow: none;">
+    <div class="btn-back" onclick="closeAccOverlay('overlay-rewards')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="title">Phần thưởng của tôi</div>
+  </div>
+
+  <div class="rw-gold-card">
+    <div class="rw-ribbon" onclick="openAccOverlay('overlay-attendance')">
+      ☑ Điểm Danh <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </div>
+    <div class="rw-user-row">
+      <img class="rw-avatar" src="/images/avatar_default.png" onerror="this.src='https://via.placeholder.com/60'" alt="Avatar">
+      <div class="rw-u-info">
+        <div class="rw-u-name">quanmi112 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></div>
+        <div class="rw-u-vip">👑 VIP0</div>
+      </div>
+    </div>
+    <div class="rw-balance-row">
+      <div class="rw-balance">3.76K</div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+    </div>
+    <div class="rw-vip-progress">
+      <div class="rw-vip-texts"><span></span> <span>Chi tiết VIP ❯ <br> 1 / 2</span></div>
+      <div class="rw-progress-bar"><div class="rw-progress-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="rw-action-grid">
+    <div class="rw-action-box box-green" onclick="openAccOverlay('overlay-reward-detail')">
+      <div class="icon-circle">
+        <span class="badge">13</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#10b981"><path d="M20 7h-4V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6-2v2h-4V5h4zM4 9h16v3H4V9zm0 11v-6h16v6H4z"/></svg>
+      </div>
+      <span>Phần thưởng</span>
+    </div>
+    <div class="rw-action-box box-blue" onclick="openAccOverlay('overlay-attendance')">
+      <div class="icon-circle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#3b82f6"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/><path d="M10 16l-3-3 1.4-1.4 1.6 1.6 4.6-4.6L16 10l-6 6z"/></svg>
+      </div>
+      <span>Điểm Danh</span>
+    </div>
+    <div class="rw-action-box box-red" onclick="showToast('Sẽ tích hợp Cụm 2 vào đây')">
+      <div class="icon-circle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#f43f5e"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      </div>
+      <span>Thưởng Giới Thiệu<br>Bạn Bè</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY 2: DANH SÁCH VOUCHER CHI TIẾT (LƯỢN SÓNG) -->
+<div id="overlay-reward-detail" class="acc-fs-overlay dark-bg">
+  <div class="acc-header dark">
+    <div class="btn-back" onclick="closeAccOverlay('overlay-reward-detail')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="title">Phần thưởng</div>
+    <div style="width:32px"></div>
+  </div>
+  
+  <div class="rw-wave-header">
+    <div class="rw-wave-user">
+      <img class="avt" src="/images/avatar_default.png" onerror="this.src='https://via.placeholder.com/64'" alt="Avatar">
+      <div class="info">
+        <h3>quanmi112</h3>
+        <h2>28.87 K</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="rw-voucher-list">
+    <!-- Thẻ 1: Màu hồng -->
+    <div class="voucher-card pink">
+      <div class="v-left">
+        <div class="v-type">Voucher</div>
+        <div class="v-name">Mưa Lì Xì</div>
+        <div class="v-date">2026.11.29</div>
+      </div>
+      <div class="v-mid">
+        <h4>MƯA LÌ XÌ - GIỚI THIỆU BẠN</h4>
+        <p>Phần thưởng :<br>MƯA LÌ XÌ - GIỚI THIỆU BẠN</p>
+        <span class="v-desc-btn">Sự miêu tả ❯</span>
+      </div>
+      <div class="v-right">
+        <div class="time-lbl">Time</div>
+        <div class="time-val">13<span>Ngày</span></div>
+        <div class="time-sub">19:51:14</div>
+        <button class="btn-receive" onclick="openModalTasks()">Nhận</button>
+      </div>
+    </div>
+
+    <!-- Thẻ 2: Màu xanh -->
+    <div class="voucher-card green">
+      <div class="v-left">
+        <div class="v-type">Voucher</div>
+        <div class="v-name">Phiếu quay miễn phí</div>
+        <div class="v-date">2026.11.30</div>
+      </div>
+      <div class="v-mid">
+        <h4>VÒNG QUAY MIỄN PHÍ SĂN HŨ FC01 - ...</h4>
+        <p>Phần thưởng :<br>VÒNG QUAY MIỄN PHÍ SĂN HŨ FC01 - T11</p>
+      </div>
+      <div class="v-right">
+        <div class="time-lbl">Time</div>
+        <div class="time-val">15<span>Ngày</span></div>
+        <div class="time-sub">00:59:52</div>
+        <button class="btn-receive" onclick="openModalTasks()">Nhận</button>
+      </div>
+    </div>
+    
+    <!-- Thẻ 3: Màu xanh -->
+    <div class="voucher-card green">
+      <div class="v-left">
+        <div class="v-type">Voucher</div>
+        <div class="v-name">Phiếu quay miễn phí</div>
+        <div class="v-date">2026.11.30</div>
+      </div>
+      <div class="v-mid">
+        <h4>VÒNG QUAY MIỄN PHÍ NỔ HŨ JDB01 - ...</h4>
+        <p>Phần thưởng :<br>VÒNG QUAY MIỄN PHÍ NỔ HŨ JDB01 - T11</p>
+      </div>
+      <div class="v-right">
+        <div class="time-lbl">Time</div>
+        <div class="time-val">15<span>Ngày</span></div>
+        <div class="time-sub">00:59:52</div>
+        <button class="btn-receive" onclick="openModalTasks()">Nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP NHIỆM VỤ NHẬN VÉ (Mở khi bấm nút Nhận) -->
+<div id="modal-reward-tasks">
+  <div class="task-box">
+    <!-- Thay link ảnh vương miện thực tế của mày vào src -->
+    <img src="/images/crown_ribbon.png" onerror="this.style.display='none'" class="task-crown" alt="Crown">
+    <div class="btn-close-modal" onclick="closeModalTasks()">✕</div>
+    
+    <div class="task-box-header">
+      <h3 style="margin-top:20px;">Hoàn thành nhiệm vụ để nhận vé</h3>
+      <div class="t-progress-bg"><div class="t-progress-fill"></div></div>
+      <div class="t-progress-txt">0.00%</div>
+    </div>
+    
+    <div class="task-list">
+      <div class="task-item">
+        <h4>Liên kết thẻ ngân hàng</h4>
+        <button class="btn-task" onclick="showToast('Chuyển đến trang liên kết ngân hàng')">Liên kết</button>
+      </div>
+      <div class="task-item col">
+        <div class="task-item-top">
+          <h4>Mời bạn bè của bạn ≥ 1</h4>
+          <button class="btn-task" onclick="showToast('Mở form chia sẻ')">Chia sẻ</button>
+        </div>
+        <div class="task-mini-progress">
+          <span class="task-mini-num">0</span>
+          <div class="task-mini-bar"><div class="task-mini-fill"></div></div>
+          <span class="task-mini-num">1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY 3: ĐIỂM DANH -->
+<div id="overlay-attendance" class="acc-fs-overlay">
+  <div class="acc-header dark">
+    <div class="btn-back" onclick="closeAccOverlay('overlay-attendance')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="title">Điểm Danh</div>
+    <div style="width:32px"></div>
+  </div>
+
+  <div class="att-header-zone">
+    <div class="att-user-row">
+      <img src="/images/avatar_default.png" onerror="this.src='https://via.placeholder.com/50'" alt="Avatar">
+      <div>
+        <h4>quanmi112</h4>
+        <div class="bal">3.76 K</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="att-stat-box">
+    <div class="att-stat-col">
+      <div class="att-stat-num blue">1</div>
+      <div class="att-stat-lbl">Số ngày điểm danh</div>
+    </div>
+    <div class="att-stat-col">
+      <div class="att-stat-num red">0</div>
+      <div class="att-stat-lbl">Tổng thưởng điểm danh</div>
+    </div>
+  </div>
+
+  <div class="att-info-box">
+    <h3>ĐIỂM DANH - LINK MB DỄ NHỚ: 8386333.COM</h3>
+    <div style="display:flex; align-items:center; gap:10px; text-align:left;">
+      <span style="font-size:30px;">🎁</span>
+      <div style="flex:1;">
+        <strong style="color:#dc2626; font-size:13px;">ĐIỂM DANH - LINK MB DỄ NHỚ: 8386333.COM</strong><br>
+        <span style="color:#2563eb; font-size:12px; font-weight:600;">Đã điểm danh hôm nay ❓</span>
+      </div>
+    </div>
+    <div class="att-req-row">
+      <div class="att-req-box">
+        <p>Tiền gửi yêu cầu:</p>
+        <strong>100.00 K</strong>
+      </div>
+      <div class="att-req-box">
+        <p>Doanh thu yêu cầu:</p>
+        <strong>800.00 K</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lưới 15 ngày -->
+  <div class="att-grid">
+    <!-- Ngày 1 (Đã điểm danh) -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 1</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">🧧</span>
+        <div class="att-c-val"><span>NGẪU NHIÊN</span> <strong>3~5</strong></div>
+      </div>
+      <div class="att-btn done">Đã điểm danh</div>
+    </div>
+    
+    <!-- Ngày 2 (Sắp tới) -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 2</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">💵</span>
+        <div class="att-c-val"><span>Thưởng</span> <strong>5.00 K</strong></div>
+      </div>
+      <div class="att-btn">Điểm Danh</div>
+    </div>
+
+    <!-- Ngày 3 -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 3</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">💵</span>
+        <div class="att-c-val"><span>Thưởng</span> <strong>10.00 K</strong></div>
+      </div>
+      <div class="att-btn">Điểm Danh</div>
+    </div>
+    
+    <!-- Bạn có thể copy paste thêm các Ngày 4, 5, 6... tương tự theo form này -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 4</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">💵</span>
+        <div class="att-c-val"><span>Thưởng</span> <strong>18.00 K</strong></div>
+      </div>
+      <div class="att-btn">Điểm Danh</div>
+    </div>
+    
+    <!-- Ngày 5 (Quà đặc biệt) -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 5</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">🧧</span>
+        <div class="att-c-val" style="justify-content:center; text-align:center;"><strong>ĐIỂM DANH MƯA LÌ XÌ HOT</strong></div>
+      </div>
+      <div class="att-btn">Điểm Danh</div>
+    </div>
+    
+    <!-- Ngày 6 -->
+    <div class="att-card">
+      <div class="att-c-head">Ngày 6</div>
+      <div class="att-c-body">
+        <span style="font-size:36px; line-height:1; margin-bottom:8px;">💵</span>
+        <div class="att-c-val"><span>Thưởng</span> <strong>28.00 K</strong></div>
+      </div>
+      <div class="att-btn">Điểm Danh</div>
+    </div>
+  </div>
+
+  <div style="padding: 0 16px 40px 16px;">
+    <h4 style="color:#dc2626; font-size:14px; margin-bottom:8px;">Quy tắc điểm danh</h4>
+    <p style="font-size:13px; line-height:1.5; color:#333; font-weight:500;">
+      LINK MB DỄ NHỚ: 8386333.COM<br>
+      ĐIỂM DANH MỖI NGÀY NHẬN QUÀ HOT<br>
+      15 NGÀY TỐI THIỂU 1,188K - TỐI ĐA 1,688K
+    </p>
+  </div>
+</div>
+
+<script>
+  // Script điều khiển đóng mở Cụm 1
+  function openAccOverlay(id) {
+    const isLogged = document.getElementById('user-zone').style.display !== 'none';
+    if (!isLogged && id !== 'overlay-rewards') {
+      openAuthOverlay('login');
+      return;
+    }
+    document.getElementById(id).style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAccOverlay(id) {
+    document.getElementById(id).style.display = 'none';
+    // Mở khóa cuộn body nếu không còn overlay nào đang hiện
+    const anyOpen = document.querySelectorAll('.acc-fs-overlay[style*="display: flex"]');
+    if(anyOpen.length === 0) document.body.style.overflow = '';
+  }
+
+  function openModalTasks() {
+    document.getElementById('modal-reward-tasks').style.display = 'flex';
+  }
+  
+  function closeModalTasks() {
+    document.getElementById('modal-reward-tasks').style.display = 'none';
+  }
+
+  // Gắn lệnh gọi "Phần thưởng" vào Icon số 1 trong lưới 16 icon của mày (nếu đã có lưới)
+  window.addEventListener('DOMContentLoaded', () => {
+    const accIcons = document.querySelectorAll('.acc-tool-item');
+    if(accIcons.length >= 1) {
+      accIcons[0].onclick = () => openAccOverlay('overlay-rewards');
+    }
+  });
+</script>
 </body>
 </html>

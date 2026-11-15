@@ -3075,69 +3075,531 @@
     </div>
   </div>
 
-  <!-- 5. OVERLAY RÚT TIỀN (3 TAB & THÊM TÀI KHOẢN NGÂN HÀNG) -->
+  <!-- 5. OVERLAY RÚT TIỀN & 6. LAYER THÊM TÀI KHOẢN NGÂN HÀNG (CHUẨN 1:1 WEB REAL) -->
+  <style>
+    #overlay-withdraw-view {
+      background: #ffffff !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    }
+    /* Header Đen Chuẩn Web Real */
+    .w-real-header {
+      background: #1b1b1b !important;
+      color: #ffffff !important;
+      height: 50px !important;
+      padding: 0 14px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 40 !important;
+      flex-shrink: 0 !important;
+    }
+    .w-real-header .w-back {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .w-real-header .w-title {
+      font-size: 18px !important;
+      font-weight: 500 !important;
+      color: #ffffff !important;
+      text-align: center !important;
+      line-height: 1.25 !important;
+    }
+    .w-real-header .w-hist {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    /* 3 Tab Ngân Hàng - Ví Ảo - MoMo To Đẹp Chuẩn Ảnh 3-8 */
+    .w-real-tabs {
+      display: flex !important;
+      align-items: stretch !important;
+      background: #ffffff !important;
+      height: 56px !important;
+      border-bottom: 1px solid #e5e7eb !important;
+      flex-shrink: 0 !important;
+    }
+    .w-real-tab {
+      flex: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      cursor: pointer !important;
+      position: relative !important;
+      color: #4b5563 !important;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      padding: 0 4px !important;
+      user-select: none !important;
+    }
+    .w-real-tab.active {
+      color: #b91c1c !important;
+    }
+    .w-real-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #b91c1c;
+    }
+    .w-tab-text-2line {
+      font-size: 14.5px;
+      line-height: 1.15;
+      text-align: center;
+    }
+    /* Logo MoMo Bản To + Mũi Tên Kép */
+    .w-momo-badge {
+      height: 36px;
+      flex: 1;
+      max-width: 108px;
+      background: linear-gradient(90deg, #9d0159 0%, #b80f6c 60%, #f5dce8 100%);
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 13px;
+      line-height: 0.92;
+      letter-spacing: 0.5px;
+    }
+    .w-momo-badge small {
+      font-size: 5px;
+      font-weight: 500;
+      letter-spacing: 0;
+      margin-top: 2px;
+      opacity: 0.9;
+    }
+
+    /* Khung Thẻ Trống + Nút Cộng Đỏ Nằm Trên Đường Kẻ */
+    .w-empty-section {
+      background: #ffffff !important;
+      padding: 16px 16px 26px 16px !important;
+      border-bottom: 1px solid #e5e7eb !important;
+      position: relative !important;
+    }
+    .w-empty-header {
+      font-size: 16.5px !important;
+      font-weight: 500 !important;
+      color: #333333 !important;
+      margin-bottom: 18px !important;
+    }
+    .w-empty-graphic {
+      width: 200px !important;
+      height: auto !important;
+      margin: 0 auto 8px auto !important;
+      display: block !important;
+      opacity: 0.9 !important;
+    }
+    .w-empty-label {
+      text-align: center !important;
+      font-size: 15px !important;
+      color: #888888 !important;
+      font-weight: 400 !important;
+    }
+    .w-btn-plus-red {
+      position: absolute !important;
+      right: 18px !important;
+      bottom: -24px !important;
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50% !important;
+      background: #e60000 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      z-index: 10 !important;
+      box-shadow: 0 2px 6px rgba(230, 0, 0, 0.3) !important;
+    }
+
+    /* Khối Chữ Hướng Dẫn To Rõ Chuẩn Web Real */
+    .w-guide-section {
+      padding: 26px 16px 8px 16px !important;
+      font-size: 14px !important;
+      color: #9ca3af !important;
+      line-height: 1.65 !important;
+      font-weight: 400 !important;
+    }
+    .w-guide-section .w-domain-red {
+      color: #a82020 !important;
+      font-size: 18.5px !important;
+      font-weight: 700 !important;
+    }
+    .w-guide-section .w-wallet-line {
+      color: #111111 !important;
+      font-size: 14.5px !important;
+      font-weight: 500 !important;
+      line-height: 1.55 !important;
+    }
+
+    /* Nút Chuyển Hết Về Tài Khoản Chính */
+    .w-transfer-pill-wrap {
+      display: flex !important;
+      justify-content: center !important;
+      margin: 10px 0 14px 0 !important;
+    }
+    .w-transfer-pill {
+      background: #dceafe !important;
+      color: #2563eb !important;
+      border-radius: 999px !important;
+      padding: 7px 18px 7px 10px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      cursor: pointer !important;
+    }
+
+    /* Khung Nhập Số Tiền & Mật Khẩu Rút Tiền */
+    .w-form-section {
+      padding: 0 16px 50px 16px !important;
+    }
+    .w-form-heading {
+      font-size: 15px !important;
+      color: #111111 !important;
+      font-weight: 500 !important;
+      margin-bottom: 10px !important;
+    }
+    .w-inline-input-box {
+      border: 1px solid #d1d5db !important;
+      border-radius: 6px !important;
+      height: 50px !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 0 14px !important;
+      background: #ffffff !important;
+      margin-bottom: 14px !important;
+    }
+    .w-inline-input-box .w-left-lbl {
+      font-size: 15.5px !important;
+      color: #111111 !important;
+      font-weight: 500 !important;
+      flex-shrink: 0 !important;
+      margin-right: 16px !important;
+    }
+    .w-inline-input-box input {
+      flex: 1 !important;
+      border: none !important;
+      outline: none !important;
+      font-size: 15.5px !important;
+      color: #111111 !important;
+      background: transparent !important;
+      width: 100% !important;
+    }
+    .w-inline-input-box input::placeholder {
+      color: #9ca3af !important;
+      font-weight: 400 !important;
+    }
+    .w-crypto-rate-notice {
+      display: none;
+      color: #c24136 !important;
+      font-size: 14px !important;
+      line-height: 1.55 !important;
+      margin: -4px 0 14px 0 !important;
+    }
+    .w-forgot-row {
+      text-align: right !important;
+      margin: 2px 0 16px 0 !important;
+    }
+    .w-forgot-row span {
+      color: #1e40af !important;
+      font-size: 14.5px !important;
+      font-weight: 500 !important;
+      cursor: pointer !important;
+    }
+    .w-btn-confirm-grey {
+      width: 100% !important;
+      height: 48px !important;
+      background: #cccccc !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 6px !important;
+      font-size: 17px !important;
+      font-weight: 500 !important;
+      cursor: pointer !important;
+    }
+
+    /* LAYER THÊM TÀI KHOẢN NGÂN HÀNG ĐẨY TRANG LÊN CHUẨN ẢNH 9 */
+    #modal-bind-bank {
+      position: fixed !important;
+      top: 0 !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 100% !important;
+      max-width: 430px !important;
+      height: 100vh !important;
+      background: #f5f6f8 !important;
+      z-index: 10005 !important;
+      display: none;
+      flex-direction: column !important;
+      padding: 0 !important;
+      backdrop-filter: none !important;
+      overflow-y: auto !important;
+    }
+    .bind-top-card {
+      background: #ffffff !important;
+      border: 1px solid #d1d5db !important;
+      border-radius: 6px !important;
+      margin: 16px 14px 14px 14px !important;
+      padding: 12px !important;
+    }
+    .bind-select-row {
+      background: #efefef !important;
+      border-radius: 5px !important;
+      height: 50px !important;
+      display: flex !important;
+      align-items: center !important;
+      position: relative !important;
+      overflow: hidden !important;
+      margin-bottom: 12px !important;
+    }
+    .bind-select-row select {
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+      padding: 0 56px 0 16px !important;
+      font-size: 15px !important;
+      color: #4b5563 !important;
+      text-align: center !important;
+      text-align-last: center !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      cursor: pointer !important;
+    }
+    .bind-select-arrow-blue {
+      position: absolute !important;
+      right: 0 !important;
+      top: 0 !important;
+      width: 50px !important;
+      height: 50px !important;
+      background: #4285f4 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      pointer-events: none !important;
+    }
+    .bind-gray-input-row {
+      background: #e6e6e6 !important;
+      border-radius: 5px !important;
+      height: 50px !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 0 14px !important;
+      gap: 12px !important;
+    }
+    .bind-gray-input-row input {
+      flex: 1 !important;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+      font-size: 15px !important;
+      color: #6b7280 !important;
+    }
+    .bind-gray-input-row input::placeholder {
+      color: #d1d5db !important;
+    }
+    .bind-red-warn {
+      color: #d91b1b !important;
+      font-size: 14.5px !important;
+      font-weight: 700 !important;
+      line-height: 1.4 !important;
+      margin: 2px 14px 12px 14px !important;
+    }
+    .bind-pass-row {
+      background: #efefef !important;
+      border-radius: 6px !important;
+      height: 50px !important;
+      margin: 0 14px 12px 14px !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 0 14px !important;
+      gap: 12px !important;
+    }
+    .bind-pass-row input {
+      flex: 1 !important;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+      font-size: 15px !important;
+      color: #111111 !important;
+    }
+    .bind-pass-row input::placeholder {
+      color: #888888 !important;
+    }
+    .bind-btn-submit {
+      margin: 4px 14px 30px 14px !important;
+      width: calc(100% - 28px) !important;
+      height: 48px !important;
+      background: #cccccc !important;
+      color: #000000 !important;
+      font-size: 16.5px !important;
+      font-weight: 500 !important;
+      border: none !important;
+      border-radius: 6px !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+      cursor: pointer !important;
+    }
+  </style>
+
+  <!-- MÀN HÌNH RÚT TIỀN CHUẨN 1:1 -->
   <div id="overlay-withdraw-view" class="fs-overlay-view no-scrollbar">
-    <div class="deposit-header">
-      <div class="btn-back" onclick="closeWithdrawView()">⟨</div>
-      <div class="deposit-title">Rút Tiền</div>
-      <div class="header-record-icon" onclick="showToast('Lịch sử rút tiền')">
-        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+    <div class="w-real-header">
+      <div class="w-back" onclick="closeWithdrawView()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </div>
+      <div class="w-title">Rút Tiền</div>
+      <div class="w-hist" onclick="showToast('Lịch sử rút tiền')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="3" width="13" height="17" rx="2" stroke="#ffffff" stroke-width="1.7"/>
+          <path d="M8 3V2h5v1" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round"/>
+          <line x1="7" y1="8" x2="14" y2="8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="7" y1="12" x2="12" y2="12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="17.5" cy="17.5" r="4.5" fill="#1b1b1b" stroke="#ffffff" stroke-width="1.5"/>
+          <path d="M17.5 15.5v3.5M16 17.8l1.5 1.5 1.5-1.5" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
     </div>
 
-    <div class="withdraw-tabs">
-      <div class="withdraw-tab-item active" id="wtab-btn-bank" onclick="switchWithdrawTab('bank')">
-        <img loading="lazy" src="/images/ic_tab_bank.png" alt="Bank"> Thẻ ngân hàng
+    <!-- 3 TAB CHỌN PHƯƠNG THỨC RÚT -->
+    <div class="w-real-tabs">
+      <!-- Tab 1: Thẻ ngân hàng -->
+      <div class="w-real-tab active" id="wtab-btn-bank" onclick="switchWithdrawTab('bank')">
+        <svg width="28" height="28" viewBox="0 0 32 32" style="flex-shrink:0;">
+          <circle cx="16" cy="16" r="15" fill="#0284c7"/>
+          <rect x="8" y="10" width="16" height="12" rx="2" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+          <line x1="8" y1="14" x2="24" y2="14" stroke="#ffffff" stroke-width="1.8"/>
+          <circle cx="20" cy="19" r="2.5" fill="#ffffff"/>
+        </svg>
+        <div class="w-tab-text-2line">Thẻ ngân<br>hàng</div>
       </div>
-      <div class="withdraw-tab-item" id="wtab-btn-crypto" onclick="switchWithdrawTab('crypto')">
-        <img loading="lazy" src="/images/ic_tab_crypto.png" alt="Crypto"> Ví ảo
+
+      <!-- Tab 2: Ví ảo -->
+      <div class="w-real-tab" id="wtab-btn-crypto" onclick="switchWithdrawTab('crypto')">
+        <svg width="28" height="28" viewBox="0 0 32 32" style="flex-shrink:0;">
+          <circle cx="16" cy="16" r="15" fill="#f59e0b"/>
+          <text x="16" y="21.5" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800" font-family="Arial, sans-serif">₿</text>
+        </svg>
+        <span>Ví ảo</span>
       </div>
-      <div class="withdraw-tab-item" id="wtab-btn-momo" onclick="switchWithdrawTab('momo')">
-        <img loading="lazy" src="/images/ic_tab_momo.png" alt="MoMo"> MoMo
+
+      <!-- Tab 3: MoMo -->
+      <div class="w-real-tab" id="wtab-btn-momo" onclick="switchWithdrawTab('momo')">
+        <div class="w-momo-badge">
+          <div>mo</div>
+          <div>mo</div>
+          <small>mobile money</small>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+          <polyline points="6 17 11 12 6 7"></polyline>
+          <polyline points="13 17 18 12 13 7"></polyline>
+        </svg>
       </div>
     </div>
 
-    <!-- KHỐI PHÔI THẺ TRỐNG -->
-    <div class="withdraw-card-box">
-      <div id="wcard-title-count" style="width:100%;font-size:12px;font-weight:700;color:#1e293b;margin-bottom:10px;">Thẻ ngân hàng của tôi(0/3)</div>
-      <img id="wcard-empty-img" src="/images/card_empty_bank.png" class="withdraw-card-empty-img" alt="Card Empty">
-      <div id="wcard-empty-desc" class="withdraw-empty-text">Thẻ ngân hàng trống</div>
-      <img loading="lazy" src="/images/btn_add_circle_red.png" class="btn-add-circle" onclick="openAddBankModal()" alt="Add">
+    <!-- KHUNG THẺ TRỐNG + DẤU CỘNG ĐỎ -->
+    <div class="w-empty-section">
+      <div id="wcard-title-count" class="w-empty-header">Thẻ ngân hàng của tôi(0/3)</div>
+      <img id="wcard-empty-img" src="/images/card_empty_bank.png" class="w-empty-graphic" alt="Card Empty">
+      <div id="wcard-empty-desc" class="w-empty-label">Thẻ ngân hàng trống</div>
+
+      <div class="w-btn-plus-red" onclick="openAddBankModal()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </div>
     </div>
 
-    <div class="withdraw-info-box">
-      <div>Thời gian rút tiền: <span style="font-weight:700;color:#1e293b;">24 giờ</span></div>
-      <div>Link dễ nhớ: <span class="red-link">8386333.com</span></div>
-      <div>Nhập số tiền muốn rút (1 điểm = 1,000VNĐ)</div>
-      <div>Ví dụ: 1,000 điểm = 1,000,000 VNĐ</div>
-      <div>Chủ tài khoản ngân hàng phải trùng khớp với tên đăng ký.</div>
-      <div style="margin-top:8px;">Số tiền có thể rút: <span id="w-avail-balance" style="font-weight:800;color:#0b572a;">0.00 K</span></div>
+    <!-- THÔNG TIN HƯỚNG DẪN RÚT TIỀN -->
+    <div class="w-guide-section">
+      <div>Thời gian rút tiền： 24 giờ</div>
+      <div style="margin-top: 2px;">Link dễ nhớ đt: <span class="w-domain-red">8386333.com</span></div>
+      <div>Nhập số tiền muốn rút ( 1 điểm = 1,000VNĐ )</div>
+      <div>Ví dụ 1,000 điểm = 1,000,000 VNĐ</div>
+      <div>Chủ tài khoản ngân hàng phải giống với tên đăng ký tài khoản.</div>
+
+      <div style="margin-top: 10px;">Có thể rút trong ngày 99 (số lần), Số tiền có thể rút 99 (số lần)</div>
+      <div class="w-wallet-line">Ví chính :<span id="w-main-balance">0.00 K</span></div>
+      <div class="w-wallet-line">Số tiền có thể rút : <span id="w-avail-balance">0.00 K</span></div>
     </div>
 
-    <div style="padding: 0 14px 40px 14px;">
-      <div class="input-group">
-        <label class="input-label">Số tiền rút (Điểm)</label>
-        <input type="number" id="w-input-amount" class="input-field" placeholder="100 ~ 300,000">
+    <!-- NÚT CHUYỂN HẾT VỀ TÀI KHOẢN CHÍNH -->
+    <div class="w-transfer-pill-wrap">
+      <div class="w-transfer-pill" onclick="showToast('Đã chuyển hết về tài khoản chính')">
+        <svg width="22" height="22" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="11" fill="#2563eb"/>
+          <path d="M16.5 10.5A5 5 0 1 0 17 14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="17 7.5 17 11 13.5 11" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>chuyển hết về tài khoản chính</span>
       </div>
-      <div class="input-group">
-        <label class="input-label">Mật khẩu rút tiền</label>
-        <input type="password" id="w-input-pass" class="input-field" placeholder="Mật khẩu rút tiền">
+    </div>
+
+    <!-- FORM NHẬP TIỀN & MẬT KHẨU -->
+    <div class="w-form-section">
+      <div class="w-form-heading">Số tiền rút:</div>
+
+      <div class="w-inline-input-box">
+        <span class="w-left-lbl" style="width: 78px;">Số tiền</span>
+        <input type="number" id="w-input-amount" placeholder="100 ~ 300,000">
       </div>
-      <button class="btn-submit" style="background:#005a2b;padding:12px 0;" onclick="submitWithdrawal()">XÁC NHẬN</button>
+
+      <!-- Dòng tỷ giá đỏ chỉ hiện ở tab Ví ảo (Chuẩn Ảnh 6) -->
+      <div id="w-crypto-rate-box" class="w-crypto-rate-notice">
+        <div>Số tiền chuyển đổi：</div>
+        <div>Tỷ giá： Không có sẵn</div>
+        <div>Tỷ lệ chỉ mang tính chất tham khảo.</div>
+      </div>
+
+      <div class="w-inline-input-box">
+        <span class="w-left-lbl">Mật khẩu rút tiền</span>
+        <input type="password" id="w-input-pass" placeholder="Mật khẩu rút tiền">
+        <div class="eye-toggle" onclick="togglePassVisibility('w-input-pass')" style="cursor:pointer; display:flex; align-items:center;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="#888888">
+            <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="w-forgot-row">
+        <span onclick="showToast('Vui lòng liên hệ CSKH 24/7 để lấy lại mật khẩu rút tiền')">Quên mật khẩu?</span>
+      </div>
+
+      <button type="button" class="w-btn-confirm-grey" onclick="submitWithdrawal()">Xác nhận</button>
     </div>
   </div>
 
-  <!-- 6. MODAL THÊM TÀI KHOẢN NGÂN HÀNG (KHÓA VĨNH VIỄN) -->
-  <div id="modal-bind-bank" class="modal-overlay">
-    <div class="modal-content" style="max-width:360px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <h4 style="font-size:15px;font-weight:900;color:#005a2b;">Thêm tài khoản ngân hàng</h4>
-        <span onclick="closeAddBankModal()" style="font-size:18px;cursor:pointer;color:#94a3b8;">✕</span>
+  <!-- 6. LAYER THÊM TÀI KHOẢN NGÂN HÀNG (ĐẨY TRANG FULL-SCREEN LÊN CHUẨN ẢNH 9) -->
+  <div id="modal-bind-bank" class="no-scrollbar">
+    <div class="w-real-header" style="height: 58px !important;">
+      <div class="w-back" onclick="closeAddBankModal()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </div>
+      <div class="w-title">Thêm tài khoản ngân<br>hàng</div>
+      <div style="width: 32px;"></div>
+    </div>
 
-      <div class="input-group">
-        <label class="input-label">* Chọn ngân hàng của bạn</label>
-        <select id="bind-bank-select" class="input-field">
+    <div class="bind-top-card">
+      <!-- Chọn ngân hàng có nút mũi tên xanh bên phải -->
+      <div class="bind-select-row">
+        <select id="bind-bank-select">
+          <option value="">* Chọn ngân hàng của bạn</option>
           <option value="Vietcombank">Vietcombank</option>
           <option value="MBBank">MBBank (Quân Đội)</option>
           <option value="Techcombank">Techcombank</option>
@@ -3147,32 +3609,118 @@
           <option value="VPBank">VPBank</option>
           <option value="TPBank">TPBank</option>
         </select>
+        <div class="bind-select-arrow-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
       </div>
 
-      <div class="input-group">
-        <label class="input-label">* Số tài khoản</label>
-        <input type="text" id="bind-bank-acc" class="input-field" placeholder="Nhập số tài khoản ngân hàng" required>
+      <!-- Ô hiển thị/nhập thẻ chuẩn Ảnh 9 -->
+      <div class="bind-gray-input-row">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#aaaaaa" stroke-width="1.6">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <circle cx="8" cy="11" r="2"/>
+          <path d="M5 16c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5"/>
+          <line x1="13" y1="10" x2="19" y2="10"/>
+          <line x1="13" y1="14" x2="18" y2="14"/>
+        </svg>
+        <input type="text" id="bind-bank-acc" placeholder="D*****">
+        <input type="hidden" id="bind-bank-owner" value="NGUOI DUNG">
       </div>
-
-      <div class="input-group">
-        <label class="input-label">Tên chủ thẻ (Cố định bảo mật)</label>
-        <input type="text" id="bind-bank-owner" class="input-field" readonly style="background:#f1f5f9;color:#64748b;font-weight:800;">
-      </div>
-
-      <div style="color:#ef4444;font-size:11px;font-weight:700;margin-bottom:10px;">
-        Bạn chưa đặt mật khẩu rút tiền. Vui lòng thiết lập mật khẩu rút tiền của bạn:
-      </div>
-
-      <div class="input-group">
-        <input type="password" id="bind-w-pass" class="input-field" placeholder="* Đặt mật khẩu rút tiền" required>
-      </div>
-      <div class="input-group">
-        <input type="password" id="bind-w-pass-re" class="input-field" placeholder="* Nhập lại mật khẩu rút tiền" required>
-      </div>
-
-      <button type="button" class="btn-submit" onclick="submitBindBank()">XÁC NHẬN LIÊN KẾT</button>
     </div>
+
+    <div class="bind-red-warn">
+      Bạn chưa đặt mật khẩu rút tiền. Vui lòng đặt mật khẩu rút tiền của bạn
+    </div>
+
+    <div class="bind-pass-row">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1.8">
+        <rect x="4" y="11" width="16" height="10" rx="2"/>
+        <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+      </svg>
+      <input type="password" id="bind-w-pass" placeholder="* Đặt mật khẩu rút tiền" required>
+      <div class="eye-toggle" onclick="togglePassVisibility('bind-w-pass')" style="cursor:pointer; display:flex; align-items:center;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#888888">
+          <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="w-forgot-row" style="margin: 0 14px 12px 14px !important;">
+      <span onclick="showToast('Vui lòng liên hệ CSKH 24/7')">Quên mật khẩu?</span>
+    </div>
+
+    <div class="bind-pass-row">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1.8">
+        <rect x="4" y="11" width="16" height="10" rx="2"/>
+        <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+      </svg>
+      <input type="password" id="bind-w-pass-re" placeholder="* Nhập lại mật khẩu Rút tiền" required>
+      <div class="eye-toggle" onclick="togglePassVisibility('bind-w-pass-re')" style="cursor:pointer; display:flex; align-items:center;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#888888">
+          <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z"/>
+        </svg>
+      </div>
+    </div>
+
+    <button type="button" class="bind-btn-submit" onclick="submitBindBank()">Xác nhận</button>
   </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      window.openWithdrawView = function() {
+        const isLogged = document.getElementById('user-zone').style.display !== 'none';
+        if (!isLogged) {
+          openAuthOverlay('login');
+          return;
+        }
+        document.getElementById('overlay-withdraw-view').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        const b = document.getElementById('display-balance').innerText;
+        const mainEl = document.getElementById('w-main-balance');
+        const availEl = document.getElementById('w-avail-balance');
+        if (mainEl) mainEl.innerText = b;
+        if (availEl) availEl.innerText = b;
+
+        switchWithdrawTab(currentWithdrawTab || 'bank');
+      };
+
+      window.switchWithdrawTab = function(tab) {
+        currentWithdrawTab = tab;
+        document.querySelectorAll('.w-real-tab').forEach(t => t.classList.remove('active'));
+        const activeBtn = document.getElementById('wtab-btn-' + tab);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        const countEl = document.getElementById('wcard-title-count');
+        const imgEl = document.getElementById('wcard-empty-img');
+        const descEl = document.getElementById('wcard-empty-desc');
+        const amtInput = document.getElementById('w-input-amount');
+        const rateBox = document.getElementById('w-crypto-rate-box');
+
+        if (tab === 'bank') {
+          countEl.innerText = 'Thẻ ngân hàng của tôi(0/3)';
+          imgEl.src = '/images/card_empty_bank.png';
+          descEl.innerText = 'Thẻ ngân hàng trống';
+          if (amtInput) amtInput.placeholder = '100 ~ 300,000';
+          if (rateBox) rateBox.style.display = 'none';
+        } else if (tab === 'crypto') {
+          countEl.innerText = 'Ví của tôi(0/2)';
+          imgEl.src = '/images/card_empty_crypto.png';
+          descEl.innerText = 'Danh sách ví trống';
+          if (amtInput) amtInput.placeholder = '500 ~ 1,000,000';
+          if (rateBox) rateBox.style.display = 'block';
+        } else {
+          countEl.innerText = 'Bị ràng buộc MOMO (0/1)';
+          imgEl.src = '/images/card_empty_momo.png';
+          descEl.innerText = 'Ví điện tử rỗng';
+          if (amtInput) amtInput.placeholder = '100 ~ 300,000';
+          if (rateBox) rateBox.style.display = 'none';
+        }
+      };
+    });
+  </script>
 
   <!-- 7. OVERLAY HOÀN TRẢ TIỀN CƯỢC -->
   <div id="overlay-refund-view" class="fs-overlay-view no-scrollbar">

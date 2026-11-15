@@ -6,25 +6,25 @@
   <title>QQ88</title>
   <style>
   /* Hiệu ứng trôi chữ mượt 60fps cho thanh thông báo Khuyến Mãi */
+    /* Hiệu ứng trôi chữ mượt 60fps cho thanh thông báo Khuyến Mãi */
     .smooth-marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      font-size: 13px;
-      font-weight: 400; /* Chỉnh nét chữ thanh mảnh như web gốc */
-      color: #333333;
-      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-      letter-spacing: 0.1px;
-      /* Động cơ đẩy: Chạy từ trái qua phải, mỗi vòng 15 giây, đều đặn liên tục */
-      animation: marquee-scroll 15s linear infinite;
-      padding-left: 100%; /* Bắt đầu xuất hiện từ mép phải màn hình */
+      position: absolute !important;
+      white-space: nowrap !important;
+      font-size: 13.5px !important;
+      font-weight: 400 !important;
+      color: #333333 !important;
+      top: 50% !important;
+      left: 0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
+      animation: marquee-scroll 16s linear infinite !important;
     }
 
     @keyframes marquee-scroll {
       0% {
-        transform: translateX(0%);
+        transform: translate(430px, -50%);
       }
       100% {
-        transform: translateX(-100%);
+        transform: translate(-100%, -50%);
       }
     }
     * {

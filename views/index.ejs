@@ -5,28 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>QQ88</title>
   <style>
-  /* Hiệu ứng trôi chữ mượt 60fps cho thanh thông báo Khuyến Mãi */
-    /* Hiệu ứng trôi chữ mượt 60fps cho thanh thông báo Khuyến Mãi */
-    .smooth-marquee-text {
-      position: absolute !important;
-      white-space: nowrap !important;
-      font-size: 13.5px !important;
-      font-weight: 400 !important;
-      color: #333333 !important;
-      top: 50% !important;
-      left: 0 !important;
-      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
-      animation: marquee-scroll 16s linear infinite !important;
-    }
-
-    @keyframes marquee-scroll {
-      0% {
-        transform: translate(430px, -50%);
-      }
-      100% {
-        transform: translate(-100%, -50%);
-      }
-    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -2874,21 +2852,30 @@
       <div style="width: 30px;"></div>
     </div>
 
-    <!-- LOA THÔNG BÁO CHẠY CHỮ MƯỢT MÀ BẰNG CSS -->
-    <div class="promo-marquee-bar" style="display: flex; align-items: center; background: #ffffff; padding: 7px 12px; border-bottom: 1px solid #eeeeee; overflow: hidden; position: relative; height: 36px; gap: 8px;">
-      
-      <!-- Icon Loa (Cố định bên trái) -->
-      <svg style="flex-shrink: 0; z-index: 2;" width="20" height="20" viewBox="0 0 24 24" fill="#666666"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-      
-      <!-- Vùng chứa chữ trôi mượt -->
+    <div class="promo-marquee-bar" style="display: flex; align-items: center; background: #ffffff; padding: 7px 12px; border-bottom: 1px solid #eeeeee; height: 36px; gap: 8px;">
+      <!-- Icon Loa Xám -->
+      <svg style="flex-shrink: 0;" width="22" height="22" viewBox="0 0 24 24" fill="#555555">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+
+      <!-- Chữ trôi -->
       <div style="flex: 1; overflow: hidden; position: relative; height: 100%; display: flex; align-items: center;">
-        <div class="smooth-marquee-text">
-          VÀ BẬT APP 1.1.1.1 TRUY CẬP QQ88.COM MƯỢT HƠN, BẢO MẬT, GIAO DỊCH NHANH CHÓNG, DỊCH VỤ KHÁCH HÀNG CHUYÊN NGHIỆP 24/7.
+        <style>
+          @keyframes qqSmoothScroll { 0% { transform: translateX(430px); } 100% { transform: translateX(-100%); } }
+        </style>
+        <div style="white-space: nowrap; font-size: 13.5px; font-weight: 400; color: #1a1a1a; animation: qqSmoothScroll 16s linear infinite;">
+          Uy tín, sản phẩm đa dạng, an ninh bảo mật, giao dịch nhanh chóng, dịch vụ khách hàng chuyên nghiệp 24/7. Link tổng chính thức của chúng tôi là: https://qq88.com/
         </div>
       </div>
-      
-      <!-- Icon Thư Vàng (Cố định bên phải) -->
-      <svg style="flex-shrink: 0; z-index: 2;" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#fbc02d"/><path d="M6 10.5l6 3.5 6-3.5v5H6v-5z" fill="#1a73e8"/><path d="M6 8.5h12v1.5l-6 3.5-6-3.5V8.5z" fill="#1a73e8"/></svg>
+
+      <!-- Icon Thư Xanh Viền Vàng -->
+      <svg style="flex-shrink: 0;" width="24" height="24" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="11" fill="#d4e100" stroke="#1b5e20" stroke-width="1"/>
+        <circle cx="12" cy="12" r="9.5" fill="none" stroke="#1b5e20" stroke-width="0.8"/>
+        <rect x="6" y="8" width="12" height="8" rx="1" fill="#146c2e"/>
+        <path d="M6 8.5L12 12.8L18 8.5" stroke="#d4e100" stroke-width="1.1" fill="none"/>
+        <path d="M6 15.5L9.8 12M18 15.5L14.2 12" stroke="#d4e100" stroke-width="0.9" fill="none"/>
+      </svg>
     </div>
 
     <!-- BỘ 13 NÚT MỤC LỤC KHUYẾN MÃI (DÙNG ẢNH THẬT 100%) -->

@@ -5828,6 +5828,122 @@ async function handleRealLogin(e) {
       </div>
     </div>
   </div>
+  <!-- Tab 3: Thu Nhập (Thống kê chi tiết) -->
+  <div id="ref-tab-2" style="display:none; padding: 16px; background: #f8fafc; min-height: 100vh;">
+    <div style="background: #fff; border-radius: 12px; margin-bottom: 16px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+      <div style="text-align: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #475569;">
+        Thu Nhập Hôm Nay: <span style="color:#1e293b; font-size: 16px;">0.00K</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 13px; color: #64748b;">
+        <div>Thưởng Lời Mời</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Thành Tích</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Nạp</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Đặt Cược</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Đăng ký</div> <div style="font-weight:700; color:#1e293b">0</div>
+        <div>Người được mời hợp lệ</div> <div style="font-weight:700; color:#1e293b">0</div>
+        <div>Số Người Nạp Tiền</div> <div style="font-weight:700; color:#1e293b">0</div>
+      </div>
+    </div>
+    
+    <div style="background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+      <div style="text-align: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #475569;">
+        Tổng thu nhập <span style="color:#1e293b; font-size: 16px;">0.00K</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 13px; color: #64748b;">
+        <div>Thưởng Lời Mời</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Thành Tích</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Nạp</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Thưởng Đặt Cược</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
+        <div>Đăng ký</div> <div style="font-weight:700; color:#1e293b">1</div>
+        <div>Người được mời hợp lệ</div> <div style="font-weight:700; color:#1e293b">0</div>
+        <div>Số Người Nạp Tiền</div> <div style="font-weight:700; color:#1e293b">0</div>
+      </div>
+    </div>
+    <div style="text-align:center; font-size: 11px; color:#94a3b8; margin-top:12px;">Lưu ý: Hệ thống cập nhật dữ liệu 15 phút một lần.</div>
+  </div>
+
+  <!-- Tab 4: Lịch Sử -->
+  <div id="ref-tab-3" style="display:none; background: #fff; min-height: 100vh;">
+    <div style="display:flex; gap:8px; padding:12px 16px; border-bottom:1px solid #f1f5f9;">
+      <select style="flex:1; border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px; outline:none; background:transparent">
+        <option>Thưởng Lời Mời</option>
+      </select>
+      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px; display:flex; align-items:center; gap:4px;">
+        📅 11/15- 11/15
+      </div>
+    </div>
+    <div style="display:flex; font-size:11px; font-weight:700; color:#64748b; padding:12px 16px; border-bottom:1px solid #f1f5f9; background:#f8fafc">
+      <div style="flex:1;">Thời gian đăng ký</div>
+      <div style="flex:1; text-align:center;">Tên đăng nhập</div>
+      <div style="flex:1; text-align:right;">Số tiền</div>
+    </div>
+    <!-- Trạng thái trống -->
+    <div style="display:flex; flex-direction:column; align-items:center; padding-top:60px;">
+      <svg width="120" height="100" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:18px; color:#0ea5e9; font-weight:500; margin-top:16px;">Chưa có dữ liệu</div>
+    </div>
+    <div style="position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:#f8fafc; padding:16px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; font-weight:700; color:#333; font-size:14px;">
+      <div>Tổng</div>
+      <div>0.00</div>
+    </div>
+  </div>
+
+  <!-- Tab 5: Danh sách người được mời -->
+  <div id="ref-tab-4" style="display:none; background: #f8fafc; min-height: 100vh;">
+    <div style="padding:16px; background:#fff; margin-bottom:8px;">
+      <div style="display:flex; background:#f0f9ff; border-radius:12px; border:1px solid #e0f2fe;">
+        <div style="flex:1; padding:16px; border-right:1px solid #e0f2fe; text-align:center;">
+          <div style="font-size:32px; margin-bottom:4px;">💎</div>
+          <div style="font-weight:700; color:#0284c7; font-size:14px;">L1</div>
+        </div>
+        <div style="flex:2; padding:12px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:700; color:#0284c7;">
+            <div>👤 Đăng Ký</div>
+            <div style="background:#fff; padding:2px 12px; border-radius:12px;">1</div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:700; color:#0284c7;">
+            <div>👥 Người Được Mời Hợp Lệ</div>
+            <div style="background:#fff; padding:2px 12px; border-radius:12px;">0</div>
+          </div>
+        </div>
+        <div style="flex:1; padding:12px; display:flex; flex-direction:column; gap:4px; font-size:10px; font-weight:600; color:#d97706;">
+          <div style="display:flex; justify-content:space-between;"><span>Hôm nay</span> <span>+0</span></div>
+          <div style="display:flex; justify-content:space-between;"><span>Hôm qua</span> <span>+0</span></div>
+          <div style="display:flex; justify-content:space-between; margin-top:auto;"><span>Tháng hiện tại</span> <span>+0</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="display:flex; gap:8px; padding:12px 16px; background:#fff; border-bottom:1px solid #f1f5f9;">
+      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px;">TẤT CẢ ▾</div>
+      <div style="background:#0ea5e9; color:#fff; border-radius:6px; font-size:12px; padding:6px 12px;">✓ Hôm nay</div>
+      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px; display:flex; align-items:center; gap:4px; margin-left:auto;">
+        📅 11/15- 11/15
+      </div>
+    </div>
+    
+    <!-- Trạng thái trống -->
+    <div style="display:flex; flex-direction:column; align-items:center; padding-top:40px;">
+      <svg width="120" height="100" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:18px; color:#0ea5e9; font-weight:500; margin-top:16px;">Chưa có dữ liệu</div>
+    </div>
+  </div>
 </div>
 
 <!-- ============================================== -->
@@ -5900,27 +6016,34 @@ async function handleRealLogin(e) {
 </div>
 
 <script>
-  // Chuyển Tab trong phần Thưởng Giới Thiệu Bạn Bè
+  // Script chuyển Tab cho riêng phần Giới thiệu bạn bè
   function switchRefTab(index) {
     const tabs = document.querySelectorAll('#overlay-referral .premium-tab');
-    tabs.forEach((t, i) => {
-      if(i === index) t.classList.add('active');
-      else t.classList.remove('active');
+    
+    // Đổi màu thanh active
+    tabs.forEach((tab, i) => {
+      if (i === index) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
     });
     
+    // Ẩn/hiện nội dung tương ứng
     document.getElementById('ref-tab-0').style.display = index === 0 ? 'block' : 'none';
     document.getElementById('ref-tab-1').style.display = index === 1 ? 'block' : 'none';
+    document.getElementById('ref-tab-2').style.display = index === 2 ? 'block' : 'none';
+    document.getElementById('ref-tab-3').style.display = index === 3 ? 'block' : 'none';
+    document.getElementById('ref-tab-4').style.display = index === 4 ? 'block' : 'none';
   }
 
-  // Gắn lệnh gọi "Thưởng giới thiệu bạn bè" và "Lịch sử giao dịch" vào lưới 16 icon
+  // Gắn lệnh mở Overlay vào Icon trong Profile
   window.addEventListener('DOMContentLoaded', () => {
     const accIcons = document.querySelectorAll('.acc-tool-item');
-    // Nếu icon số 9 là Giới thiệu bạn bè
-    if(accIcons.length >= 9) {
+    if (accIcons.length >= 9) {
       accIcons[8].onclick = () => openAccOverlay('overlay-referral');
     }
-    // Nếu icon số 6 là Lịch sử giao dịch
-    if(accIcons.length >= 6) {
+    if (accIcons.length >= 6) {
       accIcons[5].onclick = () => openAccOverlay('overlay-history-trans');
     }
   });

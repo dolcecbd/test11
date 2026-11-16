@@ -6262,5 +6262,636 @@ async function handleRealLogin(e) {
     font-weight: 400 !important;
   }
 </style>
+<!-- ========================================================================= -->
+<!-- CỤM 3: TRỌN BỘ 9 MÀN HÌNH CÒN LẠI TRONG 12 MỤC CÁ NHÂN + TỰ ĐỘNG GẮN ICON -->
+<!-- ========================================================================= -->
+<style>
+  /* Đồng bộ 100% font chữ của cả 16 icon ngoài trang Tài khoản giống hệt nhau */
+  .acc-tool-item,
+  .acc-tool-item * {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+  .acc-tool-item span,
+  .acc-tool-item p,
+  .acc-tool-item div:not(.badge):not([class*="badge"]):not([class*="icon"]) {
+    font-weight: 400 !important;
+    color: #555555 !important;
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* --- CSS DÙNG CHUNG CHO CÁC MÀN HÌNH LỊCH SỬ & TRẠNG THÁI TRỐNG --- */
+  .c3-empty-wrap {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 60px 16px 90px; background: #ffffff;
+  }
+  .c3-empty-text {
+    font-size: 18px; color: #0ea5e9; font-weight: 400; margin-top: 14px;
+  }
+  .c3-bottom-total {
+    position: sticky; bottom: 0; left: 0; right: 0;
+    background: #ffffff; padding: 15px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 15px; font-weight: 500; color: #334155; z-index: 20;
+  }
+  .c3-summary-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; padding: 12px 16px; background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0; text-align: center;
+  }
+  .c3-sum-box {
+    background: #ffffff; border: 1px solid #e2e8f0;
+    border-radius: 8px; padding: 10px 6px;
+  }
+  .c3-sum-lbl { font-size: 11px; color: #64748b; margin-bottom: 4px; }
+  .c3-sum-val { font-size: 14px; font-weight: 700; color: #0f172a; }
+
+  /* --- CSS MÀN HÌNH THÔNG TIN CÁ NHÂN & BẢO MẬT --- */
+  .c3-list-group {
+    background: #ffffff; margin: 12px 16px; border-radius: 12px;
+    overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 1px solid #f1f5f9;
+  }
+  .c3-list-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 16px; border-bottom: 1px solid #f1f5f9;
+    font-size: 14px; color: #1e293b; cursor: pointer;
+  }
+  .c3-list-item:last-child { border-bottom: none; }
+  .c3-list-left { display: flex; align-items: center; gap: 12px; color: #334155; font-weight: 400; }
+  .c3-list-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: #f0f9ff; color: #0284c7;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .c3-list-right {
+    display: flex; align-items: center; gap: 6px;
+    color: #64748b; font-size: 13px;
+  }
+
+  /* --- CSS MÀN HÌNH NGƯỜI CHƠI HOÀN TIỀN --- */
+  .c3-rebate-hero {
+    margin: 14px 16px; padding: 18px; border-radius: 12px;
+    background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+    color: #fff; display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.2);
+  }
+  .c3-rebate-btn {
+    background: #ffffff; color: #0284c7; border: none;
+    padding: 8px 16px; border-radius: 20px; font-size: 13px;
+    font-weight: 500; cursor: pointer;
+  }
+  .c3-rate-card {
+    background: #ffffff; margin: 0 16px 10px; padding: 14px 16px;
+    border-radius: 10px; display: flex; justify-content: space-between;
+    align-items: center; border: 1px solid #f1f5f9;
+  }
+
+  /* --- CSS MÀN HÌNH PHẢN HỒI VÀ GÓP Ý (CHUẨN 1:1 ẢNH GỐC) --- */
+  #overlay-feedback {
+    background: #f5f5f5 !important;
+  }
+  .fb-green-header {
+    background: #006a26 !important;
+    height: 52px !important; min-height: 52px !important;
+    display: flex !important; align-items: center !important;
+    justify-content: center !important; position: sticky !important;
+    top: 0 !important; z-index: 100 !important;
+  }
+  .fb-back-circle {
+    position: absolute !important; left: 16px !important;
+    top: 50% !important; transform: translateY(-50%) !important;
+    width: 26px !important; height: 26px !important;
+    border: 1.8px solid #ffffff !important; border-radius: 50% !important;
+    display: flex !important; align-items: center !important;
+    justify-content: center !important; cursor: pointer !important;
+  }
+  .fb-header-title {
+    color: #ffffff !important; font-size: 16px !important;
+    font-weight: 500 !important; text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+  }
+  .fb-select-row {
+    background: #ffffff; margin-top: 10px; padding: 15px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px; color: #9ca3af; cursor: pointer;
+    border-top: 1px solid #efefef; border-bottom: 1px solid #efefef;
+  }
+  .fb-section-label {
+    padding: 14px 16px 10px; font-size: 14px; color: #374151;
+  }
+  .fb-section-label span {
+    font-size: 12px; color: #9ca3af; font-weight: 400;
+  }
+  .fb-textarea-wrap {
+    background: #ffffff; position: relative; padding: 12px 16px 28px;
+    border-top: 1px solid #efefef; border-bottom: 1px solid #efefef;
+  }
+  .fb-textarea {
+    width: 100%; height: 150px; border: none; outline: none;
+    resize: none; font-size: 14px; color: #1f2937;
+    font-family: 'Roboto', sans-serif; background: transparent;
+  }
+  .fb-char-count {
+    position: absolute; right: 16px; bottom: 8px;
+    font-size: 12px; color: #9ca3af;
+  }
+  .fb-captcha-row {
+    background: #ffffff; padding: 8px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid #efefef; border-bottom: 1px solid #efefef;
+  }
+  .fb-captcha-input {
+    flex: 1; border: none; outline: none; font-size: 14px;
+    color: #1f2937; padding: 8px 0; background: transparent;
+  }
+  .fb-captcha-box {
+    width: 96px; height: 36px; background: #eef2f3;
+    border-radius: 2px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif; font-size: 22px; font-weight: 700;
+    letter-spacing: 3px; color: #311b92; cursor: pointer; user-select: none;
+  }
+  .fb-captcha-box::after {
+    content: ''; position: absolute; width: 110%; height: 1.5px;
+    background: #e11d48; transform: rotate(-12deg);
+  }
+  .fb-submit-btn {
+    margin: 24px 16px; height: 44px; border-radius: 4px;
+    background: #e5d5c5; color: #ffffff; border: none;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .fb-submit-btn.ready {
+    background: #006a26;
+  }
+</style>
+
+<!-- ============================================== -->
+<!-- 1. LỊCH SỬ CƯỢC (ICON SỐ 2)                    -->
+<!-- ============================================== -->
+<div id="overlay-bet-history" class="premium-overlay" style="background:#fff;">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-bet-history')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Lịch sử cược</div>
+  </div>
+  <div class="hist-filter-bar">
+    <div class="hist-f-btn">TẤT CẢ ▾</div>
+    <div class="hist-f-btn active">✓ Hôm nay</div>
+    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+  </div>
+  <div class="c3-summary-strip">
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Số đơn cược</div><div class="c3-sum-val">0</div></div>
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Tiền cược hợp lệ</div><div class="c3-sum-val">0.00</div></div>
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Thắng / Thua</div><div class="c3-sum-val" style="color:#22c55e;">0.00</div></div>
+  </div>
+  <div class="c3-empty-wrap">
+    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="c3-empty-text">Chưa có dữ liệu</div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 2. LỊCH SỬ LÃI LỖ (ICON SỐ 3)                  -->
+<!-- ============================================== -->
+<div id="overlay-profit-loss" class="premium-overlay" style="background:#fff;">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-profit-loss')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Lịch sử lãi lỗ</div>
+  </div>
+  <div class="hist-filter-bar">
+    <div class="hist-f-btn">TẤT CẢ ▾</div>
+    <div class="hist-f-btn active">✓ Hôm nay</div>
+    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+  </div>
+  <div class="c3-summary-strip">
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Tổng tiền cược</div><div class="c3-sum-val">0.00</div></div>
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Cược hợp lệ</div><div class="c3-sum-val">0.00</div></div>
+    <div class="c3-sum-box"><div class="c3-sum-lbl">Tổng lãi lỗ</div><div class="c3-sum-val" style="color:#ef4444;">0.00</div></div>
+  </div>
+  <div class="c3-empty-wrap">
+    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="c3-empty-text">Chưa có dữ liệu</div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 3. LỊCH SỬ NẠP TIỀN (ICON SỐ 4)                -->
+<!-- ============================================== -->
+<div id="overlay-deposit-history" class="premium-overlay" style="background:#fff;">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-deposit-history')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Lịch sử nạp tiền</div>
+  </div>
+  <div class="hist-filter-bar">
+    <div class="hist-f-btn">TẤT CẢ ▾</div>
+    <div class="hist-f-btn active">✓ Hôm nay</div>
+    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+  </div>
+  <div class="c3-empty-wrap">
+    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="c3-empty-text">Chưa có dữ liệu</div>
+  </div>
+  <div class="c3-bottom-total"><span>Tổng</span><span>0.00</span></div>
+</div>
+
+<!-- ============================================== -->
+<!-- 4. LỊCH SỬ RÚT TIỀN (ICON SỐ 5)                -->
+<!-- ============================================== -->
+<div id="overlay-withdraw-history" class="premium-overlay" style="background:#fff;">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-withdraw-history')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Lịch sử rút tiền</div>
+  </div>
+  <div class="hist-filter-bar">
+    <div class="hist-f-btn">TẤT CẢ ▾</div>
+    <div class="hist-f-btn active">✓ Hôm nay</div>
+    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+  </div>
+  <div class="c3-empty-wrap">
+    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="c3-empty-text">Chưa có dữ liệu</div>
+  </div>
+  <div class="c3-bottom-total"><span>Tổng</span><span>0.00</span></div>
+</div>
+
+<!-- ============================================== -->
+<!-- 5. THÔNG TIN CÁ NHÂN (ICON SỐ 7)               -->
+<!-- ============================================== -->
+<div id="overlay-user-info" class="premium-overlay">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-user-info')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Thông tin cá nhân</div>
+  </div>
+  <div class="c3-list-group">
+    <div class="c3-list-item">
+      <div class="c3-list-left">Ảnh đại diện</div>
+      <div class="c3-list-right">
+        <img class="sync-user-avatar" src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/avatar.png.png'" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid #e2e8f0;" alt="Avatar">
+        <span>❯</span>
+      </div>
+    </div>
+    <div class="c3-list-item">
+      <div class="c3-list-left">Tên đăng nhập</div>
+      <div class="c3-list-right"><span class="sync-user-name" style="color:#0f172a;font-weight:500;">admin</span></div>
+    </div>
+    <div class="c3-list-item">
+      <div class="c3-list-left">Số dư hiện tại</div>
+      <div class="c3-list-right"><span class="sync-user-balance" style="color:#0284c7;font-weight:700;">0K</span></div>
+    </div>
+    <div class="c3-list-item">
+      <div class="c3-list-left">Cấp độ thành viên</div>
+      <div class="c3-list-right"><span style="color:#d97706;font-weight:700;">👑 VIP0</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Họ tên thật đã được bảo mật')">
+      <div class="c3-list-left">Họ và tên thật</div>
+      <div class="c3-list-right"><span>Đã liên kết</span> <span>❯</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Mở cài đặt số điện thoại')">
+      <div class="c3-list-left">Số điện thoại</div>
+      <div class="c3-list-right"><span>Chưa thiết lập</span> <span>❯</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Mở cài đặt hộp thư')">
+      <div class="c3-list-left">Hộp thư Email</div>
+      <div class="c3-list-right"><span>Chưa thiết lập</span> <span>❯</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 6. BẢO MẬT TÀI KHOẢN (ICON SỐ 8)               -->
+<!-- ============================================== -->
+<div id="overlay-account-security" class="premium-overlay">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-account-security')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Bảo mật tài khoản</div>
+  </div>
+  <div class="c3-list-group">
+    <div class="c3-list-item" onclick="openAccOverlay('overlay-user-info')">
+      <div class="c3-list-left"><div class="c3-list-icon">👤</div> Thông tin cá nhân</div>
+      <div class="c3-list-right"><span>Xem</span> <span>❯</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Mở chức năng đổi mật khẩu đăng nhập')">
+      <div class="c3-list-left"><div class="c3-list-icon">🔒</div> Mật khẩu đăng nhập</div>
+      <div class="c3-list-right"><span>Sửa đổi</span> <span>❯</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Mở chức năng đổi mật khẩu rút tiền')">
+      <div class="c3-list-left"><div class="c3-list-icon">🛡️</div> Mật khẩu rút tiền</div>
+      <div class="c3-list-right"><span>Thiết lập</span> <span>❯</span></div>
+    </div>
+    <div class="c3-list-item" onclick="showToast('Quản lý tài khoản ngân hàng liên kết')">
+      <div class="c3-list-left"><div class="c3-list-icon">💳</div> Thẻ ngân hàng</div>
+      <div class="c3-list-right"><span>Quản lý</span> <span>❯</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 7. NGƯỜI CHƠI HOÀN TIỀN (ICON SỐ 10)           -->
+<!-- ============================================== -->
+<div id="overlay-rebate-player" class="premium-overlay">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-rebate-player')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Người chơi hoàn tiền</div>
+  </div>
+  <div class="premium-tabs-wrap">
+    <div class="premium-tab active" onclick="switchSimpleTab('overlay-rebate-player', 0)" style="flex:1;">Hoàn trả tức thời</div>
+    <div class="premium-tab" onclick="switchSimpleTab('overlay-rebate-player', 1)" style="flex:1;">Lịch sử hoàn trả</div>
+  </div>
+
+  <!-- Tab 0: Hoàn trả tức thời -->
+  <div class="c3-tab-pane" style="display:flex; flex-direction:column; flex:1;">
+    <div class="c3-rebate-hero">
+      <div>
+        <div style="font-size:12px;opacity:0.9;margin-bottom:4px;">Số tiền hoàn trả có thể nhận</div>
+        <div style="font-size:24px;font-weight:700;">0.00 K</div>
+      </div>
+      <button class="c3-rebate-btn" onclick="showToast('Chưa có tiền hoàn trả khả dụng')">Nhận ngay</button>
+    </div>
+    <div class="c3-rate-card"><span>🎰 Nổ Hũ / Điện Tử</span><strong style="color:#0284c7;">1.50% - 2.00%</strong></div>
+    <div class="c3-rate-card"><span>🐟 Bắn Cá Đổi Thưởng</span><strong style="color:#0284c7;">1.50% - 2.00%</strong></div>
+    <div class="c3-rate-card"><span>🃏 Sòng Bài Trực Tuyến</span><strong style="color:#0284c7;">0.80% - 1.20%</strong></div>
+    <div class="c3-rate-card"><span>⚽ Thể Thao</span><strong style="color:#0284c7;">1.00% - 1.50%</strong></div>
+    <div class="c3-rate-card"><span>🎲 Game Bài 3D</span><strong style="color:#0284c7;">1.20% - 1.80%</strong></div>
+  </div>
+
+  <!-- Tab 1: Lịch sử hoàn trả -->
+  <div class="c3-tab-pane" style="display:none; flex-direction:column; flex:1; background:#fff;">
+    <div class="hist-filter-bar">
+      <div class="hist-f-btn active">✓ Hôm nay</div>
+      <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+    </div>
+    <div class="c3-empty-wrap">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="c3-empty-text">Chưa có dữ liệu</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 8. TIN NHẮN (ICON SỐ 11)                       -->
+<!-- ============================================== -->
+<div id="overlay-messages" class="premium-overlay" style="background:#fff;">
+  <div class="premium-header">
+    <div onclick="closeAccOverlay('overlay-messages')" style="font-size: 20px; cursor: pointer;">❮</div>
+    <div class="premium-title">Tin nhắn</div>
+  </div>
+  <div class="premium-tabs-wrap">
+    <div class="premium-tab active" onclick="switchSimpleTab('overlay-messages', 0)" style="flex:1;">Hộp thư đến</div>
+    <div class="premium-tab" onclick="switchSimpleTab('overlay-messages', 1)" style="flex:1;">Thông báo</div>
+    <div class="premium-tab" onclick="switchSimpleTab('overlay-messages', 2)" style="flex:1;">Hộp thư đi</div>
+  </div>
+  <div class="c3-tab-pane" style="display:flex; flex-direction:column; flex:1;">
+    <div class="c3-empty-wrap">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="c3-empty-text">Chưa có dữ liệu</div>
+    </div>
+  </div>
+  <div class="c3-tab-pane" style="display:none; flex-direction:column; flex:1;">
+    <div class="c3-empty-wrap">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="c3-empty-text">Chưa có dữ liệu</div>
+    </div>
+  </div>
+  <div class="c3-tab-pane" style="display:none; flex-direction:column; flex:1;">
+    <div class="c3-empty-wrap">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
+        <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
+        <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+        <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
+        <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
+        <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="c3-empty-text">Chưa có dữ liệu</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- 9. PHẢN HỒI VÀ GÓP Ý (ICON SỐ 12 - CHUẨN 1:1)  -->
+<!-- ============================================== -->
+<div id="overlay-feedback" class="premium-overlay">
+  <div class="fb-green-header">
+    <div class="fb-back-circle" onclick="closeAccOverlay('overlay-feedback')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="fb-header-title">PHẢN HỒI VÀ GÓP Ý</div>
+  </div>
+
+  <div class="fb-select-row" onclick="cycleFeedbackType()">
+    <span id="fb-question-type">Chọn loại câu hỏi</span>
+    <span style="font-size:18px; color:#c4c4c4;">❯</span>
+  </div>
+
+  <div class="fb-section-label">
+    Mô tả nội dung: <span>(Nội dung nằm giữa 20 và 200 từ)</span>
+  </div>
+
+  <div class="fb-textarea-wrap">
+    <textarea id="fb-content-input" class="fb-textarea" maxlength="200" oninput="updateFbCount()"></textarea>
+    <div class="fb-char-count"><span id="fb-count-num">0</span>/200</div>
+  </div>
+
+  <div class="fb-section-label">Mã xác minh:</div>
+
+  <div class="fb-captcha-row">
+    <input id="fb-captcha-input" type="text" class="fb-captcha-input" maxlength="5" oninput="updateFbCount()">
+    <div id="fb-captcha-code" class="fb-captcha-box" onclick="refreshFbCaptcha()" title="Bấm để đổi mã">18339</div>
+  </div>
+
+  <button id="fb-submit-btn" class="fb-submit-btn" onclick="submitFeedbackForm()">Gửi yêu cầu</button>
+</div>
+
+<script>
+  // Chuyển tab cho Hoàn tiền & Tin nhắn
+  function switchSimpleTab(overlayId, tabIndex) {
+    const container = document.getElementById(overlayId);
+    if (!container) return;
+    const tabs = container.querySelectorAll('.premium-tab');
+    const panes = container.querySelectorAll('.c3-tab-pane');
+    tabs.forEach((t, i) => t.classList.toggle('active', i === tabIndex));
+    panes.forEach((p, i) => p.style.display = (i === tabIndex) ? 'flex' : 'none');
+  }
+
+  // Xử lý logic màn hình Phản hồi và góp ý
+  const fbTypes = [
+    'Vấn đề nạp tiền',
+    'Vấn đề rút tiền',
+    'Lỗi trò chơi / Sảnh cược',
+    'Thắc mắc khuyến mãi',
+    'Góp ý chất lượng dịch vụ'
+  ];
+  let currentFbTypeIdx = -1;
+
+  function cycleFeedbackType() {
+    currentFbTypeIdx = (currentFbTypeIdx + 1) % fbTypes.length;
+    const lbl = document.getElementById('fb-question-type');
+    lbl.textContent = fbTypes[currentFbTypeIdx];
+    lbl.style.color = '#1f2937';
+    updateFbCount();
+  }
+
+  function updateFbCount() {
+    const val = document.getElementById('fb-content-input').value || '';
+    const cap = document.getElementById('fb-captcha-input').value || '';
+    document.getElementById('fb-count-num').textContent = val.length;
+    const btn = document.getElementById('fb-submit-btn');
+    if (val.trim().length >= 5 && cap.trim().length > 0) {
+      btn.classList.add('ready');
+    } else {
+      btn.classList.remove('ready');
+    }
+  }
+
+  function refreshFbCaptcha() {
+    const random5 = Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('fb-captcha-code').textContent = random5;
+  }
+
+  function submitFeedbackForm() {
+    const val = document.getElementById('fb-content-input').value.trim();
+    const cap = document.getElementById('fb-captcha-input').value.trim();
+    const code = document.getElementById('fb-captcha-code').textContent.trim();
+    if (!val) {
+      if (typeof showToast === 'function') showToast('Vui lòng nhập nội dung phản hồi');
+      return;
+    }
+    if (cap !== code) {
+      if (typeof showToast === 'function') showToast('Mã xác minh không chính xác');
+      refreshFbCaptcha();
+      return;
+    }
+    if (typeof showToast === 'function') showToast('Đã gửi phản hồi thành công!');
+    document.getElementById('fb-content-input').value = '';
+    document.getElementById('fb-captcha-input').value = '';
+    updateFbCount();
+    closeAccOverlay('overlay-feedback');
+  }
+
+  // Tự động gắn sự kiện click cho toàn bộ 12 icon đầu tiên trong lưới 16 icon Tài khoản
+  function bindAll12AccountIcons() {
+    const iconOverlayMap = [
+      'overlay-rewards',          // 1. Phần thưởng của tôi
+      'overlay-bet-history',      // 2. Lịch sử cược
+      'overlay-profit-loss',      // 3. Lịch sử lãi lỗ
+      'overlay-deposit-history',  // 4. Lịch sử nạp tiền
+      'overlay-withdraw-history', // 5. Lịch sử rút tiền
+      'overlay-history-trans',    // 6. Lịch sử giao dịch
+      'overlay-user-info',        // 7. Thông tin
+      'overlay-account-security', // 8. Bảo mật tài khoản
+      'overlay-referral',         // 9. Thưởng Giới Thiệu Bạn Bè
+      'overlay-rebate-player',    // 10. Người chơi hoàn tiền
+      'overlay-messages',         // 11. Tin nhắn
+      'overlay-feedback'          // 12. Phản Hồi
+    ];
+
+    // Cách 1: Gắn theo class .acc-tool-item (nếu có)
+    const toolItems = document.querySelectorAll('.acc-tool-item');
+    toolItems.forEach((item, idx) => {
+      if (idx < 12 && iconOverlayMap[idx]) {
+        item.style.cursor = 'pointer';
+        item.onclick = () => openAccOverlay(iconOverlayMap[idx]);
+      }
+    });
+
+    // Cách 2: Quét theo tên chữ dưới icon để đảm bảo 100% bấm vào chữ/icon nào cũng ăn lệnh
+    const keywordMap = [
+      { key: 'Phần thưởng của tôi', id: 'overlay-rewards' },
+      { key: 'Lịch sử cược', id: 'overlay-bet-history' },
+      { key: 'Lịch sử lãi lỗ', id: 'overlay-profit-loss' },
+      { key: 'Lịch sử nạp', id: 'overlay-deposit-history' },
+      { key: 'Lịch sử rút', id: 'overlay-withdraw-history' },
+      { key: 'Lịch sử giao', id: 'overlay-history-trans' },
+      { key: 'Thông tin', id: 'overlay-user-info' },
+      { key: 'Bảo mật tài', id: 'overlay-account-security' },
+      { key: 'Thưởng Giới', id: 'overlay-referral' },
+      { key: 'Người chơi', id: 'overlay-rebate-player' },
+      { key: 'Tin nhắn', id: 'overlay-messages' },
+      { key: 'Phản Hồi', id: 'overlay-feedback' }
+    ];
+
+    const candidates = document.querySelectorAll('#user-zone div, #user-zone a, #user-zone li, .acc-grid div');
+    candidates.forEach(el => {
+      if (el.closest('.acc-fs-overlay, .premium-overlay')) return;
+      const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+      keywordMap.forEach(item => {
+        if (text === item.key || (text.includes(item.key) && text.length < item.key.length + 8)) {
+          const clickableBox = el.closest('.acc-tool-item') || el.parentElement || el;
+          clickableBox.style.cursor = 'pointer';
+          clickableBox.onclick = (e) => {
+            e.stopPropagation();
+            openAccOverlay(item.id);
+          };
+        }
+      });
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    bindAll12AccountIcons();
+    setTimeout(bindAll12AccountIcons, 800);
+  });
+</script>
 </body>
 </html>

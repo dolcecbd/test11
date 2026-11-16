@@ -5590,10 +5590,10 @@ async function handleRealLogin(e) {
   });
 </script>
 <!-- ========================================================================= -->
-<!-- CỤM 2: GIỚI THIỆU BẠN BÈ & LỊCH SỬ GIAO DỊCH (BẢN ĐỘ CSS CỰC MƯỢT) -->
+<!-- ========================================================================= -->
+<!-- CỤM 2: GIỚI THIỆU BẠN BÈ & LỊCH SỬ GIAO DỊCH (ĐÃ FIX KẸT TAB & CHUẨN UI)  -->
 <!-- ========================================================================= -->
 <style>
-  /* --- CSS CHUNG CHO CỤM 2 (NÂNG CẤP ĐỘ NÉT) --- */
   .premium-overlay {
     position: fixed; top: 0; left: 50%; transform: translateX(-50%);
     width: 100%; max-width: 430px; height: 100vh;
@@ -5602,91 +5602,120 @@ async function handleRealLogin(e) {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   .premium-header {
-    background: #18181b; color: #fff; height: 52px; display: flex; 
-    align-items: center; justify-content: space-between; padding: 0 16px; 
-    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: #18181b; color: #fff; height: 52px; min-height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; position: sticky; top: 0; z-index: 100;
+    flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
-  .premium-title { font-size: 17px; font-weight: 600; }
+  .premium-title { font-size: 17px; font-weight: 600; text-align: center; line-height: 1.2; }
+  
+  /* Fix thanh tab ngang luôn hiển thị cố định, không bao giờ bị ép mất */
   .premium-tabs-wrap {
-    background: #fff; display: flex; overflow-x: auto; border-bottom: 1px solid #e4e4e7;
+    background: #fff; display: flex; align-items: center;
+    overflow-x: auto; border-bottom: 1px solid #e4e4e7;
+    position: sticky; top: 52px; z-index: 99;
+    flex-shrink: 0; min-height: 48px;
   }
+  .premium-tabs-wrap::-webkit-scrollbar { display: none; }
   .premium-tab {
-    padding: 14px 16px; font-size: 14.5px; font-weight: 600; color: #71717a; 
+    padding: 12px 14px; font-size: 14px; font-weight: 600; color: #52525b; 
     white-space: nowrap; border-bottom: 2.5px solid transparent; cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease; flex-shrink: 0; text-align: center; line-height: 1.2;
   }
   .premium-tab.active { color: #0284c7; border-bottom-color: #0284c7; }
 
-  /* --- 1. GIỚI THIỆU BẠN BÈ --- */
-  .ref-banner-area { padding: 16px; background: #fff; }
-  .ref-banner-title { font-size: 14px; font-weight: 800; color: #1e293b; margin-bottom: 12px; text-transform: uppercase; }
-  .ref-banner-img { 
-    width: 100%; border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-    background: linear-gradient(135deg, #dcfce7, #bbf7d0); height: 120px;
-    display: flex; align-items: center; justify-content: center; color: #166534; font-weight: 700;
-  }
-  
-  /* Hộp Chia Sẻ */
-  .ref-share-box {
-    background: #f8fafc; border-radius: 16px; margin: 0 16px 16px; padding: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;
-  }
-  .ref-share-top { display: flex; gap: 12px; margin-bottom: 16px; }
-  .ref-qr-placeholder { width: 80px; height: 80px; background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-  .ref-link-area { flex: 1; }
-  .ref-link-input { 
-    width: 100%; background: #fff; border: 1px solid #e2e8f0; padding: 8px 36px 8px 12px; 
-    border-radius: 8px; font-size: 11px; color: #333; outline: none; word-break: break-all;
-  }
-  
-  /* 4 Khối thống kê mượt mà */
-  .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px; }
-  .ref-stat-card {
-    border-radius: 12px; padding: 16px 8px; text-align: center; color: #fff;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1); position: relative; overflow: hidden;
-  }
-  .ref-stat-card::after { /* Hiệu ứng sáng hắt lên góc */
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
-  }
-  .ref-stat-card.blue { background: linear-gradient(135deg, #60a5fa, #2563eb); }
-  .ref-stat-card.purple { background: linear-gradient(135deg, #c084fc, #7c3aed); }
-  .ref-stat-title { font-size: 11px; font-weight: 600; opacity: 0.9; margin-bottom: 4px; position: relative; z-index: 2; }
-  .ref-stat-val { font-size: 18px; font-weight: 800; position: relative; z-index: 2; }
+  .ref-tab-pane { flex: 1; display: none; flex-direction: column; }
+  .ref-tab-pane.active { display: flex; }
 
-  /* Danh sách Thưởng (Huy chương) */
-  .ref-reward-list { padding: 16px; background: #f8fafc; display: none; }
-  .ref-r-note { text-align: right; font-size: 11px; color: #94a3b8; margin-bottom: 12px; }
-  .ref-r-card {
-    background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px;
-    display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-    border: 1px solid #f1f5f9; transition: transform 0.2s;
+  /* --- TAB 1: TỔNG MỜI --- */
+  .ref-banner-area { padding: 14px 16px; background: #fff; }
+  .ref-banner-title { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 10px; text-transform: uppercase; text-align: center; }
+  .ref-banner-img { 
+    width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); height: 125px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #166534; font-weight: 800; font-size: 15px; text-align: center; padding: 12px;
   }
-  .ref-r-card:active { transform: scale(0.98); }
+  
+  .ref-share-box {
+    background: #f8fafc; border-radius: 12px; margin: 12px 16px; padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0;
+  }
+  .ref-share-top { display: flex; gap: 12px; align-items: flex-start; }
+  .ref-qr-wrap { display: flex; flex-direction: column; align-items: center; width: 84px; flex-shrink: 0; }
+  .ref-qr-placeholder { width: 84px; height: 84px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 4px; }
+  .ref-qr-save { width: 100%; background: #4c1d95; color: #fff; font-size: 10px; text-align: center; padding: 3px 0; border-radius: 0 0 6px 6px; margin-top: -2px; font-weight: 600; cursor: pointer; }
+  .ref-link-area { flex: 1; min-width: 0; }
+  .ref-link-box {
+    display: flex; align-items: center; background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 8px; padding: 6px 8px; margin-bottom: 10px;
+  }
+  .ref-link-txt { flex: 1; font-size: 11px; color: #334155; word-break: break-all; line-height: 1.3; padding-right: 6px; }
+  .ref-copy-btn {
+    width: 26px; height: 26px; border-radius: 50%; background: #4c1d95; color: #fff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;
+  }
+  .ref-social-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+  .ref-social-row::-webkit-scrollbar { display: none; }
+  .ref-soc-icon {
+    width: 34px; height: 34px; border-radius: 6px; color: #fff; font-weight: 700; font-size: 15px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;
+  }
+
+  .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 16px; }
+  .ref-stat-card {
+    border-radius: 10px; padding: 14px 8px; text-align: center; color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden;
+  }
+  .ref-stat-card.blue { background: linear-gradient(180deg, #7dd3fc 0%, #0ea5e9 100%); }
+  .ref-stat-card.purple { background: linear-gradient(180deg, #d8b4fe 0%, #8b5cf6 100%); }
+  .ref-stat-title { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .ref-stat-val { font-size: 20px; font-weight: 800; }
+
+  /* --- TAB 2: THƯỞNG (DANH SÁCH HUY CHƯƠNG) --- */
+  .ref-reward-list { padding: 12px 16px 30px; background: #fff; }
+  .ref-r-note { text-align: right; font-size: 11px; color: #64748b; margin-bottom: 10px; font-weight: 500; }
+  .ref-r-card {
+    background: #eef2f6; border-radius: 10px; padding: 14px 12px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
   .ref-medal-icon { 
-    width: 48px; height: 48px; background: #fffbeb; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-size: 24px; margin-right: 12px;
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 34px;
   }
   .ref-r-mid { flex: 1; }
-  .ref-r-desc { font-size: 13px; color: #475569; font-weight: 500; margin-bottom: 4px; line-height: 1.4; }
-  .ref-r-coin { font-size: 15px; font-weight: 800; color: #64748b; }
-  .ref-r-right { text-align: center; min-width: 70px; }
-  .ref-r-progress { font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
+  .ref-r-desc { font-size: 12.5px; color: #64748b; font-weight: 600; margin-bottom: 6px; line-height: 1.35; }
+  .ref-r-coin { font-size: 13.5px; font-weight: 800; color: #64748b; display: flex; align-items: center; gap: 5px; }
+  .ref-r-right { text-align: center; min-width: 82px; }
+  .ref-r-progress { font-size: 16px; font-weight: 800; color: #64748b; margin-bottom: 6px; }
+  .ref-r-progress span { font-size: 11px; font-weight: 600; }
   .ref-r-btn {
-    background: linear-gradient(135deg, #a78bfa, #8b5cf6); color: #fff; border: none;
-    padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; opacity: 0.5; width: 100%;
+    background: linear-gradient(90deg, #93c5fd 0%, #c084fc 100%); color: #fff; border: none;
+    padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; width: 100%; cursor: pointer;
   }
 
-  /* --- 2. LỊCH SỬ GIAO DỊCH --- */
+  /* --- TAB 3: THU NHẬP --- */
+  .ref-income-card {
+    background: #f8fafc; border-radius: 10px; padding: 16px 12px; margin-bottom: 14px;
+    border: 1px solid #f1f5f9;
+  }
+  .ref-inc-title { text-align: center; font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 14px; }
+  .ref-inc-title span { color: #1e1b4b; font-size: 16px; font-weight: 800; margin-left: 4px; }
+  .ref-inc-table {
+    background: #eef4fa; border-radius: 8px; padding: 14px;
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 13px; font-weight: 600; color: #475569;
+  }
+  .ref-inc-val { font-weight: 800; color: #1e1b4b; text-align: right; }
+
+  /* --- LỊCH SỬ GIAO DỊCH --- */
   .hist-filter-bar {
-    display: flex; gap: 8px; padding: 12px 16px; background: #fff; border-bottom: 1px solid #e4e4e7;
+    display: flex; gap: 8px; padding: 12px 16px; background: #fff; border-bottom: 1px solid #e4e4e7; flex-shrink: 0;
   }
   .hist-f-btn {
     background: #f1f5f9; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 6px;
-    font-size: 12px; color: #475569; font-weight: 500; display: flex; align-items: center; gap: 4px;
+    font-size: 12px; color: #475569; font-weight: 500; display: flex; align-items: center; gap: 4px; cursor: pointer;
   }
   .hist-f-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
-  
   .hist-list { padding: 12px 16px; }
   .hist-card {
     background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px;
@@ -5695,18 +5724,16 @@ async function handleRealLogin(e) {
   .hist-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .hist-type { font-size: 14px; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
   .hist-icon-box { 
-    width: 24px; height: 24px; background: #0ea5e9; border-radius: 6px; 
+    width: 24px; height: 24px; background: #0ea5e9; border-radius: 50%; 
     display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px;
   }
   .hist-time { font-size: 11px; color: #94a3b8; font-weight: 500; }
-  
   .hist-info-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 12px; line-height: 1.5; }
   .hist-lbl { color: #64748b; }
   .hist-val { color: #333; font-weight: 500; text-align: right; }
-  
   .hist-bot-row { 
     display: flex; justify-content: space-between; padding-top: 12px; 
-    border-top: 1px dashed #e2e8f0; align-items: flex-end;
+    border-top: 1px solid #f1f5f9; align-items: flex-end;
   }
   .hist-amt-box { display: flex; flex-direction: column; gap: 4px; }
   .hist-amt-lbl { font-size: 11px; color: #94a3b8; }
@@ -5720,52 +5747,62 @@ async function handleRealLogin(e) {
 <!-- ============================================== -->
 <div id="overlay-referral" class="premium-overlay">
   <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-referral')" style="font-size: 24px; font-weight: 300; cursor: pointer; width: 30px;">⟨</div>
-    <div class="premium-title">Thưởng Giới Thiệu Bạn Bè</div>
+    <div onclick="closeAccOverlay('overlay-referral')" style="font-size: 22px; cursor: pointer; width: 30px;">❮</div>
+    <div class="premium-title">Thưởng Giới Thiệu Bạn<br>Bè</div>
     <div style="width:30px"></div>
   </div>
 
-  <div class="premium-tabs-wrap no-scrollbar">
+  <!-- Thanh 5 Tab cố định -->
+  <div class="premium-tabs-wrap">
     <div class="premium-tab active" onclick="switchRefTab(0)">Tổng Mời</div>
     <div class="premium-tab" onclick="switchRefTab(1)">Thưởng</div>
     <div class="premium-tab" onclick="switchRefTab(2)">Thu Nhập</div>
     <div class="premium-tab" onclick="switchRefTab(3)">Lịch Sử</div>
-    <div class="premium-tab" onclick="switchRefTab(4)">Danh sách</div>
+    <div class="premium-tab" onclick="switchRefTab(4)">Danh sách<br>người được<br>mời</div>
   </div>
 
-  <!-- Tab 1: Tổng Mời -->
-  <div id="ref-tab-0">
+  <!-- TAB 0: TỔNG MỜI -->
+  <div id="ref-tab-0" class="ref-tab-pane active" style="background:#fff;">
     <div class="ref-banner-area">
       <div class="ref-banner-title">GIỚI THIỆU BẠN BÈ + 276K - TẶNG SCATTER</div>
-      <!-- Giả lập Banner -->
-      <div class="ref-banner-img">Banner Quàng Cáo Sẽ Ở Đây</div>
+      <div class="ref-banner-img">
+        <div style="color:#dc2626;font-size:13px;">Giới Thiệu BẠN BÈ</div>
+        <div style="background:#15803d;color:#fff;padding:3px 10px;border-radius:6px;margin:4px 0;">NHẬN THƯỞNG TIỀN TỶ</div>
+        <div style="font-size:13px;">Tặng THÊM SCATTER NỔ HŨ</div>
+      </div>
     </div>
 
     <div class="ref-share-box">
-      <div style="font-size: 12px; font-weight: 700; color: #333; margin-bottom: 8px;">Chia Sẻ</div>
+      <div style="font-size: 12px; font-weight: 700; color: #1e1b4b; margin-bottom: 8px;">Chia Sẻ</div>
       <div class="ref-share-top">
-        <!-- Chỗ này m nhét ảnh QR thật vào thẻ img sau nhé -->
-        <div class="ref-qr-placeholder">
-           <svg viewBox="0 0 24 24" fill="#111"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h2v2h-2zm-2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2z"/></svg>
+        <div class="ref-qr-wrap">
+          <div class="ref-qr-placeholder">
+            <svg viewBox="0 0 24 24" fill="#111" width="100%" height="100%"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h2v2h-2zm-2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2z"/></svg>
+          </div>
+          <div class="ref-qr-save" onclick="showToast('Đã lưu mã QR')">Lưu mã</div>
         </div>
         <div class="ref-link-area">
-          <div style="position: relative;">
-            <input type="text" class="ref-link-input" value="https://gioithieu.qqtamtam1.com/?referralCode=spm2967" readonly>
-            <div style="position: absolute; right: 8px; top: 6px; background:#4f46e5; border-radius:4px; padding:2px; color:#fff;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <div class="ref-link-box">
+            <div class="ref-link-txt">https://gioithieu.qqtamtam1.com/?referralCode=spm2967</div>
+            <div class="ref-copy-btn" onclick="showToast('Đã sao chép liên kết')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </div>
           </div>
-          <!-- Mấy icon mxh t làm nút màu giả lập cho m hình dung -->
-          <div style="display: flex; gap: 6px; margin-top: 10px;">
-            <div style="width:28px;height:28px;background:#3b5998;border-radius:4px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">f</div>
-            <div style="width:28px;height:28px;background:#000;border-radius:4px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">𝕏</div>
-            <div style="width:28px;height:28px;background:#0088cc;border-radius:4px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">↗</div>
+          <div class="ref-social-row">
+            <div class="ref-soc-icon" style="background:#3b5998;">f</div>
+            <div class="ref-soc-icon" style="background:#000;">𝕏</div>
+            <div class="ref-soc-icon" style="background:#0088cc;">✈</div>
+            <div class="ref-soc-icon" style="background:#25d366;">✆</div>
+            <div class="ref-soc-icon" style="background:#4ade80;">💬</div>
+            <div class="ref-soc-icon" style="background:#06c755;font-size:10px;">LINE</div>
+            <div class="ref-soc-icon" style="background:#000;">@</div>
           </div>
         </div>
       </div>
-      <div style="text-align: center; margin-top: 16px;">
-        <button style="background: #16a34a; color: #fff; font-weight: 700; border: none; padding: 8px 24px; border-radius: 6px; font-size: 13px;">Nội Dung Khuyến Mãi</button>
-      </div>
+    </div>
+
+    <div style="text-align: center; margin: 4px 0 16px;">
+      <button style="background: #0d8a2b; color: #fff; font-weight: 700; border: none; padding: 10px 28px; border-radius: 8px; font-size: 13px; cursor: pointer;">Nội Dung Khuyến Mãi</button>
     </div>
 
     <div class="ref-stats-grid">
@@ -5786,100 +5823,74 @@ async function handleRealLogin(e) {
         <div class="ref-stat-val">0</div>
       </div>
     </div>
+
+    <div style="text-align:center; font-size: 20px; font-weight: 800; color: #1e1b4b; padding: 8px 0 30px;">Bảng Xếp Hạng</div>
   </div>
 
-  <!-- Tab 2: Thưởng (Danh sách huy chương) -->
-  <div id="ref-tab-1" class="ref-reward-list">
+  <!-- TAB 1: THƯỞNG (ĐỦ 11 MỐC NHƯ WEB REAL) -->
+  <div id="ref-tab-1" class="ref-tab-pane ref-reward-list">
     <div class="ref-r-note">điểm thưởng có thời hạn vĩnh viễn</div>
     
-    <div class="ref-r-card">
-      <div class="ref-medal-icon">🥇</div>
-      <div class="ref-r-mid">
-        <div class="ref-r-desc">Tổng cộng có hơn 5 người được mời hợp lệ.</div>
-        <div class="ref-r-coin">🪙 228.00</div>
-      </div>
-      <div class="ref-r-right">
-        <div class="ref-r-progress">0 <span style="font-size:10px;font-weight:500">/ 5</span></div>
-        <button class="ref-r-btn">Nhận thưởng</button>
-      </div>
-    </div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🥇</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 5 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 228.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 5</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🥈</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 10 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 528.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 10</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🥉</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 20 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 1,088.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 20</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🎖️</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 30 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 1,688.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 30</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🏅</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 50 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 2,688.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 50</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">⭐</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 100 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 6,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 100</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">🏆</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 200 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 11,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 200</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">💎</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 300 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 18,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 300</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">👑</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 500 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 28,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 500</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">👑</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 1000 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 58,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 1000</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+    <div class="ref-r-card"><div class="ref-medal-icon">👑</div><div class="ref-r-mid"><div class="ref-r-desc">Tổng cộng có hơn 3000 người được mời hợp lệ.</div><div class="ref-r-coin">🪙 128,888.00</div></div><div class="ref-r-right"><div class="ref-r-progress">0<span> / 3000</span></div><button class="ref-r-btn">Nhận thưởng</button></div></div>
+  </div>
 
-    <div class="ref-r-card">
-      <div class="ref-medal-icon">🥈</div>
-      <div class="ref-r-mid">
-        <div class="ref-r-desc">Tổng cộng có hơn 10 người được mời hợp lệ.</div>
-        <div class="ref-r-coin">🪙 528.00</div>
-      </div>
-      <div class="ref-r-right">
-        <div class="ref-r-progress">0 <span style="font-size:10px;font-weight:500">/ 10</span></div>
-        <button class="ref-r-btn">Nhận thưởng</button>
+  <!-- TAB 2: THU NHẬP -->
+  <div id="ref-tab-2" class="ref-tab-pane" style="padding: 16px; background: #fff;">
+    <div class="ref-income-card">
+      <div class="ref-inc-title">Thu Nhập Hôm Nay: <span>0.00K</span></div>
+      <div class="ref-inc-table">
+        <div>Thưởng Lời Mời</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Thành Tích</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Nạp</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Đặt Cược</div> <div class="ref-inc-val">0.00K</div>
+        <div>Đăng ký</div> <div class="ref-inc-val">0</div>
+        <div>Người được mời hợp lệ</div> <div class="ref-inc-val">0</div>
+        <div>Số Người Nạp Tiền</div> <div class="ref-inc-val">0</div>
       </div>
     </div>
     
-    <div class="ref-r-card">
-      <div class="ref-medal-icon">🏆</div>
-      <div class="ref-r-mid">
-        <div class="ref-r-desc">Tổng cộng có hơn 20 người được mời hợp lệ.</div>
-        <div class="ref-r-coin">🪙 1,088.00</div>
-      </div>
-      <div class="ref-r-right">
-        <div class="ref-r-progress">0 <span style="font-size:10px;font-weight:500">/ 20</span></div>
-        <button class="ref-r-btn">Nhận thưởng</button>
-      </div>
-    </div>
-  </div>
-  <!-- Tab 3: Thu Nhập (Thống kê chi tiết) -->
-  <div id="ref-tab-2" style="display:none; padding: 16px; background: #f8fafc; min-height: 100vh;">
-    <div style="background: #fff; border-radius: 12px; margin-bottom: 16px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-      <div style="text-align: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #475569;">
-        Thu Nhập Hôm Nay: <span style="color:#1e293b; font-size: 16px;">0.00K</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 13px; color: #64748b;">
-        <div>Thưởng Lời Mời</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Thành Tích</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Nạp</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Đặt Cược</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Đăng ký</div> <div style="font-weight:700; color:#1e293b">0</div>
-        <div>Người được mời hợp lệ</div> <div style="font-weight:700; color:#1e293b">0</div>
-        <div>Số Người Nạp Tiền</div> <div style="font-weight:700; color:#1e293b">0</div>
+    <div class="ref-income-card">
+      <div class="ref-inc-title">Tổng thu nhập <span>0.00K</span></div>
+      <div class="ref-inc-table">
+        <div>Thưởng Lời Mời</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Thành Tích</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Nạp</div> <div class="ref-inc-val">0.00K</div>
+        <div>Thưởng Đặt Cược</div> <div class="ref-inc-val">0.00K</div>
+        <div>Đăng ký</div> <div class="ref-inc-val">1</div>
+        <div>Người được mời hợp lệ</div> <div class="ref-inc-val">0</div>
+        <div>Số Người Nạp Tiền</div> <div class="ref-inc-val">0</div>
       </div>
     </div>
-    
-    <div style="background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-      <div style="text-align: center; margin-bottom: 16px; font-size: 13px; font-weight: 700; color: #475569;">
-        Tổng thu nhập <span style="color:#1e293b; font-size: 16px;">0.00K</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 13px; color: #64748b;">
-        <div>Thưởng Lời Mời</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Thành Tích</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Nạp</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Thưởng Đặt Cược</div> <div style="font-weight:700; color:#1e293b">0.00K</div>
-        <div>Đăng ký</div> <div style="font-weight:700; color:#1e293b">1</div>
-        <div>Người được mời hợp lệ</div> <div style="font-weight:700; color:#1e293b">0</div>
-        <div>Số Người Nạp Tiền</div> <div style="font-weight:700; color:#1e293b">0</div>
-      </div>
-    </div>
-    <div style="text-align:center; font-size: 11px; color:#94a3b8; margin-top:12px;">Lưu ý: Hệ thống cập nhật dữ liệu 15 phút một lần.</div>
+    <div style="font-size: 12px; color:#64748b; margin-top:4px;">Lưu ý: Hệ thống cập nhật dữ liệu 15 phút một lần.</div>
   </div>
 
-  <!-- Tab 4: Lịch Sử -->
-  <div id="ref-tab-3" style="display:none; background: #fff; min-height: 100vh;">
-    <div style="display:flex; gap:8px; padding:12px 16px; border-bottom:1px solid #f1f5f9;">
-      <select style="flex:1; border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px; outline:none; background:transparent">
+  <!-- TAB 3: LỊCH SỬ -->
+  <div id="ref-tab-3" class="ref-tab-pane" style="background: #fff; position: relative; min-height: calc(100vh - 100px);">
+    <div style="display:flex; justify-content:space-between; gap:12px; padding:12px 16px;">
+      <select style="flex:1; max-width:210px; border:1px solid #0284c7; border-radius:6px; color:#0284c7; font-size:13px; padding:7px 10px; outline:none; background:#fff;">
         <option>Thưởng Lời Mời</option>
       </select>
-      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px; display:flex; align-items:center; gap:4px;">
+      <div style="border:1px solid #0284c7; border-radius:6px; color:#0284c7; font-size:13px; padding:7px 12px; display:flex; align-items:center; gap:6px;">
         📅 11/15- 11/15
       </div>
     </div>
-    <div style="display:flex; font-size:11px; font-weight:700; color:#64748b; padding:12px 16px; border-bottom:1px solid #f1f5f9; background:#f8fafc">
+    <div style="display:flex; font-size:12px; font-weight:700; color:#475569; padding:10px 16px; margin: 0 16px; background:#f8fafc; border-radius:4px;">
       <div style="flex:1;">Thời gian đăng ký</div>
       <div style="flex:1; text-align:center;">Tên đăng nhập</div>
       <div style="flex:1; text-align:right;">Số tiền</div>
     </div>
-    <!-- Trạng thái trống -->
-    <div style="display:flex; flex-direction:column; align-items:center; padding-top:60px;">
-      <svg width="120" height="100" viewBox="0 0 200 160" fill="none">
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding: 50px 0 80px;">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
         <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
         <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
         <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
@@ -5888,51 +5899,56 @@ async function handleRealLogin(e) {
         <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
         <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
       </svg>
-      <div style="font-size:18px; color:#0ea5e9; font-weight:500; margin-top:16px;">Chưa có dữ liệu</div>
+      <div style="font-size:18px; color:#0284c7; font-weight:500; margin-top:12px;">Chưa có dữ liệu</div>
     </div>
-    <div style="position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:#f8fafc; padding:16px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; font-weight:700; color:#333; font-size:14px;">
+    <div style="margin-top:auto; background:#fff; padding:16px 24px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; font-weight:700; color:#475569; font-size:15px;">
       <div>Tổng</div>
       <div>0.00</div>
     </div>
   </div>
 
-  <!-- Tab 5: Danh sách người được mời -->
-  <div id="ref-tab-4" style="display:none; background: #f8fafc; min-height: 100vh;">
-    <div style="padding:16px; background:#fff; margin-bottom:8px;">
-      <div style="display:flex; background:#f0f9ff; border-radius:12px; border:1px solid #e0f2fe;">
-        <div style="flex:1; padding:16px; border-right:1px solid #e0f2fe; text-align:center;">
-          <div style="font-size:32px; margin-bottom:4px;">💎</div>
-          <div style="font-weight:700; color:#0284c7; font-size:14px;">L1</div>
+  <!-- TAB 4: DANH SÁCH NGƯỜI ĐƯỢC MỜI -->
+  <div id="ref-tab-4" class="ref-tab-pane" style="background: #fff; min-height: calc(100vh - 100px);">
+    <div style="padding:14px 16px; display:flex; gap:10px;">
+      <div style="flex:1.3; display:flex; background:#e0f2fe; border-radius:10px; padding:12px 10px; align-items:center;">
+        <div style="text-align:center; padding-right:10px;">
+          <div style="font-size:32px; line-height:1;">💎</div>
+          <div style="font-weight:800; color:#1e293b; font-size:14px; margin-top:6px; font-style:italic;">L1</div>
         </div>
-        <div style="flex:2; padding:12px; display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:700; color:#0284c7;">
-            <div>👤 Đăng Ký</div>
-            <div style="background:#fff; padding:2px 12px; border-radius:12px;">1</div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+          <div style="text-align:center;">
+            <div style="font-size:11px; font-weight:700; color:#0369a1; margin-bottom:3px;">Đăng Ký</div>
+            <div style="background:#fff; border-radius:12px; padding:2px 0; font-size:12px; font-weight:800; color:#0369a1;">1</div>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:700; color:#0284c7;">
-            <div>👥 Người Được Mời Hợp Lệ</div>
-            <div style="background:#fff; padding:2px 12px; border-radius:12px;">0</div>
+          <div style="text-align:center;">
+            <div style="font-size:11px; font-weight:700; color:#0369a1; margin-bottom:3px; line-height:1.2;">Người Được Mời<br>Hợp Lệ</div>
+            <div style="background:#fff; border-radius:12px; padding:2px 0; font-size:12px; font-weight:800; color:#0369a1;">0</div>
           </div>
         </div>
-        <div style="flex:1; padding:12px; display:flex; flex-direction:column; gap:4px; font-size:10px; font-weight:600; color:#d97706;">
-          <div style="display:flex; justify-content:space-between;"><span>Hôm nay</span> <span>+0</span></div>
-          <div style="display:flex; justify-content:space-between;"><span>Hôm qua</span> <span>+0</span></div>
-          <div style="display:flex; justify-content:space-between; margin-top:auto;"><span>Tháng hiện tại</span> <span>+0</span></div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
+        <div style="background:#fef9c3; border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:#a16207;">
+          <span>Hôm nay</span> <span style="color:#475569;">+0</span>
+        </div>
+        <div style="background:#fef9c3; border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:#a16207;">
+          <span>Hôm qua</span> <span style="color:#475569;">+0</span>
+        </div>
+        <div style="background:#fef9c3; border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:#a16207;">
+          <span>Tháng hiện tại</span> <span style="color:#475569;">+0</span>
         </div>
       </div>
     </div>
     
-    <div style="display:flex; gap:8px; padding:12px 16px; background:#fff; border-bottom:1px solid #f1f5f9;">
-      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px;">TẤT CẢ ▾</div>
-      <div style="background:#0ea5e9; color:#fff; border-radius:6px; font-size:12px; padding:6px 12px;">✓ Hôm nay</div>
-      <div style="border:1px solid #0ea5e9; border-radius:6px; color:#0ea5e9; font-size:12px; padding:6px 12px; display:flex; align-items:center; gap:4px; margin-left:auto;">
+    <div style="display:flex; gap:8px; padding:10px 16px; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9;">
+      <div style="border:1px solid #0284c7; border-radius:6px; color:#0284c7; font-size:13px; padding:6px 14px; font-weight:600;">TẤT CẢ ▾</div>
+      <div style="background:#0284c7; color:#fff; border-radius:6px; font-size:13px; padding:6px 12px; font-weight:500;">✓ Hôm nay</div>
+      <div style="border:1px solid #0284c7; border-radius:6px; color:#0284c7; font-size:13px; padding:6px 10px; margin-left:auto;">
         📅 11/15- 11/15
       </div>
     </div>
     
-    <!-- Trạng thái trống -->
-    <div style="display:flex; flex-direction:column; align-items:center; padding-top:40px;">
-      <svg width="120" height="100" viewBox="0 0 200 160" fill="none">
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding: 50px 0;">
+      <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
         <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
         <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
         <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
@@ -5941,42 +5957,35 @@ async function handleRealLogin(e) {
         <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
         <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
       </svg>
-      <div style="font-size:18px; color:#0ea5e9; font-weight:500; margin-top:16px;">Chưa có dữ liệu</div>
+      <div style="font-size:18px; color:#0284c7; font-weight:500; margin-top:12px;">Chưa có dữ liệu</div>
     </div>
   </div>
 </div>
 
 <!-- ============================================== -->
-<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH (CHUẨN CHUNG)    -->
+<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH                 -->
 <!-- ============================================== -->
 <div id="overlay-history-trans" class="premium-overlay">
   <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-history-trans')" style="font-size: 24px; font-weight: 300; cursor: pointer; width: 30px;">⟨</div>
+    <div onclick="closeAccOverlay('overlay-history-trans')" style="font-size: 22px; cursor: pointer; width: 30px;">❮</div>
     <div class="premium-title">Lịch sử giao dịch</div>
     <div style="width:30px"></div>
   </div>
 
   <div class="hist-filter-bar">
-    <div class="hist-f-btn">
-      TẤT CẢ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </div>
-    <div class="hist-f-btn active">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Hôm nay
-    </div>
-    <div class="hist-f-btn">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 11/15- 11/15
-    </div>
+    <div class="hist-f-btn">TẤT CẢ ▾</div>
+    <div class="hist-f-btn active">✓ Hôm nay</div>
+    <div class="hist-f-btn">📅 11/15- 11/15</div>
   </div>
 
   <div class="hist-list">
-    <!-- Thẻ Giao dịch 1 -->
     <div class="hist-card">
       <div class="hist-card-head">
-        <div class="hist-type"><div class="hist-icon-box">🧾</div> Thưởng trò chơi</div>
+        <div class="hist-type"><div class="hist-icon-box">💵</div> Thưởng trò chơi</div>
         <div class="hist-time">11-15 21:39:50</div>
       </div>
       <div class="hist-info-row">
-        <div class="hist-lbl">Mã Giao dịch:<br><span style="color:#333;font-weight:600">TI2611151FPPHZE0...</span></div>
+        <div class="hist-lbl">Mã Giao dịch:<br><span style="color:#333;font-weight:600">TI2611151FPPHZE0KS3</span></div>
         <div class="hist-val">NGẪU NHIÊN 3~5</div>
       </div>
       <div class="hist-bot-row">
@@ -5991,15 +6000,35 @@ async function handleRealLogin(e) {
       </div>
     </div>
 
-    <!-- Thẻ Giao dịch 2 (Tiền ra) -->
     <div class="hist-card">
       <div class="hist-card-head">
-        <div class="hist-type"><div class="hist-icon-box" style="background:#8b5cf6">↘</div> Chuyển ra</div>
+        <div class="hist-type"><div class="hist-icon-box">💵</div> Chuyển vào</div>
+        <div class="hist-time">11-15 03:13:01</div>
+      </div>
+      <div class="hist-info-row">
+        <div class="hist-lbl">Mã Giao dịch:<br><span style="color:#333;font-weight:600">426119862234372</span></div>
+        <div class="hist-val">JDB➔</div>
+      </div>
+      <div class="hist-bot-row">
+        <div class="hist-amt-box">
+          <div class="hist-amt-lbl">Số dư tức thời</div>
+          <div class="hist-amt-num">0.07</div>
+        </div>
+        <div class="hist-amt-box" style="align-items:flex-end">
+          <div class="hist-amt-lbl">Số tiền giao dịch</div>
+          <div class="hist-amt-num green">0.07</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hist-card">
+      <div class="hist-card-head">
+        <div class="hist-type"><div class="hist-icon-box">💵</div> Chuyển ra</div>
         <div class="hist-time">11-15 02:02:47</div>
       </div>
       <div class="hist-info-row">
         <div class="hist-lbl">Mã Giao dịch:<br><span style="color:#333;font-weight:600">426119861720631</span></div>
-        <div class="hist-val">➡JDB</div>
+        <div class="hist-val">➔JDB</div>
       </div>
       <div class="hist-bot-row">
         <div class="hist-amt-box">
@@ -6016,28 +6045,18 @@ async function handleRealLogin(e) {
 </div>
 
 <script>
-  // Script chuyển Tab cho riêng phần Giới thiệu bạn bè
   function switchRefTab(index) {
     const tabs = document.querySelectorAll('#overlay-referral .premium-tab');
+    const panes = document.querySelectorAll('#overlay-referral .ref-tab-pane');
     
-    // Đổi màu thanh active
     tabs.forEach((tab, i) => {
-      if (i === index) {
-        tab.classList.add('active');
-      } else {
-        tab.classList.remove('active');
-      }
+      tab.classList.toggle('active', i === index);
     });
-    
-    // Ẩn/hiện nội dung tương ứng
-    document.getElementById('ref-tab-0').style.display = index === 0 ? 'block' : 'none';
-    document.getElementById('ref-tab-1').style.display = index === 1 ? 'block' : 'none';
-    document.getElementById('ref-tab-2').style.display = index === 2 ? 'block' : 'none';
-    document.getElementById('ref-tab-3').style.display = index === 3 ? 'block' : 'none';
-    document.getElementById('ref-tab-4').style.display = index === 4 ? 'block' : 'none';
+    panes.forEach((pane, i) => {
+      pane.classList.toggle('active', i === index);
+    });
   }
 
-  // Gắn lệnh mở Overlay vào Icon trong Profile
   window.addEventListener('DOMContentLoaded', () => {
     const accIcons = document.querySelectorAll('.acc-tool-item');
     if (accIcons.length >= 9) {

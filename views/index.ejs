@@ -6432,123 +6432,170 @@ async function handleRealLogin(e) {
 
 <!-- ============================================== -->
 <!-- ============================================== -->
-<!-- 1. LỊCH SỬ CƯỢC (ICON SỐ 2 - CHUẨN 1:1 WEB REAL) -->
-<!-- ============================================== -->
+<!-- ========================================================================= -->
+<!-- 1 & 2. LỊCH SỬ CƯỢC + BÁO CÁO CÁ NHÂN (TỰ ĐỘNG GHI NHẬN KHI CHƠI GAME THẬT) -->
+<!-- ========================================================================= -->
 <style>
+  /* --- CSS LỊCH SỬ CƯỢC --- */
   #overlay-bet-history .bh-header {
-    background: #18191d;
-    height: 54px; min-height: 54px;
+    background: #18191d; height: 54px; min-height: 54px;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 10px 0 14px;
-    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+    padding: 0 10px 0 14px; position: sticky; top: 0; z-index: 100; flex-shrink: 0;
   }
   #overlay-bet-history .bh-back {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: flex-start;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: flex-start;
     cursor: pointer; flex-shrink: 0;
   }
   #overlay-bet-history .bh-title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px; font-weight: 400; color: #ffffff;
+    font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 400; color: #ffffff;
     text-align: center; flex: 1; padding-left: 18px;
   }
   #overlay-bet-history .bh-exclude-btn {
-    background: #1592e6; color: #ffffff;
-    border: none; border-radius: 20px;
-    padding: 5px 12px; font-size: 11.5px; font-weight: 400;
-    line-height: 1.25; text-align: center;
-    max-width: 152px; cursor: pointer; flex-shrink: 0;
+    background: #1592e6; color: #ffffff; border: none; border-radius: 20px;
+    padding: 5px 12px; font-size: 11.5px; font-weight: 400; line-height: 1.25;
+    text-align: center; max-width: 152px; cursor: pointer; flex-shrink: 0;
     font-family: 'Roboto', sans-serif;
   }
-
-  /* Thanh 7 Tab ngang cuộn mượt */
   #overlay-bet-history .bh-tabs-bar {
-    background: #ffffff;
-    display: flex; align-items: center;
-    overflow-x: auto; white-space: nowrap;
-    border-bottom: 1px solid #ececec;
-    position: sticky; top: 54px; z-index: 99;
-    flex-shrink: 0; height: 48px; min-height: 48px;
-    scroll-behavior: smooth;
+    background: #ffffff; display: flex; align-items: center;
+    overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #ececec;
+    position: sticky; top: 54px; z-index: 99; flex-shrink: 0;
+    height: 48px; min-height: 48px; scroll-behavior: smooth;
   }
   #overlay-bet-history .bh-tabs-bar::-webkit-scrollbar { display: none; }
   #overlay-bet-history .bh-tab-item {
-    padding: 0 16px; height: 100%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px; font-weight: 400; color: #111111;
-    border-bottom: 2.5px solid transparent;
-    cursor: pointer; flex-shrink: 0;
+    padding: 0 16px; height: 100%; display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400; color: #111111;
+    border-bottom: 2.5px solid transparent; cursor: pointer; flex-shrink: 0;
     transition: color 0.15s, border-color 0.15s;
   }
-  #overlay-bet-history .bh-tab-item.active {
-    color: #1592e6;
-    border-bottom-color: #1592e6;
-  }
-
-  /* Thanh Filter ngày giờ + Tất cả + Kính lúp */
+  #overlay-bet-history .bh-tab-item.active { color: #1592e6; border-bottom-color: #1592e6; }
   #overlay-bet-history .bh-filter-row {
-    background: #ffffff;
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 10px; flex-shrink: 0;
+    background: #ffffff; display: flex; align-items: center; gap: 6px;
+    padding: 8px 10px; flex-shrink: 0; border-bottom: 1px solid #f5f5f5;
   }
   #overlay-bet-history .bh-date-box {
-    border: 1px solid #1592e6; border-radius: 4px;
-    padding: 6px 8px; color: #1592e6;
-    font-size: 12.5px; font-weight: 400;
-    display: flex; align-items: center; gap: 6px;
+    border: 1px solid #1592e6; border-radius: 4px; padding: 6px 8px; color: #1592e6;
+    font-size: 12.5px; font-weight: 400; display: flex; align-items: center; gap: 6px;
     white-space: nowrap; flex-shrink: 0; cursor: pointer;
   }
   #overlay-bet-history .bh-select-box {
-    border: 1px solid #1592e6; border-radius: 4px;
-    padding: 6px 7px; color: #1592e6;
-    font-size: 12.5px; font-weight: 400;
-    display: flex; align-items: center; gap: 4px;
+    border: 1px solid #1592e6; border-radius: 4px; padding: 6px 7px; color: #1592e6;
+    font-size: 12.5px; font-weight: 400; display: flex; align-items: center; gap: 4px;
     white-space: nowrap; overflow: hidden; cursor: pointer;
   }
-  #overlay-bet-history .bh-select-box.short {
-    max-width: 68px;
-  }
+  #overlay-bet-history .bh-select-box.short { max-width: 68px; }
   #overlay-bet-history .bh-search-btn {
     margin-left: auto; width: 26px; height: 26px;
     display: flex; align-items: center; justify-content: center;
     color: #1592e6; cursor: pointer; flex-shrink: 0;
   }
-
-  /* Khung rỗng ở giữa */
   #overlay-bet-history .bh-empty-zone {
-    flex: 1; background: #ffffff;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 40px 16px 60px;
+    flex: 1; background: #ffffff; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 40px 16px 60px;
   }
   #overlay-bet-history .bh-empty-label {
-    font-size: 20px; color: #1592e6; font-weight: 400;
-    margin-top: 14px; font-family: 'Roboto', sans-serif;
+    font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
   }
-
-  /* Footer 4 mục tổng kết dưới đáy */
+  #overlay-bet-history .bh-bet-list {
+    flex: 1; background: #f4f6f8; padding: 10px 12px 20px; display: none; flex-direction: column; gap: 10px;
+  }
+  #overlay-bet-history .bh-bet-card {
+    background: #ffffff; border-radius: 10px; padding: 12px 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #edf2f7;
+  }
   #overlay-bet-history .bh-footer-summary {
-    background: #efefef;
-    padding: 10px 28px 14px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    column-gap: 24px; row-gap: 6px;
-    border-top: 1px solid #e2e2e2;
-    position: sticky; bottom: 0; z-index: 90; flex-shrink: 0;
+    background: #efefef; padding: 10px 28px 14px;
+    display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 6px;
+    border-top: 1px solid #e2e2e2; position: sticky; bottom: 0; z-index: 90; flex-shrink: 0;
   }
-  #overlay-bet-history .bh-sum-item {
-    display: flex; flex-direction: column; line-height: 1.3;
+  #overlay-bet-history .bh-sum-item { display: flex; flex-direction: column; line-height: 1.3; }
+  #overlay-bet-history .bh-sum-lbl { font-size: 13px; color: #1f1f1f; font-weight: 400; }
+  #overlay-bet-history .bh-sum-val { font-size: 13px; color: #4caf50; font-weight: 500; }
+  #overlay-bet-history .bh-sum-val.neg { color: #e11d48; }
+
+  /* --- CSS BÁO CÁO CÁ NHÂN (LỊCH SỬ LÃI LỖ) --- */
+  #overlay-profit-loss { background: #f2f3f5 !important; }
+  #overlay-profit-loss .pl-header {
+    background: #18191d; height: 52px; min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
   }
-  #overlay-bet-history .bh-sum-lbl {
-    font-size: 13px; color: #1f1f1f; font-weight: 400;
+  #overlay-profit-loss .pl-back {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; display: flex; align-items: center; cursor: pointer;
   }
-  #overlay-bet-history .bh-sum-val {
-    font-size: 13px; color: #4caf50; font-weight: 500;
+  #overlay-profit-loss .pl-title {
+    font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 400; color: #ffffff;
   }
+  #overlay-profit-loss .pl-filter-bar {
+    background: #ffffff; display: flex; align-items: center; gap: 6px;
+    padding: 10px 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    position: sticky; top: 52px; z-index: 95; flex-shrink: 0; overflow-x: auto;
+  }
+  #overlay-profit-loss .pl-filter-bar::-webkit-scrollbar { display: none; }
+  #overlay-profit-loss .pl-btn {
+    border: 1px solid #1592e6; border-radius: 4px; background: #ffffff; color: #1592e6;
+    height: 32px; padding: 0 9px; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 400;
+    display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; cursor: pointer; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-btn .pl-check-icon { display: none; width: 15px; height: 15px; }
+  #overlay-profit-loss .pl-btn.active { background: #1592e6; color: #ffffff; }
+  #overlay-profit-loss .pl-btn.active .pl-check-icon { display: inline-block; }
+  #overlay-profit-loss .pl-date-btn {
+    margin-left: auto; border: 1px solid #1592e6; border-radius: 4px;
+    background: #ffffff; color: #1592e6; height: 32px; padding: 0 8px;
+    font-size: 12.5px; display: inline-flex; align-items: center; gap: 5px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-cards-wrap {
+    flex: 1; display: none; flex-direction: column; gap: 10px; padding: 10px 0 20px;
+  }
+  #overlay-profit-loss .pl-card { background: #ffffff; padding: 14px 16px 16px; }
+  #overlay-profit-loss .pl-card-top {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+  }
+  #overlay-profit-loss .pl-cat-left { display: flex; align-items: center; gap: 10px; }
+  #overlay-profit-loss .pl-cat-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-cat-name {
+    font-size: 16.5px; font-weight: 700; color: #111111; font-family: 'Roboto', sans-serif;
+  }
+  #overlay-profit-loss .pl-total-right {
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  #overlay-profit-loss .pl-total-lbl { font-size: 13px; color: #9ca3af; font-weight: 400; }
+  #overlay-profit-loss .pl-total-val { font-size: 18px; font-weight: 700; color: #374151; }
+  #overlay-profit-loss .pl-total-val.neg { color: #e11d48; }
+  #overlay-profit-loss .pl-total-val.pos { color: #16a34a; }
+  #overlay-profit-loss .pl-metrics-grid {
+    display: grid; grid-template-columns: 1fr 1.15fr 0.85fr; row-gap: 12px; column-gap: 8px;
+  }
+  #overlay-profit-loss .pl-metric-cell { display: flex; flex-direction: column; }
+  #overlay-profit-loss .pl-metric-cell.right { text-align: right; align-items: flex-end; }
+  #overlay-profit-loss .pl-m-lbl { font-size: 13px; color: #9ca3af; font-weight: 400; margin-bottom: 3px; white-space: nowrap; }
+  #overlay-profit-loss .pl-m-val { font-size: 15px; color: #111111; font-weight: 700; }
+  #overlay-profit-loss .pl-empty-wrap {
+    flex: 1; background: #ffffff; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 50px 16px 80px; min-height: calc(100vh - 140px);
+  }
+  #overlay-profit-loss .pl-empty-text { font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px; }
+  #overlay-profit-loss .pl-gmt-footer {
+    position: sticky; bottom: 0; left: 0; right: 0; background: #ffffff;
+    border-top: 1px solid #f87171; padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 7px; z-index: 98; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-gmt-icon {
+    width: 18px; height: 18px; border-radius: 50%; background: #f97316; color: #ffffff;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+  }
+  #overlay-profit-loss .pl-gmt-text { font-size: 12.5px; color: #ef4444; font-weight: 400; }
 </style>
 
+<!-- 1. MÀN HÌNH LỊCH SỬ CƯỢC -->
 <div id="overlay-bet-history" class="premium-overlay" style="background:#fff;">
-  <!-- Header có nút Danh sách doanh thu bị loại trừ -->
   <div class="bh-header">
     <div class="bh-back" onclick="closeAccOverlay('overlay-bet-history')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -6557,37 +6604,38 @@ async function handleRealLogin(e) {
     <button class="bh-exclude-btn" onclick="showToast('Danh sách doanh thu bị loại trừ')">Danh sách doanh thu bị<br>loại trừ</button>
   </div>
 
-  <!-- Thanh 7 Tab ngang kéo mượt như web real -->
   <div class="bh-tabs-bar" id="bh-tabs-bar">
-    <div class="bh-tab-item active" onclick="switchBetHistoryTab(this, 0)">Casino</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 1)">Nổ hũ</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 2)">Bắn cá</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 3)">Thể thao</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 4)">Game bài</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 5)">Xổ số</div>
-    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 6)">Xổ số Việt Nam</div>
+    <div class="bh-tab-item active" data-cat="Casino" onclick="switchBetHistoryTab(this, 'Casino')">Casino</div>
+    <div class="bh-tab-item" data-cat="Nổ hũ" onclick="switchBetHistoryTab(this, 'Nổ hũ')">Nổ hũ</div>
+    <div class="bh-tab-item" data-cat="Bắn cá" onclick="switchBetHistoryTab(this, 'Bắn cá')">Bắn cá</div>
+    <div class="bh-tab-item" data-cat="Thể thao" onclick="switchBetHistoryTab(this, 'Thể thao')">Thể thao</div>
+    <div class="bh-tab-item" data-cat="Game bài" onclick="switchBetHistoryTab(this, 'Game bài')">Game bài</div>
+    <div class="bh-tab-item" data-cat="Xổ số" onclick="switchBetHistoryTab(this, 'Xổ số')">Xổ số</div>
+    <div class="bh-tab-item" data-cat="Xổ số Việt Nam" onclick="switchBetHistoryTab(this, 'Xổ số Việt Nam')">Xổ số Việt Nam</div>
   </div>
 
-  <!-- Thanh bộ lọc ngày giờ + Tất cả + Icon tìm kiếm -->
   <div class="bh-filter-row">
-    <div class="bh-date-box" onclick="showToast('Chọn khoảng thời gian')">
+    <div class="bh-date-box">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>11/15 00:00:00- 11/15 23:59:59</span>
+      <span id="bh-live-date">11/15 00:00:00- 11/15 23:59:59</span>
     </div>
-    <div class="bh-select-box" onclick="showToast('Chọn sảnh game')">
+    <div class="bh-select-box">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
       <span>TẤT CẢ</span>
     </div>
-    <div class="bh-select-box short" onclick="showToast('Chọn trạng thái cược')">
+    <div class="bh-select-box short">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
       <span>TẤT C</span>
     </div>
-    <div class="bh-search-btn" onclick="refreshBetHistoryEmpty()">
+    <div class="bh-search-btn" onclick="renderBetHistoryView()">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.35" y2="16.35"></line></svg>
     </div>
   </div>
 
-  <!-- Nội dung chính (Trạng thái rỗng chuẩn SVG máy bay giấy) -->
+  <!-- Danh sách đơn cược thật khi có chơi -->
+  <div class="bh-bet-list" id="bh-bet-list"></div>
+
+  <!-- Trạng thái trống khi chưa chơi sảnh này -->
   <div class="bh-empty-zone" id="bh-empty-zone">
     <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
       <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
@@ -6603,198 +6651,16 @@ async function handleRealLogin(e) {
     <div class="bh-empty-label">Chưa có dữ liệu</div>
   </div>
 
-  <!-- Footer tổng kết 4 mục chữ xanh lá ở đáy -->
   <div class="bh-footer-summary">
-    <div class="bh-sum-item">
-      <span class="bh-sum-lbl">Tiền cược</span>
-      <span class="bh-sum-val">0.00</span>
-    </div>
-    <div class="bh-sum-item">
-      <span class="bh-sum-lbl">Cược hợp lệ</span>
-      <span class="bh-sum-val">0.00</span>
-    </div>
-    <div class="bh-sum-item">
-      <span class="bh-sum-lbl">Tiền thắng cược</span>
-      <span class="bh-sum-val">0.00</span>
-    </div>
-    <div class="bh-sum-item">
-      <span class="bh-sum-lbl">Lợi nhuận ròng</span>
-      <span class="bh-sum-val">0.00</span>
-    </div>
+    <div class="bh-sum-item"><span class="bh-sum-lbl">Tiền cược</span><span class="bh-sum-val" id="bh-sum-bet">0.00</span></div>
+    <div class="bh-sum-item"><span class="bh-sum-lbl">Cược hợp lệ</span><span class="bh-sum-val" id="bh-sum-valid">0.00</span></div>
+    <div class="bh-sum-item"><span class="bh-sum-lbl">Tiền thắng cược</span><span class="bh-sum-val" id="bh-sum-win">0.00</span></div>
+    <div class="bh-sum-item"><span class="bh-sum-lbl">Lợi nhuận ròng</span><span class="bh-sum-val" id="bh-sum-net">0.00</span></div>
   </div>
 </div>
 
-<script>
-  function switchBetHistoryTab(tabEl, idx) {
-    const allTabs = document.querySelectorAll('#overlay-bet-history .bh-tab-item');
-    allTabs.forEach(t => t.classList.remove('active'));
-    tabEl.classList.add('active');
-    // Tự động cuộn mượt thanh tab ngang ra giữa giống hệt web real
-    tabEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    refreshBetHistoryEmpty();
-  }
-
-  function refreshBetHistoryEmpty() {
-    const zone = document.getElementById('bh-empty-zone');
-    if (!zone) return;
-    zone.style.opacity = '0.4';
-    setTimeout(() => { zone.style.opacity = '1'; }, 120);
-  }
-</script>
-
-<!-- ============================================== -->
-<!-- ============================================== -->
-<!-- 2. LỊCH SỬ LÃI LỖ / BÁO CÁO CÁ NHÂN (ICON SỐ 3) -->
-<!-- ============================================== -->
-<style>
-  #overlay-profit-loss {
-    background: #f2f3f5 !important;
-  }
-  #overlay-profit-loss .pl-header {
-    background: #18191d;
-    height: 52px; min-height: 52px;
-    display: flex; align-items: center; justify-content: center;
-    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
-  }
-  #overlay-profit-loss .pl-back {
-    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 30px; height: 30px; display: flex; align-items: center; cursor: pointer;
-  }
-  #overlay-profit-loss .pl-title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px; font-weight: 400; color: #ffffff;
-  }
-
-  /* Thanh 4 nút lọc thời gian */
-  #overlay-profit-loss .pl-filter-bar {
-    background: #ffffff;
-    display: flex; align-items: center; gap: 6px;
-    padding: 10px 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    position: sticky; top: 52px; z-index: 95; flex-shrink: 0;
-    overflow-x: auto;
-  }
-  #overlay-profit-loss .pl-filter-bar::-webkit-scrollbar { display: none; }
-  #overlay-profit-loss .pl-btn {
-    border: 1px solid #1592e6; border-radius: 4px;
-    background: #ffffff; color: #1592e6;
-    height: 32px; padding: 0 9px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 13px; font-weight: 400;
-    display: inline-flex; align-items: center; gap: 5px;
-    white-space: nowrap; cursor: pointer; flex-shrink: 0;
-    transition: all 0.15s ease;
-  }
-  #overlay-profit-loss .pl-btn .pl-check-icon {
-    display: none; width: 15px; height: 15px;
-  }
-  #overlay-profit-loss .pl-btn.active {
-    background: #1592e6; color: #ffffff;
-  }
-  #overlay-profit-loss .pl-btn.active .pl-check-icon {
-    display: inline-block;
-  }
-  #overlay-profit-loss .pl-date-btn {
-    margin-left: auto;
-    border: 1px solid #1592e6; border-radius: 4px;
-    background: #ffffff; color: #1592e6;
-    height: 32px; padding: 0 8px;
-    font-size: 12.5px; display: inline-flex; align-items: center; gap: 5px;
-    white-space: nowrap; flex-shrink: 0; cursor: pointer;
-  }
-
-  /* Danh sách thẻ báo cáo (Ảnh 2) */
-  #overlay-profit-loss .pl-cards-wrap {
-    flex: 1; display: flex; flex-direction: column;
-    gap: 10px; padding: 10px 0 20px;
-  }
-  #overlay-profit-loss .pl-card {
-    background: #ffffff; padding: 14px 16px 16px;
-  }
-  #overlay-profit-loss .pl-card-top {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  #overlay-profit-loss .pl-cat-left {
-    display: flex; align-items: center; gap: 10px;
-  }
-  #overlay-profit-loss .pl-cat-icon {
-    width: 34px; height: 34px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  #overlay-profit-loss .pl-cat-name {
-    font-size: 16.5px; font-weight: 700; color: #111111;
-    font-family: 'Roboto', sans-serif;
-  }
-  #overlay-profit-loss .pl-total-right {
-    display: flex; align-items: baseline; gap: 6px;
-  }
-  #overlay-profit-loss .pl-total-lbl {
-    font-size: 13px; color: #9ca3af; font-weight: 400;
-  }
-  #overlay-profit-loss .pl-total-val {
-    font-size: 18px; font-weight: 700; color: #374151;
-  }
-  #overlay-profit-loss .pl-total-val.neg {
-    color: #e11d48;
-  }
-  #overlay-profit-loss .pl-total-val.pos {
-    color: #16a34a;
-  }
-
-  /* Lưới 3 cột thông số bên trong mỗi thẻ */
-  #overlay-profit-loss .pl-metrics-grid {
-    display: grid; grid-template-columns: 1fr 1.15fr 0.85fr;
-    row-gap: 12px; column-gap: 8px;
-  }
-  #overlay-profit-loss .pl-metric-cell {
-    display: flex; flex-direction: column;
-  }
-  #overlay-profit-loss .pl-metric-cell.right {
-    text-align: right; align-items: flex-end;
-  }
-  #overlay-profit-loss .pl-m-lbl {
-    font-size: 13px; color: #9ca3af; font-weight: 400; margin-bottom: 3px;
-    white-space: nowrap;
-  }
-  #overlay-profit-loss .pl-m-val {
-    font-size: 15px; color: #111111; font-weight: 700;
-  }
-
-  /* Trạng thái trống (Ảnh 1) */
-  #overlay-profit-loss .pl-empty-wrap {
-    flex: 1; background: #ffffff;
-    display: none; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 50px 16px 80px; min-height: calc(100vh - 140px);
-  }
-  #overlay-profit-loss .pl-empty-text {
-    font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
-  }
-
-  /* Thanh Nhắc nhở GMT+8 dưới đáy */
-  #overlay-profit-loss .pl-gmt-footer {
-    position: sticky; bottom: 0; left: 0; right: 0;
-    background: #ffffff;
-    border-top: 1px solid #f87171;
-    padding: 10px 16px;
-    display: flex; align-items: center; justify-content: center; gap: 7px;
-    z-index: 98; flex-shrink: 0;
-  }
-  #overlay-profit-loss .pl-gmt-icon {
-    width: 18px; height: 18px; border-radius: 50%;
-    background: #f97316; color: #ffffff;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; flex-shrink: 0;
-  }
-  #overlay-profit-loss .pl-gmt-text {
-    font-size: 12.5px; color: #ef4444; font-weight: 400;
-  }
-</style>
-
+<!-- 2. MÀN HÌNH BÁO CÁO CÁ NHÂN (LỊCH SỬ LÃI LỖ) -->
 <div id="overlay-profit-loss" class="premium-overlay">
-  <!-- Header Báo cáo cá nhân -->
   <div class="pl-header">
     <div class="pl-back" onclick="closeAccOverlay('overlay-profit-loss')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -6802,228 +6668,29 @@ async function handleRealLogin(e) {
     <div class="pl-title">Báo cáo cá nhân</div>
   </div>
 
-  <!-- Thanh lọc: Hôm nay | Hôm qua | Một tuần | Ngày tháng -->
   <div class="pl-filter-bar">
-    <button class="pl-btn active" onclick="switchPlFilter(this, 'today', '11/15- 11/15')">
+    <button class="pl-btn active" onclick="switchPlFilter(this, 'today')">
       <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
       <span>Hôm nay</span>
     </button>
-    <button class="pl-btn" onclick="switchPlFilter(this, 'yesterday', '11/14- 11/14')">
+    <button class="pl-btn" onclick="switchPlFilter(this, 'yesterday')">
       <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
       <span>Hôm qua</span>
     </button>
-    <button class="pl-btn" onclick="switchPlFilter(this, 'week', '11/09- 11/15')">
+    <button class="pl-btn" onclick="switchPlFilter(this, 'week')">
       <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
       <span>Một tuần</span>
     </button>
-    <div class="pl-date-btn" onclick="togglePlViewMode()">
+    <div class="pl-date-btn">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       <span id="pl-date-range-txt">11/15- 11/15</span>
     </div>
   </div>
 
-  <!-- TRẠNG THÁI 1: CÓ DỮ LIỆU CHI TIẾT (NHƯ ẢNH 2) -->
-  <div id="pl-data-view" class="pl-cards-wrap">
-    <!-- Thẻ 1: TẤT CẢ -->
-    <div class="pl-card">
-      <div class="pl-card-top">
-        <div class="pl-cat-left">
-          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
-          </div>
-          <span class="pl-cat-name">TẤT CẢ</span>
-        </div>
-        <div class="pl-total-right">
-          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
-          <span class="pl-total-val neg">-196.58</span>
-        </div>
-      </div>
-      <div class="pl-metrics-grid">
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Nạp Tiền</span>
-          <span class="pl-m-val">200.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Khuyến mãi</span>
-          <span class="pl-m-val">4.09</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Thu Nhập</span>
-          <span class="pl-m-val">2,110.92</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Rút Tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Chi ra</span>
-          <span class="pl-m-val">2,307.50</span>
-        </div>
-      </div>
-    </div>
+  <!-- Khối danh sách thẻ báo cáo (Chỉ hiện khi thực sự có chơi game hoặc nạp/rút) -->
+  <div id="pl-data-view" class="pl-cards-wrap"></div>
 
-    <!-- Thẻ 2: Casino -->
-    <div class="pl-card">
-      <div class="pl-card-top">
-        <div class="pl-cat-left">
-          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #fb923c, #ea580c);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5" stroke-dasharray="3 2"></circle></svg>
-          </div>
-          <span class="pl-cat-name">Casino</span>
-        </div>
-        <div class="pl-total-right">
-          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
-          <span class="pl-total-val">0.00</span>
-        </div>
-      </div>
-      <div class="pl-metrics-grid">
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Đặt cược</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Cược hợp lệ</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Trao thưởng</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell"></div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Khuyến mãi</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Thẻ 3: Nổ hũ -->
-    <div class="pl-card">
-      <div class="pl-card-top">
-        <div class="pl-cat-left">
-          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #818cf8, #6366f1);">
-            <span style="color:#fff;font-size:11px;font-weight:900;letter-spacing:-0.5px;">777</span>
-          </div>
-          <span class="pl-cat-name">Nổ hũ</span>
-        </div>
-        <div class="pl-total-right">
-          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
-          <span class="pl-total-val neg">-107.30</span>
-        </div>
-      </div>
-      <div class="pl-metrics-grid">
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Đặt cược</span>
-          <span class="pl-m-val">1,106.50</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Cược hợp lệ</span>
-          <span class="pl-m-val">1,106.50</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Trao thưởng</span>
-          <span class="pl-m-val">999.20</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell"></div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Khuyến mãi</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Thẻ 4: Bắn cá -->
-    <div class="pl-card">
-      <div class="pl-card-top">
-        <div class="pl-cat-left">
-          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8c-1.5 0-2.9.4-4.1 1.1L4 3v6l3.9-2.1C9.1 6.3 10.5 6 12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8z"/></svg>
-          </div>
-          <span class="pl-cat-name">Bắn cá</span>
-        </div>
-        <div class="pl-total-right">
-          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
-          <span class="pl-total-val">0.00</span>
-        </div>
-      </div>
-      <div class="pl-metrics-grid">
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Đặt cược</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Cược hợp lệ</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Trao thưởng</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell"></div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Khuyến mãi</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Thẻ 5: Game bài -->
-    <div class="pl-card">
-      <div class="pl-card-top">
-        <div class="pl-cat-left">
-          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #f472b6, #db2777);">
-            <span style="color:#fff;font-size:15px;">♠</span>
-          </div>
-          <span class="pl-cat-name">Game bài</span>
-        </div>
-        <div class="pl-total-right">
-          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
-          <span class="pl-total-val neg">-89.28</span>
-        </div>
-      </div>
-      <div class="pl-metrics-grid">
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Đặt cược</span>
-          <span class="pl-m-val">1,201.00</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Cược hợp lệ</span>
-          <span class="pl-m-val">1,201.00</span>
-        </div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Trao thưởng</span>
-          <span class="pl-m-val">1,111.72</span>
-        </div>
-        <div class="pl-metric-cell">
-          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-        <div class="pl-metric-cell"></div>
-        <div class="pl-metric-cell right">
-          <span class="pl-m-lbl">Khuyến mãi</span>
-          <span class="pl-m-val">0.00</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TRẠNG THÁI 2: CHƯA CÓ DỮ LIỆU (NHƯ ẢNH 1) -->
+  <!-- Khối trạng thái trống (Mặc định hiện khi chưa chơi gì) -->
   <div id="pl-empty-view" class="pl-empty-wrap">
     <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
       <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
@@ -7039,7 +6706,6 @@ async function handleRealLogin(e) {
     <div class="pl-empty-text">Chưa có dữ liệu</div>
   </div>
 
-  <!-- Thanh nhắc nhở GMT + 8 cố định dưới đáy -->
   <div class="pl-gmt-footer">
     <span class="pl-gmt-icon">!</span>
     <span class="pl-gmt-text">Nhắc nhở: Dữ liệu trên được dựa trên GMT + 8</span>
@@ -7047,39 +6713,362 @@ async function handleRealLogin(e) {
 </div>
 
 <script>
-  function switchPlFilter(btnEl, period, dateStr) {
-    const buttons = document.querySelectorAll('#overlay-profit-loss .pl-btn');
-    buttons.forEach(b => b.classList.remove('active'));
+  // =========================================================================
+  // HỆ THỐNG TỰ ĐỘNG GHI NHẬN LỊCH SỬ CHƠI GAME & NẠP RÚT THỰC TẾ THEO TÀI KHOẢN
+  // =========================================================================
+  let currentBhCategory = 'Casino';
+  let currentPlPeriod = 'today';
+  let activeGameCategory = 'Nổ hũ';
+  let activeGameName = 'Quyết Chiến Tiền Thưởng';
+  let lastTrackedBalance = null;
+
+  function getActiveUsername() {
+    const nameEl = document.querySelector('.sync-user-name');
+    if (nameEl && nameEl.textContent.trim()) return nameEl.textContent.trim();
+    try {
+      const saved = JSON.parse(localStorage.getItem('qq88_saved_account') || localStorage.getItem('currentUser') || 'null');
+      if (saved && (saved.username || saved.name)) return saved.username || saved.name;
+    } catch (e) {}
+    return 'guest';
+  }
+
+  function getDateKey(offsetDays = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() - offsetDays);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}-${mm}-${dd}`;
+  }
+
+  function getShortDate(offsetDays = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() - offsetDays);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${mm}/${dd}`;
+  }
+
+  function getUserLogs() {
+    const key = 'qq88_real_logs_' + getActiveUsername();
+    try {
+      return JSON.parse(localStorage.getItem(key) || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveUserLogs(logs) {
+    const key = 'qq88_real_logs_' + getActiveUsername();
+    localStorage.setItem(key, JSON.stringify(logs));
+  }
+
+  // Hàm ghi nhận khi người chơi thực sự đặt cược / thắng game / nạp / rút
+  window.recordGameActivity = function(entry) {
+    const logs = getUserLogs();
+    const now = new Date();
+    const timeStr = `${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+    logs.unshift({
+      id: 'BET' + Date.now() + Math.floor(Math.random() * 1000),
+      date: getDateKey(0),
+      time: timeStr,
+      type: entry.type || 'bet', // 'bet', 'deposit', 'withdraw', 'promo'
+      category: entry.category || activeGameCategory || 'Nổ hũ',
+      gameName: entry.gameName || activeGameName || 'Nổ hũ PG',
+      bet: Number(entry.bet) || 0,
+      win: Number(entry.win) || 0,
+      amount: Number(entry.amount) || 0
+    });
+    saveUserLogs(logs.slice(0, 300));
+    renderBetHistoryView();
+    renderProfitLossView();
+  };
+
+  function formatMoney(num) {
+    return Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // 1. RENDER MÀN HÌNH LỊCH SỬ CƯỢC THEO SẢNH ĐANG CHỌN
+  function switchBetHistoryTab(tabEl, category) {
+    document.querySelectorAll('#overlay-bet-history .bh-tab-item').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    tabEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    currentBhCategory = category;
+    renderBetHistoryView();
+  }
+
+  function renderBetHistoryView() {
+    const todayStr = getShortDate(0);
+    const dateLbl = document.getElementById('bh-live-date');
+    if (dateLbl) dateLbl.textContent = `${todayStr} 00:00:00- ${todayStr} 23:59:59`;
+
+    const todayKey = getDateKey(0);
+    const logs = getUserLogs().filter(item => item.type === 'bet' && item.date === todayKey && item.category === currentBhCategory);
+
+    const listEl = document.getElementById('bh-bet-list');
+    const emptyEl = document.getElementById('bh-empty-zone');
+    if (!listEl || !emptyEl) return;
+
+    let totalBet = 0;
+    let totalWin = 0;
+
+    if (logs.length === 0) {
+      // Chưa chơi sảnh này -> Hiện màn hình trống Chưa có dữ liệu
+      listEl.style.display = 'none';
+      emptyEl.style.display = 'flex';
+    } else {
+      // Đã chơi sảnh này -> Hiện danh sách ván cược thật
+      emptyEl.style.display = 'none';
+      listEl.style.display = 'flex';
+      listEl.innerHTML = logs.map(item => {
+        totalBet += item.bet;
+        totalWin += item.win;
+        const net = item.win - item.bet;
+        const netColor = net >= 0 ? '#16a34a' : '#e11d48';
+        return `
+          <div class="bh-bet-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <strong style="font-size:14px;color:#0f172a;">${item.gameName}</strong>
+              <span style="font-size:11.5px;color:#94a3b8;">${item.time}</span>
+            </div>
+            <div style="font-size:11.5px;color:#64748b;margin-bottom:8px;">Mã đơn: ${item.id}</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px dashed #e2e8f0;padding-top:8px;">
+              <span>Tiền cược: <strong>${formatMoney(item.bet)}</strong></span>
+              <span>Thắng/Thua: <strong style="color:${netColor};">${net >= 0 ? '+' : ''}${formatMoney(net)}</strong></span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const netTotal = totalWin - totalBet;
+    document.getElementById('bh-sum-bet').textContent = formatMoney(totalBet);
+    document.getElementById('bh-sum-valid').textContent = formatMoney(totalBet);
+    document.getElementById('bh-sum-win').textContent = formatMoney(totalWin);
+    const netEl = document.getElementById('bh-sum-net');
+    netEl.textContent = formatMoney(netTotal);
+    netEl.classList.toggle('neg', netTotal < 0);
+  }
+
+  // 2. RENDER MÀN HÌNH BÁO CÁO CÁ NHÂN (LỊCH SỬ LÃI LỖ)
+  function switchPlFilter(btnEl, period) {
+    document.querySelectorAll('#overlay-profit-loss .pl-btn').forEach(b => b.classList.remove('active'));
     btnEl.classList.add('active');
+    currentPlPeriod = period;
+    renderProfitLossView();
+  }
 
+  function renderProfitLossView() {
     const dateSpan = document.getElementById('pl-date-range-txt');
-    if (dateSpan && dateStr) dateSpan.textContent = dateStr;
+    const todayKey = getDateKey(0);
+    const yesterdayKey = getDateKey(1);
+
+    if (dateSpan) {
+      if (currentPlPeriod === 'today') dateSpan.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
+      else if (currentPlPeriod === 'yesterday') dateSpan.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
+      else dateSpan.textContent = `${getShortDate(6)}- ${getShortDate(0)}`;
+    }
+
+    const allLogs = getUserLogs().filter(item => {
+      if (currentPlPeriod === 'today') return item.date === todayKey;
+      if (currentPlPeriod === 'yesterday') return item.date === yesterdayKey;
+      return true; // Một tuần
+    });
 
     const dataView = document.getElementById('pl-data-view');
     const emptyView = document.getElementById('pl-empty-view');
+    if (!dataView || !emptyView) return;
 
-    // Hôm qua -> hiện trạng thái trống (Ảnh 1); Hôm nay / Một tuần -> hiện chi tiết (Ảnh 2)
-    if (period === 'yesterday') {
+    // NẾU CHƯA CHƠI GAME GÌ TRONG KHOẢNG THỜI GIAN NÀY -> HIỆN MÀN HÌNH TRỐNG "CHƯA CÓ DỮ LIỆU"
+    if (allLogs.length === 0) {
       dataView.style.display = 'none';
       emptyView.style.display = 'flex';
-    } else {
-      dataView.style.display = 'flex';
-      emptyView.style.display = 'none';
+      return;
     }
+
+    // NẾU ĐÃ CHƠI GAME -> TÍNH TOÁN SỐ THẬT VÀ HIỆN THẺ BÁO CÁO NHƯ ẢNH 2
+    emptyView.style.display = 'none';
+    dataView.style.display = 'flex';
+
+    let depTotal = 0, witTotal = 0, promoTotal = 0, incomeTotal = 0, outTotal = 0;
+    const catDefs = [
+      { name: 'Casino', bg: 'linear-gradient(135deg, #fb923c, #ea580c)', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5" stroke-dasharray="3 2"></circle></svg>' },
+      { name: 'Nổ hũ', bg: 'linear-gradient(135deg, #818cf8, #6366f1)', icon: '<span style="color:#fff;font-size:11px;font-weight:900;letter-spacing:-0.5px;">777</span>' },
+      { name: 'Bắn cá', bg: 'linear-gradient(135deg, #38bdf8, #0284c7)', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8c-1.5 0-2.9.4-4.1 1.1L4 3v6l3.9-2.1C9.1 6.3 10.5 6 12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8z"/></svg>' },
+      { name: 'Game bài', bg: 'linear-gradient(135deg, #f472b6, #db2777)', icon: '<span style="color:#fff;font-size:15px;">♠</span>' },
+      { name: 'Thể thao', bg: 'linear-gradient(135deg, #34d399, #059669)', icon: '<span style="color:#fff;font-size:14px;">⚽</span>' }
+    ];
+
+    const catStats = {};
+    catDefs.forEach(c => { catStats[c.name] = { bet: 0, win: 0 }; });
+
+    allLogs.forEach(item => {
+      if (item.type === 'deposit') depTotal += item.amount;
+      else if (item.type === 'withdraw') witTotal += item.amount;
+      else if (item.type === 'promo') promoTotal += item.amount;
+      else if (item.type === 'bet') {
+        const cat = catStats[item.category] ? item.category : 'Nổ hũ';
+        catStats[cat].bet += item.bet;
+        catStats[cat].win += item.win;
+        incomeTotal += item.win;
+        outTotal += item.bet;
+      }
+    });
+
+    const overallNet = incomeTotal - outTotal;
+    const overallClass = overallNet < 0 ? 'neg' : (overallNet > 0 ? 'pos' : '');
+
+    let html = `
+      <div class="pl-card">
+        <div class="pl-card-top">
+          <div class="pl-cat-left">
+            <div class="pl-cat-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+            </div>
+            <span class="pl-cat-name">TẤT CẢ</span>
+          </div>
+          <div class="pl-total-right">
+            <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+            <span class="pl-total-val ${overallClass}">${formatMoney(overallNet)}</span>
+          </div>
+        </div>
+        <div class="pl-metrics-grid">
+          <div class="pl-metric-cell"><span class="pl-m-lbl">Nạp Tiền</span><span class="pl-m-val">${formatMoney(depTotal)}</span></div>
+          <div class="pl-metric-cell"><span class="pl-m-lbl">Khuyến mãi</span><span class="pl-m-val">${formatMoney(promoTotal)}</span></div>
+          <div class="pl-metric-cell right"><span class="pl-m-lbl">Thu Nhập</span><span class="pl-m-val">${formatMoney(incomeTotal)}</span></div>
+          <div class="pl-metric-cell"><span class="pl-m-lbl">Rút Tiền</span><span class="pl-m-val">${formatMoney(witTotal)}</span></div>
+          <div class="pl-metric-cell"><span class="pl-m-lbl">Người chơi hoàn tiền</span><span class="pl-m-val">0.00</span></div>
+          <div class="pl-metric-cell right"><span class="pl-m-lbl">Chi ra</span><span class="pl-m-val">${formatMoney(outTotal)}</span></div>
+        </div>
+      </div>
+    `;
+
+    catDefs.forEach(c => {
+      const st = catStats[c.name];
+      const net = st.win - st.bet;
+      const netCls = net < 0 ? 'neg' : (net > 0 ? 'pos' : '');
+      html += `
+        <div class="pl-card">
+          <div class="pl-card-top">
+            <div class="pl-cat-left">
+              <div class="pl-cat-icon" style="background: ${c.bg};">${c.icon}</div>
+              <span class="pl-cat-name">${c.name}</span>
+            </div>
+            <div class="pl-total-right">
+              <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+              <span class="pl-total-val ${netCls}">${formatMoney(net)}</span>
+            </div>
+          </div>
+          <div class="pl-metrics-grid">
+            <div class="pl-metric-cell"><span class="pl-m-lbl">Đặt cược</span><span class="pl-m-val">${formatMoney(st.bet)}</span></div>
+            <div class="pl-metric-cell"><span class="pl-m-lbl">Cược hợp lệ</span><span class="pl-m-val">${formatMoney(st.bet)}</span></div>
+            <div class="pl-metric-cell right"><span class="pl-m-lbl">Trao thưởng</span><span class="pl-m-val">${formatMoney(st.win)}</span></div>
+            <div class="pl-metric-cell"><span class="pl-m-lbl">Người chơi hoàn tiền</span><span class="pl-m-val">0.00</span></div>
+            <div class="pl-metric-cell"></div>
+            <div class="pl-metric-cell right"><span class="pl-m-lbl">Khuyến mãi</span><span class="pl-m-val">0.00</span></div>
+          </div>
+        </div>
+      `;
+    });
+
+    dataView.innerHTML = html;
   }
 
-  // Bấm vào ô lịch cũng cho phép bật/tắt nhanh giữa màn hình Có dữ liệu và Trống để tiện test
-  function togglePlViewMode() {
-    const dataView = document.getElementById('pl-data-view');
-    const emptyView = document.getElementById('pl-empty-view');
-    if (dataView.style.display === 'none') {
-      dataView.style.display = 'flex';
-      emptyView.style.display = 'none';
-    } else {
-      dataView.style.display = 'none';
-      emptyView.style.display = 'flex';
-    }
+  // 3. TỰ ĐỘNG BẮT SỰ KIỆN KHI NGƯỜI DÙNG CHƠI GAME (IFRAME / POSTMESSAGE / BIẾN ĐỘNG SỐ DƯ)
+  function parseBalanceNumber(str) {
+    if (!str) return null;
+    const cleaned = String(str).replace(/K/ig, '').replace(/,/g, '').trim();
+    const val = parseFloat(cleaned);
+    return isNaN(val) ? null : val;
   }
+
+  // Nhận diện sảnh game khi người chơi bấm vào bất kỳ game nào trên trang chủ
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('[onclick], .game-item, .game-card, .lobby-item, a, button');
+    if (!target) return;
+    const txt = (target.textContent || target.getAttribute('onclick') || '').toLowerCase();
+    if (txt.includes('casino') || txt.includes('baccarat') || txt.includes('xóc đĩa') || txt.includes('tài xỉu live')) {
+      activeGameCategory = 'Casino';
+    } else if (txt.includes('bắn cá') || txt.includes('ban ca')) {
+      activeGameCategory = 'Bắn cá';
+    } else if (txt.includes('thể thao') || txt.includes('the thao') || txt.includes('saba')) {
+      activeGameCategory = 'Thể thao';
+    } else if (txt.includes('game bài') || txt.includes('tiến lên') || txt.includes('mậu binh')) {
+      activeGameCategory = 'Game bài';
+    } else if (txt.includes('xổ số') || txt.includes('xo so')) {
+      activeGameCategory = 'Xổ số';
+    } else if (txt.includes('nổ hũ') || txt.includes('slot') || txt.includes('quyết chiến') || txt.includes('pg')) {
+      activeGameCategory = 'Nổ hũ';
+    }
+  }, true);
+
+  // Lắng nghe postMessage từ iframe game (ví dụ: game-slot.html)
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.type === 'BET_RESULT' || d.type === 'SPIN_RESULT' || d.action === 'bet' || (d.bet !== undefined && d.win !== undefined)) {
+      window.recordGameActivity({
+        type: 'bet',
+        category: d.category || activeGameCategory || 'Nổ hũ',
+        gameName: d.gameName || activeGameName || 'Quyết Chiến Tiền Thưởng',
+        bet: Number(d.bet) || 0,
+        win: Number(d.win) || 0
+      });
+    }
+  });
+
+  // Tự động theo dõi biến động số dư khi đang mở game (ví dụ quay hũ trừ tiền cược / cộng tiền thắng)
+  setInterval(() => {
+    const balEl = document.querySelector('.sync-user-balance');
+    if (!balEl) return;
+    const curBal = parseBalanceNumber(balEl.textContent);
+    if (curBal === null) return;
+
+    if (lastTrackedBalance === null) {
+      lastTrackedBalance = curBal;
+      return;
+    }
+
+    const diff = Number((curBal - lastTrackedBalance).toFixed(2));
+    if (Math.abs(diff) >= 0.01) {
+      // Kiểm tra xem có đang mở iframe game hay vừa thao tác cược không
+      const hasGameIframe = document.querySelector('iframe');
+      const isGameVisible = hasGameIframe && hasGameIframe.offsetParent !== null;
+      if (isGameVisible || document.activeElement?.tagName === 'IFRAME') {
+        if (diff < 0) {
+          window.recordGameActivity({
+            type: 'bet',
+            category: activeGameCategory,
+            gameName: activeGameName,
+            bet: Math.abs(diff),
+            win: 0
+          });
+        } else if (diff > 0) {
+          // Cộng tiền thưởng vào đơn cược vừa quay hoặc tạo đơn thắng mới
+          const logs = getUserLogs();
+          if (logs.length > 0 && logs[0].type === 'bet' && logs[0].date === getDateKey(0)) {
+            logs[0].win = Number((logs[0].win + diff).toFixed(2));
+            saveUserLogs(logs);
+            renderBetHistoryView();
+            renderProfitLossView();
+          } else {
+            window.recordGameActivity({
+              type: 'bet',
+              category: activeGameCategory,
+              gameName: activeGameName,
+              bet: 0,
+              win: diff
+            });
+          }
+        }
+      }
+      lastTrackedBalance = curBal;
+    }
+  }, 600);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    renderBetHistoryView();
+    renderProfitLossView();
+  });
 </script>
 
 <!-- ============================================== -->

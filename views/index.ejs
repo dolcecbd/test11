@@ -6643,36 +6643,444 @@ async function handleRealLogin(e) {
 </script>
 
 <!-- ============================================== -->
-<!-- 2. LỊCH SỬ LÃI LỖ (ICON SỐ 3)                  -->
 <!-- ============================================== -->
-<div id="overlay-profit-loss" class="premium-overlay" style="background:#fff;">
-  <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-profit-loss')" style="font-size: 20px; cursor: pointer;">❮</div>
-    <div class="premium-title">Lịch sử lãi lỗ</div>
+<!-- 2. LỊCH SỬ LÃI LỖ / BÁO CÁO CÁ NHÂN (ICON SỐ 3) -->
+<!-- ============================================== -->
+<style>
+  #overlay-profit-loss {
+    background: #f2f3f5 !important;
+  }
+  #overlay-profit-loss .pl-header {
+    background: #18191d;
+    height: 52px; min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-back {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; display: flex; align-items: center; cursor: pointer;
+  }
+  #overlay-profit-loss .pl-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; font-weight: 400; color: #ffffff;
+  }
+
+  /* Thanh 4 nút lọc thời gian */
+  #overlay-profit-loss .pl-filter-bar {
+    background: #ffffff;
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    position: sticky; top: 52px; z-index: 95; flex-shrink: 0;
+    overflow-x: auto;
+  }
+  #overlay-profit-loss .pl-filter-bar::-webkit-scrollbar { display: none; }
+  #overlay-profit-loss .pl-btn {
+    border: 1px solid #1592e6; border-radius: 4px;
+    background: #ffffff; color: #1592e6;
+    height: 32px; padding: 0 9px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px; font-weight: 400;
+    display: inline-flex; align-items: center; gap: 5px;
+    white-space: nowrap; cursor: pointer; flex-shrink: 0;
+    transition: all 0.15s ease;
+  }
+  #overlay-profit-loss .pl-btn .pl-check-icon {
+    display: none; width: 15px; height: 15px;
+  }
+  #overlay-profit-loss .pl-btn.active {
+    background: #1592e6; color: #ffffff;
+  }
+  #overlay-profit-loss .pl-btn.active .pl-check-icon {
+    display: inline-block;
+  }
+  #overlay-profit-loss .pl-date-btn {
+    margin-left: auto;
+    border: 1px solid #1592e6; border-radius: 4px;
+    background: #ffffff; color: #1592e6;
+    height: 32px; padding: 0 8px;
+    font-size: 12.5px; display: inline-flex; align-items: center; gap: 5px;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer;
+  }
+
+  /* Danh sách thẻ báo cáo (Ảnh 2) */
+  #overlay-profit-loss .pl-cards-wrap {
+    flex: 1; display: flex; flex-direction: column;
+    gap: 10px; padding: 10px 0 20px;
+  }
+  #overlay-profit-loss .pl-card {
+    background: #ffffff; padding: 14px 16px 16px;
+  }
+  #overlay-profit-loss .pl-card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  #overlay-profit-loss .pl-cat-left {
+    display: flex; align-items: center; gap: 10px;
+  }
+  #overlay-profit-loss .pl-cat-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-cat-name {
+    font-size: 16.5px; font-weight: 700; color: #111111;
+    font-family: 'Roboto', sans-serif;
+  }
+  #overlay-profit-loss .pl-total-right {
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  #overlay-profit-loss .pl-total-lbl {
+    font-size: 13px; color: #9ca3af; font-weight: 400;
+  }
+  #overlay-profit-loss .pl-total-val {
+    font-size: 18px; font-weight: 700; color: #374151;
+  }
+  #overlay-profit-loss .pl-total-val.neg {
+    color: #e11d48;
+  }
+  #overlay-profit-loss .pl-total-val.pos {
+    color: #16a34a;
+  }
+
+  /* Lưới 3 cột thông số bên trong mỗi thẻ */
+  #overlay-profit-loss .pl-metrics-grid {
+    display: grid; grid-template-columns: 1fr 1.15fr 0.85fr;
+    row-gap: 12px; column-gap: 8px;
+  }
+  #overlay-profit-loss .pl-metric-cell {
+    display: flex; flex-direction: column;
+  }
+  #overlay-profit-loss .pl-metric-cell.right {
+    text-align: right; align-items: flex-end;
+  }
+  #overlay-profit-loss .pl-m-lbl {
+    font-size: 13px; color: #9ca3af; font-weight: 400; margin-bottom: 3px;
+    white-space: nowrap;
+  }
+  #overlay-profit-loss .pl-m-val {
+    font-size: 15px; color: #111111; font-weight: 700;
+  }
+
+  /* Trạng thái trống (Ảnh 1) */
+  #overlay-profit-loss .pl-empty-wrap {
+    flex: 1; background: #ffffff;
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 50px 16px 80px; min-height: calc(100vh - 140px);
+  }
+  #overlay-profit-loss .pl-empty-text {
+    font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
+  }
+
+  /* Thanh Nhắc nhở GMT+8 dưới đáy */
+  #overlay-profit-loss .pl-gmt-footer {
+    position: sticky; bottom: 0; left: 0; right: 0;
+    background: #ffffff;
+    border-top: 1px solid #f87171;
+    padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    z-index: 98; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-gmt-icon {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #f97316; color: #ffffff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  #overlay-profit-loss .pl-gmt-text {
+    font-size: 12.5px; color: #ef4444; font-weight: 400;
+  }
+</style>
+
+<div id="overlay-profit-loss" class="premium-overlay">
+  <!-- Header Báo cáo cá nhân -->
+  <div class="pl-header">
+    <div class="pl-back" onclick="closeAccOverlay('overlay-profit-loss')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="pl-title">Báo cáo cá nhân</div>
   </div>
-  <div class="hist-filter-bar">
-    <div class="hist-f-btn">TẤT CẢ ▾</div>
-    <div class="hist-f-btn active">✓ Hôm nay</div>
-    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+
+  <!-- Thanh lọc: Hôm nay | Hôm qua | Một tuần | Ngày tháng -->
+  <div class="pl-filter-bar">
+    <button class="pl-btn active" onclick="switchPlFilter(this, 'today', '11/15- 11/15')">
+      <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
+      <span>Hôm nay</span>
+    </button>
+    <button class="pl-btn" onclick="switchPlFilter(this, 'yesterday', '11/14- 11/14')">
+      <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
+      <span>Hôm qua</span>
+    </button>
+    <button class="pl-btn" onclick="switchPlFilter(this, 'week', '11/09- 11/15')">
+      <svg class="pl-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
+      <span>Một tuần</span>
+    </button>
+    <div class="pl-date-btn" onclick="togglePlViewMode()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span id="pl-date-range-txt">11/15- 11/15</span>
+    </div>
   </div>
-  <div class="c3-summary-strip">
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Tổng tiền cược</div><div class="c3-sum-val">0.00</div></div>
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Cược hợp lệ</div><div class="c3-sum-val">0.00</div></div>
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Tổng lãi lỗ</div><div class="c3-sum-val" style="color:#ef4444;">0.00</div></div>
+
+  <!-- TRẠNG THÁI 1: CÓ DỮ LIỆU CHI TIẾT (NHƯ ẢNH 2) -->
+  <div id="pl-data-view" class="pl-cards-wrap">
+    <!-- Thẻ 1: TẤT CẢ -->
+    <div class="pl-card">
+      <div class="pl-card-top">
+        <div class="pl-cat-left">
+          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+          </div>
+          <span class="pl-cat-name">TẤT CẢ</span>
+        </div>
+        <div class="pl-total-right">
+          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+          <span class="pl-total-val neg">-196.58</span>
+        </div>
+      </div>
+      <div class="pl-metrics-grid">
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Nạp Tiền</span>
+          <span class="pl-m-val">200.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Khuyến mãi</span>
+          <span class="pl-m-val">4.09</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Thu Nhập</span>
+          <span class="pl-m-val">2,110.92</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Rút Tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Chi ra</span>
+          <span class="pl-m-val">2,307.50</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thẻ 2: Casino -->
+    <div class="pl-card">
+      <div class="pl-card-top">
+        <div class="pl-cat-left">
+          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #fb923c, #ea580c);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5" stroke-dasharray="3 2"></circle></svg>
+          </div>
+          <span class="pl-cat-name">Casino</span>
+        </div>
+        <div class="pl-total-right">
+          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+          <span class="pl-total-val">0.00</span>
+        </div>
+      </div>
+      <div class="pl-metrics-grid">
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Đặt cược</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Cược hợp lệ</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Trao thưởng</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell"></div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Khuyến mãi</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thẻ 3: Nổ hũ -->
+    <div class="pl-card">
+      <div class="pl-card-top">
+        <div class="pl-cat-left">
+          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #818cf8, #6366f1);">
+            <span style="color:#fff;font-size:11px;font-weight:900;letter-spacing:-0.5px;">777</span>
+          </div>
+          <span class="pl-cat-name">Nổ hũ</span>
+        </div>
+        <div class="pl-total-right">
+          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+          <span class="pl-total-val neg">-107.30</span>
+        </div>
+      </div>
+      <div class="pl-metrics-grid">
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Đặt cược</span>
+          <span class="pl-m-val">1,106.50</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Cược hợp lệ</span>
+          <span class="pl-m-val">1,106.50</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Trao thưởng</span>
+          <span class="pl-m-val">999.20</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell"></div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Khuyến mãi</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thẻ 4: Bắn cá -->
+    <div class="pl-card">
+      <div class="pl-card-top">
+        <div class="pl-cat-left">
+          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8c-1.5 0-2.9.4-4.1 1.1L4 3v6l3.9-2.1C9.1 6.3 10.5 6 12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8z"/></svg>
+          </div>
+          <span class="pl-cat-name">Bắn cá</span>
+        </div>
+        <div class="pl-total-right">
+          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+          <span class="pl-total-val">0.00</span>
+        </div>
+      </div>
+      <div class="pl-metrics-grid">
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Đặt cược</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Cược hợp lệ</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Trao thưởng</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell"></div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Khuyến mãi</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thẻ 5: Game bài -->
+    <div class="pl-card">
+      <div class="pl-card-top">
+        <div class="pl-cat-left">
+          <div class="pl-cat-icon" style="background: linear-gradient(135deg, #f472b6, #db2777);">
+            <span style="color:#fff;font-size:15px;">♠</span>
+          </div>
+          <span class="pl-cat-name">Game bài</span>
+        </div>
+        <div class="pl-total-right">
+          <span class="pl-total-lbl">Tổng lãi lỗ:</span>
+          <span class="pl-total-val neg">-89.28</span>
+        </div>
+      </div>
+      <div class="pl-metrics-grid">
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Đặt cược</span>
+          <span class="pl-m-val">1,201.00</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Cược hợp lệ</span>
+          <span class="pl-m-val">1,201.00</span>
+        </div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Trao thưởng</span>
+          <span class="pl-m-val">1,111.72</span>
+        </div>
+        <div class="pl-metric-cell">
+          <span class="pl-m-lbl">Người chơi hoàn tiền</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+        <div class="pl-metric-cell"></div>
+        <div class="pl-metric-cell right">
+          <span class="pl-m-lbl">Khuyến mãi</span>
+          <span class="pl-m-val">0.00</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="c3-empty-wrap">
-    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
-      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
-      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
-      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
-      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
-      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- TRẠNG THÁI 2: CHƯA CÓ DỮ LIỆU (NHƯ ẢNH 1) -->
+  <div id="pl-empty-view" class="pl-empty-wrap">
+    <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
+      <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
+      <circle cx="122" cy="52" r="2.5" fill="#1592e6"/>
+      <circle cx="63" cy="90" r="2.2" fill="#1592e6"/>
+      <path d="M90 30l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5zM62 76l1.8-4.5 4.5-1.8-4.5-1.8-1.8-4.5-1.8 4.5-4.5 1.8 4.5 1.8 1.8 4.5zM145 78l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5z" fill="#1592e6"/>
+      <path d="M93 102 C108 92, 118 76, 103 68 C92 62, 92 78, 104 80 C114 82, 122 72, 126 62" stroke="#1592e6" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+      <path d="M114 55 L135 45 L125 69 L120 59 Z" fill="#1592e6"/>
+      <path d="M114 55 L135 45 L120 59 Z" fill="#38bdf8"/>
+      <path d="M76 118 L84 96 L118 96 L126 118 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+      <path d="M76 118 L93 118 C93 125, 109 125, 109 118 L126 118 L126 136 C126 137.5, 124.5 139, 123 139 L79 139 C77.5 139, 76 137.5, 76 136 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
     </svg>
-    <div class="c3-empty-text">Chưa có dữ liệu</div>
+    <div class="pl-empty-text">Chưa có dữ liệu</div>
+  </div>
+
+  <!-- Thanh nhắc nhở GMT + 8 cố định dưới đáy -->
+  <div class="pl-gmt-footer">
+    <span class="pl-gmt-icon">!</span>
+    <span class="pl-gmt-text">Nhắc nhở: Dữ liệu trên được dựa trên GMT + 8</span>
   </div>
 </div>
+
+<script>
+  function switchPlFilter(btnEl, period, dateStr) {
+    const buttons = document.querySelectorAll('#overlay-profit-loss .pl-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+
+    const dateSpan = document.getElementById('pl-date-range-txt');
+    if (dateSpan && dateStr) dateSpan.textContent = dateStr;
+
+    const dataView = document.getElementById('pl-data-view');
+    const emptyView = document.getElementById('pl-empty-view');
+
+    // Hôm qua -> hiện trạng thái trống (Ảnh 1); Hôm nay / Một tuần -> hiện chi tiết (Ảnh 2)
+    if (period === 'yesterday') {
+      dataView.style.display = 'none';
+      emptyView.style.display = 'flex';
+    } else {
+      dataView.style.display = 'flex';
+      emptyView.style.display = 'none';
+    }
+  }
+
+  // Bấm vào ô lịch cũng cho phép bật/tắt nhanh giữa màn hình Có dữ liệu và Trống để tiện test
+  function togglePlViewMode() {
+    const dataView = document.getElementById('pl-data-view');
+    const emptyView = document.getElementById('pl-empty-view');
+    if (dataView.style.display === 'none') {
+      dataView.style.display = 'flex';
+      emptyView.style.display = 'none';
+    } else {
+      dataView.style.display = 'none';
+      emptyView.style.display = 'flex';
+    }
+  }
+</script>
 
 <!-- ============================================== -->
 <!-- 3. LỊCH SỬ NẠP TIỀN (ICON SỐ 4)                -->

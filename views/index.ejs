@@ -5286,7 +5286,7 @@ async function handleRealLogin(e) {
       <path d="M4 40L10 14L22 26L32 8L42 26L54 14L60 40H4ZM8 44H56V48H8V44Z"/>
     </svg>
     <div class="rw-user-row">
-      <img class="rw-avatar sync-user-avatar" src="/images/avatar_default.png" onerror="this.onerror=null;this.src='/images/avatar_default.png.png'" alt="Avatar">
+      <img class="rw-avatar sync-user-avatar" src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/avatar.png.png'" alt="Avatar">
       <div class="rw-u-info">
         <div class="rw-u-name">
           <span class="sync-user-name">admin</span>
@@ -5342,7 +5342,7 @@ async function handleRealLogin(e) {
   
   <div class="rw-wave-header">
     <div class="rw-wave-user">
-      <img class="avt sync-user-avatar" src="/images/avatar_default.png" onerror="this.onerror=null;this.src='/images/avatar_default.png.png'" alt="Avatar">
+      <img class="avt sync-user-avatar" src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/avatar.png.png'" alt="Avatar">
       <div class="info">
         <h3 class="sync-user-name">admin</h3>
         <h2 class="sync-user-balance">0K</h2>
@@ -5449,7 +5449,7 @@ async function handleRealLogin(e) {
 
   <div class="att-header-zone">
     <div class="att-user-row">
-      <img class="sync-user-avatar" src="/images/avatar_default.png" onerror="this.onerror=null;this.src='/images/avatar_default.png.png'" alt="Avatar">
+      <img class="sync-user-avatar" src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/avatar.png.png'" alt="Avatar">
       <div>
         <h4 class="sync-user-name">admin</h4>
         <div class="bal sync-user-balance">0K</div>
@@ -5551,16 +5551,15 @@ async function handleRealLogin(e) {
 </div>
 
 <script>
-  // HÀM TỰ ĐỘNG HÚT SỐ DƯ, TÊN TÀI KHOẢN & AVATAR THẬT TỪ TRANG CHÍNH SANG MỌI OVERLAY
+  // HÀM TỰ ĐỘNG HÚT SỐ DƯ & TÊN TÀI KHOẢN THẬT (CỐ ĐỊNH AVATAR TỪ /images/avatar.png)
   function syncLiveAccountData() {
     let liveBalance = null;
     let liveName = null;
-    let liveAvatar = null;
+    const FIXED_AVATAR = '/images/avatar.png';
 
-    // 1. Quét lấy Số tiền, Tên, Avatar đang hiển thị trên thẻ Tài khoản ngoài trang chủ
     const isInsideOverlay = (el) => el.closest('.acc-fs-overlay, .premium-overlay, #modal-reward-tasks');
 
-    // Tìm theo các ID phổ biến trên trang chính
+    // 1. Quét theo các ID số dư và tên user trên trang chính
     const balSelectors = ['#acc-balance', '#user-balance', '#main-balance', '#wallet-balance', '.acc-balance', '.user-balance'];
     for (const sel of balSelectors) {
       const el = document.querySelector(sel);
@@ -5579,32 +5578,25 @@ async function handleRealLogin(e) {
       }
     }
 
-    // Quét trực tiếp từ Thẻ Vàng ở trang Tài khoản (chỗ có chữ "Đã tham gia" hoặc nút "Nạp Tiền")
+    // 2. Quét trực tiếp số tiền (đuôi K) và tên nick trên thẻ tài khoản ngoài trang chủ
     const allElements = document.querySelectorAll('div, span, strong, b, h2, h3, h4, p');
     for (const el of allElements) {
       if (isInsideOverlay(el)) continue;
       const txt = el.textContent.trim();
 
-      // Bắt chính xác số tiền có đuôi K (ví dụ: 9999999K, 49K, 49.50K) trên thẻ chính
       if (!liveBalance && el.children.length === 0 && /^[0-9.,]+\s*K$/i.test(txt)) {
         liveBalance = txt;
       }
 
-      // Bắt tên tài khoản và avatar nằm ngay cạnh dòng "Đã tham gia"
       if (el.children.length === 0 && txt.includes('Đã tham gia')) {
         const prev = el.previousElementSibling;
         if (!liveName && prev && prev.textContent.trim()) {
           liveName = prev.textContent.trim();
         }
-        const card = el.closest('div')?.parentElement?.parentElement;
-        if (card) {
-          const img = card.querySelector('img');
-          if (img && img.src) liveAvatar = img.src;
-        }
       }
     }
 
-    // 2. Dự phòng lấy từ LocalStorage / biến toàn cục nếu chưa mở tab Tài khoản
+    // 3. Dự phòng lấy từ LocalStorage qq88_saved_account
     try {
       const saved = JSON.parse(localStorage.getItem('qq88_saved_account') || localStorage.getItem('currentUser') || 'null');
       if (saved) {
@@ -5613,34 +5605,36 @@ async function handleRealLogin(e) {
           const num = Number(saved.balance);
           liveBalance = isNaN(num) ? String(saved.balance) : (String(saved.balance).toUpperCase().includes('K') ? saved.balance : num + 'K');
         }
-        if (!liveAvatar && saved.avatar) liveAvatar = saved.avatar;
       }
     } catch (e) {}
 
-    // Chuẩn hóa đuôi K cho số tiền
     if (liveBalance && !/K$/i.test(liveBalance)) {
       liveBalance = liveBalance + 'K';
     }
 
-    // 3. Đắp dữ liệu thật vào toàn bộ các màn hình con (Phần thưởng, Voucher, Điểm danh, Thông tin...)
+    // 4. Đắp Số tiền, Tên nick và Avatar /images/avatar.png vào mọi màn hình con
     if (liveBalance) {
-      document.querySelectorAll('.sync-user-balance').forEach(el => {
+      document.querySelectorAll('.sync-user-balance, .rw-balance, .rw-wave-user .info h2, .att-user-row .bal').forEach(el => {
         el.textContent = liveBalance;
       });
     }
     if (liveName) {
-      document.querySelectorAll('.sync-user-name').forEach(el => {
+      document.querySelectorAll('.sync-user-name, .rw-wave-user .info h3, .att-user-row h4').forEach(el => {
         el.textContent = liveName;
       });
     }
-    if (liveAvatar) {
-      document.querySelectorAll('img.sync-user-avatar').forEach(img => {
-        img.src = liveAvatar;
-      });
-    }
+    document.querySelectorAll('img.sync-user-avatar, .rw-avatar, .rw-wave-user .avt, .att-user-row img').forEach(img => {
+      if (!img.getAttribute('data-fixed-avt')) {
+        img.setAttribute('data-fixed-avt', '1');
+        img.onerror = function() {
+          this.onerror = null;
+          this.src = FIXED_AVATAR + '.png';
+        };
+        img.src = FIXED_AVATAR;
+      }
+    });
   }
 
-  // Hiệu ứng xoay nút làm mới số dư
   function refreshOverlayBalance(btn) {
     btn.classList.add('spinning');
     syncLiveAccountData();
@@ -5654,7 +5648,6 @@ async function handleRealLogin(e) {
     }, 450);
   }
 
-  // Mở Overlay và tự động đồng bộ tiền/nick ngay lập tức
   function openAccOverlay(id) {
     const userZone = document.getElementById('user-zone');
     const isLogged = !userZone || userZone.style.display !== 'none';
@@ -5685,7 +5678,6 @@ async function handleRealLogin(e) {
     document.getElementById('modal-reward-tasks').style.display = 'none';
   }
 
-  // Tự động theo dõi khi số tiền ngoài trang chính thay đổi thì cập nhật luôn vào các trang con
   window.addEventListener('DOMContentLoaded', () => {
     syncLiveAccountData();
     setInterval(syncLiveAccountData, 1500);

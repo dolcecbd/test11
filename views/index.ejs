@@ -6431,36 +6431,216 @@ async function handleRealLogin(e) {
 </style>
 
 <!-- ============================================== -->
-<!-- 1. LỊCH SỬ CƯỢC (ICON SỐ 2)                    -->
 <!-- ============================================== -->
+<!-- 1. LỊCH SỬ CƯỢC (ICON SỐ 2 - CHUẨN 1:1 WEB REAL) -->
+<!-- ============================================== -->
+<style>
+  #overlay-bet-history .bh-header {
+    background: #18191d;
+    height: 54px; min-height: 54px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 10px 0 14px;
+    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+  }
+  #overlay-bet-history .bh-back {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: flex-start;
+    cursor: pointer; flex-shrink: 0;
+  }
+  #overlay-bet-history .bh-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; font-weight: 400; color: #ffffff;
+    text-align: center; flex: 1; padding-left: 18px;
+  }
+  #overlay-bet-history .bh-exclude-btn {
+    background: #1592e6; color: #ffffff;
+    border: none; border-radius: 20px;
+    padding: 5px 12px; font-size: 11.5px; font-weight: 400;
+    line-height: 1.25; text-align: center;
+    max-width: 152px; cursor: pointer; flex-shrink: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Thanh 7 Tab ngang cuộn mượt */
+  #overlay-bet-history .bh-tabs-bar {
+    background: #ffffff;
+    display: flex; align-items: center;
+    overflow-x: auto; white-space: nowrap;
+    border-bottom: 1px solid #ececec;
+    position: sticky; top: 54px; z-index: 99;
+    flex-shrink: 0; height: 48px; min-height: 48px;
+    scroll-behavior: smooth;
+  }
+  #overlay-bet-history .bh-tabs-bar::-webkit-scrollbar { display: none; }
+  #overlay-bet-history .bh-tab-item {
+    padding: 0 16px; height: 100%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; font-weight: 400; color: #111111;
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer; flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  #overlay-bet-history .bh-tab-item.active {
+    color: #1592e6;
+    border-bottom-color: #1592e6;
+  }
+
+  /* Thanh Filter ngày giờ + Tất cả + Kính lúp */
+  #overlay-bet-history .bh-filter-row {
+    background: #ffffff;
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 10px; flex-shrink: 0;
+  }
+  #overlay-bet-history .bh-date-box {
+    border: 1px solid #1592e6; border-radius: 4px;
+    padding: 6px 8px; color: #1592e6;
+    font-size: 12.5px; font-weight: 400;
+    display: flex; align-items: center; gap: 6px;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer;
+  }
+  #overlay-bet-history .bh-select-box {
+    border: 1px solid #1592e6; border-radius: 4px;
+    padding: 6px 7px; color: #1592e6;
+    font-size: 12.5px; font-weight: 400;
+    display: flex; align-items: center; gap: 4px;
+    white-space: nowrap; overflow: hidden; cursor: pointer;
+  }
+  #overlay-bet-history .bh-select-box.short {
+    max-width: 68px;
+  }
+  #overlay-bet-history .bh-search-btn {
+    margin-left: auto; width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    color: #1592e6; cursor: pointer; flex-shrink: 0;
+  }
+
+  /* Khung rỗng ở giữa */
+  #overlay-bet-history .bh-empty-zone {
+    flex: 1; background: #ffffff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 16px 60px;
+  }
+  #overlay-bet-history .bh-empty-label {
+    font-size: 20px; color: #1592e6; font-weight: 400;
+    margin-top: 14px; font-family: 'Roboto', sans-serif;
+  }
+
+  /* Footer 4 mục tổng kết dưới đáy */
+  #overlay-bet-history .bh-footer-summary {
+    background: #efefef;
+    padding: 10px 28px 14px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    column-gap: 24px; row-gap: 6px;
+    border-top: 1px solid #e2e2e2;
+    position: sticky; bottom: 0; z-index: 90; flex-shrink: 0;
+  }
+  #overlay-bet-history .bh-sum-item {
+    display: flex; flex-direction: column; line-height: 1.3;
+  }
+  #overlay-bet-history .bh-sum-lbl {
+    font-size: 13px; color: #1f1f1f; font-weight: 400;
+  }
+  #overlay-bet-history .bh-sum-val {
+    font-size: 13px; color: #4caf50; font-weight: 500;
+  }
+</style>
+
 <div id="overlay-bet-history" class="premium-overlay" style="background:#fff;">
-  <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-bet-history')" style="font-size: 20px; cursor: pointer;">❮</div>
-    <div class="premium-title">Lịch sử cược</div>
+  <!-- Header có nút Danh sách doanh thu bị loại trừ -->
+  <div class="bh-header">
+    <div class="bh-back" onclick="closeAccOverlay('overlay-bet-history')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="bh-title">Lịch sử cược</div>
+    <button class="bh-exclude-btn" onclick="showToast('Danh sách doanh thu bị loại trừ')">Danh sách doanh thu bị<br>loại trừ</button>
   </div>
-  <div class="hist-filter-bar">
-    <div class="hist-f-btn">TẤT CẢ ▾</div>
-    <div class="hist-f-btn active">✓ Hôm nay</div>
-    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+
+  <!-- Thanh 7 Tab ngang kéo mượt như web real -->
+  <div class="bh-tabs-bar" id="bh-tabs-bar">
+    <div class="bh-tab-item active" onclick="switchBetHistoryTab(this, 0)">Casino</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 1)">Nổ hũ</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 2)">Bắn cá</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 3)">Thể thao</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 4)">Game bài</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 5)">Xổ số</div>
+    <div class="bh-tab-item" onclick="switchBetHistoryTab(this, 6)">Xổ số Việt Nam</div>
   </div>
-  <div class="c3-summary-strip">
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Số đơn cược</div><div class="c3-sum-val">0</div></div>
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Tiền cược hợp lệ</div><div class="c3-sum-val">0.00</div></div>
-    <div class="c3-sum-box"><div class="c3-sum-lbl">Thắng / Thua</div><div class="c3-sum-val" style="color:#22c55e;">0.00</div></div>
+
+  <!-- Thanh bộ lọc ngày giờ + Tất cả + Icon tìm kiếm -->
+  <div class="bh-filter-row">
+    <div class="bh-date-box" onclick="showToast('Chọn khoảng thời gian')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>11/15 00:00:00- 11/15 23:59:59</span>
+    </div>
+    <div class="bh-select-box" onclick="showToast('Chọn sảnh game')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <span>TẤT CẢ</span>
+    </div>
+    <div class="bh-select-box short" onclick="showToast('Chọn trạng thái cược')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <span>TẤT C</span>
+    </div>
+    <div class="bh-search-btn" onclick="refreshBetHistoryEmpty()">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1592e6" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.35" y2="16.35"></line></svg>
+    </div>
   </div>
-  <div class="c3-empty-wrap">
-    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
-      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
-      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
-      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
-      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
-      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Nội dung chính (Trạng thái rỗng chuẩn SVG máy bay giấy) -->
+  <div class="bh-empty-zone" id="bh-empty-zone">
+    <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
+      <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
+      <circle cx="122" cy="52" r="2.5" fill="#1592e6"/>
+      <circle cx="63" cy="90" r="2.2" fill="#1592e6"/>
+      <path d="M90 30l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5zM62 76l1.8-4.5 4.5-1.8-4.5-1.8-1.8-4.5-1.8 4.5-4.5 1.8 4.5 1.8 1.8 4.5zM145 78l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5z" fill="#1592e6"/>
+      <path d="M93 102 C108 92, 118 76, 103 68 C92 62, 92 78, 104 80 C114 82, 122 72, 126 62" stroke="#1592e6" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+      <path d="M114 55 L135 45 L125 69 L120 59 Z" fill="#1592e6"/>
+      <path d="M114 55 L135 45 L120 59 Z" fill="#38bdf8"/>
+      <path d="M76 118 L84 96 L118 96 L126 118 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+      <path d="M76 118 L93 118 C93 125, 109 125, 109 118 L126 118 L126 136 C126 137.5, 124.5 139, 123 139 L79 139 C77.5 139, 76 137.5, 76 136 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
     </svg>
-    <div class="c3-empty-text">Chưa có dữ liệu</div>
+    <div class="bh-empty-label">Chưa có dữ liệu</div>
+  </div>
+
+  <!-- Footer tổng kết 4 mục chữ xanh lá ở đáy -->
+  <div class="bh-footer-summary">
+    <div class="bh-sum-item">
+      <span class="bh-sum-lbl">Tiền cược</span>
+      <span class="bh-sum-val">0.00</span>
+    </div>
+    <div class="bh-sum-item">
+      <span class="bh-sum-lbl">Cược hợp lệ</span>
+      <span class="bh-sum-val">0.00</span>
+    </div>
+    <div class="bh-sum-item">
+      <span class="bh-sum-lbl">Tiền thắng cược</span>
+      <span class="bh-sum-val">0.00</span>
+    </div>
+    <div class="bh-sum-item">
+      <span class="bh-sum-lbl">Lợi nhuận ròng</span>
+      <span class="bh-sum-val">0.00</span>
+    </div>
   </div>
 </div>
+
+<script>
+  function switchBetHistoryTab(tabEl, idx) {
+    const allTabs = document.querySelectorAll('#overlay-bet-history .bh-tab-item');
+    allTabs.forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    // Tự động cuộn mượt thanh tab ngang ra giữa giống hệt web real
+    tabEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    refreshBetHistoryEmpty();
+  }
+
+  function refreshBetHistoryEmpty() {
+    const zone = document.getElementById('bh-empty-zone');
+    if (!zone) return;
+    zone.style.opacity = '0.4';
+    setTimeout(() => { zone.style.opacity = '1'; }, 120);
+  }
+</script>
 
 <!-- ============================================== -->
 <!-- 2. LỊCH SỬ LÃI LỖ (ICON SỐ 3)                  -->

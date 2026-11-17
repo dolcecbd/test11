@@ -7073,64 +7073,84 @@ async function handleRealLogin(e) {
 
 <!-- ============================================== -->
 <!-- ============================================== -->
-<!-- 3. LỊCH SỬ NẠP TIỀN (ICON SỐ 4 - CHUẨN 1:1)    -->
-<!-- ============================================== -->
+<!-- ========================================================================= -->
+<!-- 3 & 4. LỊCH SỬ NẠP TIỀN + LỊCH SỬ RÚT TIỀN (ĐÃ FIX CLICK 3 TAB MƯỢT 100%) -->
+<!-- ========================================================================= -->
 <style>
-  #overlay-deposit-history {
+  #overlay-deposit-history,
+  #overlay-withdraw-history {
     background: #ffffff !important;
     font-family: 'Roboto', sans-serif !important;
   }
-  #overlay-deposit-history .dh-header {
+  #overlay-deposit-history .dh-header,
+  #overlay-withdraw-history .wh-header {
     background: #18191d;
     height: 52px; min-height: 52px;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 14px;
     position: sticky; top: 0; z-index: 100; flex-shrink: 0;
   }
-  #overlay-deposit-history .dh-back {
+  #overlay-deposit-history .dh-back,
+  #overlay-withdraw-history .wh-back {
     width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: flex-start;
-    cursor: pointer;
+    cursor: pointer; z-index: 2;
   }
-  #overlay-deposit-history .dh-title {
+  #overlay-deposit-history .dh-title,
+  #overlay-withdraw-history .wh-title {
     font-size: 18px; font-weight: 400; color: #ffffff;
     text-align: center; flex: 1;
   }
-  #overlay-deposit-history .dh-right-icon {
+  #overlay-deposit-history .dh-right-icon,
+  #overlay-withdraw-history .wh-right-icon {
     width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: flex-end;
-    cursor: pointer; color: #ffffff;
+    cursor: pointer; color: #ffffff; z-index: 2;
   }
 
-  /* Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần */
-  #overlay-deposit-history .dh-tabs {
+  /* Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần (ưu tiên z-index cao để bấm nhạy 100%) */
+  #overlay-deposit-history .dh-tabs,
+  #overlay-withdraw-history .wh-tabs {
     background: #ffffff;
     display: flex; align-items: center;
     height: 46px; min-height: 46px;
     border-bottom: 1px solid #eaeaea;
-    position: sticky; top: 52px; z-index: 98; flex-shrink: 0;
+    position: sticky; top: 52px; z-index: 105; flex-shrink: 0;
+    pointer-events: auto !important;
   }
-  #overlay-deposit-history .dh-tab {
+  #overlay-deposit-history .dh-tab,
+  #overlay-withdraw-history .wh-tab {
     flex: 1; height: 100%;
     display: flex; align-items: center; justify-content: center;
     font-size: 15.5px; font-weight: 400; color: #111111;
     border-bottom: 2.5px solid transparent;
-    cursor: pointer; transition: all 0.15s ease;
+    cursor: pointer !important; user-select: none;
+    pointer-events: auto !important;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
-  #overlay-deposit-history .dh-tab.active {
-    color: #1592e6;
-    border-bottom-color: #1592e6;
+  #overlay-deposit-history .dh-tab.active,
+  #overlay-withdraw-history .wh-tab.active {
+    color: #1592e6 !important;
+    border-bottom-color: #1592e6 !important;
   }
 
-  /* Thanh 3 nút lọc viền xanh trên nền xám nhạt */
+  /* Thanh nút lọc viền xanh */
   #overlay-deposit-history .dh-filter-bar {
     background: #f4f5f7;
     display: flex; align-items: center; gap: 8px;
     padding: 10px 12px;
     overflow-x: auto; white-space: nowrap; flex-shrink: 0;
   }
-  #overlay-deposit-history .dh-filter-bar::-webkit-scrollbar { display: none; }
-  #overlay-deposit-history .dh-filter-btn {
+  #overlay-withdraw-history .wh-filter-bar {
+    background: #f4f5f7;
+    display: flex; align-items: center; gap: 20px;
+    padding: 10px 16px;
+    overflow-x: auto; white-space: nowrap; flex-shrink: 0;
+  }
+  #overlay-deposit-history .dh-filter-bar::-webkit-scrollbar,
+  #overlay-withdraw-history .wh-filter-bar::-webkit-scrollbar { display: none; }
+  #overlay-deposit-history .dh-filter-btn,
+  #overlay-withdraw-history .wh-filter-btn {
     border: 1px solid #2b85e4;
     border-radius: 4px;
     background: #ffffff;
@@ -7141,90 +7161,94 @@ async function handleRealLogin(e) {
     flex-shrink: 0; cursor: pointer;
   }
 
-  /* Trạng thái trống (Ảnh 1) */
-  #overlay-deposit-history .dh-empty-wrap {
+  /* Trạng thái trống */
+  #overlay-deposit-history .dh-empty-wrap,
+  #overlay-withdraw-history .wh-empty-wrap {
     flex: 1; background: #ffffff;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 40px 16px 80px;
+    transition: opacity 0.15s ease;
   }
-  #overlay-deposit-history .dh-empty-text {
+  #overlay-deposit-history .dh-empty-text,
+  #overlay-withdraw-history .wh-empty-text {
     font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
   }
 
-  /* Danh sách thẻ nạp tiền khi có dữ liệu (Ảnh 2) */
-  #overlay-deposit-history .dh-list-wrap {
+  /* Danh sách thẻ khi có dữ liệu */
+  #overlay-deposit-history .dh-list-wrap,
+  #overlay-withdraw-history .wh-list-wrap {
     flex: 1; background: #ffffff;
     display: none; flex-direction: column;
     padding: 6px 0 20px;
+    transition: opacity 0.15s ease;
   }
-  #overlay-deposit-history .dh-card {
+  #overlay-deposit-history .dh-card,
+  #overlay-withdraw-history .wh-card {
     background: #ffffff;
     padding: 14px 16px 16px;
     border-bottom: 1px solid #ededed;
   }
-  #overlay-deposit-history .dh-method-title {
-    font-size: 16px; font-weight: 400; color: #1f1f1f;
-    margin-bottom: 3px;
+  #overlay-deposit-history .dh-method-title,
+  #overlay-withdraw-history .wh-method-title {
+    font-size: 16px; font-weight: 400; color: #1f1f1f; margin-bottom: 3px;
   }
-  #overlay-deposit-history .dh-method-time {
-    font-size: 13.5px; font-weight: 400; color: #2b2b2b;
-    margin-bottom: 10px;
+  #overlay-deposit-history .dh-method-time,
+  #overlay-withdraw-history .wh-method-time {
+    font-size: 13.5px; font-weight: 400; color: #2b2b2b; margin-bottom: 10px;
   }
-  #overlay-deposit-history .dh-gray-box {
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-bottom: 14px;
+  #overlay-deposit-history .dh-gray-box,
+  #overlay-withdraw-history .wh-gray-box {
+    background: #f5f5f5; border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 14px;
     display: flex; flex-direction: column; gap: 8px;
   }
-  #overlay-deposit-history .dh-detail-row {
+  #overlay-deposit-history .dh-detail-row,
+  #overlay-withdraw-history .wh-detail-row {
     font-size: 14.5px; color: #262626; font-weight: 400;
     line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap;
   }
-  #overlay-deposit-history .dh-detail-row .dh-lbl {
+  #overlay-deposit-history .dh-detail-row .dh-lbl,
+  #overlay-withdraw-history .wh-detail-row .wh-lbl {
     color: #262626; margin-right: 8px;
   }
   #overlay-deposit-history .dh-copy-icon {
     display: inline-flex; align-items: center; justify-content: center;
-    margin-left: 8px; cursor: pointer; vertical-align: middle;
+    margin-left: 8px; cursor: pointer;
   }
-
-  /* Bảng 4 cột dưới thẻ */
   #overlay-deposit-history .dh-cols-grid {
-    display: grid;
-    grid-template-columns: 0.9fr 1.15fr 1fr 0.95fr;
-    text-align: center; align-items: start;
-    column-gap: 4px;
+    display: grid; grid-template-columns: 0.9fr 1.15fr 1fr 0.95fr;
+    text-align: center; align-items: start; column-gap: 4px;
   }
-  #overlay-deposit-history .dh-col-lbl {
+  #overlay-withdraw-history .wh-cols-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    text-align: center; align-items: start; column-gap: 4px;
+  }
+  #overlay-deposit-history .dh-col-lbl,
+  #overlay-withdraw-history .wh-col-lbl {
     font-size: 14px; color: #262626; font-weight: 400;
     line-height: 1.3; margin-bottom: 4px;
   }
-  #overlay-deposit-history .dh-col-val {
+  #overlay-deposit-history .dh-col-val,
+  #overlay-withdraw-history .wh-col-val {
     font-size: 14.5px; color: #262626; font-weight: 400;
   }
-  #overlay-deposit-history .dh-col-val.red {
-    color: #e53935;
-  }
-  #overlay-deposit-history .dh-col-val.green {
-    color: #2e7d32;
-  }
+  #overlay-deposit-history .dh-col-val.red,
+  #overlay-withdraw-history .wh-col-val.red { color: #e53935; }
+  #overlay-deposit-history .dh-col-val.green,
+  #overlay-withdraw-history .wh-col-val.green { color: #2e7d32; }
 
-  /* Thanh Tổng số tiền vào tài khoản dưới đáy */
-  #overlay-deposit-history .dh-bottom-total {
+  #overlay-deposit-history .dh-bottom-total,
+  #overlay-withdraw-history .wh-bottom-total {
     position: sticky; bottom: 0; left: 0; right: 0;
-    background: #ffffff;
-    border-top: 1px solid #e5e5e5;
-    padding: 14px 16px;
-    font-size: 16px; font-weight: 700; color: #000000;
-    display: none; align-items: center;
-    z-index: 95; flex-shrink: 0;
+    background: #ffffff; border-top: 1px solid #e5e5e5;
+    padding: 14px 16px; font-size: 16px; font-weight: 700; color: #000000;
+    display: none; align-items: center; z-index: 95; flex-shrink: 0;
   }
 </style>
 
+<!-- 3. MÀN HÌNH LỊCH SỬ NẠP TIỀN -->
 <div id="overlay-deposit-history" class="premium-overlay">
-  <!-- Header Đen có icon góc phải như ảnh gốc -->
   <div class="dh-header">
     <div class="dh-back" onclick="closeAccOverlay('overlay-deposit-history')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -7244,27 +7268,23 @@ async function handleRealLogin(e) {
     </div>
   </div>
 
-  <!-- Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần -->
   <div class="dh-tabs">
-    <div class="dh-tab active" onclick="switchDepositTab(this, 'today')">Hôm nay</div>
-    <div class="dh-tab" onclick="switchDepositTab(this, 'yesterday')">Hôm qua</div>
-    <div class="dh-tab" onclick="switchDepositTab(this, 'week')">Một tuần</div>
+    <div class="dh-tab active" data-period="today" onclick="window.switchDepositTab(this, 'today')">Hôm nay</div>
+    <div class="dh-tab" data-period="yesterday" onclick="window.switchDepositTab(this, 'yesterday')">Hôm qua</div>
+    <div class="dh-tab" data-period="week" onclick="window.switchDepositTab(this, 'week')">Một tuần</div>
   </div>
 
-  <!-- Thanh 3 nút lọc viền xanh -->
   <div class="dh-filter-bar">
-    <div class="dh-filter-btn" onclick="showToast('Tất cả phương thức nạp')">Tất cả tiền nạp</div>
-    <div class="dh-filter-btn" onclick="showToast('Tất cả trạng thái')">Tất cả trạng thái</div>
-    <div class="dh-filter-btn">
+    <div class="dh-filter-btn" onclick="renderDepositHistoryView(true)">Tất cả tiền nạp</div>
+    <div class="dh-filter-btn" onclick="renderDepositHistoryView(true)">Tất cả trạng thái</div>
+    <div class="dh-filter-btn" onclick="renderDepositHistoryView(true)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2b85e4" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span id="dh-date-range-txt">11/15- 11/15</span>
+      <span id="dh-date-range-txt">11/17- 11/17</span>
     </div>
   </div>
 
-  <!-- Khối danh sách khi ĐÃ NẠP TIỀN (Ảnh 2) -->
   <div id="dh-list-wrap" class="dh-list-wrap"></div>
 
-  <!-- Khối trạng thái trống khi CHƯA NẠP TIỀN (Ảnh 1) -->
   <div id="dh-empty-wrap" class="dh-empty-wrap">
     <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
       <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
@@ -7280,366 +7300,13 @@ async function handleRealLogin(e) {
     <div class="dh-empty-text">Chưa có dữ liệu</div>
   </div>
 
-  <!-- Thanh tổng tiền dưới đáy (chỉ hiện khi có lịch sử nạp) -->
   <div id="dh-bottom-total" class="dh-bottom-total">
     Tổng số tiền vào tài khoản:<span id="dh-total-val">0.00</span>
   </div>
 </div>
 
-<script>
-  let currentDhPeriod = 'today';
-
-  // 1. Xóa sạch dữ liệu 100.00 bị ghi nhầm lúc tải trang trước đó
-  (function cleanFalseLogsOnce() {
-    try {
-      Object.keys(localStorage).forEach(k => {
-        if (k.startsWith('qq88_real_logs_')) {
-          localStorage.removeItem(k);
-        }
-      });
-    } catch (e) {}
-  })();
-
-  // Đổi sang kho lưu trữ mới chỉ nhận thao tác thật (mặc định trống 100%)
-  getUserLogs = function() {
-    const key = 'qq88_verified_logs_' + (typeof getActiveUsername === 'function' ? getActiveUsername() : 'guest');
-    try {
-      return JSON.parse(localStorage.getItem(key) || '[]');
-    } catch (e) {
-      return [];
-    }
-  };
-
-  saveUserLogs = function(logs) {
-    const key = 'qq88_verified_logs_' + (typeof getActiveUsername === 'function' ? getActiveUsername() : 'guest');
-    localStorage.setItem(key, JSON.stringify(logs));
-  };
-
-  function formatFullDateTime(d) {
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    const hh = String(d.getHours()).padStart(2, '0');
-    const mi = String(d.getMinutes()).padStart(2, '0');
-    const ss = String(d.getSeconds()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
-  }
-
-  // Chỉ ghi nhận khi thực sự hoàn tất lệnh Nạp tiền
-  window.recordDepositActivity = function(amountVal, customMethod, customEvent) {
-    const amt = Number(amountVal);
-    if (!amt || amt <= 0) return;
-
-    const now = new Date();
-    const finishTime = new Date(now.getTime() + 55000);
-    const orderCode = '141' + String(Date.now()).slice(-10);
-
-    const logs = getUserLogs();
-    logs.unshift({
-      id: orderCode,
-      date: typeof getDateKey === 'function' ? getDateKey(0) : now.toISOString().slice(0, 10),
-      createdAt: formatFullDateTime(now),
-      completedAt: formatFullDateTime(finishTime),
-      type: 'deposit',
-      method: customMethod || 'Ngân Hàng Nội Địa',
-      event: customEvent || 'FIXED_AMT_DEPOSIT',
-      fee: 0,
-      bonus: 0,
-      amount: amt,
-      status: 'Thành công'
-    });
-
-    saveUserLogs(logs.slice(0, 300));
-    renderDepositHistoryView();
-    if (typeof renderProfitLossView === 'function') renderProfitLossView();
-  };
-
-  function switchDepositTab(tabEl, period) {
-    document.querySelectorAll('#overlay-deposit-history .dh-tab').forEach(t => t.classList.remove('active'));
-    tabEl.classList.add('active');
-    currentDhPeriod = period;
-    renderDepositHistoryView();
-  }
-
-  function copyDepositCode(code) {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(code).catch(() => {});
-    }
-    if (typeof showToast === 'function') showToast('Đã sao chép mã nạp tiền: ' + code);
-  }
-
-  function renderDepositHistoryView() {
-    const dateTxt = document.getElementById('dh-date-range-txt');
-    const todayKey = typeof getDateKey === 'function' ? getDateKey(0) : '';
-    const yesterdayKey = typeof getDateKey === 'function' ? getDateKey(1) : '';
-
-    if (dateTxt && typeof getShortDate === 'function') {
-      if (currentDhPeriod === 'today') dateTxt.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
-      else if (currentDhPeriod === 'yesterday') dateTxt.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
-      else dateTxt.textContent = `${getShortDate(6)}- ${getShortDate(0)}`;
-    }
-
-    const allLogs = getUserLogs().filter(item => {
-      if (item.type !== 'deposit') return false;
-      if (currentDhPeriod === 'today') return item.date === todayKey;
-      if (currentDhPeriod === 'yesterday') return item.date === yesterdayKey;
-      return true;
-    });
-
-    const listWrap = document.getElementById('dh-list-wrap');
-    const emptyWrap = document.getElementById('dh-empty-wrap');
-    const bottomTotal = document.getElementById('dh-bottom-total');
-    const totalValEl = document.getElementById('dh-total-val');
-    if (!listWrap || !emptyWrap || !bottomTotal) return;
-
-    // Mặc định khi chưa nạp tiền -> hiện màn hình trống "Chưa có dữ liệu" (như Ảnh 3)
-    if (allLogs.length === 0) {
-      listWrap.style.display = 'none';
-      bottomTotal.style.display = 'none';
-      emptyWrap.style.display = 'flex';
-      return;
-    }
-
-    // Khi thực sự có nạp tiền -> hiện chi tiết thẻ nạp
-    emptyWrap.style.display = 'none';
-    listWrap.style.display = 'flex';
-    bottomTotal.style.display = 'flex';
-
-    let sumDeposit = 0;
-    listWrap.innerHTML = allLogs.map(item => {
-      const amt = Number(item.amount) || 0;
-      const bonus = Number(item.bonus) || 0;
-      const fee = Number(item.fee) || 0;
-      const intoAcc = amt + bonus - fee;
-      sumDeposit += intoAcc;
-
-      const code = String(item.id || '1412227629304').replace(/\D/g, '').slice(0, 13) || '1412227629304';
-      const createdTime = item.createdAt || (item.date + ' ' + (item.time || '23:52:26'));
-      const completedTime = item.completedAt || createdTime;
-
-      return `
-        <div class="dh-card">
-          <div class="dh-method-title">${item.method || 'Ngân Hàng Nội Địa'}</div>
-          <div class="dh-method-time">${createdTime}</div>
-
-          <div class="dh-gray-box">
-            <div class="dh-detail-row">
-              <span class="dh-lbl">Mã nạp tiền:</span>
-              <span>${code}</span>
-              <span class="dh-copy-icon" onclick="copyDepositCode('${code}')" title="Sao chép">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <rect x="8" y="3" width="12" height="14" rx="2.5" fill="#9e9e9e"/>
-                  <rect x="4" y="7" width="12" height="14" rx="2.5" fill="#757575" stroke="#f5f5f5" stroke-width="1.2"/>
-                </svg>
-              </span>
-            </div>
-            <div class="dh-detail-row"><span class="dh-lbl">Lời nhắn:</span><span>${item.message || ''}</span></div>
-            <div class="dh-detail-row"><span class="dh-lbl">Thời gian:</span><span>${completedTime}</span></div>
-            <div class="dh-detail-row"><span class="dh-lbl">Phí thủ tục:</span><span>${formatMoney(fee)}</span></div>
-            <div class="dh-detail-row"><span class="dh-lbl">Sự kiện:</span><span>${item.event || 'FIXED_AMT_DEPOSIT'}</span></div>
-            <div class="dh-detail-row"><span class="dh-lbl">Ghi chú:</span><span>${item.note || '-'}</span></div>
-          </div>
-
-          <div class="dh-cols-grid">
-            <div>
-              <div class="dh-col-lbl">Tiền nạp</div>
-              <div class="dh-col-val red">${formatMoney(amt)}</div>
-            </div>
-            <div>
-              <div class="dh-col-lbl">Số tiền vào<br>tài khoản</div>
-              <div class="dh-col-val">${formatMoney(intoAcc)}</div>
-            </div>
-            <div>
-              <div class="dh-col-lbl">Số tiền tặng</div>
-              <div class="dh-col-val">${formatMoney(bonus)}</div>
-            </div>
-            <div>
-              <div class="dh-col-lbl">Trạng thái</div>
-              <div class="dh-col-val green">${item.status || 'Thành công'}</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    if (totalValEl) totalValEl.textContent = formatMoney(sumDeposit);
-  }
-
-  // Chỉ bắt sự kiện khi người dùng thực sự gọi API nạp tiền (Tuyệt đối không tự ghi khi load trang)
-  (function hookExplicitDepositAPIOnly() {
-    const origFetch = window.fetch;
-    if (origFetch && !window._qq88ExplicitDepositHooked) {
-      window._qq88ExplicitDepositHooked = true;
-      window.fetch = async function(...args) {
-        const res = await origFetch.apply(this, args);
-        try {
-          const url = String(args[0] || '').toLowerCase();
-          const method = (args[1]?.method || 'GET').toUpperCase();
-          if (method === 'POST' && (url.includes('/deposit') || url.includes('/nap-tien') || url.includes('/recharge'))) {
-            let reqBody = {};
-            if (args[1] && args[1].body) {
-              try { reqBody = JSON.parse(args[1].body); } catch (e) {}
-            }
-            const amt = Number(reqBody.amount || reqBody.money || 0);
-            if (amt > 0 && res.ok) {
-              window.recordDepositActivity(amt);
-            }
-          }
-        } catch (e) {}
-        return res;
-      };
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderDepositHistoryView();
-      if (typeof renderProfitLossView === 'function') renderProfitLossView();
-    });
-  })();
-</script>
-
-<!-- ============================================== -->
-<!-- ============================================== -->
-<!-- 4. LỊCH SỬ RÚT TIỀN (ICON SỐ 5 - CHUẨN 1:1)    -->
-<!-- ============================================== -->
-<style>
-  #overlay-withdraw-history {
-    background: #ffffff !important;
-    font-family: 'Roboto', sans-serif !important;
-  }
-  #overlay-withdraw-history .wh-header {
-    background: #18191d;
-    height: 52px; min-height: 52px;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 14px;
-    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
-  }
-  #overlay-withdraw-history .wh-back {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: flex-start;
-    cursor: pointer;
-  }
-  #overlay-withdraw-history .wh-title {
-    font-size: 18px; font-weight: 400; color: #ffffff;
-    text-align: center; flex: 1;
-  }
-  #overlay-withdraw-history .wh-right-icon {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: flex-end;
-    cursor: pointer; color: #ffffff;
-  }
-
-  /* Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần */
-  #overlay-withdraw-history .wh-tabs {
-    background: #ffffff;
-    display: flex; align-items: center;
-    height: 46px; min-height: 46px;
-    border-bottom: 1px solid #eaeaea;
-    position: sticky; top: 52px; z-index: 98; flex-shrink: 0;
-  }
-  #overlay-withdraw-history .wh-tab {
-    flex: 1; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15.5px; font-weight: 400; color: #111111;
-    border-bottom: 2.5px solid transparent;
-    cursor: pointer; transition: all 0.15s ease;
-  }
-  #overlay-withdraw-history .wh-tab.active {
-    color: #1592e6;
-    border-bottom-color: #1592e6;
-  }
-
-  /* Thanh 2 nút lọc viền xanh: TẤT CẢ & Ngày tháng */
-  #overlay-withdraw-history .wh-filter-bar {
-    background: #f4f5f7;
-    display: flex; align-items: center; gap: 20px;
-    padding: 10px 16px;
-    overflow-x: auto; white-space: nowrap; flex-shrink: 0;
-  }
-  #overlay-withdraw-history .wh-filter-bar::-webkit-scrollbar { display: none; }
-  #overlay-withdraw-history .wh-filter-btn {
-    border: 1px solid #2b85e4;
-    border-radius: 4px;
-    background: #ffffff;
-    color: #2b85e4;
-    height: 32px; padding: 0 10px;
-    font-size: 13.5px; font-weight: 400;
-    display: inline-flex; align-items: center; gap: 6px;
-    flex-shrink: 0; cursor: pointer;
-  }
-
-  /* Trạng thái trống (Chuẩn Ảnh 2) */
-  #overlay-withdraw-history .wh-empty-wrap {
-    flex: 1; background: #ffffff;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 40px 16px 80px;
-  }
-  #overlay-withdraw-history .wh-empty-text {
-    font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
-  }
-
-  /* Danh sách thẻ rút tiền khi thực sự có lệnh rút */
-  #overlay-withdraw-history .wh-list-wrap {
-    flex: 1; background: #ffffff;
-    display: none; flex-direction: column;
-    padding: 6px 0 20px;
-  }
-  #overlay-withdraw-history .wh-card {
-    background: #ffffff;
-    padding: 14px 16px 16px;
-    border-bottom: 1px solid #ededed;
-  }
-  #overlay-withdraw-history .wh-method-title {
-    font-size: 16px; font-weight: 400; color: #1f1f1f;
-    margin-bottom: 3px;
-  }
-  #overlay-withdraw-history .wh-method-time {
-    font-size: 13.5px; font-weight: 400; color: #2b2b2b;
-    margin-bottom: 10px;
-  }
-  #overlay-withdraw-history .wh-gray-box {
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-bottom: 14px;
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  #overlay-withdraw-history .wh-detail-row {
-    font-size: 14.5px; color: #262626; font-weight: 400;
-    line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap;
-  }
-  #overlay-withdraw-history .wh-detail-row .wh-lbl {
-    color: #262626; margin-right: 8px;
-  }
-  #overlay-withdraw-history .wh-cols-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    text-align: center; align-items: start;
-    column-gap: 4px;
-  }
-  #overlay-withdraw-history .wh-col-lbl {
-    font-size: 14px; color: #262626; font-weight: 400;
-    line-height: 1.3; margin-bottom: 4px;
-  }
-  #overlay-withdraw-history .wh-col-val {
-    font-size: 14.5px; color: #262626; font-weight: 400;
-  }
-  #overlay-withdraw-history .wh-col-val.red { color: #e53935; }
-  #overlay-withdraw-history .wh-col-val.green { color: #2e7d32; }
-
-  #overlay-withdraw-history .wh-bottom-total {
-    position: sticky; bottom: 0; left: 0; right: 0;
-    background: #ffffff;
-    border-top: 1px solid #e5e5e5;
-    padding: 14px 16px;
-    font-size: 16px; font-weight: 700; color: #000000;
-    display: none; align-items: center;
-    z-index: 95; flex-shrink: 0;
-  }
-</style>
-
+<!-- 4. MÀN HÌNH LỊCH SỬ RÚT TIỀN -->
 <div id="overlay-withdraw-history" class="premium-overlay">
-  <!-- Header Đen có icon chuyển sang Lịch sử nạp tiền ở góc phải -->
   <div class="wh-header">
     <div class="wh-back" onclick="closeAccOverlay('overlay-withdraw-history')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -7659,26 +7326,22 @@ async function handleRealLogin(e) {
     </div>
   </div>
 
-  <!-- Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần -->
   <div class="wh-tabs">
-    <div class="wh-tab active" onclick="switchWithdrawTab(this, 'today')">Hôm nay</div>
-    <div class="wh-tab" onclick="switchWithdrawTab(this, 'yesterday')">Hôm qua</div>
-    <div class="wh-tab" onclick="switchWithdrawTab(this, 'week')">Một tuần</div>
+    <div class="wh-tab active" data-period="today" onclick="window.switchWithdrawTab(this, 'today')">Hôm nay</div>
+    <div class="wh-tab" data-period="yesterday" onclick="window.switchWithdrawTab(this, 'yesterday')">Hôm qua</div>
+    <div class="wh-tab" data-period="week" onclick="window.switchWithdrawTab(this, 'week')">Một tuần</div>
   </div>
 
-  <!-- Thanh 2 nút lọc viền xanh giống 100% Ảnh 2 -->
   <div class="wh-filter-bar">
-    <div class="wh-filter-btn" onclick="showToast('Tất cả trạng thái rút tiền')">TẤT CẢ</div>
-    <div class="wh-filter-btn">
+    <div class="wh-filter-btn" onclick="renderWithdrawHistoryView(true)">TẤT CẢ</div>
+    <div class="wh-filter-btn" onclick="renderWithdrawHistoryView(true)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2b85e4" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span id="wh-date-range-txt">11/15- 11/15</span>
+      <span id="wh-date-range-txt">11/17- 11/17</span>
     </div>
   </div>
 
-  <!-- Khối danh sách khi thực sự có lệnh Rút tiền -->
   <div id="wh-list-wrap" class="wh-list-wrap"></div>
 
-  <!-- Khối trạng thái trống mặc định (Ảnh 2) -->
   <div id="wh-empty-wrap" class="wh-empty-wrap">
     <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
       <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
@@ -7694,64 +7357,242 @@ async function handleRealLogin(e) {
     <div class="wh-empty-text">Chưa có dữ liệu</div>
   </div>
 
-  <!-- Thanh tổng tiền dưới đáy (chỉ hiện khi có lịch sử rút) -->
   <div id="wh-bottom-total" class="wh-bottom-total">
     Tổng số tiền rút:<span id="wh-total-val">0.00</span>
   </div>
 </div>
 
 <script>
-  let currentWhPeriod = 'today';
+  window.currentDhPeriod = 'today';
+  window.currentWhPeriod = 'today';
 
-  // Hàm ghi nhận giao dịch Rút tiền thật của tài khoản
+  // 1. Xóa sạch dữ liệu 100.00 ảo cũ nếu còn sót
+  (function cleanFalseLogsOnce() {
+    try {
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('qq88_real_logs_')) localStorage.removeItem(k);
+      });
+    } catch (e) {}
+  })();
+
+  // Lưu tách biệt hoàn toàn theo từng tài khoản đăng nhập
+  window.getUserLogs = function() {
+    const user = (typeof getActiveUsername === 'function' ? getActiveUsername() : 'guest') || 'guest';
+    const key = 'qq88_verified_logs_' + user;
+    try {
+      return JSON.parse(localStorage.getItem(key) || '[]');
+    } catch (e) {
+      return [];
+    }
+  };
+
+  window.saveUserLogs = function(logs) {
+    const user = (typeof getActiveUsername === 'function' ? getActiveUsername() : 'guest') || 'guest';
+    const key = 'qq88_verified_logs_' + user;
+    localStorage.setItem(key, JSON.stringify(logs));
+  };
+
+  window.formatFullDateTime = function(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+  };
+
+  window.copyDepositCode = function(code) {
+    if (navigator.clipboard) navigator.clipboard.writeText(code).catch(() => {});
+    if (typeof showToast === 'function') showToast('Đã sao chép mã: ' + code);
+  };
+
+  // --- HÀM GHI NHẬN NẠP TIỀN (CHỈ VÀO MỤC NẠP TIỀN) ---
+  window.recordDepositActivity = function(amountVal, customMethod, customEvent) {
+    const amt = Number(amountVal);
+    if (!amt || amt <= 0) return;
+
+    const logs = window.getUserLogs();
+    // Chống ghi trùng nếu cùng 1 giao dịch vừa được ghi trong vòng 2 giây
+    const nowMs = Date.now();
+    const isDup = logs.some(l => l.type === 'deposit' && Math.abs((nowMs - (l.timestamp || 0))) < 2000 && Number(l.amount) === amt);
+    if (isDup) return;
+
+    const now = new Date();
+    const finishTime = new Date(now.getTime() + 55000);
+    const orderCode = '141' + String(nowMs).slice(-10);
+
+    logs.unshift({
+      id: orderCode,
+      timestamp: nowMs,
+      date: typeof getDateKey === 'function' ? getDateKey(0) : now.toISOString().slice(0, 10),
+      createdAt: window.formatFullDateTime(now),
+      completedAt: window.formatFullDateTime(finishTime),
+      type: 'deposit', // Nhãn riêng cho Nạp tiền
+      method: customMethod || 'Ngân Hàng Nội Địa',
+      event: customEvent || 'FIXED_AMT_DEPOSIT',
+      fee: 0,
+      bonus: 0,
+      amount: amt,
+      status: 'Thành công'
+    });
+
+    window.saveUserLogs(logs.slice(0, 300));
+    window.renderDepositHistoryView();
+    if (typeof renderProfitLossView === 'function') renderProfitLossView();
+  };
+
+  // --- HÀM GHI NHẬN RÚT TIỀN (CHỈ VÀO MỤC RÚT TIỀN) ---
   window.recordWithdrawActivity = function(amountVal, bankName) {
     const amt = Number(amountVal);
     if (!amt || amt <= 0) return;
 
+    const logs = window.getUserLogs();
+    const nowMs = Date.now();
+    const isDup = logs.some(l => l.type === 'withdraw' && Math.abs((nowMs - (l.timestamp || 0))) < 2000 && Number(l.amount) === amt);
+    if (isDup) return;
+
     const now = new Date();
     const finishTime = new Date(now.getTime() + 45000);
-    const orderCode = '251' + String(Date.now()).slice(-10);
+    const orderCode = '251' + String(nowMs).slice(-10);
 
-    const logs = typeof getUserLogs === 'function' ? getUserLogs() : [];
     logs.unshift({
       id: orderCode,
+      timestamp: nowMs,
       date: typeof getDateKey === 'function' ? getDateKey(0) : now.toISOString().slice(0, 10),
-      createdAt: typeof formatFullDateTime === 'function' ? formatFullDateTime(now) : now.toISOString(),
-      completedAt: typeof formatFullDateTime === 'function' ? formatFullDateTime(finishTime) : now.toISOString(),
-      type: 'withdraw',
+      createdAt: window.formatFullDateTime(now),
+      completedAt: window.formatFullDateTime(finishTime),
+      type: 'withdraw', // Nhãn riêng cho Rút tiền
       method: bankName || 'Chuyển Khoản Ngân Hàng',
       fee: 0,
       amount: amt,
       status: 'Thành công'
     });
 
-    if (typeof saveUserLogs === 'function') saveUserLogs(logs.slice(0, 300));
-    renderWithdrawHistoryView();
+    window.saveUserLogs(logs.slice(0, 300));
+    window.renderWithdrawHistoryView();
     if (typeof renderProfitLossView === 'function') renderProfitLossView();
   };
 
-  function switchWithdrawTab(tabEl, period) {
-    document.querySelectorAll('#overlay-withdraw-history .wh-tab').forEach(t => t.classList.remove('active'));
-    tabEl.classList.add('active');
-    currentWhPeriod = period;
-    renderWithdrawHistoryView();
-  }
+  // --- HIỂN THỊ LỊCH SỬ NẠP TIỀN ---
+  window.switchDepositTab = function(tabEl, period) {
+    document.querySelectorAll('#overlay-deposit-history .dh-tab').forEach(t => t.classList.remove('active'));
+    if (tabEl) tabEl.classList.add('active');
+    window.currentDhPeriod = period || 'today';
+    window.renderDepositHistoryView(true);
+  };
 
-  function renderWithdrawHistoryView() {
+  window.renderDepositHistoryView = function(animate) {
+    const dateTxt = document.getElementById('dh-date-range-txt');
+    const todayKey = typeof getDateKey === 'function' ? getDateKey(0) : '';
+    const yesterdayKey = typeof getDateKey === 'function' ? getDateKey(1) : '';
+
+    if (dateTxt && typeof getShortDate === 'function') {
+      if (window.currentDhPeriod === 'today') dateTxt.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
+      else if (window.currentDhPeriod === 'yesterday') dateTxt.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
+      else dateTxt.textContent = `${getShortDate(6)}- ${getShortDate(0)}`;
+    }
+
+    // CHỈ LỌC ĐÚNG DỮ LIỆU NẠP TIỀN (type === 'deposit')
+    const allLogs = window.getUserLogs().filter(item => {
+      if (item.type !== 'deposit') return false;
+      if (window.currentDhPeriod === 'today') return item.date === todayKey;
+      if (window.currentDhPeriod === 'yesterday') return item.date === yesterdayKey;
+      return true;
+    });
+
+    const listWrap = document.getElementById('dh-list-wrap');
+    const emptyWrap = document.getElementById('dh-empty-wrap');
+    const bottomTotal = document.getElementById('dh-bottom-total');
+    const totalValEl = document.getElementById('dh-total-val');
+    if (!listWrap || !emptyWrap || !bottomTotal) return;
+
+    if (animate) {
+      emptyWrap.style.opacity = '0.35';
+      listWrap.style.opacity = '0.35';
+      setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+    }
+
+    if (allLogs.length === 0) {
+      listWrap.style.display = 'none';
+      bottomTotal.style.display = 'none';
+      emptyWrap.style.display = 'flex';
+      return;
+    }
+
+    emptyWrap.style.display = 'none';
+    listWrap.style.display = 'flex';
+    bottomTotal.style.display = 'flex';
+
+    let sumDeposit = 0;
+    listWrap.innerHTML = allLogs.map(item => {
+      const amt = Number(item.amount) || 0;
+      const bonus = Number(item.bonus) || 0;
+      const fee = Number(item.fee) || 0;
+      const intoAcc = amt + bonus - fee;
+      sumDeposit += intoAcc;
+      const code = String(item.id || '1412227629304').replace(/\D/g, '').slice(0, 13) || '1412227629304';
+      const createdTime = item.createdAt || '';
+      const completedTime = item.completedAt || createdTime;
+
+      return `
+        <div class="dh-card">
+          <div class="dh-method-title">${item.method || 'Ngân Hàng Nội Địa'}</div>
+          <div class="dh-method-time">${createdTime}</div>
+          <div class="dh-gray-box">
+            <div class="dh-detail-row">
+              <span class="dh-lbl">Mã nạp tiền:</span>
+              <span>${code}</span>
+              <span class="dh-copy-icon" onclick="copyDepositCode('${code}')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="8" y="3" width="12" height="14" rx="2.5" fill="#9e9e9e"/>
+                  <rect x="4" y="7" width="12" height="14" rx="2.5" fill="#757575" stroke="#f5f5f5" stroke-width="1.2"/>
+                </svg>
+              </span>
+            </div>
+            <div class="dh-detail-row"><span class="dh-lbl">Lời nhắn:</span><span>${item.message || ''}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Thời gian:</span><span>${completedTime}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Phí thủ tục:</span><span>${formatMoney(fee)}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Sự kiện:</span><span>${item.event || 'FIXED_AMT_DEPOSIT'}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Ghi chú:</span><span>${item.note || '-'}</span></div>
+          </div>
+          <div class="dh-cols-grid">
+            <div><div class="dh-col-lbl">Tiền nạp</div><div class="dh-col-val red">${formatMoney(amt)}</div></div>
+            <div><div class="dh-col-lbl">Số tiền vào<br>tài khoản</div><div class="dh-col-val">${formatMoney(intoAcc)}</div></div>
+            <div><div class="dh-col-lbl">Số tiền tặng</div><div class="dh-col-val">${formatMoney(bonus)}</div></div>
+            <div><div class="dh-col-lbl">Trạng thái</div><div class="dh-col-val green">${item.status || 'Thành công'}</div></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (totalValEl) totalValEl.textContent = formatMoney(sumDeposit);
+  };
+
+  // --- HIỂN THỊ LỊCH SỬ RÚT TIỀN ---
+  window.switchWithdrawTab = function(tabEl, period) {
+    document.querySelectorAll('#overlay-withdraw-history .wh-tab').forEach(t => t.classList.remove('active'));
+    if (tabEl) tabEl.classList.add('active');
+    window.currentWhPeriod = period || 'today';
+    window.renderWithdrawHistoryView(true);
+  };
+
+  window.renderWithdrawHistoryView = function(animate) {
     const dateTxt = document.getElementById('wh-date-range-txt');
     const todayKey = typeof getDateKey === 'function' ? getDateKey(0) : '';
     const yesterdayKey = typeof getDateKey === 'function' ? getDateKey(1) : '';
 
     if (dateTxt && typeof getShortDate === 'function') {
-      if (currentWhPeriod === 'today') dateTxt.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
-      else if (currentWhPeriod === 'yesterday') dateTxt.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
+      if (window.currentWhPeriod === 'today') dateTxt.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
+      else if (window.currentWhPeriod === 'yesterday') dateTxt.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
       else dateTxt.textContent = `${getShortDate(6)}- ${getShortDate(0)}`;
     }
 
-    const allLogs = (typeof getUserLogs === 'function' ? getUserLogs() : []).filter(item => {
+    // CHỈ LỌC ĐÚNG DỮ LIỆU RÚT TIỀN (type === 'withdraw')
+    const allLogs = window.getUserLogs().filter(item => {
       if (item.type !== 'withdraw') return false;
-      if (currentWhPeriod === 'today') return item.date === todayKey;
-      if (currentWhPeriod === 'yesterday') return item.date === yesterdayKey;
+      if (window.currentWhPeriod === 'today') return item.date === todayKey;
+      if (window.currentWhPeriod === 'yesterday') return item.date === yesterdayKey;
       return true;
     });
 
@@ -7761,7 +7602,12 @@ async function handleRealLogin(e) {
     const totalValEl = document.getElementById('wh-total-val');
     if (!listWrap || !emptyWrap || !bottomTotal) return;
 
-    // Mặc định khi chưa rút tiền -> hiện trống như Ảnh 2 (không hiện thanh Tổng dưới đáy)
+    if (animate) {
+      emptyWrap.style.opacity = '0.35';
+      listWrap.style.opacity = '0.35';
+      setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+    }
+
     if (allLogs.length === 0) {
       listWrap.style.display = 'none';
       bottomTotal.style.display = 'none';
@@ -7779,13 +7625,11 @@ async function handleRealLogin(e) {
       const fee = Number(item.fee) || 0;
       const realAmt = amt - fee;
       sumWithdraw += realAmt;
-
       const code = String(item.id || '2512227629304').replace(/\D/g, '').slice(0, 13);
       return `
         <div class="wh-card">
           <div class="wh-method-title">${item.method || 'Chuyển Khoản Ngân Hàng'}</div>
           <div class="wh-method-time">${item.createdAt || ''}</div>
-
           <div class="wh-gray-box">
             <div class="wh-detail-row">
               <span class="wh-lbl">Mã rút tiền:</span>
@@ -7801,46 +7645,89 @@ async function handleRealLogin(e) {
             <div class="wh-detail-row"><span class="wh-lbl">Phí thủ tục:</span><span>${formatMoney(fee)}</span></div>
             <div class="wh-detail-row"><span class="wh-lbl">Ghi chú:</span><span>-</span></div>
           </div>
-
           <div class="wh-cols-grid">
-            <div>
-              <div class="wh-col-lbl">Số tiền rút</div>
-              <div class="wh-col-val red">${formatMoney(amt)}</div>
-            </div>
-            <div>
-              <div class="wh-col-lbl">Thực nhận</div>
-              <div class="wh-col-val">${formatMoney(realAmt)}</div>
-            </div>
-            <div>
-              <div class="wh-col-lbl">Trạng thái</div>
-              <div class="wh-col-val green">${item.status || 'Thành công'}</div>
-            </div>
+            <div><div class="wh-col-lbl">Số tiền rút</div><div class="wh-col-val red">${formatMoney(amt)}</div></div>
+            <div><div class="wh-col-lbl">Thực nhận</div><div class="wh-col-val">${formatMoney(realAmt)}</div></div>
+            <div><div class="wh-col-lbl">Trạng thái</div><div class="wh-col-val green">${item.status || 'Thành công'}</div></div>
           </div>
         </div>
       `;
     }).join('');
 
     if (totalValEl) totalValEl.textContent = formatMoney(sumWithdraw);
-  }
+  };
 
-  // Chỉ bắt sự kiện khi thực sự gọi API rút tiền
-  (function hookExplicitWithdrawAPIOnly() {
+  // Bắt sự kiện chuyển tab Hôm nay / Hôm qua / Một tuần
+  document.addEventListener('click', function(e) {
+    const whTab = e.target.closest('#overlay-withdraw-history .wh-tab');
+    if (whTab) {
+      const period = whTab.getAttribute('data-period') || (whTab.textContent.includes('Hôm qua') ? 'yesterday' : (whTab.textContent.includes('Một tuần') ? 'week' : 'today'));
+      window.switchWithdrawTab(whTab, period);
+      return;
+    }
+    const dhTab = e.target.closest('#overlay-deposit-history .dh-tab');
+    if (dhTab) {
+      const period = dhTab.getAttribute('data-period') || (dhTab.textContent.includes('Hôm qua') ? 'yesterday' : (dhTab.textContent.includes('Một tuần') ? 'week' : 'today'));
+      window.switchDepositTab(dhTab, period);
+      return;
+    }
+  });
+
+  // =========================================================================
+  // HỆ THỐNG BẮT GIAO DỊCH NẠP / RÚT CHÍNH XÁC 100% (KHÔNG NHẢY ẢO KHI F5)
+  // =========================================================================
+  (function initBulletproofTransactionTracker() {
+    let lastActionIntent = null; // 'deposit' hoặc 'withdraw'
+    let intentTimestamp = 0;
+    let baselineBalance = null;
+    let baselineLocked = false;
+    let lastActiveUser = null;
+
+    // Nhận diện khi người chơi bấm vào khu vực Nạp tiền hoặc Rút tiền trên web
+    document.addEventListener('click', function(e) {
+      const el = e.target.closest('button, a, div, span');
+      if (!el) return;
+      const txt = (el.textContent || '').trim().toLowerCase();
+      const onclickAttr = (el.getAttribute('onclick') || '').toLowerCase();
+
+      if (
+        txt.includes('nạp tiền') || txt.includes('xác nhận nạp') || txt.includes('thanh toán') ||
+        txt.includes('đã chuyển tiền') || onclickAttr.includes('deposit') || onclickAttr.includes('naptien')
+      ) {
+        lastActionIntent = 'deposit';
+        intentTimestamp = Date.now();
+      } else if (
+        txt.includes('rút tiền') || txt.includes('xác nhận rút') ||
+        onclickAttr.includes('withdraw') || onclickAttr.includes('ruttien')
+      ) {
+        lastActionIntent = 'withdraw';
+        intentTimestamp = Date.now();
+      }
+    }, true);
+
+    // Tầng 1: Bắt trực tiếp qua API Fetch (nếu gọi server)
     const origFetch = window.fetch;
-    if (origFetch && !window._qq88ExplicitWithdrawHooked) {
-      window._qq88ExplicitWithdrawHooked = true;
+    if (origFetch && !window._qq88UnifiedTransHooked) {
+      window._qq88UnifiedTransHooked = true;
       window.fetch = async function(...args) {
         const res = await origFetch.apply(this, args);
         try {
           const url = String(args[0] || '').toLowerCase();
           const method = (args[1]?.method || 'GET').toUpperCase();
-          if (method === 'POST' && (url.includes('/withdraw') || url.includes('/rut-tien'))) {
+          if (method === 'POST' && res.ok) {
             let reqBody = {};
             if (args[1] && args[1].body) {
               try { reqBody = JSON.parse(args[1].body); } catch (e) {}
             }
             const amt = Number(reqBody.amount || reqBody.money || 0);
-            if (amt > 0 && res.ok) {
-              window.recordWithdrawActivity(amt);
+            if (amt > 0) {
+              if (url.includes('deposit') || url.includes('nap') || url.includes('recharge')) {
+                window.recordDepositActivity(amt);
+                baselineBalance = (baselineBalance !== null) ? baselineBalance + amt : null;
+              } else if (url.includes('withdraw') || url.includes('rut')) {
+                window.recordWithdrawActivity(amt);
+                baselineBalance = (baselineBalance !== null) ? baselineBalance - amt : null;
+              }
             }
           }
         } catch (e) {}
@@ -7848,9 +7735,51 @@ async function handleRealLogin(e) {
       };
     }
 
+    // Tầng 2: Theo dõi biến động số dư sau khi đã khóa mốc số dư gốc lúc tải trang
+    setTimeout(() => {
+      setInterval(() => {
+        const curUser = typeof getActiveUsername === 'function' ? getActiveUsername() : 'guest';
+        const balEl = document.querySelector('.sync-user-balance');
+        if (!balEl || typeof parseBalanceNumber !== 'function') return;
+        const curBal = parseBalanceNumber(balEl.textContent);
+        if (curBal === null) return;
+
+        // Nếu mới tải trang hoặc vừa đổi tài khoản -> khóa mốc số dư ban đầu, KHÔNG ghi lịch sử
+        if (!baselineLocked || curUser !== lastActiveUser) {
+          baselineBalance = curBal;
+          lastActiveUser = curUser;
+          baselineLocked = true;
+          return;
+        }
+
+        const diff = Number((curBal - baselineBalance).toFixed(2));
+        if (Math.abs(diff) >= 0.01) {
+          const hasGameIframe = document.querySelector('iframe');
+          const isGameVisible = hasGameIframe && hasGameIframe.offsetParent !== null;
+
+          // Nếu KHÔNG phải đang mở game
+          if (!isGameVisible) {
+            if (diff > 0) {
+              // Số dư tăng lên ngoài sảnh -> Chắc chắn 100% là Nạp tiền thành công
+              window.recordDepositActivity(diff);
+            } else if (diff < 0 && lastActionIntent === 'withdraw' && (Date.now() - intentTimestamp < 60000)) {
+              // Số dư giảm xuống sau khi thao tác Rút tiền -> Chắc chắn 100% là Rút tiền thành công
+              window.recordWithdrawActivity(Math.abs(diff));
+            }
+          }
+          baselineBalance = curBal;
+        }
+      }, 700);
+    }, 2000); // Chờ 2 giây đầu để trang đồng bộ xong số dư sẵn có của nick mà không bắt nhầm
+
     window.addEventListener('DOMContentLoaded', () => {
-      renderWithdrawHistoryView();
+      window.renderDepositHistoryView();
+      window.renderWithdrawHistoryView();
     });
+    setTimeout(() => {
+      window.renderDepositHistoryView();
+      window.renderWithdrawHistoryView();
+    }, 300);
   })();
 </script>
 

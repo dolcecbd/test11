@@ -7072,32 +7072,435 @@ async function handleRealLogin(e) {
 </script>
 
 <!-- ============================================== -->
-<!-- 3. LỊCH SỬ NẠP TIỀN (ICON SỐ 4)                -->
 <!-- ============================================== -->
-<div id="overlay-deposit-history" class="premium-overlay" style="background:#fff;">
-  <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-deposit-history')" style="font-size: 20px; cursor: pointer;">❮</div>
-    <div class="premium-title">Lịch sử nạp tiền</div>
+<!-- 3. LỊCH SỬ NẠP TIỀN (ICON SỐ 4 - CHUẨN 1:1)    -->
+<!-- ============================================== -->
+<style>
+  #overlay-deposit-history {
+    background: #ffffff !important;
+    font-family: 'Roboto', sans-serif !important;
+  }
+  #overlay-deposit-history .dh-header {
+    background: #18191d;
+    height: 52px; min-height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px;
+    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+  }
+  #overlay-deposit-history .dh-back {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: flex-start;
+    cursor: pointer;
+  }
+  #overlay-deposit-history .dh-title {
+    font-size: 18px; font-weight: 400; color: #ffffff;
+    text-align: center; flex: 1;
+  }
+  #overlay-deposit-history .dh-right-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: flex-end;
+    cursor: pointer; color: #ffffff;
+  }
+
+  /* Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần */
+  #overlay-deposit-history .dh-tabs {
+    background: #ffffff;
+    display: flex; align-items: center;
+    height: 46px; min-height: 46px;
+    border-bottom: 1px solid #eaeaea;
+    position: sticky; top: 52px; z-index: 98; flex-shrink: 0;
+  }
+  #overlay-deposit-history .dh-tab {
+    flex: 1; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15.5px; font-weight: 400; color: #111111;
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer; transition: all 0.15s ease;
+  }
+  #overlay-deposit-history .dh-tab.active {
+    color: #1592e6;
+    border-bottom-color: #1592e6;
+  }
+
+  /* Thanh 3 nút lọc viền xanh trên nền xám nhạt */
+  #overlay-deposit-history .dh-filter-bar {
+    background: #f4f5f7;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px;
+    overflow-x: auto; white-space: nowrap; flex-shrink: 0;
+  }
+  #overlay-deposit-history .dh-filter-bar::-webkit-scrollbar { display: none; }
+  #overlay-deposit-history .dh-filter-btn {
+    border: 1px solid #2b85e4;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #2b85e4;
+    height: 32px; padding: 0 10px;
+    font-size: 13.5px; font-weight: 400;
+    display: inline-flex; align-items: center; gap: 6px;
+    flex-shrink: 0; cursor: pointer;
+  }
+
+  /* Trạng thái trống (Ảnh 1) */
+  #overlay-deposit-history .dh-empty-wrap {
+    flex: 1; background: #ffffff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 16px 80px;
+  }
+  #overlay-deposit-history .dh-empty-text {
+    font-size: 20px; color: #1592e6; font-weight: 400; margin-top: 14px;
+  }
+
+  /* Danh sách thẻ nạp tiền khi có dữ liệu (Ảnh 2) */
+  #overlay-deposit-history .dh-list-wrap {
+    flex: 1; background: #ffffff;
+    display: none; flex-direction: column;
+    padding: 6px 0 20px;
+  }
+  #overlay-deposit-history .dh-card {
+    background: #ffffff;
+    padding: 14px 16px 16px;
+    border-bottom: 1px solid #ededed;
+  }
+  #overlay-deposit-history .dh-method-title {
+    font-size: 16px; font-weight: 400; color: #1f1f1f;
+    margin-bottom: 3px;
+  }
+  #overlay-deposit-history .dh-method-time {
+    font-size: 13.5px; font-weight: 400; color: #2b2b2b;
+    margin-bottom: 10px;
+  }
+  #overlay-deposit-history .dh-gray-box {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  #overlay-deposit-history .dh-detail-row {
+    font-size: 14.5px; color: #262626; font-weight: 400;
+    line-height: 1.4; display: flex; align-items: center; flex-wrap: wrap;
+  }
+  #overlay-deposit-history .dh-detail-row .dh-lbl {
+    color: #262626; margin-right: 8px;
+  }
+  #overlay-deposit-history .dh-copy-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-left: 8px; cursor: pointer; vertical-align: middle;
+  }
+
+  /* Bảng 4 cột dưới thẻ */
+  #overlay-deposit-history .dh-cols-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.15fr 1fr 0.95fr;
+    text-align: center; align-items: start;
+    column-gap: 4px;
+  }
+  #overlay-deposit-history .dh-col-lbl {
+    font-size: 14px; color: #262626; font-weight: 400;
+    line-height: 1.3; margin-bottom: 4px;
+  }
+  #overlay-deposit-history .dh-col-val {
+    font-size: 14.5px; color: #262626; font-weight: 400;
+  }
+  #overlay-deposit-history .dh-col-val.red {
+    color: #e53935;
+  }
+  #overlay-deposit-history .dh-col-val.green {
+    color: #2e7d32;
+  }
+
+  /* Thanh Tổng số tiền vào tài khoản dưới đáy */
+  #overlay-deposit-history .dh-bottom-total {
+    position: sticky; bottom: 0; left: 0; right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    padding: 14px 16px;
+    font-size: 16px; font-weight: 700; color: #000000;
+    display: none; align-items: center;
+    z-index: 95; flex-shrink: 0;
+  }
+</style>
+
+<div id="overlay-deposit-history" class="premium-overlay">
+  <!-- Header Đen có icon góc phải như ảnh gốc -->
+  <div class="dh-header">
+    <div class="dh-back" onclick="closeAccOverlay('overlay-deposit-history')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="dh-title">Lịch sử nạp tiền</div>
+    <div class="dh-right-icon" onclick="closeAccOverlay('overlay-deposit-history'); openAccOverlay('overlay-withdraw-history');" title="Lịch sử rút tiền">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v4"></path>
+        <path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"></path>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+        <line x1="8" y1="10" x2="14" y2="10"></line>
+        <line x1="8" y1="14" x2="12" y2="14"></line>
+        <circle cx="17.5" cy="17.5" r="4.5"></circle>
+        <polyline points="15.8 17.2 17.5 19 19.2 17.2"></polyline>
+        <line x1="17.5" y1="15" x2="17.5" y2="19"></line>
+      </svg>
+    </div>
   </div>
-  <div class="hist-filter-bar">
-    <div class="hist-f-btn">TẤT CẢ ▾</div>
-    <div class="hist-f-btn active">✓ Hôm nay</div>
-    <div class="hist-f-btn" style="margin-left:auto;">📅 11/15- 11/15</div>
+
+  <!-- Thanh 3 Tab: Hôm nay | Hôm qua | Một tuần -->
+  <div class="dh-tabs">
+    <div class="dh-tab active" onclick="switchDepositTab(this, 'today')">Hôm nay</div>
+    <div class="dh-tab" onclick="switchDepositTab(this, 'yesterday')">Hôm qua</div>
+    <div class="dh-tab" onclick="switchDepositTab(this, 'week')">Một tuần</div>
   </div>
-  <div class="c3-empty-wrap">
-    <svg width="140" height="120" viewBox="0 0 200 160" fill="none">
-      <path d="M40 80l2-6 6-2-6-2-2-6-2 6-6 2 6 2 2 6zM150 70l2-4 4-2-4-2-2-4-2 4-4 2 4 2 2 4z" fill="#0ea5e9"/>
-      <path d="M125 75 C100 110, 70 80, 100 65 C115 55, 125 65, 125 75" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
-      <path d="M115 70 L145 45 L130 85 L120 70 Z" fill="#0ea5e9"/>
-      <path d="M115 70 L145 45 L125 65 Z" fill="#38bdf8"/>
-      <path d="M60 120 L75 80 L125 80 L140 120 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M60 120 L140 120 L140 145 L60 145 Z" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M90 120 C90 125, 110 125, 110 120" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Thanh 3 nút lọc viền xanh -->
+  <div class="dh-filter-bar">
+    <div class="dh-filter-btn" onclick="showToast('Tất cả phương thức nạp')">Tất cả tiền nạp</div>
+    <div class="dh-filter-btn" onclick="showToast('Tất cả trạng thái')">Tất cả trạng thái</div>
+    <div class="dh-filter-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2b85e4" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span id="dh-date-range-txt">11/15- 11/15</span>
+    </div>
+  </div>
+
+  <!-- Khối danh sách khi ĐÃ NẠP TIỀN (Ảnh 2) -->
+  <div id="dh-list-wrap" class="dh-list-wrap"></div>
+
+  <!-- Khối trạng thái trống khi CHƯA NẠP TIỀN (Ảnh 1) -->
+  <div id="dh-empty-wrap" class="dh-empty-wrap">
+    <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
+      <circle cx="72" cy="40" r="2.2" fill="#1592e6"/>
+      <circle cx="122" cy="52" r="2.5" fill="#1592e6"/>
+      <circle cx="63" cy="90" r="2.2" fill="#1592e6"/>
+      <path d="M90 30l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5zM62 76l1.8-4.5 4.5-1.8-4.5-1.8-1.8-4.5-1.8 4.5-4.5 1.8 4.5 1.8 1.8 4.5zM145 78l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5z" fill="#1592e6"/>
+      <path d="M93 102 C108 92, 118 76, 103 68 C92 62, 92 78, 104 80 C114 82, 122 72, 126 62" stroke="#1592e6" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+      <path d="M114 55 L135 45 L125 69 L120 59 Z" fill="#1592e6"/>
+      <path d="M114 55 L135 45 L120 59 Z" fill="#38bdf8"/>
+      <path d="M76 118 L84 96 L118 96 L126 118 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+      <path d="M76 118 L93 118 C93 125, 109 125, 109 118 L126 118 L126 136 C126 137.5, 124.5 139, 123 139 L79 139 C77.5 139, 76 137.5, 76 136 Z" stroke="#1592e6" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
     </svg>
-    <div class="c3-empty-text">Chưa có dữ liệu</div>
+    <div class="dh-empty-text">Chưa có dữ liệu</div>
   </div>
-  <div class="c3-bottom-total"><span>Tổng</span><span>0.00</span></div>
+
+  <!-- Thanh tổng tiền dưới đáy (chỉ hiện khi có lịch sử nạp) -->
+  <div id="dh-bottom-total" class="dh-bottom-total">
+    Tổng số tiền vào tài khoản:<span id="dh-total-val">0.00</span>
+  </div>
 </div>
+
+<script>
+  let currentDhPeriod = 'today';
+
+  function formatFullDateTime(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+  }
+
+  // Hàm ghi nhận giao dịch Nạp tiền thật của tài khoản
+  window.recordDepositActivity = function(amountVal, customMethod, customEvent) {
+    const amt = Number(amountVal);
+    if (!amt || amt <= 0) return;
+
+    const now = new Date();
+    const finishTime = new Date(now.getTime() + 55000); // Thời gian duyệt cách ~55s giống web real
+    const orderCode = '141' + String(Date.now()).slice(-10);
+
+    const logs = typeof getUserLogs === 'function' ? getUserLogs() : [];
+    logs.unshift({
+      id: orderCode,
+      date: typeof getDateKey === 'function' ? getDateKey(0) : now.toISOString().slice(0, 10),
+      createdAt: formatFullDateTime(now),
+      completedAt: formatFullDateTime(finishTime),
+      type: 'deposit',
+      method: customMethod || 'Ngân Hàng Nội Địa',
+      event: customEvent || 'FIXED_AMT_DEPOSIT',
+      fee: 0,
+      bonus: 0,
+      amount: amt,
+      status: 'Thành công'
+    });
+
+    if (typeof saveUserLogs === 'function') saveUserLogs(logs.slice(0, 300));
+    renderDepositHistoryView();
+    if (typeof renderProfitLossView === 'function') renderProfitLossView();
+  };
+
+  function switchDepositTab(tabEl, period) {
+    document.querySelectorAll('#overlay-deposit-history .dh-tab').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    currentDhPeriod = period;
+    renderDepositHistoryView();
+  }
+
+  function copyDepositCode(code) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).catch(() => {});
+    }
+    if (typeof showToast === 'function') showToast('Đã sao chép mã nạp tiền: ' + code);
+  }
+
+  function renderDepositHistoryView() {
+    const dateTxt = document.getElementById('dh-date-range-txt');
+    const todayKey = typeof getDateKey === 'function' ? getDateKey(0) : '';
+    const yesterdayKey = typeof getDateKey === 'function' ? getDateKey(1) : '';
+
+    if (dateTxt && typeof getShortDate === 'function') {
+      if (currentDhPeriod === 'today') dateTxt.textContent = `${getShortDate(0)}- ${getShortDate(0)}`;
+      else if (currentDhPeriod === 'yesterday') dateTxt.textContent = `${getShortDate(1)}- ${getShortDate(1)}`;
+      else dateTxt.textContent = `${getShortDate(6)}- ${getShortDate(0)}`;
+    }
+
+    const allLogs = (typeof getUserLogs === 'function' ? getUserLogs() : []).filter(item => {
+      if (item.type !== 'deposit') return false;
+      if (currentDhPeriod === 'today') return item.date === todayKey;
+      if (currentDhPeriod === 'yesterday') return item.date === yesterdayKey;
+      return true;
+    });
+
+    const listWrap = document.getElementById('dh-list-wrap');
+    const emptyWrap = document.getElementById('dh-empty-wrap');
+    const bottomTotal = document.getElementById('dh-bottom-total');
+    const totalValEl = document.getElementById('dh-total-val');
+    if (!listWrap || !emptyWrap || !bottomTotal) return;
+
+    // Nếu chưa nạp tiền -> hiện màn hình trống như Ảnh 1
+    if (allLogs.length === 0) {
+      listWrap.style.display = 'none';
+      bottomTotal.style.display = 'none';
+      emptyWrap.style.display = 'flex';
+      return;
+    }
+
+    // Nếu đã nạp tiền -> hiện danh sách chuẩn Ảnh 2
+    emptyWrap.style.display = 'none';
+    listWrap.style.display = 'flex';
+    bottomTotal.style.display = 'flex';
+
+    let sumDeposit = 0;
+    listWrap.innerHTML = allLogs.map(item => {
+      const amt = Number(item.amount) || 0;
+      const bonus = Number(item.bonus) || 0;
+      const fee = Number(item.fee) || 0;
+      const intoAcc = amt + bonus - fee;
+      sumDeposit += intoAcc;
+
+      const code = String(item.id || '1412227629304').replace(/\D/g, '').slice(0, 13) || '1412227629304';
+      const createdTime = item.createdAt || (item.date + ' ' + (item.time || '23:52:26'));
+      const completedTime = item.completedAt || createdTime;
+
+      return `
+        <div class="dh-card">
+          <div class="dh-method-title">${item.method || 'Ngân Hàng Nội Địa'}</div>
+          <div class="dh-method-time">${createdTime}</div>
+
+          <div class="dh-gray-box">
+            <div class="dh-detail-row">
+              <span class="dh-lbl">Mã nạp tiền:</span>
+              <span>${code}</span>
+              <span class="dh-copy-icon" onclick="copyDepositCode('${code}')" title="Sao chép">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="8" y="3" width="12" height="14" rx="2.5" fill="#9e9e9e"/>
+                  <rect x="4" y="7" width="12" height="14" rx="2.5" fill="#757575" stroke="#f5f5f5" stroke-width="1.2"/>
+                </svg>
+              </span>
+            </div>
+            <div class="dh-detail-row"><span class="dh-lbl">Lời nhắn:</span><span>${item.message || ''}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Thời gian:</span><span>${completedTime}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Phí thủ tục:</span><span>${formatMoney(fee)}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Sự kiện:</span><span>${item.event || 'FIXED_AMT_DEPOSIT'}</span></div>
+            <div class="dh-detail-row"><span class="dh-lbl">Ghi chú:</span><span>${item.note || '-'}</span></div>
+          </div>
+
+          <div class="dh-cols-grid">
+            <div>
+              <div class="dh-col-lbl">Tiền nạp</div>
+              <div class="dh-col-val red">${formatMoney(amt)}</div>
+            </div>
+            <div>
+              <div class="dh-col-lbl">Số tiền vào<br>tài khoản</div>
+              <div class="dh-col-val">${formatMoney(intoAcc)}</div>
+            </div>
+            <div>
+              <div class="dh-col-lbl">Số tiền tặng</div>
+              <div class="dh-col-val">${formatMoney(bonus)}</div>
+            </div>
+            <div>
+              <div class="dh-col-lbl">Trạng thái</div>
+              <div class="dh-col-val green">${item.status || 'Thành công'}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (totalValEl) totalValEl.textContent = formatMoney(sumDeposit);
+  }
+
+  // Tự động bắt sự kiện khi người dùng thực hiện Nạp tiền trên web
+  (function hookRealDepositActions() {
+    let prevBalForDep = null;
+
+    // 1. Bắt qua API fetch nếu web gọi API nạp tiền
+    const origFetch = window.fetch;
+    if (origFetch && !window._qq88DepositFetchHooked) {
+      window._qq88DepositFetchHooked = true;
+      window.fetch = async function(...args) {
+        const res = await origFetch.apply(this, args);
+        try {
+          const url = String(args[0] || '').toLowerCase();
+          if (url.includes('deposit') || url.includes('nap') || url.includes('recharge')) {
+            const clone = res.clone();
+            const data = await clone.json().catch(() => null);
+            let reqBody = {};
+            if (args[1] && args[1].body) {
+              try { reqBody = JSON.parse(args[1].body); } catch (e) {}
+            }
+            const amt = Number(reqBody.amount || reqBody.money || data?.amount || 0);
+            if (amt > 0 && res.ok) {
+              window.recordDepositActivity(amt);
+            }
+          }
+        } catch (e) {}
+        return res;
+      };
+    }
+
+    // 2. Bắt tự động khi số dư tài khoản tăng lên mà KHÔNG phải đang trong game (tức là vừa nạp tiền thành công)
+    setInterval(() => {
+      const balEl = document.querySelector('.sync-user-balance');
+      if (!balEl || typeof parseBalanceNumber !== 'function') return;
+      const curBal = parseBalanceNumber(balEl.textContent);
+      if (curBal === null) return;
+
+      if (prevBalForDep === null) {
+        prevBalForDep = curBal;
+        return;
+      }
+
+      const diff = Number((curBal - prevBalForDep).toFixed(2));
+      if (diff > 0) {
+        const hasGameIframe = document.querySelector('iframe');
+        const isGameVisible = hasGameIframe && hasGameIframe.offsetParent !== null;
+        if (!isGameVisible) {
+          // Kiểm tra tránh ghi trùng nếu API hook vừa ghi trong 3 giây qua
+          const logs = typeof getUserLogs === 'function' ? getUserLogs() : [];
+          const recentDep = logs.find(l => l.type === 'deposit' && (Date.now() - Number(String(l.id).slice(3)) < 3000));
+          if (!recentDep) {
+            window.recordDepositActivity(diff);
+          }
+        }
+      }
+      prevBalForDep = curBal;
+    }, 800);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDepositHistoryView();
+    });
+  })();
+</script>
 
 <!-- ============================================== -->
 <!-- 4. LỊCH SỬ RÚT TIỀN (ICON SỐ 5)                -->

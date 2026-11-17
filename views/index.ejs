@@ -6092,29 +6092,110 @@ async function handleRealLogin(e) {
 </div>
 
 <!-- ============================================== -->
+<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH (CHUẨN 1:1)     -->
 <!-- ============================================== -->
-<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH (ĐÃ DỌN ĐƠN ẢO) -->
-<!-- ============================================== -->
-<div id="overlay-history-trans" class="premium-overlay" style="background:#ffffff;">
-  <div class="premium-header">
-    <div onclick="closeAccOverlay('overlay-history-trans')" style="font-size: 22px; cursor: pointer; width: 30px;">❮</div>
-    <div class="premium-title">Lịch sử giao dịch</div>
-    <div style="width:30px"></div>
+<style>
+  #overlay-history-trans {
+    background: #ffffff !important;
+    font-family: 'Roboto', -apple-system, sans-serif !important;
+  }
+  #overlay-history-trans .ht-header {
+    background: #18191d;
+    height: 52px; min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+  }
+  #overlay-history-trans .ht-back {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; display: flex; align-items: center; cursor: pointer;
+  }
+  #overlay-history-trans .ht-title {
+    font-size: 18px; font-weight: 400; color: #ffffff;
+  }
+  #overlay-history-trans .ht-filter-bar {
+    background: #f4f5f7;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px;
+    position: sticky; top: 52px; z-index: 95; flex-shrink: 0;
+  }
+  #overlay-history-trans .ht-btn {
+    border: 1px solid #d1d5db; border-radius: 4px;
+    background: #f9fafb; color: #4b5563;
+    height: 32px; padding: 0 10px; font-size: 13.5px; font-weight: 400;
+    display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+  }
+  #overlay-history-trans .ht-btn.active {
+    background: #1592e6; color: #ffffff; border-color: #1592e6;
+  }
+  #overlay-history-trans .ht-btn svg { width: 14px; height: 14px; }
+  #overlay-history-trans .ht-date-btn {
+    margin-left: auto; border: 1px solid #d1d5db; border-radius: 4px;
+    background: #f9fafb; color: #4b5563;
+    height: 32px; padding: 0 8px; font-size: 12.5px;
+    display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+  }
+  #overlay-history-trans .ht-list-wrap {
+    flex: 1; display: none; flex-direction: column; padding: 12px 14px; background: #ffffff;
+  }
+  #overlay-history-trans .ht-card {
+    background: #ffffff; border-radius: 12px; padding: 16px; margin-bottom: 12px;
+    border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  #overlay-history-trans .ht-card-head {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+  }
+  #overlay-history-trans .ht-type {
+    font-size: 14.5px; font-weight: 700; color: #1f2937; display: flex; align-items: center; gap: 8px;
+  }
+  #overlay-history-trans .ht-icon-box {
+    width: 24px; height: 24px; border-radius: 50%; background: #0ea5e9; color: #ffffff;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+  }
+  #overlay-history-trans .ht-time { font-size: 12px; color: #9ca3af; }
+  #overlay-history-trans .ht-info-row {
+    display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 14px; line-height: 1.5;
+  }
+  #overlay-history-trans .ht-lbl { color: #6b7280; }
+  #overlay-history-trans .ht-val { font-weight: 500; color: #111111; text-align: right; }
+  #overlay-history-trans .ht-bot-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-top: 14px; border-top: 1px solid #f3f4f6;
+  }
+  #overlay-history-trans .ht-amt-box { display: flex; flex-direction: column; gap: 4px; }
+  #overlay-history-trans .ht-amt-lbl { font-size: 11.5px; color: #9ca3af; }
+  #overlay-history-trans .ht-amt-num { font-size: 15px; font-weight: 800; color: #111111; }
+  #overlay-history-trans .ht-amt-num.green { color: #10b981; }
+  #overlay-history-trans .ht-amt-num.red { color: #ef4444; }
+  #overlay-history-trans .ht-empty-wrap {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 16px 80px; background: #ffffff;
+  }
+</style>
+
+<div id="overlay-history-trans" class="premium-overlay">
+  <div class="ht-header">
+    <div class="ht-back" onclick="closeAccOverlay('overlay-history-trans')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </div>
+    <div class="ht-title">Lịch sử giao dịch</div>
   </div>
-  <div class="ht-tabs" style="background:#ffffff;display:flex;align-items:center;height:46px;min-height:46px;border-bottom:1px solid #eaeaea;position:sticky;top:52px;z-index:99;">
-    <div class="ht-tab active" onclick="window.switchTransHistoryTab(this, 'today')" style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;font-size:15.5px;color:#1592e6;border-bottom:2.5px solid #1592e6;cursor:pointer;">Hôm nay</div>
-    <div class="ht-tab" onclick="window.switchTransHistoryTab(this, 'yesterday')" style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;font-size:15.5px;color:#111111;border-bottom:2.5px solid transparent;cursor:pointer;">Hôm qua</div>
-    <div class="ht-tab" onclick="window.switchTransHistoryTab(this, 'week')" style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;font-size:15.5px;color:#111111;border-bottom:2.5px solid transparent;cursor:pointer;">Một tuần</div>
-  </div>
-  <div style="background:#f4f5f7;display:flex;align-items:center;gap:12px;padding:10px 16px;">
-    <div onclick="window.renderTransHistoryView(true)" style="border:1px solid #2b85e4;border-radius:4px;background:#ffffff;color:#2b85e4;height:32px;padding:0 12px;font-size:13.5px;display:inline-flex;align-items:center;cursor:pointer;">TẤT CẢ ▾</div>
-    <div onclick="window.renderTransHistoryView(true)" style="border:1px solid #2b85e4;border-radius:4px;background:#ffffff;color:#2b85e4;height:32px;padding:0 10px;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2b85e4" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+
+  <div class="ht-filter-bar">
+    <button class="ht-btn" onclick="showToast('Chức năng lọc TẤT CẢ')">
+      TẤT CẢ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <button class="ht-btn active" onclick="window.renderTransHistoryView(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg> Hôm nay
+    </button>
+    <div class="ht-date-btn" onclick="window.renderTransHistoryView(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       <span class="ht-date-range-txt">11/18- 11/18</span>
     </div>
   </div>
-  <div class="ht-list-wrap" style="display:none;flex-direction:column;padding:12px 16px;flex:1;background:#f4f6f9;"></div>
-  <div class="ht-empty-wrap" style="flex:1;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px 80px;">
+
+  <div class="ht-list-wrap"></div>
+
+  <div class="ht-empty-wrap">
     <svg width="155" height="135" viewBox="0 0 200 160" fill="none">
       <circle cx="72" cy="40" r="2.2" fill="#1592e6"/><circle cx="122" cy="52" r="2.5" fill="#1592e6"/><circle cx="63" cy="90" r="2.2" fill="#1592e6"/>
       <path d="M90 30l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5zM62 76l1.8-4.5 4.5-1.8-4.5-1.8-1.8-4.5-1.8 4.5-4.5 1.8 4.5 1.8 1.8 4.5zM145 78l2-5 5-2-5-2-2-5-2 5-5 2 5 2 2 5z" fill="#1592e6"/>

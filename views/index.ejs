@@ -7046,5 +7046,259 @@ async function handleRealLogin(e) {
   setTimeout(initCleanC3, 500);
 })();
 </script>
+<script>
+(function() {
+  // 1. DỌN SẠCH LOCALSTORAGE CŨ (DỌN ĐƠN ẢO 100.00 VÀ CÁC THỨC RÁC)
+  try {
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith('qq88_real_logs_') || k.startsWith('qq88_verified_logs_') || k.startsWith('qq88_clean_tx_v3_')) {
+        localStorage.removeItem(k);
+      }
+    });
+  } catch (e) {}
+
+  // 2. KHO DỮ LIỆU TÁCH BIỆT HOÀN TOÀN MỚI
+  window.currentWhPeriod = 'today';
+  window.currentDhPeriod = 'today';
+  window.currentHtPeriod = 'today';
+
+  window.getActiveUsername = function() {
+    const nameEl = document.querySelector('.sync-user-name');
+    if (nameEl && nameEl.textContent.trim()) return nameEl.textContent.trim();
+    try {
+      const saved = JSON.parse(localStorage.getItem('qq88_saved_account') || localStorage.getItem('currentUser') || 'null');
+      if (saved && (saved.username || saved.name)) return saved.username || saved.name;
+    } catch (e) {}
+    return 'guest';
+  };
+
+  window.getDateKey = function(offsetDays) {
+    const d = new Date(); d.setDate(d.getDate() - (offsetDays || 0));
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + mm + '-' + dd;
+  };
+
+  window.getShortDate = function(offsetDays) {
+    const d = new Date(); d.setDate(d.getDate() - (offsetDays || 0));
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return mm + '/' + dd;
+  };
+
+  window.formatMoney = function(num) {
+    return Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  window.getUserLogs = function() {
+    const key = 'qq88_tx_v5_' + window.getActiveUsername();
+    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; }
+  };
+
+  window.copyDepositCode = function(code) {
+    if (navigator.clipboard) navigator.clipboard.writeText(code).catch(() => {});
+    if (typeof showToast === 'function') showToast('Đã sao chép mã: ' + code);
+  };
+
+  // 3. BỘ KÍCH HOẠT HIỂN THỊ (HỖ TRỢ ÉP THEO ROOT TRÁNH LỖI ĐÈ HTML)
+  window.renderWithdrawHistoryView = function(animate, specificRoot) {
+    const roots = specificRoot ? [specificRoot] : document.querySelectorAll('[id="overlay-withdraw-history"]');
+    roots.forEach(root => {
+        const dateTxt = root.querySelector('.wh-date-range-txt');
+        if (dateTxt) {
+            if (window.currentWhPeriod === 'today') dateTxt.textContent = window.getShortDate(0) + '- ' + window.getShortDate(0);
+            else if (window.currentWhPeriod === 'yesterday') dateTxt.textContent = window.getShortDate(1) + '- ' + window.getShortDate(1);
+            else dateTxt.textContent = window.getShortDate(6) + '- ' + window.getShortDate(0);
+        }
+        
+        const allLogs = window.getUserLogs().filter(item => {
+            if (item.type !== 'withdraw') return false;
+            if (window.currentWhPeriod === 'today') return item.date === window.getDateKey(0);
+            if (window.currentWhPeriod === 'yesterday') return item.date === window.getDateKey(1);
+            return true;
+        });
+        
+        const listWrap = root.querySelector('.wh-list-wrap');
+        const emptyWrap = root.querySelector('.wh-empty-wrap');
+        const bottomTotal = root.querySelector('.wh-bottom-total');
+        const totalValEl = root.querySelector('.wh-total-val');
+        
+        if (!listWrap || !emptyWrap) return;
+        
+        if (animate) {
+            emptyWrap.style.opacity = '0.35'; listWrap.style.opacity = '0.35';
+            setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+        }
+        
+        if (allLogs.length === 0) {
+            listWrap.style.display = 'none'; if(bottomTotal) bottomTotal.style.display = 'none';
+            emptyWrap.style.display = 'flex'; return;
+        }
+        
+        emptyWrap.style.display = 'none'; listWrap.style.display = 'flex'; if(bottomTotal) bottomTotal.style.display = 'flex';
+        let sum = 0;
+        listWrap.innerHTML = allLogs.map(item => {
+            const amt = Number(item.amount) || 0; const fee = Number(item.fee) || 0; const realAmt = amt - fee; sum += realAmt;
+            const code = String(item.id || '2512227629304').replace(/\D/g, '').slice(0, 13);
+            return '<div class="wh-card" style="background:#fff;padding:14px 16px 16px;border-bottom:1px solid #ededed;"><div class="wh-method-title" style="font-size:16px;color:#1f1f1f;margin-bottom:3px;">' + (item.method || 'Chuyển Khoản Ngân Hàng') + '</div><div class="wh-method-time" style="font-size:13.5px;color:#2b2b2b;margin-bottom:10px;">' + (item.createdAt || '') + '</div><div class="wh-gray-box" style="background:#f5f5f5;border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;"><div class="wh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="wh-lbl" style="margin-right:8px;">Mã rút tiền:</span><span>' + code + '</span><span style="margin-left:8px;cursor:pointer;display:inline-flex;align-items:center;" onclick="window.copyDepositCode(\'' + code + '\')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="12" height="14" rx="2.5" fill="#9e9e9e"/><rect x="4" y="7" width="12" height="14" rx="2.5" fill="#757575" stroke="#f5f5f5" stroke-width="1.2"/></svg></span></div><div class="wh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="wh-lbl" style="margin-right:8px;">Thời gian duyệt:</span><span>' + (item.completedAt || '') + '</span></div><div class="wh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="wh-lbl" style="margin-right:8px;">Phí thủ tục:</span><span>' + window.formatMoney(fee) + '</span></div><div class="wh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="wh-lbl" style="margin-right:8px;">Ghi chú:</span><span>-</span></div></div><div class="wh-cols-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;column-gap:4px;"><div><div class="wh-col-lbl" style="font-size:14px;margin-bottom:4px;">Số tiền rút</div><div class="wh-col-val red" style="font-size:14.5px;color:#e53935;">' + window.formatMoney(amt) + '</div></div><div><div class="wh-col-lbl" style="font-size:14px;margin-bottom:4px;">Thực nhận</div><div class="wh-col-val" style="font-size:14.5px;">' + window.formatMoney(realAmt) + '</div></div><div><div class="wh-col-lbl" style="font-size:14px;margin-bottom:4px;">Trạng thái</div><div class="wh-col-val green" style="font-size:14.5px;color:#2e7d32;">' + (item.status || 'Thành công') + '</div></div></div></div>';
+        }).join('');
+        if (totalValEl) totalValEl.textContent = window.formatMoney(sum);
+    });
+  };
+
+  window.renderDepositHistoryView = function(animate, specificRoot) {
+    const roots = specificRoot ? [specificRoot] : document.querySelectorAll('[id="overlay-deposit-history"]');
+    roots.forEach(root => {
+        const dateTxt = root.querySelector('.dh-date-range-txt');
+        if (dateTxt) {
+            if (window.currentDhPeriod === 'today') dateTxt.textContent = window.getShortDate(0) + '- ' + window.getShortDate(0);
+            else if (window.currentDhPeriod === 'yesterday') dateTxt.textContent = window.getShortDate(1) + '- ' + window.getShortDate(1);
+            else dateTxt.textContent = window.getShortDate(6) + '- ' + window.getShortDate(0);
+        }
+        
+        const allLogs = window.getUserLogs().filter(item => {
+            if (item.type !== 'deposit') return false;
+            if (window.currentDhPeriod === 'today') return item.date === window.getDateKey(0);
+            if (window.currentDhPeriod === 'yesterday') return item.date === window.getDateKey(1);
+            return true;
+        });
+        
+        const listWrap = root.querySelector('.dh-list-wrap');
+        const emptyWrap = root.querySelector('.dh-empty-wrap');
+        const bottomTotal = root.querySelector('.dh-bottom-total');
+        const totalValEl = root.querySelector('.dh-total-val');
+        
+        if (!listWrap || !emptyWrap) return;
+        
+        if (animate) {
+            emptyWrap.style.opacity = '0.35'; listWrap.style.opacity = '0.35';
+            setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+        }
+        
+        if (allLogs.length === 0) {
+            listWrap.style.display = 'none'; if(bottomTotal) bottomTotal.style.display = 'none';
+            emptyWrap.style.display = 'flex'; return;
+        }
+        
+        emptyWrap.style.display = 'none'; listWrap.style.display = 'flex'; if(bottomTotal) bottomTotal.style.display = 'flex';
+        let sum = 0;
+        listWrap.innerHTML = allLogs.map(item => {
+            const amt = Number(item.amount) || 0; const bonus = Number(item.bonus) || 0; const fee = Number(item.fee) || 0;
+            const intoAcc = amt + bonus - fee; sum += intoAcc;
+            const code = String(item.id || '1412227629304').replace(/\D/g, '').slice(0, 13);
+            return '<div class="dh-card" style="background:#fff;padding:14px 16px 16px;border-bottom:1px solid #ededed;"><div class="dh-method-title" style="font-size:16px;color:#1f1f1f;margin-bottom:3px;">' + (item.method || 'Ngân Hàng Nội Địa') + '</div><div class="dh-method-time" style="font-size:13.5px;color:#2b2b2b;margin-bottom:10px;">' + (item.createdAt || '') + '</div><div class="dh-gray-box" style="background:#f5f5f5;border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;"><div class="dh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="dh-lbl" style="margin-right:8px;">Mã nạp tiền:</span><span>' + code + '</span><span class="dh-copy-icon" onclick="window.copyDepositCode(\'' + code + '\')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="12" height="14" rx="2.5" fill="#9e9e9e"/><rect x="4" y="7" width="12" height="14" rx="2.5" fill="#757575" stroke="#f5f5f5" stroke-width="1.2"/></svg></span></div><div class="dh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="dh-lbl" style="margin-right:8px;">Thời gian:</span><span>' + (item.completedAt || '') + '</span></div><div class="dh-detail-row" style="font-size:14.5px;color:#262626;display:flex;align-items:center;"><span class="dh-lbl" style="margin-right:8px;">Sự kiện:</span><span>' + (item.event || 'FIXED_AMT_DEPOSIT') + '</span></div></div><div class="dh-cols-grid" style="display:grid;grid-template-columns:0.9fr 1.15fr 1fr 0.95fr;text-align:center;column-gap:4px;"><div><div class="dh-col-lbl" style="font-size:14px;margin-bottom:4px;">Tiền nạp</div><div class="dh-col-val red" style="font-size:14.5px;color:#e53935;">' + window.formatMoney(amt) + '</div></div><div><div class="dh-col-lbl" style="font-size:14px;margin-bottom:4px;">Số tiền vào<br>tài khoản</div><div class="dh-col-val" style="font-size:14.5px;">' + window.formatMoney(intoAcc) + '</div></div><div><div class="dh-col-lbl" style="font-size:14px;margin-bottom:4px;">Số tiền tặng</div><div class="dh-col-val" style="font-size:14.5px;">' + window.formatMoney(bonus) + '</div></div><div><div class="dh-col-lbl" style="font-size:14px;margin-bottom:4px;">Trạng thái</div><div class="dh-col-val green" style="font-size:14.5px;color:#2e7d32;">' + (item.status || 'Thành công') + '</div></div></div></div>';
+        }).join('');
+        if (totalValEl) totalValEl.textContent = window.formatMoney(sum);
+    });
+  };
+
+  window.renderTransHistoryView = function(animate, specificRoot) {
+    const roots = specificRoot ? [specificRoot] : document.querySelectorAll('[id="overlay-history-trans"]');
+    roots.forEach(root => {
+        const dateTxt = root.querySelector('.ht-date-range-txt');
+        if (dateTxt) {
+            if (window.currentHtPeriod === 'today') dateTxt.textContent = window.getShortDate(0) + '- ' + window.getShortDate(0);
+            else if (window.currentHtPeriod === 'yesterday') dateTxt.textContent = window.getShortDate(1) + '- ' + window.getShortDate(1);
+            else dateTxt.textContent = window.getShortDate(6) + '- ' + window.getShortDate(0);
+        }
+        const allLogs = window.getUserLogs().filter(item => {
+            if (window.currentHtPeriod === 'today') return item.date === window.getDateKey(0);
+            if (window.currentHtPeriod === 'yesterday') return item.date === window.getDateKey(1);
+            return true;
+        });
+        const listWrap = root.querySelector('.ht-list-wrap');
+        const emptyWrap = root.querySelector('.ht-empty-wrap');
+        if (!listWrap || !emptyWrap) return;
+        
+        if (animate) {
+            emptyWrap.style.opacity = '0.35'; listWrap.style.opacity = '0.35';
+            setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+        }
+        
+        if (allLogs.length === 0) {
+            listWrap.style.display = 'none'; emptyWrap.style.display = 'flex'; return;
+        }
+        
+        emptyWrap.style.display = 'none'; listWrap.style.display = 'flex';
+        listWrap.innerHTML = allLogs.map(item => {
+            const isDep = item.type === 'deposit'; const isWit = item.type === 'withdraw';
+            const title = isDep ? 'Nạp tiền' : (isWit ? 'Rút tiền' : ('Cược ' + (item.gameName || 'Trò chơi')));
+            const delta = isDep ? item.amount : (isWit ? -item.amount : (item.win - item.bet));
+            const colorCls = delta >= 0 ? 'green' : 'red';
+            return '<div class="hist-card" style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #f1f5f9;"><div class="hist-card-head" style="display:flex;justify-content:space-between;margin-bottom:12px;"><div class="hist-type" style="font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;"><div class="hist-icon-box" style="width:24px;height:24px;background:#0ea5e9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;">💵</div> ' + title + '</div><div class="hist-time" style="font-size:11px;color:#94a3b8;">' + (item.createdAt || item.time || '') + '</div></div><div class="hist-info-row" style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px;"><div class="hist-lbl" style="color:#64748b;">Mã Giao dịch:<br><span style="color:#333;font-weight:600">' + item.id + '</span></div><div class="hist-val" style="font-weight:500;">' + (item.method || item.category || 'QQ88') + '</div></div><div class="hist-bot-row" style="display:flex;justify-content:space-between;border-top:1px solid #f1f5f9;padding-top:12px;align-items:flex-end;"><div class="hist-amt-box"><div class="hist-amt-lbl" style="font-size:11px;color:#94a3b8;">Trạng thái</div><div class="hist-amt-num" style="font-size:14px;font-weight:800;">Hoàn tất</div></div><div class="hist-amt-box" style="text-align:right;"><div class="hist-amt-lbl" style="font-size:11px;color:#94a3b8;">Số tiền giao dịch</div><div class="hist-amt-num ' + colorCls + '" style="font-size:16px;font-weight:800;">' + (delta >= 0 ? '+' : '') + window.formatMoney(delta) + '</div></div></div></div>';
+        }).join('');
+    });
+  };
+
+  // 4. BỘ CỨU HỘ KHẨN CẤP: BẮT LỆNH CLICK TAB ÉP BUỘC TỪ GỐC
+  if (!window._qq88TabFixerReady) {
+      window._qq88TabFixerReady = true;
+      document.addEventListener('click', function(e) {
+          // 4.1 Lịch sử rút tiền
+          const whTab = e.target.closest('.wh-tab');
+          if (whTab) {
+              e.stopPropagation(); e.preventDefault();
+              const txt = whTab.innerText || '';
+              const period = txt.includes('Hôm qua') ? 'yesterday' : (txt.includes('tuần') ? 'week' : 'today');
+              const root = whTab.closest('.premium-overlay') || whTab.closest('div[id="overlay-withdraw-history"]');
+              if (root) {
+                  root.querySelectorAll('.wh-tab').forEach(t => t.classList.remove('active'));
+                  whTab.classList.add('active');
+                  window.currentWhPeriod = period;
+                  window.renderWithdrawHistoryView(true, root);
+              }
+              return;
+          }
+
+          // 4.2 Lịch sử nạp tiền
+          const dhTab = e.target.closest('.dh-tab');
+          if (dhTab) {
+              e.stopPropagation(); e.preventDefault();
+              const txt = dhTab.innerText || '';
+              const period = txt.includes('Hôm qua') ? 'yesterday' : (txt.includes('tuần') ? 'week' : 'today');
+              const root = dhTab.closest('.premium-overlay') || dhTab.closest('div[id="overlay-deposit-history"]');
+              if (root) {
+                  root.querySelectorAll('.dh-tab').forEach(t => t.classList.remove('active'));
+                  dhTab.classList.add('active');
+                  window.currentDhPeriod = period;
+                  window.renderDepositHistoryView(true, root);
+              }
+              return;
+          }
+
+          // 4.3 Lịch sử giao dịch
+          const htTab = e.target.closest('.ht-tab');
+          if (htTab) {
+              e.stopPropagation(); e.preventDefault();
+              const txt = htTab.innerText || '';
+              const period = txt.includes('Hôm qua') ? 'yesterday' : (txt.includes('tuần') ? 'week' : 'today');
+              const root = htTab.closest('.premium-overlay') || htTab.closest('div[id="overlay-history-trans"]');
+              if (root) {
+                  root.querySelectorAll('.ht-tab').forEach(t => {
+                      t.classList.remove('active'); t.style.color = '#111111'; t.style.borderBottomColor = 'transparent';
+                  });
+                  htTab.classList.add('active');
+                  htTab.style.color = '#1592e6'; htTab.style.borderBottomColor = '#1592e6';
+                  window.currentHtPeriod = period;
+                  window.renderTransHistoryView(true, root);
+              }
+              return;
+          }
+      }, true); // Dùng true (Capture Phase) để bắt lệnh ưu tiên tuyệt đối
+  }
+
+  // 5. KHỞI TẠO MẠNH KHI LOAD TRANG
+  function initBulletproofUI() {
+      document.querySelectorAll('[id="overlay-withdraw-history"]').forEach(el => window.renderWithdrawHistoryView(false, el));
+      document.querySelectorAll('[id="overlay-deposit-history"]').forEach(el => window.renderDepositHistoryView(false, el));
+      document.querySelectorAll('[id="overlay-history-trans"]').forEach(el => window.renderTransHistoryView(false, el));
+  }
+  
+  if (document.readyState === 'loading') { window.addEventListener('DOMContentLoaded', initBulletproofUI); } 
+  else { initBulletproofUI(); }
+  setTimeout(initBulletproofUI, 500);
+
+})();
+</script>
 </body>
 </html>

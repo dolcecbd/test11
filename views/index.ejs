@@ -6092,11 +6092,11 @@ async function handleRealLogin(e) {
 </div>
 
 <!-- ============================================== -->
-<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH (CHUẨN 1:1)     -->
+<!-- GIAO DIỆN 2: LỊCH SỬ GIAO DỊCH (CHUẨN REAL 1:1) -->
 <!-- ============================================== -->
 <style>
   #overlay-history-trans {
-    background: #ffffff !important;
+    background: #f4f5f7 !important;
     font-family: 'Roboto', -apple-system, sans-serif !important;
   }
   #overlay-history-trans .ht-header {
@@ -6107,68 +6107,91 @@ async function handleRealLogin(e) {
   }
   #overlay-history-trans .ht-back {
     position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 32px; height: 32px; display: flex; align-items: center; cursor: pointer;
+    width: 32px; height: 32px; display: flex; align-items: center; cursor: pointer; z-index: 5;
   }
   #overlay-history-trans .ht-title {
     font-size: 18px; font-weight: 400; color: #ffffff;
   }
+  #overlay-history-trans .ht-tabs {
+    background: #ffffff;
+    display: flex; align-items: center;
+    height: 46px; min-height: 46px;
+    border-bottom: 1px solid #eaeaea;
+    position: sticky; top: 52px; z-index: 99; flex-shrink: 0;
+  }
+  #overlay-history-trans .ht-tab {
+    flex: 1; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15.5px; font-weight: 400; color: #111111;
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer !important; user-select: none;
+  }
+  #overlay-history-trans .ht-tab.active {
+    color: #1592e6 !important;
+    border-bottom-color: #1592e6 !important;
+  }
   #overlay-history-trans .ht-filter-bar {
     background: #f4f5f7;
     display: flex; align-items: center; gap: 8px;
-    padding: 10px 12px;
-    position: sticky; top: 52px; z-index: 95; flex-shrink: 0;
+    padding: 10px 12px; flex-shrink: 0;
   }
   #overlay-history-trans .ht-btn {
     border: 1px solid #d1d5db; border-radius: 4px;
-    background: #f9fafb; color: #4b5563;
-    height: 32px; padding: 0 10px; font-size: 13.5px; font-weight: 400;
+    background: #e5e7eb; color: #374151;
+    height: 32px; padding: 0 10px; font-size: 13px; font-weight: 400;
     display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
   }
   #overlay-history-trans .ht-btn.active {
-    background: #1592e6; color: #ffffff; border-color: #1592e6;
+    background: #1592e6 !important; color: #ffffff !important; border-color: #1592e6 !important;
   }
-  #overlay-history-trans .ht-btn svg { width: 14px; height: 14px; }
   #overlay-history-trans .ht-date-btn {
-    margin-left: auto; border: 1px solid #d1d5db; border-radius: 4px;
-    background: #f9fafb; color: #4b5563;
-    height: 32px; padding: 0 8px; font-size: 12.5px;
-    display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+    border: 1px solid #d1d5db; border-radius: 4px;
+    background: #e5e7eb; color: #374151;
+    height: 32px; padding: 0 10px; font-size: 13px;
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
   }
   #overlay-history-trans .ht-list-wrap {
-    flex: 1; display: none; flex-direction: column; padding: 12px 14px; background: #ffffff;
+    flex: 1; display: none; flex-direction: column;
+    padding: 0 0 24px 0; background: #f4f5f7; gap: 10px;
   }
   #overlay-history-trans .ht-card {
-    background: #ffffff; border-radius: 12px; padding: 16px; margin-bottom: 12px;
-    border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    background: #ffffff; padding: 14px 16px;
+    border-top: 1px solid #efefef; border-bottom: 1px solid #efefef;
   }
   #overlay-history-trans .ht-card-head {
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
   }
   #overlay-history-trans .ht-type {
-    font-size: 14.5px; font-weight: 700; color: #1f2937; display: flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 700; color: #333333;
+    display: flex; align-items: center; gap: 8px;
   }
   #overlay-history-trans .ht-icon-box {
-    width: 24px; height: 24px; border-radius: 50%; background: #0ea5e9; color: #ffffff;
-    display: flex; align-items: center; justify-content: center; font-size: 12px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #1592e6; color: #ffffff;
+    display: flex; align-items: center; justify-content: center;
   }
-  #overlay-history-trans .ht-time { font-size: 12px; color: #9ca3af; }
+  #overlay-history-trans .ht-time {
+    font-size: 13px; color: #888888; font-weight: 400;
+  }
   #overlay-history-trans .ht-info-row {
-    display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 14px; line-height: 1.5;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13.5px; padding-bottom: 12px; margin-bottom: 12px;
+    border-bottom: 1px solid #f2f2f2; line-height: 1.45;
   }
-  #overlay-history-trans .ht-lbl { color: #6b7280; }
-  #overlay-history-trans .ht-val { font-weight: 500; color: #111111; text-align: right; }
+  #overlay-history-trans .ht-lbl { color: #777777; }
+  #overlay-history-trans .ht-code { color: #333333; font-weight: 400; }
+  #overlay-history-trans .ht-val { font-weight: 400; color: #333333; text-align: right; font-size: 14px; }
   #overlay-history-trans .ht-bot-row {
     display: flex; justify-content: space-between; align-items: flex-end;
-    padding-top: 14px; border-top: 1px solid #f3f4f6;
   }
   #overlay-history-trans .ht-amt-box { display: flex; flex-direction: column; gap: 4px; }
-  #overlay-history-trans .ht-amt-lbl { font-size: 11.5px; color: #9ca3af; }
-  #overlay-history-trans .ht-amt-num { font-size: 15px; font-weight: 800; color: #111111; }
-  #overlay-history-trans .ht-amt-num.green { color: #10b981; }
-  #overlay-history-trans .ht-amt-num.red { color: #ef4444; }
+  #overlay-history-trans .ht-amt-lbl { font-size: 12.5px; color: #888888; }
+  #overlay-history-trans .ht-amt-num { font-size: 16px; font-weight: 700; color: #111111; }
+  #overlay-history-trans .ht-amt-num.green { color: #4caf50; }
+  #overlay-history-trans .ht-amt-num.red { color: #e53935; }
   #overlay-history-trans .ht-empty-wrap {
     flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 60px 16px 80px; background: #ffffff;
+    padding: 60px 16px 80px; background: #ffffff; min-height: calc(100vh - 145px);
   }
 </style>
 
@@ -6180,15 +6203,23 @@ async function handleRealLogin(e) {
     <div class="ht-title">Lịch sử giao dịch</div>
   </div>
 
+  <div class="ht-tabs">
+    <div class="ht-tab active" data-period="today" onclick="window.switchTransHistoryTab(this, 'today')">Hôm nay</div>
+    <div class="ht-tab" data-period="yesterday" onclick="window.switchTransHistoryTab(this, 'yesterday')">Hôm qua</div>
+    <div class="ht-tab" data-period="week" onclick="window.switchTransHistoryTab(this, 'week')">Một tuần</div>
+  </div>
+
   <div class="ht-filter-bar">
-    <button class="ht-btn" onclick="showToast('Chức năng lọc TẤT CẢ')">
-      TẤT CẢ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    <button class="ht-btn" onclick="window.filterTransHistoryType(this)">
+      <span class="ht-type-filter-txt">TẤT CẢ</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </button>
-    <button class="ht-btn active" onclick="window.renderTransHistoryView(true)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg> Hôm nay
+    <button class="ht-btn active" id="ht-period-pill" onclick="window.renderTransHistoryView(true)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="9 12 11 14 15 10"></polyline></svg>
+      <span class="ht-period-pill-txt">Hôm nay</span>
     </button>
     <div class="ht-date-btn" onclick="window.renderTransHistoryView(true)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       <span class="ht-date-range-txt">11/18- 11/18</span>
     </div>
   </div>
@@ -6207,6 +6238,159 @@ async function handleRealLogin(e) {
     <div style="font-size:20px;color:#1592e6;font-weight:400;margin-top:14px;">Chưa có dữ liệu</div>
   </div>
 </div>
+
+<script>
+(function() {
+  function applyRealTransHistoryEngine() {
+    window.currentHtPeriod = window.currentHtPeriod || 'today';
+    window.currentHtTypeFilter = 'all';
+
+    window.switchTransHistoryTab = function(tabEl, period) {
+      window.currentHtPeriod = period || 'today';
+      document.querySelectorAll('[id="overlay-history-trans"]').forEach(root => {
+        root.querySelectorAll('.ht-tab').forEach(t => {
+          const isMatch = (t.getAttribute('data-period') === window.currentHtPeriod);
+          t.classList.toggle('active', isMatch);
+          t.style.color = isMatch ? '#1592e6' : '#111111';
+          t.style.borderBottomColor = isMatch ? '#1592e6' : 'transparent';
+        });
+        const pillTxt = root.querySelector('.ht-period-pill-txt');
+        if (pillTxt) {
+          pillTxt.textContent = window.currentHtPeriod === 'today' ? 'Hôm nay' : (window.currentHtPeriod === 'yesterday' ? 'Hôm qua' : 'Một tuần');
+        }
+      });
+      window.renderTransHistoryView(true);
+    };
+
+    window.renderTransHistoryView = function(animate, specificRoot) {
+      const roots = specificRoot ? [specificRoot] : document.querySelectorAll('[id="overlay-history-trans"]');
+      roots.forEach(root => {
+        const dateTxt = root.querySelector('.ht-date-range-txt');
+        if (dateTxt && typeof window.getShortDate === 'function') {
+          if (window.currentHtPeriod === 'today') dateTxt.textContent = window.getShortDate(0) + '- ' + window.getShortDate(0);
+          else if (window.currentHtPeriod === 'yesterday') dateTxt.textContent = window.getShortDate(1) + '- ' + window.getShortDate(1);
+          else dateTxt.textContent = window.getShortDate(6) + '- ' + window.getShortDate(0);
+        }
+
+        const allLogs = (typeof window.getUserLogs === 'function') ? window.getUserLogs() : [];
+        const balEl = document.getElementById('display-balance') || document.querySelector('.sync-user-balance');
+        let runningBal = balEl ? parseFloat(balEl.textContent.replace(/[^0-9.-]/g, '')) || 0 : 0;
+
+        // Tính Số dư tức thời tại thời điểm diễn ra từng giao dịch
+        allLogs.forEach(log => {
+          if (log.instantBalance === undefined) {
+            log.instantBalance = runningBal;
+            const delta = log.type === 'deposit' ? Number(log.amount || 0) :
+                          log.type === 'withdraw' ? -Number(log.amount || 0) :
+                          (Number(log.win || 0) - Number(log.bet || 0));
+            runningBal = Math.max(0, runningBal - delta);
+          }
+        });
+
+        const todayKey = typeof window.getDateKey === 'function' ? window.getDateKey(0) : '';
+        const yesterdayKey = typeof window.getDateKey === 'function' ? window.getDateKey(1) : '';
+
+        const filtered = allLogs.filter(item => {
+          if (window.currentHtPeriod === 'today') return item.date === todayKey;
+          if (window.currentHtPeriod === 'yesterday') return item.date === yesterdayKey;
+          return true;
+        });
+
+        const listWrap = root.querySelector('.ht-list-wrap');
+        const emptyWrap = root.querySelector('.ht-empty-wrap');
+        if (!listWrap || !emptyWrap) return;
+
+        if (animate) {
+          emptyWrap.style.opacity = '0.35';
+          listWrap.style.opacity = '0.35';
+          setTimeout(() => { emptyWrap.style.opacity = '1'; listWrap.style.opacity = '1'; }, 120);
+        }
+
+        if (filtered.length === 0) {
+          listWrap.style.display = 'none';
+          emptyWrap.style.display = 'flex';
+          return;
+        }
+
+        emptyWrap.style.display = 'none';
+        listWrap.style.display = 'flex';
+
+        listWrap.innerHTML = filtered.map(item => {
+          let title = 'Thưởng trò chơi';
+          let rightLabel = item.gameName || 'PG➔';
+          let delta = 0;
+
+          if (item.type === 'deposit') {
+            title = 'Chuyển vào';
+            rightLabel = (item.method || 'ACB') + '➔';
+            delta = Number(item.amount || 0);
+          } else if (item.type === 'withdraw') {
+            title = 'Chuyển ra';
+            rightLabel = '➔' + (item.method || 'BANK');
+            delta = -Number(item.amount || 0);
+          } else {
+            const net = Number(item.win || 0) - Number(item.bet || 0);
+            delta = net;
+            if (net > 0) {
+              title = 'Chuyển vào';
+              rightLabel = (item.gameName || 'PG') + '➔';
+            } else {
+              title = 'Chuyển ra';
+              rightLabel = '➔' + (item.gameName || 'PG');
+            }
+          }
+
+          const isNeg = delta < 0;
+          const colorCls = isNeg ? 'red' : 'green';
+          const txCode = String(item.id || '').replace(/^BET/, '42611');
+          const timeDisplay = item.time || (item.createdAt ? item.createdAt.slice(5) : '');
+
+          return '<div class="ht-card">' +
+            '<div class="ht-card-head">' +
+              '<div class="ht-type">' +
+                '<div class="ht-icon-box">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>' +
+                '</div>' +
+                '<span>' + title + '</span>' +
+              '</div>' +
+              '<div class="ht-time">' + timeDisplay + '</div>' +
+            '</div>' +
+            '<div class="ht-info-row">' +
+              '<div class="ht-lbl">Mã Giao dịch:<br><span class="ht-code">' + txCode + '</span></div>' +
+              '<div class="ht-val">' + rightLabel + '</div>' +
+            '</div>' +
+            '<div class="ht-bot-row">' +
+              '<div class="ht-amt-box">' +
+                '<div class="ht-amt-lbl">Số dư tức thời</div>' +
+                '<div class="ht-amt-num">' + window.formatMoney(item.instantBalance || 0) + '</div>' +
+              '</div>' +
+              '<div class="ht-amt-box" style="text-align:right;">' +
+                '<div class="ht-amt-lbl">Số tiền giao dịch</div>' +
+                '<div class="ht-amt-num ' + colorCls + '">' + window.formatMoney(delta) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      });
+    };
+
+    // Tự động theo dõi tên game đang mở và bắt biến động số dư mỗi ván quay
+    const origLaunch = window.launchGame;
+    if (typeof origLaunch === 'function' && !window._htLaunchHooked) {
+      window._htLaunchHooked = true;
+      window.launchGame = function(gameName) {
+        window._currentPlayingGameName = gameName || 'Quyết Chiến Tiền Thưởng';
+        return origLaunch.apply(this, arguments);
+      };
+    }
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(applyRealTransHistoryEngine, 650);
+  });
+  setTimeout(applyRealTransHistoryEngine, 800);
+})();
+</script>
 
 <script>
   function switchRefTab(index) {
